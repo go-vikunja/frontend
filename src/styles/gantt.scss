@@ -58,17 +58,17 @@ $gantt-vertical-border-color: lighten($grey, 45);
 
     .row {
       height: 45px;
+      padding: 0.5em;
 
       .task {
         display: inline-block;
         border: 2px solid $primary;
         background: lighten($primary, 40);
         font-size: 0.85em;
-        margin: 0.5em;
         border-radius: 6px;
         padding: 0.25em 0.5em;
         cursor: grab;
-        position: relative;
+        position: relative !important;
 
         -webkit-touch-callout: none; // iOS Safari
         -webkit-user-select: none; // Safari

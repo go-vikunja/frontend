@@ -26,25 +26,25 @@
 		</div>
 		<div class="tasks" :style="{'width': fullWidth + 'px'}">
 			<div class="row" v-for="(t, k) in theTasks" :key="t.id" :style="{background: 'repeating-linear-gradient(90deg, #ededed, #ededed 1px, ' + (k % 2 === 0 ? '#fafafa 1px, #fafafa ' : '#fff 1px, #fff ') + dayWidth + 'px)'}">
-				<VueDragResize
+				<vue-draggable-resizable
 						class="task"
 						:class="{'done': t.done, 'is-current-edit': taskToEdit !== null && taskToEdit.id === t.id, 'has-light-text': !t.hasDarkColor(), 'has-dark-text': t.hasDarkColor()}"
                         :style="{'border-color': t.hexColor, 'background-color': t.hexColor}"
-                        :isActive="true"
+                        :active="true"
 						:x="t.offsetDays * dayWidth - 6"
 						:y="0"
-						:w="t.durationDays * dayWidth"
+						:w="calcWidth(t)"
 						:h="31"
-						:minw="dayWidth"
-						:snapToGrid="true"
-						:gridX="dayWidth"
-						:sticks="['mr', 'ml']"
+						:minWidth="dayWidth"
+						:grid="[dayWidth, 1]"
+						:handles="['mr', 'ml']"
 						axis="x"
-						:parentLimitation="true"
+						parent=".row"
 						:parentW="fullWidth"
+						:onDragStart="setDraggedTask(t)"
+						:onResizeStart="setDraggedTask(t)"
 						@resizestop="resizeTask"
 						@dragstop="resizeTask"
-						@clicked="taskDragged = t"
 				>
                     <span :class="{
                     'has-high-priority': t.priority >= priorities.HIGH,
@@ -66,30 +66,31 @@
                     <a @click="editTask(theTasks[k])" class="edit-toggle">
                         <icon icon="pen"/>
                     </a>
-                 </VueDragResize>
+                 </vue-draggable-resizable>
 			</div>
 			<template v-if="showTaskswithoutDates">
 				<div class="row" v-for="(t, k) in tasksWithoutDates" :key="t.id" :style="{background: 'repeating-linear-gradient(90deg, #ededed, #ededed 1px, ' + (k % 2 === 0 ? '#fafafa 1px, #fafafa ' : '#fff 1px, #fff ') + dayWidth + 'px)'}">
-					<VueDragResize
+					<vue-draggable-resizable
 							class="task nodate"
-							:isActive="true"
+							:active="true"
 							:x="dayOffsetUntilToday * dayWidth - 6"
 							:y="0"
 							:h="31"
-							:minw="dayWidth"
+							:minWidth="dayWidth"
 							:snapToGrid="true"
-							:gridX="dayWidth"
-							:sticks="['mr', 'ml']"
+							:grid="[dayWidth, 1]"
+							:handles="['mr', 'ml']"
 							axis="x"
-							:parentLimitation="true"
+							:parent="true"
 							:parentW="fullWidth"
+							:onDragStart="setDraggedTask(t)"
+							:onResizeStart="setDraggedTask(t)"
 							@resizestop="resizeTask"
 							@dragstop="resizeTask"
-							@clicked="taskDragged = t"
 							v-tooltip="'This task has no dates set.'"
 					>
 						<span>{{t.text}}</span>
-					</VueDragResize>
+					</vue-draggable-resizable>
 				</div>
 			</template>
 		</div>
@@ -135,7 +136,7 @@
 </template>
 
 <script>
-	import VueDragResize from 'vue-drag-resize'
+	import VueDraggableResizable from 'vue-draggable-resizable'
 	import message from '../../message'
 	import EditTask from './edit-task'
 
@@ -148,7 +149,7 @@
 		name: 'GanttChart',
 		components: {
 			EditTask,
-			VueDragResize,
+			VueDraggableResizable,
 		},
 		props: {
 			list: {
@@ -258,32 +259,59 @@
 						return 0
 					})
 			},
+			calcWidth(t) {
+				return t.durationDays * this.dayWidth
+			},
 			addGantAttributes(t) {
-				t.endDate === null ? this.endDate : t.endDate
+				t.endDate = (t.endDate === null || t.endDate === 0) ? this.endDate : t.endDate
 				t.durationDays = Math.floor((t.endDate - t.startDate) / 1000 / 60 / 60 / 24) + 1
 				t.offsetDays = Math.floor((t.startDate - this.startDate) / 1000 / 60 / 60 / 24) + 1
 				return t
 			},
-			resizeTask(newRect) {
+			setDraggedTask(t) {
+				this.taskDragged = t
+				// eslint-disable-next-line
+				console.log('set task dragged')
+			},
+			resizeTask(x, y, width) {
 
 				// Timeout to definitly catch if the user clicked on taskedit
-				setTimeout(() => {
+				let tt = setInterval(() => {
+
+					// We let the interval here run as long as taskDragged is not set, which means this function has been called
+					// before setDraggedTask.
+					// Once taskDragged is not empty, we run the actual code and cancel the timeout loop.
+					// This is pretty ugly...
+					if(this.taskDragged !== null && this.taskDragged !== undefined) {
+						clearInterval(tt)
+					} else {
+						// eslint-disable-next-line
+						console.log('fckin js')
+						return
+					}
 
 					if(this.isTaskEdit) {
 						return
 					}
 
+					// eslint-disable-next-line
+					console.log('finally doing stuff', this.taskDragged)
+
+					// If the function was called from the drag handler, we need to calculate the width ourselves
+					if (parseInt(width) === 0 || width === undefined) {
+						width = this.taskDragged.durationDays * this.dayWidth
+					}
+
 					let didntHaveDates = this.taskDragged.startDate === null ? true : false
 
 					let startDate = new Date(this.startDate)
-					startDate.setDate(startDate.getDate() + newRect.left / this.dayWidth)
+					startDate.setDate(startDate.getDate() + x / this.dayWidth + 1)
 					startDate.setUTCHours(0)
 					startDate.setUTCMinutes(0)
 					startDate.setUTCSeconds(0)
 					startDate.setUTCMilliseconds(0)
-					this.taskDragged.startDate = startDate
 					let endDate = new Date(startDate)
-					endDate.setDate(startDate.getDate() + newRect.width / this.dayWidth)
+					endDate.setDate(endDate.getDate() + width / this.dayWidth)
 					this.taskDragged.startDate = startDate
 					this.taskDragged.endDate = endDate
 
