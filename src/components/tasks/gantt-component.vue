@@ -282,13 +282,12 @@
 					// before setDraggedTask.
 					// Once taskDragged is not empty, we run the actual code and cancel the timeout loop.
 					// This is pretty ugly...
-					if(this.taskDragged !== null && this.taskDragged !== undefined) {
-						clearInterval(tt)
-					} else {
+					if(this.taskDragged === null || typeof this.taskDragged === 'undefined') {
 						// eslint-disable-next-line
 						console.log('fckin js')
 						return
 					}
+					clearInterval(tt)
 
 					if(this.isTaskEdit) {
 						return
