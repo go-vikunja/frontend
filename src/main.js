@@ -120,7 +120,7 @@ Vue.component('icon', FontAwesomeIcon)
 
 // Tooltip
 import VTooltip from 'v-tooltip'
-Vue.use(VTooltip)
+Vue.use(VTooltip, {defaultHtml: false})
 
 // PWA
 import './registerServiceWorker'
