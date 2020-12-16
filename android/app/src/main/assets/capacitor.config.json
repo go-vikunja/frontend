@@ -1,0 +1,13 @@
+{
+  "appId": "io.vikunja.app",
+  "appName": "Vikunja",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}
