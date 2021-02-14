@@ -4,7 +4,7 @@ import router from './router'
 
 import {VERSION} from './version.json'
 // Register the modal
-import Modal from './components/modal/modal'
+import Modal from '@/components/modal/modal'
 // Add CSS
 import './styles/vikunja.scss'
 // Notifications
