@@ -10,8 +10,24 @@
 
 	.notifications-list {
 		position: absolute;
-		transform: translateX(calc(-50% + 25px));
+		transform: translateX(calc(-50% - 25px));
+		margin-top: 1rem;
+
 		background: $white;
-		width: 250px;
+		width: 350px;
+		padding: .75rem;
+		border-radius: $radius;
+		box-shadow: $shadow-sm;
+		font-size: .85rem;
+
+		.head {
+			font-family: $vikunja-font;
+			font-size: 1rem;
+			padding-bottom: .5rem;
+		}
+
+		.single-notification {
+			display: flex;
+		}
 	}
 }

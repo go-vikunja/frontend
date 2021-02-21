@@ -6,7 +6,11 @@
 
 		<transition name="fade">
 			<div class="notifications-list" v-if="showNotifications">
-				notifcias
+				<span class="head">Notifications</span>
+				<div class="single-notification" v-for="n in notifications" :key="n.id">
+					{{ n.name }}
+					{{ formatDateSince(n.created) }}
+				</div>
 			</div>
 		</transition>
 	</div>
