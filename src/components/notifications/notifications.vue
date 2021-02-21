@@ -28,6 +28,12 @@
 						</span>
 					</span>
 				</div>
+				<p class="nothing" v-if="notifications.length === 0">
+					You don't have any notifications. Have a nice day!<br/>
+					<span class="explainer">
+						Notifications will appear here when actions on namespaces, lists or tasks you subscribed to happen.
+					</span>
+				</p>
 			</div>
 		</transition>
 	</div>

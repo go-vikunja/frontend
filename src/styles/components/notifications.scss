@@ -77,5 +77,15 @@
 				margin-bottom: 1rem;
 			}
 		}
+
+		.nothing {
+			text-align: center;
+			padding-bottom: 1rem;
+			color: $grey-500;
+
+			.explainer {
+				font-size: .75rem;
+			}
+		}
 	}
 }
