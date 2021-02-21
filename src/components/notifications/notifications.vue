@@ -54,6 +54,7 @@ export default {
 			notificationService: NotificationService,
 			notifications: [],
 			showNotifications: false,
+			interval: null,
 		}
 	},
 	created() {
@@ -62,9 +63,11 @@ export default {
 	mounted() {
 		this.loadNotifications()
 		document.addEventListener('click', this.hidePopup)
+		this.interval = setInterval(this.loadNotifications, 10000)
 	},
 	beforeDestroy() {
 		document.removeEventListener('click', this.hidePopup)
+		clearInterval(this.interval)
 	},
 	computed: {
 		unreadNotifications() {
