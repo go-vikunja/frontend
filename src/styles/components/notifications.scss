@@ -1,0 +1,17 @@
+.notifications {
+	width: 50px;
+
+	.trigger {
+		cursor: pointer;
+		color: $grey-400;
+		padding: 1rem;
+		font-size: 1.25rem;
+	}
+
+	.notifications-list {
+		position: absolute;
+		transform: translateX(calc(-50% + 25px));
+		background: $white;
+		width: 250px;
+	}
+}
