@@ -31,7 +31,7 @@
 		background: $white;
 		width: 350px;
 		max-width: calc(100vw - 2rem);
-		padding: .75rem;
+		padding: .75rem .25rem;
 		border-radius: $radius;
 		box-shadow: $shadow-sm;
 		font-size: .85rem;
@@ -43,18 +43,26 @@
 		.head {
 			font-family: $vikunja-font;
 			font-size: 1rem;
-			padding-bottom: .5rem;
+			padding: .5rem;
 		}
 
 		.single-notification {
 			display: flex;
 			align-items: center;
 
+			transition: background-color $transition;
+
+			&:hover {
+				background: $grey-100;
+				border-radius: $radius;
+			}
+
 			.read-indicator {
 				width: .35rem;
 				height: .35rem;
 				background: $primary;
 				border-radius: 100%;
+				margin-left: .5rem;
 
 				&.read {
 					background: transparent;
@@ -65,6 +73,7 @@
 				display: flex;
 				align-items: center;
 				width: auto;
+				margin-right: .25rem;
 
 				span {
 					font-family: $family-sans-serif;
@@ -80,7 +89,11 @@
 			}
 
 			&:last-child {
-				margin-bottom: 1rem;
+				margin-bottom: .25rem;
+			}
+
+			a {
+				color: $grey-800;
 			}
 		}
 
