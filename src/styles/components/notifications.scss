@@ -25,6 +25,8 @@
 		position: absolute;
 		transform: translateX(calc(-50% - 25px));
 		margin-top: 1rem;
+		max-height: 400px;
+		overflow-y: auto;
 
 		background: $white;
 		width: 350px;
@@ -69,6 +71,10 @@
 
 			.detail .created {
 				color: $grey-400;
+			}
+
+			&:last-child {
+				margin-bottom: 1rem;
 			}
 		}
 	}
