@@ -30,10 +30,15 @@
 
 		background: $white;
 		width: 350px;
+		max-width: calc(100vw - 2rem);
 		padding: .75rem;
 		border-radius: $radius;
 		box-shadow: $shadow-sm;
 		font-size: .85rem;
+
+		@media screen and (max-width: $tablet) {
+			max-height: calc(100vh - 1rem - #{$navbar-height});
+		}
 
 		.head {
 			font-family: $vikunja-font;
@@ -59,6 +64,7 @@
 			.user {
 				display: flex;
 				align-items: center;
+				width: auto;
 
 				span {
 					font-family: $family-sans-serif;
