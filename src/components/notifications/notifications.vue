@@ -1,6 +1,7 @@
 <template>
 	<div class="notifications">
 		<a @click.stop="showNotifications = !showNotifications" class="trigger">
+			<span class="unread-indicator" v-if="unreadNotifications > 0"></span>
 			<icon icon="bell"/>
 		</a>
 
@@ -59,9 +60,14 @@ export default {
 	beforeDestroy() {
 		document.removeEventListener('click', this.hidePopup)
 	},
-	computed: mapState({
-		userInfo: state => state.auth.info,
-	}),
+	computed: {
+		unreadNotifications() {
+			return this.notifications.filter(n => n.readAt === null).length
+		},
+		...mapState({
+			userInfo: state => state.auth.info,
+		}),
+	},
 	methods: {
 		hidePopup(e) {
 			if (this.showNotifications) {
