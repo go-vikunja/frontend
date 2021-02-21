@@ -28,6 +28,31 @@
 
 		.single-notification {
 			display: flex;
+			align-items: center;
+
+			.user {
+				display: flex;
+				align-items: center;
+				padding-right: .5rem;
+
+				span {
+					font-family: $family-sans-serif;
+				}
+
+				.avatar {
+					height: 16px;
+				}
+			}
+
+			.detail {
+				display: flex;
+				justify-content: space-between;
+				width: 100%;
+
+				.created {
+					color: $grey-400;
+				}
+			}
 		}
 	}
 }

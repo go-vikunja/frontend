@@ -8,8 +8,19 @@
 			<div class="notifications-list" v-if="showNotifications" ref="popup">
 				<span class="head">Notifications</span>
 				<div class="single-notification" v-for="n in notifications" :key="n.id">
-					{{ n.name }}
-					{{ formatDateSince(n.created) }}
+					<user
+						:user="n.notification.doer"
+						:show-username="true"
+						:avatar-size="16"
+						v-if="n.notification.doer"/>
+					<span class="detail">
+						<router-link :to="to(n)">
+							{{ n.name }}
+						</router-link>
+						<span class="created" v-tooltip="formatDate(n.created)">
+							{{ formatDateSince(n.created) }}
+						</span>
+					</span>
 				</div>
 			</div>
 		</transition>
@@ -56,6 +67,33 @@ export default {
 				.catch(e => {
 					this.error(e, this)
 				})
+		},
+		to(n) {
+			const to = {
+				name: '',
+				params: {},
+			}
+
+			switch (n.name) {
+				case names.TASK_COMMENT:
+				case names.TASK_ASSIGNED:
+					to.name = 'task.detail'
+					to.params.id = n.notification.task.id
+					break
+				case names.TASK_DELETED:
+					// Nothing
+					break
+				case names.LIST_CREATED:
+					to.name = 'task.index'
+					to.params.listId = n.notification.list.id
+					break
+				case names.TEAM_MEMBER_ADDED:
+					to.name = 'teams.edit'
+					to.params.id = n.notification.team.id
+					break
+			}
+
+			return to
 		},
 	},
 }
