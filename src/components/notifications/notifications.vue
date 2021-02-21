@@ -15,7 +15,7 @@
 						v-if="n.notification.doer"/>
 					<span class="detail">
 						<router-link :to="to(n)">
-							{{ n.name }}
+							{{ n.toText(userInfo) }}
 						</router-link>
 						<span class="created" v-tooltip="formatDate(n.created)">
 							{{ formatDateSince(n.created) }}
@@ -32,6 +32,7 @@ import NotificationService from '@/services/notification'
 import User from '@/components/misc/user'
 import names from '@/models/notificationNames.json'
 import {closeWhenClickedOutside} from '@/helpers/closeWhenClickedOutside'
+import {mapState} from 'vuex'
 
 export default {
 	name: 'notifications',
@@ -53,6 +54,9 @@ export default {
 	beforeDestroy() {
 		document.removeEventListener('click', this.hidePopup)
 	},
+	computed: mapState({
+		userInfo: state => state.auth.info,
+	}),
 	methods: {
 		hidePopup(e) {
 			if (this.showNotifications) {

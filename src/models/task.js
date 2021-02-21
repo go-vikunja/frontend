@@ -113,6 +113,14 @@ export default class TaskModel extends AbstractModel {
 		}
 	}
 
+	getTextIdentifier() {
+		if(this.identifier === '') {
+			return `#${this.index}`
+		}
+
+		return this.identifier
+	}
+
 	/////////////////
 	// Helper functions
 	///////////////

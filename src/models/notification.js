@@ -50,4 +50,35 @@ export default class NotificationModel extends AbstractModel {
 			readAt: null,
 		}
 	}
+
+	toText(user = null) {
+		let who = ''
+
+		switch (this.name) {
+			case names.TASK_COMMENT:
+				return `commented on ${this.notification.task.getTextIdentifier()}`
+			case names.TASK_ASSIGNED:
+				who = `${this.notification.assignee.getDisplayName()}`
+
+				if (user !== null && user.id === this.notification.assignee.id) {
+					who = 'you'
+				}
+
+				return `assigned ${who} to ${this.notification.task.getTextIdentifier()}`
+			case names.TASK_DELETED:
+				return `deleted ${this.notification.task.getTextIdentifier()}`
+			case names.LIST_CREATED:
+				return `created ${this.notification.list.title}`
+			case names.TEAM_MEMBER_ADDED:
+				who = `${this.notification.member.getDisplayName()}`
+
+				if (user !== null && user.id === this.notification.memeber.id) {
+					who = 'you'
+				}
+
+				return `added ${who} to the ${this.notification.team.title} team`
+		}
+
+		return ''
+	}
 }

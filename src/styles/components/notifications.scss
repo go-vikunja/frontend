@@ -33,7 +33,6 @@
 			.user {
 				display: flex;
 				align-items: center;
-				padding-right: .5rem;
 
 				span {
 					font-family: $family-sans-serif;
@@ -44,14 +43,8 @@
 				}
 			}
 
-			.detail {
-				display: flex;
-				justify-content: space-between;
-				width: 100%;
-
-				.created {
-					color: $grey-400;
-				}
+			.detail .created {
+				color: $grey-400;
 			}
 		}
 	}
