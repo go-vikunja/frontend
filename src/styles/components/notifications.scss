@@ -30,6 +30,17 @@
 			display: flex;
 			align-items: center;
 
+			.read-indicator {
+				width: .35rem;
+				height: .35rem;
+				background: $primary;
+				border-radius: 100%;
+
+				&.read {
+					background: transparent;
+				}
+			}
+
 			.user {
 				display: flex;
 				align-items: center;

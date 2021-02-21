@@ -7,16 +7,21 @@
 		<transition name="fade">
 			<div class="notifications-list" v-if="showNotifications" ref="popup">
 				<span class="head">Notifications</span>
-				<div class="single-notification" v-for="n in notifications" :key="n.id">
+				<div
+					v-for="(n, index) in notifications"
+					:key="n.id"
+					class="single-notification"
+				>
+					<div class="read-indicator" :class="{'read': n.readAt !== null}"></div>
 					<user
 						:user="n.notification.doer"
 						:show-username="true"
 						:avatar-size="16"
 						v-if="n.notification.doer"/>
 					<span class="detail">
-						<router-link :to="to(n)">
+						<a @click="() => to(n, index)()">
 							{{ n.toText(userInfo) }}
-						</router-link>
+						</a>
 						<span class="created" v-tooltip="formatDate(n.created)">
 							{{ formatDateSince(n.created) }}
 						</span>
@@ -72,7 +77,7 @@ export default {
 					this.error(e, this)
 				})
 		},
-		to(n) {
+		to(n, index) {
 			const to = {
 				name: '',
 				params: {},
@@ -97,7 +102,18 @@ export default {
 					break
 			}
 
-			return to
+			return () => {
+				if (to.name !== '') {
+					this.$router.push(to)
+				}
+
+				n.read = true
+				this.notificationService.update(n)
+					.then(r => {
+						this.$set(this.notifications, index, r)
+					})
+					.catch(e => this.error(e, this))
+			}
 		},
 	},
 }
