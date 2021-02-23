@@ -47,46 +47,46 @@ import NamespaceSettingDelete from '../views/namespaces/settings/delete'
 import CreateSavedFilter from '../views/filters/CreateSavedFilter'
 
 const PasswordResetComponent = () => ({
-	component: import(/* webpackChunkName: "user-settings" */'../views/user/PasswordReset'),
+	component: import('../views/user/PasswordReset'),
 	loading: LoadingComponent,
 	error: ErrorComponent,
 	timeout: 60000,
 })
 const GetPasswordResetComponent = () => ({
-	component: import(/* webpackChunkName: "user-settings" */'../views/user/RequestPasswordReset'),
+	component: import('../views/user/RequestPasswordReset'),
 	loading: LoadingComponent,
 	error: ErrorComponent,
 	timeout: 60000,
 })
 const UserSettingsComponent = () => ({
-	component: import(/* webpackChunkName: "user-settings" */'../views/user/Settings'),
+	component: import('../views/user/Settings'),
 	loading: LoadingComponent,
 	error: ErrorComponent,
 	timeout: 60000,
 })
 // List Handling
 const NewListComponent = () => ({
-	component: import(/* webpackChunkName: "settings" */'../views/list/NewList'),
+	component: import('../views/list/NewList'),
 	loading: LoadingComponent,
 	error: ErrorComponent,
 	timeout: 60000,
 })
 // Namespace Handling
 const NewNamespaceComponent = () => ({
-	component: import(/* webpackChunkName: "settings" */'../views/namespaces/NewNamespace'),
+	component: import('../views/namespaces/NewNamespace'),
 	loading: LoadingComponent,
 	error: ErrorComponent,
 	timeout: 60000,
 })
 
 const EditTeamComponent = () => ({
-	component: import(/* webpackChunkName: "settings" */'../views/teams/EditTeam'),
+	component: import('../views/teams/EditTeam'),
 	loading: LoadingComponent,
 	error: ErrorComponent,
 	timeout: 60000,
 })
 const NewTeamComponent = () => ({
-	component: import(/* webpackChunkName: "settings" */'../views/teams/NewTeam'),
+	component: import('../views/teams/NewTeam'),
 	loading: LoadingComponent,
 	error: ErrorComponent,
 	timeout: 60000,
