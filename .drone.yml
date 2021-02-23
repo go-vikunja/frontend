@@ -37,7 +37,7 @@ steps:
         - '.cache'
 
   - name: dependencies
-    image: node:12
+    image: node:14
     pull: true
     environment:
       YARN_CACHE_FOLDER: .cache/yarn/
@@ -68,7 +68,7 @@ steps:
       - dependencies
 
   - name: build
-    image: node:12
+    image: node:14
     pull: true
     environment:
       YARN_CACHE_FOLDER: .cache/yarn/
@@ -80,7 +80,7 @@ steps:
       - dependencies
 
   - name: test-unit
-    image: node:12
+    image: node:14
     pull: true
     commands:
       - yarn test:unit
@@ -88,7 +88,7 @@ steps:
       - dependencies
 
   - name: test-frontend
-    image: cypress/browsers:node12.18.3-chrome87-ff82
+    image: cypress/browsers:node14.15.0-chrome86-ff82
     pull: true
     environment:
       CYPRESS_API_URL: http://api:3456/api/v1
@@ -163,7 +163,7 @@ steps:
         - '.cache'
 
   - name: build
-    image: node:12
+    image: node:14
     pull: true
     group: build-static
     environment:
@@ -238,7 +238,7 @@ steps:
         - '.cache'
 
   - name: build
-    image: node:12
+    image: node:14
     pull: true
     group: build-static
     environment:
