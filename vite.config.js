@@ -74,6 +74,10 @@ module.exports = {
 		],
 		extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
 	},
+	server: {
+		port: 5000,
+		strictPort: true,
+	},
 	build: {
 		target: 'es2015',
 		rollupOptions: {
