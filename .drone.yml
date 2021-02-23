@@ -97,7 +97,7 @@ steps:
       CYPRESS_CACHE_FOLDER: .cache/cypress/
       CYPRESS_DEFAULT_COMMAND_TIMEOUT: 10000
     commands:
-      - sed -i 's/localhost/api/g' public/index.html
+      - sed -i 's/localhost/api/g' index.html
       - yarn serve & npx wait-on http://localhost:8080
       - yarn test:frontend --browser chrome
     depends_on:
