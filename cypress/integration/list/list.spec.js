@@ -102,6 +102,44 @@ describe('Lists', () => {
 			cy.get('input.input[placeholder="Add a new task..."')
 				.should('not.exist')
 		})
+
+		it('Should only show the color of a list in the navigation and not in the list view', () => {
+			const lists = ListFactory.create(1, {
+				hex_color: '00db60',
+			})
+			TaskFactory.create(10, {
+				list_id: lists[0].id,
+			})
+			cy.visit(`/lists/${lists[0].id}/`)
+
+			cy.get('.menu-list li .list-menu-link .color-bubble')
+				.should('have.css', 'background-color', 'rgb(0, 219, 96)')
+			cy.get('.tasks-container .tasks .color-bubble')
+				.should('not.exist')
+		})
+
+		it('Should paginate for > 50 tasks', () => {
+			const tasks = TaskFactory.create(100, {
+				id: '{increment}',
+				title: i => `task${i}`,
+				list_id: 1,
+			})
+			cy.visit('/lists/1/list')
+
+			cy.get('.tasks-container .tasks')
+				.should('contain', tasks[99].title)
+
+			cy.get('.card-content .pagination .pagination-link')
+				.contains('2')
+				.click()
+
+			cy.url()
+				.should('contain', '?page=2')
+			cy.get('.tasks-container .tasks')
+				.should('contain', tasks[1].title)
+			cy.get('.tasks-container .tasks')
+				.should('not.contain', tasks[99].title)
+		})
 	})
 
 	describe('Table View', () => {
@@ -370,6 +408,40 @@ describe('Lists', () => {
 
 			cy.url()
 				.should('contain', `/tasks/${tasks[0].id}`)
+		})
+
+		it('Should remove a task from the kanban board when moving it to another list', () => {
+			const lists = ListFactory.create(2)
+			const tasks = TaskFactory.create(5, {
+				id: '{increment}',
+				list_id: 1,
+				bucket_id: 1,
+			})
+			const task = tasks[0]
+			cy.visit('/lists/1/kanban')
+
+			cy.getAttached('.kanban .bucket .tasks .task')
+				.contains(task.title)
+				.should('be.visible')
+				.click()
+
+			cy.get('.task-view .action-buttons .button')
+				.contains('Move task')
+				.click()
+			cy.get('.task-view .content.details .field .multiselect.control .input-wrapper input')
+				.type(`${lists[1].title}{enter}`)
+			// The requests happen with a 200ms timeout. Because of that, the results are not yet there when cypress
+			// presses enter and we can't simulate pressing on enter to select the item.
+			cy.get('.task-view .content.details .field .multiselect.control .search-results')
+				.children()
+				.first()
+				.click()
+
+			cy.get('.global-notification')
+				.should('contain', 'Success')
+			cy.go('back')
+			cy.get('.kanban .bucket')
+				.should('not.contain', task.title)
 		})
 	})
 })

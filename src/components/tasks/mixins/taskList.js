@@ -1,4 +1,5 @@
 import TaskCollectionService from '../../../services/taskCollection'
+import {cloneDeep} from 'lodash'
 
 /**
  * This mixin provides a base set of methods and properties to get tasks on a list.
@@ -55,19 +56,6 @@ export default {
 				return
 			}
 
-			const list = {listId: parseInt(this.$route.params.listId)}
-
-			const currentList = {
-				id: list.listId,
-				params: params,
-				search: search,
-			}
-			if (JSON.stringify(currentList) === JSON.stringify(this.loadedList)) {
-				return
-			}
-
-			this.$set(this, 'tasks', [])
-
 			if (params === null) {
 				params = this.params
 			}
@@ -75,6 +63,20 @@ export default {
 			if (search !== '') {
 				params.s = search
 			}
+
+			const list = {listId: parseInt(this.$route.params.listId)}
+
+			const currentList = {
+				id: list.listId,
+				params: params,
+				search: search,
+				page: page,
+			}
+			if (JSON.stringify(currentList) === JSON.stringify(this.loadedList)) {
+				return
+			}
+
+			this.$set(this, 'tasks', [])
 
 			this.taskCollectionService.getAll(list, params, page)
 				.then(r => {
@@ -110,7 +112,7 @@ export default {
 						})
 					}
 
-					this.loadedList = currentList
+					this.loadedList = cloneDeep(currentList)
 				})
 				.catch(e => {
 					this.error(e, this)
