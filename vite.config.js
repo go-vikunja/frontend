@@ -1,8 +1,70 @@
 const {createVuePlugin} = require('vite-plugin-vue2')
+const {VitePWA} = require('vite-plugin-pwa')
 const path = require('path')
 
 module.exports = {
-	plugins: [createVuePlugin()],
+	plugins: [
+		createVuePlugin(),
+		VitePWA({
+			strategies: 'injectManifest',
+			injectManifest: {
+				importWorkboxFrom: 'local',
+				swSrc: './src/ServiceWorker/sw.js',
+			},
+			manifest: {
+				name: 'Vikunja',
+				short_name: 'Vikunja',
+				theme_color: '#1973ff',
+				icons: [
+					{
+						src: './images/icons/android-chrome-192x192.png',
+						sizes: '192x192',
+						type: 'image/png'
+					},
+					{
+						src: './images/icons/android-chrome-512x512.png',
+						sizes: '512x512',
+						type: 'image/png'
+					},
+					{
+						src: './images/icons/icon-maskable.png',
+						sizes: '1024x1024',
+						type: 'image/png',
+						purpose: 'maskable'
+					}
+				],
+				start_url: '.',
+				display: 'standalone',
+				background_color: '#000000',
+				shortcuts: [
+					{
+						name: 'Overview',
+						url: '/'
+					},
+					{
+						name: 'Namespaces And Lists Overview',
+						short_name: 'Namespaces & Lists',
+						url: '/namespaces'
+					},
+					{
+						name: 'Tasks Next Week',
+						short_name: 'Next Week',
+						url: '/tasks/by/week'
+					},
+					{
+						name: 'Tasks Next Month',
+						short_name: 'Next Month',
+						url: '/tasks/by/month'
+					},
+					{
+						name: 'Teams Overview',
+						short_name: 'Teams',
+						url: '/teams'
+					}
+				]
+			},
+		}),
+	],
 	resolve: {
 		alias: [
 			{
@@ -14,10 +76,9 @@ module.exports = {
 	},
 	build: {
 		target: 'es2015',
-		manifest: true,
 		rollupOptions: {
 			output: {
-				manualChunks:{
+				manualChunks: {
 					'user-settings': [
 						'./src/views/user/PasswordReset',
 						'./src/views/user/RequestPasswordReset',
