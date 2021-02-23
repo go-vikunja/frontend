@@ -46,6 +46,7 @@
     "babel-eslint": "10.1.0",
     "cypress": "6.5.0",
     "cypress-file-upload": "5.0.2",
+    "esbuild": "^0.8.51",
     "eslint": "7.20.0",
     "eslint-plugin-vue": "7.6.0",
     "faker": "5.4.0",
