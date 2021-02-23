@@ -62,9 +62,9 @@
 </template>
 
 <script>
-import LoadingComponent from '@/components/misc/loading'
-import ErrorComponent from '@/components/misc/error'
-import Filters from '@/components/list/partials/filters'
+import LoadingComponent from '@/components/misc/loading.vue'
+import ErrorComponent from '@/components/misc/error.vue'
+import Filters from '@/components/list/partials/filters.vue'
 import SavedFilterService from '@/services/savedFilter'
 import SavedFilterModel from '@/models/savedFilter'
 

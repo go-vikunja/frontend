@@ -263,8 +263,8 @@ import {mapState} from 'vuex'
 import {saveListView} from '@/helpers/saveListView'
 import Rights from '../../../models/rights.json'
 import {LOADING, LOADING_MODULE} from '@/store/mutation-types'
-import FilterPopup from '@/components/list/partials/filter-popup'
-import Dropdown from '@/components/misc/dropdown'
+import FilterPopup from '@/components/list/partials/filter-popup.vue'
+import Dropdown from '@/components/misc/dropdown.vue'
 import {playPop} from '@/helpers/playPop'
 
 export default {

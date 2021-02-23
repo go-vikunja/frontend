@@ -37,7 +37,7 @@
 <script>
 import {mapState} from 'vuex'
 import {CURRENT_LIST, MENU_ACTIVE} from '@/store/mutation-types'
-import Navigation from '@/components/home/navigation'
+import Navigation from '@/components/home/navigation.vue'
 
 export default {
 	name: 'contentAuth',

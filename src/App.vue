@@ -30,10 +30,10 @@ import authTypes from './models/authTypes'
 import Notification from './components/misc/notification'
 import {KEYBOARD_SHORTCUTS_ACTIVE, ONLINE} from './store/mutation-types'
 import KeyboardShortcuts from './components/misc/keyboard-shortcuts'
-import TopNavigation from '@/components/home/topNavigation'
-import ContentAuth from '@/components/home/contentAuth'
-import ContentLinkShare from '@/components/home/contentLinkShare'
-import ContentNoAuth from '@/components/home/contentNoAuth'
+import TopNavigation from './components/home/topNavigation'
+import ContentAuth from './components/home/contentAuth'
+import ContentLinkShare from './components/home/contentLinkShare'
+import ContentNoAuth from './components/home/contentNoAuth'
 
 export default {
 	name: 'app',

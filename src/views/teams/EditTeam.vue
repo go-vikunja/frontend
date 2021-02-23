@@ -184,7 +184,7 @@ import Rights from '../../models/rights.json'
 import LoadingComponent from '../../components/misc/loading'
 import ErrorComponent from '../../components/misc/error'
 
-import Multiselect from '@/components/input/multiselect'
+import Multiselect from '@/components/input/multiselect.vue'
 
 export default {
 	name: 'EditTeam',

@@ -107,7 +107,7 @@ import {HTTPFactory} from '@/http-common'
 import message from '../../message'
 import {ERROR_MESSAGE, LOADING} from '@/store/mutation-types'
 import legal from '../../components/misc/legal'
-import ApiConfig from '@/components/misc/api-config'
+import ApiConfig from '@/components/misc/api-config.vue'
 
 export default {
 	components: {

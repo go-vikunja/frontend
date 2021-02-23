@@ -4,7 +4,7 @@ import router from './router'
 
 import {VERSION} from './version.json'
 // Register the modal
-import Modal from '@/components/modal/modal'
+import Modal from './components/modal/modal'
 // Add CSS
 import './styles/vikunja.scss'
 // Notifications
@@ -160,10 +160,10 @@ Vue.component('icon', FontAwesomeIcon)
 
 Vue.use(vueShortkey, { prevent: ['input', 'textarea', '.input'] })
 
-import focus from '@/directives/focus'
+import focus from './directives/focus'
 Vue.directive('focus', focus)
 
-import tooltip from '@/directives/tooltip'
+import tooltip from './directives/tooltip'
 Vue.directive('tooltip', tooltip)
 
 const formatDate = (date, f) => {
@@ -173,10 +173,10 @@ const formatDate = (date, f) => {
 	return date ? format(date, f) : ''
 }
 
-import Button from '@/components/input/button'
+import Button from './components/input/button'
 Vue.component('x-button', Button)
 
-import Card from '@/components/misc/card'
+import Card from './components/misc/card'
 Vue.component('card', Card)
 
 Vue.mixin({

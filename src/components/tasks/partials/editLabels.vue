@@ -43,7 +43,7 @@ import LabelService from '../../../services/label'
 import LabelModel from '../../../models/label'
 import LabelTaskService from '../../../services/labelTask'
 
-import Multiselect from '@/components/input/multiselect'
+import Multiselect from '@/components/input/multiselect.vue'
 
 export default {
 	name: 'edit-labels',

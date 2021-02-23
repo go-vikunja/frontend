@@ -39,7 +39,7 @@ import labelModel from '../../models/label'
 import labelService from '../../services/label'
 import LabelModel from '../../models/label'
 import LabelService from '../../services/label'
-import CreateEdit from '@/components/misc/create-edit'
+import CreateEdit from '@/components/misc/create-edit.vue'
 import ColorPicker from '../../components/input/colorPicker'
 
 export default {

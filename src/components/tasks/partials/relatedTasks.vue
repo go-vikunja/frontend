@@ -123,7 +123,7 @@ import TaskRelationService from '../../../services/taskRelation'
 import relationKinds from '../../../models/relationKinds'
 import TaskRelationModel from '../../../models/taskRelation'
 
-import Multiselect from '@/components/input/multiselect'
+import Multiselect from '@/components/input/multiselect.vue'
 
 export default {
 	name: 'relatedTasks',

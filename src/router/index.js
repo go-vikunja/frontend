@@ -8,7 +8,7 @@ import ErrorComponent from '../components/misc/error'
 // User Handling
 import LoginComponent from '../views/user/Login'
 import RegisterComponent from '../views/user/Register'
-import OpenIdAuth from '@/views/user/OpenIdAuth'
+import OpenIdAuth from '../views/user/OpenIdAuth'
 // Tasks
 import ShowTasksInRangeComponent from '../views/tasks/ShowTasksInRange'
 import LinkShareAuthComponent from '../views/sharing/LinkSharingAuth'
@@ -30,21 +30,21 @@ import List from '../views/list/views/List'
 import Gantt from '../views/list/views/Gantt'
 import Table from '../views/list/views/Table'
 // List Settings
-import ListSettingEdit from '@/views/list/settings/edit'
-import ListSettingBackground from '@/views/list/settings/background'
-import ListSettingDuplicate from '@/views/list/settings/duplicate'
-import ListSettingShare from '@/views/list/settings/share'
-import ListSettingDelete from '@/views/list/settings/delete'
-import ListSettingArchive from '@/views/list/settings/archive'
-import FilterSettingEdit from '@/views/filters/settings/edit'
-import FilterSettingDelete from '@/views/filters/settings/delete'
+import ListSettingEdit from '../views/list/settings/edit'
+import ListSettingBackground from '../views/list/settings/background'
+import ListSettingDuplicate from '../views/list/settings/duplicate'
+import ListSettingShare from '../views/list/settings/share'
+import ListSettingDelete from '../views/list/settings/delete'
+import ListSettingArchive from '../views/list/settings/archive'
+import FilterSettingEdit from '../views/filters/settings/edit'
+import FilterSettingDelete from '../views/filters/settings/delete'
 // Namespace Settings
-import NamespaceSettingEdit from '@/views/namespaces/settings/edit'
-import NamespaceSettingShare from '@/views/namespaces/settings/share'
-import NamespaceSettingArchive from '@/views/namespaces/settings/archive'
-import NamespaceSettingDelete from '@/views/namespaces/settings/delete'
+import NamespaceSettingEdit from '../views/namespaces/settings/edit'
+import NamespaceSettingShare from '../views/namespaces/settings/share'
+import NamespaceSettingArchive from '../views/namespaces/settings/archive'
+import NamespaceSettingDelete from '../views/namespaces/settings/delete'
 // Saved Filters
-import CreateSavedFilter from '@/views/filters/CreateSavedFilter'
+import CreateSavedFilter from '../views/filters/CreateSavedFilter'
 
 const PasswordResetComponent = () => ({
 	component: import(/* webpackChunkName: "user-settings" */'../views/user/PasswordReset'),
