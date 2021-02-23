@@ -101,7 +101,7 @@ steps:
       - yarn serve & npx wait-on http://localhost:8080
       - yarn test:frontend --browser chrome
     depends_on:
-      - dependencies
+      - build
 
   - name: upload-test-results
     image: plugins/s3:1
