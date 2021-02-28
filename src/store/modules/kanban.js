@@ -5,6 +5,8 @@ import {filterObject} from '@/helpers/filterObject'
 import {setLoading} from '../helper'
 import TaskCollectionService from '@/services/taskCollection'
 
+const tasksPerBucket = 25
+
 /**
  * This store is intended to hold the currently active kanban view.
  * It should hold only the current buckets.
@@ -139,6 +141,8 @@ export default {
 			// Clear everything to prevent having old buckets in the list if loading the buckets from this list takes a few moments
 			ctx.commit('setBuckets', [])
 
+			params.per_page = tasksPerBucket
+
 			const bucketService = new BucketService()
 			return bucketService.getAll({listId: listId}, params)
 				.then(r => {
@@ -185,6 +189,8 @@ export default {
 				params.filter_value = [...(params.filter_value ?? []), bucketId]
 				params.filter_comparator = [...(params.filter_comparator ?? []), 'equals']
 			}
+
+			params.per_page = tasksPerBucket
 
 			const taskService = new TaskCollectionService()
 			return taskService.getAll({listId: listId}, params, page)
