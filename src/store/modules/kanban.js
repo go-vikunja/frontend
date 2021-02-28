@@ -3,6 +3,7 @@ import Vue from 'vue'
 import BucketService from '../../services/bucket'
 import {filterObject} from '@/helpers/filterObject'
 import {setLoading} from '../helper'
+import TaskCollectionService from '@/services/taskCollection'
 
 /**
  * This store is intended to hold the currently active kanban view.
@@ -13,6 +14,9 @@ export default {
 	state: () => ({
 		buckets: [],
 		listId: 0,
+		bucketLoading: {},
+		taskPagesPerBucket: {},
+		allTasksLoadedForBucket: {},
 	}),
 	mutations: {
 		setListId(state, listId) {
@@ -71,6 +75,13 @@ export default {
 			const bi = filterObject(state.buckets, b => b.id === task.bucketId)
 			state.buckets[bi].tasks.push(task)
 		},
+		addTasksToBucket(state, {tasks, bucketId}) {
+			const bi = filterObject(state.buckets, b => b.id === bucketId)
+
+			tasks.forEach(t => {
+				state.buckets[bi].tasks.push(t)
+			})
+		},
 		removeTaskInBucket(state, task) {
 			// If this gets invoked without any tasks actually loaded, we can save the hassle of finding the task
 			if (state.buckets.length === 0) {
@@ -90,6 +101,15 @@ export default {
 					return
 				}
 			}
+		},
+		setBucketLoading(state, {bucketId, loading}) {
+			Vue.set(state.bucketLoading, bucketId, loading)
+		},
+		setTasksLoadedForBucketPage(state, {bucketId, page}) {
+			Vue.set(state.taskPagesPerBucket, bucketId, page)
+		},
+		setAllTasksLoadedForBucket(state, bucketId) {
+			Vue.set(state.allTasksLoadedForBucket, bucketId, true)
 		},
 	},
 	getters: {
@@ -131,6 +151,57 @@ export default {
 				})
 				.finally(() => {
 					cancel()
+				})
+		},
+		loadNextTasksForBucket(ctx, {listId, params = {}, bucketId}) {
+			const isLoading = ctx.state.bucketLoading[bucketId] ?? false
+			if (isLoading) {
+				return Promise.resolve()
+			}
+
+			const page = (ctx.state.taskPagesPerBucket[bucketId] ?? 1) + 1
+
+			const alreadyLoaded = ctx.state.allTasksLoadedForBucket[bucketId] ?? false
+			if (alreadyLoaded) {
+				return Promise.resolve()
+			}
+
+			const cancel = setLoading(ctx, 'kanban')
+			ctx.commit('setBucketLoading', {bucketId: bucketId, loading: true})
+
+			let hasBucketFilter = false
+			for (const f in params.filter_by) {
+				if (params.filter_by[f] === 'bucket_id') {
+					hasBucketFilter = true
+					if (params.filter_value[f] !== bucketId) {
+						params.filter_value[f] = bucketId
+					}
+					break
+				}
+			}
+
+			if (!hasBucketFilter) {
+				params.filter_by = [...(params.filter_by ?? []), 'bucket_id']
+				params.filter_value = [...(params.filter_value ?? []), bucketId]
+				params.filter_comparator = [...(params.filter_comparator ?? []), 'equals']
+			}
+
+			const taskService = new TaskCollectionService()
+			return taskService.getAll({listId: listId}, params, page)
+				.then(r => {
+					ctx.commit('addTasksToBucket', {tasks: r, bucketId: bucketId})
+					ctx.commit('setTasksLoadedForBucketPage', {bucketId, page})
+					if (taskService.totalPages <= page) {
+						ctx.commit('setAllTasksLoadedForBucket', bucketId)
+					}
+					return Promise.resolve(r)
+				})
+				.catch(e => {
+					return Promise.reject(e)
+				})
+				.finally(() => {
+					cancel()
+					ctx.commit('setBucketLoading', {bucketId: bucketId, loading: false})
 				})
 		},
 		createBucket(ctx, bucket) {
