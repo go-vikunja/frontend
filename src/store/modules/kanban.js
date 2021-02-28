@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import {cloneDeep} from 'lodash'
 
 import BucketService from '../../services/bucket'
 import {filterObject} from '@/helpers/filterObject'
@@ -26,6 +27,10 @@ export default {
 		},
 		setBuckets(state, buckets) {
 			state.buckets = buckets
+			buckets.forEach(b => {
+				Vue.set(state.taskPagesPerBucket, b.id, 1)
+				Vue.set(state.allTasksLoadedForBucket, b.id, false)
+			})
 		},
 		addBucket(state, bucket) {
 			state.buckets.push(bucket)
@@ -157,7 +162,7 @@ export default {
 					cancel()
 				})
 		},
-		loadNextTasksForBucket(ctx, {listId, params = {}, bucketId}) {
+		loadNextTasksForBucket(ctx, {listId, ps = {}, bucketId}) {
 			const isLoading = ctx.state.bucketLoading[bucketId] ?? false
 			if (isLoading) {
 				return Promise.resolve()
@@ -172,6 +177,8 @@ export default {
 
 			const cancel = setLoading(ctx, 'kanban')
 			ctx.commit('setBucketLoading', {bucketId: bucketId, loading: true})
+
+			const params = cloneDeep(ps)
 
 			let hasBucketFilter = false
 			for (const f in params.filter_by) {
