@@ -180,6 +180,9 @@ export default {
 
 			const params = cloneDeep(ps)
 
+			params.sort_by = 'position'
+			params.order_by = 'asc'
+
 			let hasBucketFilter = false
 			for (const f in params.filter_by) {
 				if (params.filter_by[f] === 'bucket_id') {
