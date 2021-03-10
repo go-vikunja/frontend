@@ -3,9 +3,9 @@
   "version": "0.10.0",
   "private": true,
   "scripts": {
-    "serve": "vite preview",
+    "serve": "npx vite preview",
     "serve:dist": "node scripts/serve-dist.js",
-    "build": "vite build",
+    "build": "npx vite build",
     "build:report": "vue-cli-service build --report",
     "lint": "vue-cli-service lint --ignore-pattern '*.test.*'",
     "cypress:open": "cypress open",
