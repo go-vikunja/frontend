@@ -7,9 +7,10 @@ module.exports = {
 		createVuePlugin(),
 		VitePWA({
 			strategies: 'injectManifest',
+			injectRegister: false,
 			injectManifest: {
-				importWorkboxFrom: 'local',
 				swSrc: './src/ServiceWorker/sw.js',
+				swDest: './dist/sw.js',
 			},
 			manifest: {
 				name: 'Vikunja',

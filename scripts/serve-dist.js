@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 
 const p = path.join(__dirname, '..', 'dist')
-const port = 8080
+const port = 8000
 
 app.use(express.static(p))
 // Handle urls set by the frontend
