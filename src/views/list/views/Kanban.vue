@@ -19,6 +19,13 @@
 		<div :class="{ 'is-loading': loading && !oneTaskUpdating}" class="kanban loader-container">
 			<div :key="`bucket${bucket.id}`" class="bucket" v-for="bucket in buckets">
 				<div class="bucket-header">
+					<span
+						v-if="bucket.isDoneBucket"
+						class="icon is-small has-text-success mr-2"
+						v-tooltip="'All tasks moved into this bucket will automatically marked as done.'"
+					>
+						<icon icon="check-double"/>
+					</span>
 					<h2
 						:ref="`bucket${bucket.id}title`"
 						@focusout="() => saveBucketTitle(bucket.id)"
