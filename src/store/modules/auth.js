@@ -25,6 +25,9 @@ export default {
 		},
 		setUserSettings(state, settings) {
 			state.settings = settings
+			const info = state.info !== null ? state.info : {}
+			info.name = settings.name
+			state.info = info
 		},
 		authenticated(state, authenticated) {
 			state.authenticated = authenticated
