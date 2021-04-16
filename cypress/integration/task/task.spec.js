@@ -8,6 +8,9 @@ import {NamespaceFactory} from '../../factories/namespace'
 import {UserListFactory} from '../../factories/users_list'
 
 import '../../support/authenticateUser'
+import {TaskAssigneeFactory} from '../../factories/task_assignee'
+import {LabelFactory} from '../../factories/labels'
+import {LabelTaskFactory} from '../../factories/label_task'
 
 describe('Task', () => {
 	let namespaces
@@ -25,7 +28,7 @@ describe('Task', () => {
 		cy.visit('/lists/1/list')
 		cy.get('input.input[placeholder="Add a new task..."')
 			.type('New Task')
-		cy.get('button.button.is-success')
+		cy.get('.button')
 			.contains('Add')
 			.click()
 		cy.get('.tasks .task .tasktext')
@@ -41,7 +44,7 @@ describe('Task', () => {
 			.should('not.exist')
 		cy.get('input.input[placeholder="Add a new task..."')
 			.type('New Task')
-		cy.get('button.button.is-success')
+		cy.get('.button')
 			.contains('Add')
 			.click()
 
@@ -160,12 +163,11 @@ describe('Task', () => {
 			cy.visit(`/tasks/${tasks[0].id}`)
 
 			cy.get('.task-view .details.content.description .editor a')
-				.contains('Edit')
 				.click()
 			cy.get('.task-view .details.content.description .editor .vue-easymde .EasyMDEContainer .CodeMirror-scroll')
 				.type('{selectall}New Description')
 			cy.get('.task-view .details.content.description .editor a')
-				.contains('Preview')
+				.contains('Done')
 				.click()
 
 			cy.get('.task-view .details.content.description h3 span.is-small.has-text-success')
@@ -181,7 +183,7 @@ describe('Task', () => {
 
 			cy.get('.task-view .comments .media.comment .editor .vue-easymde .EasyMDEContainer .CodeMirror-scroll')
 				.type('{selectall}New Comment')
-			cy.get('.task-view .comments .media.comment .button.is-primary')
+			cy.get('.task-view .comments .media.comment .button:not([disabled])')
 				.contains('Comment')
 				.click()
 
@@ -202,8 +204,14 @@ describe('Task', () => {
 			cy.get('.task-view .action-buttons .button')
 				.contains('Move task')
 				.click()
-			cy.get('.task-view .content.details .field .multiselect.control .multiselect__tags .multiselect__input')
+			cy.get('.task-view .content.details .field .multiselect.control .input-wrapper input')
 				.type(`${lists[1].title}{enter}`)
+			// The requests happen with a 200ms timeout. Because of that, the results are not yet there when cypress 
+			// presses enter and we can't simulate pressing on enter to select the item.
+			cy.get('.task-view .content.details .field .multiselect.control .search-results')
+				.children()
+				.first()
+				.click()
 
 			cy.get('.task-view h6.subtitle')
 				.should('contain', namespaces[0].title)
@@ -232,6 +240,171 @@ describe('Task', () => {
 				.should('contain', 'Success')
 			cy.url()
 				.should('contain', `/lists/${tasks[0].list_id}/`)
+		})
+
+		it('Can add an assignee to a task', () => {
+			const users = UserFactory.create(5)
+			const tasks = TaskFactory.create(1, {
+				id: 1,
+				list_id: 1,
+			})
+			UserListFactory.create(5, {
+				list_id: 1,
+				user_id: '{increment}',
+			})
+
+			cy.visit(`/tasks/${tasks[0].id}`)
+
+			cy.get('.task-view .action-buttons .button')
+				.contains('Assign this task to a user')
+				.click()
+			cy.get('.task-view .column.assignees .multiselect input')
+				.type(users[1].username)
+			cy.get('.task-view .column.assignees .multiselect .search-results')
+				.children()
+				.first()
+				.click()
+
+			cy.get('.global-notification')
+				.should('contain', 'Success')
+			cy.get('.task-view .column.assignees .multiselect .input-wrapper span.assignee')
+				.should('exist')
+		})
+
+		it('Can remove an assignee from a task', () => {
+			const users = UserFactory.create(2)
+			const tasks = TaskFactory.create(1, {
+				id: 1,
+				list_id: 1,
+			})
+			UserListFactory.create(5, {
+				list_id: 1,
+				user_id: '{increment}',
+			})
+			TaskAssigneeFactory.create(1, {
+				task_id: tasks[0].id,
+				user_id: users[1].id,
+			})
+
+			cy.visit(`/tasks/${tasks[0].id}`)
+
+			cy.get('.task-view .column.assignees .multiselect .input-wrapper span.assignee')
+				.get('a.remove-assignee')
+				.click()
+
+			cy.get('.global-notification')
+				.should('contain', 'Success')
+			cy.get('.task-view .column.assignees .multiselect .input-wrapper span.assignee')
+				.should('not.exist')
+		})
+
+		it('Can add a new label to a task', () => {
+			const tasks = TaskFactory.create(1, {
+				id: 1,
+				list_id: 1,
+			})
+			LabelFactory.truncate()
+			const newLabelText = 'some new label'
+
+			cy.visit(`/tasks/${tasks[0].id}`)
+
+			cy.get('.task-view .action-buttons .button')
+				.contains('Add labels')
+				.click()
+			cy.get('.task-view .details.labels-list .multiselect input')
+				.type(newLabelText)
+			cy.get('.task-view .details.labels-list .multiselect .search-results')
+				.children()
+				.first()
+				.click()
+
+			cy.get('.global-notification')
+				.should('contain', 'Success')
+			cy.get('.task-view .details.labels-list .multiselect .input-wrapper span.tag')
+				.should('exist')
+				.should('contain', newLabelText)
+		})
+
+		it('Can add an existing label to a task', () => {
+			const tasks = TaskFactory.create(1, {
+				id: 1,
+				list_id: 1,
+			})
+			const labels = LabelFactory.create(1)
+
+			cy.visit(`/tasks/${tasks[0].id}`)
+
+			cy.get('.task-view .action-buttons .button')
+				.contains('Add labels')
+				.click()
+			cy.get('.task-view .details.labels-list .multiselect input')
+				.type(labels[0].title)
+			cy.get('.task-view .details.labels-list .multiselect .search-results')
+				.children()
+				.first()
+				.click()
+
+			cy.get('.global-notification')
+				.should('contain', 'Success')
+			cy.get('.task-view .details.labels-list .multiselect .input-wrapper span.tag')
+				.should('exist')
+				.should('contain', labels[0].title)
+		})
+
+		it('Can remove a label from a task', () => {
+			const tasks = TaskFactory.create(1, {
+				id: 1,
+				list_id: 1,
+			})
+			const labels = LabelFactory.create(1)
+			LabelTaskFactory.create(1, {
+				task_id: tasks[0].id,
+				label_id: labels[0].id,
+			})
+
+			cy.visit(`/tasks/${tasks[0].id}`)
+
+			cy.get('.task-view .details.labels-list .multiselect .input-wrapper')
+				.should('contain', labels[0].title)
+			cy.get('.task-view .details.labels-list .multiselect .input-wrapper')
+				.children()
+				.first()
+				.get('a.delete')
+				.click()
+
+			cy.get('.global-notification')
+				.should('contain', 'Success')
+			cy.get('.task-view .details.labels-list .multiselect .input-wrapper')
+				.should('not.contain', labels[0].title)
+		})
+
+		it('Can set a due date for a task', () => {
+			const tasks = TaskFactory.create(1, {
+				id: 1,
+				done: false,
+			})
+			cy.visit(`/tasks/${tasks[0].id}`)
+
+			cy.get('.task-view .action-buttons .button')
+				.contains('Set Due Date')
+				.click()
+			cy.get('.task-view .columns.details .column')
+				.contains('Due Date')
+				.get('.date-input .datepicker .show')
+				.click()
+			cy.get('.datepicker .datepicker-popup a')
+				.contains('Tomorrow')
+				.click()
+			cy.get('.datepicker .datepicker-popup a.button')
+				.contains('Confirm')
+				.click()
+
+			cy.get('.task-view .columns.details .column')
+				.contains('Due Date')
+				.get('.date-input .datepicker-popup')
+				.should('not.exist')
+			cy.get('.global-notification')
+				.should('contain', 'Success')
 		})
 	})
 })

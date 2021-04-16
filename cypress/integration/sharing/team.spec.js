@@ -1,5 +1,6 @@
 import {TeamFactory} from '../../factories/team'
 import {TeamMemberFactory} from '../../factories/team_member'
+import {UserFactory} from '../../factories/user'
 import '../../support/authenticateUser'
 
 describe('Team', () => {
@@ -7,26 +8,25 @@ describe('Team', () => {
         TeamFactory.truncate()
         cy.visit('/teams')
 
+        const newTeamName = 'New Team'
+
         cy.get('a.button')
             .contains('New Team')
             .click()
 		cy.url()
 			.should('contain', '/teams/new')
-		cy.get('h3')
+		cy.get('.card-header-title')
 			.contains('Create a new team')
 		cy.get('input.input')
-			.type('New Team')
-		cy.get('button.is-success')
-			.contains('Add')
+			.type(newTeamName)
+		cy.get('.button')
+			.contains('Create')
 			.click()
 
-        cy.get('.fullpage')
-            .should('not.exist')
 		cy.url()
             .should('contain', '/edit')
-        cy.get('.card-header .card-header-title')
-            .first()
-            .should('contain', 'Edit Team')
+        cy.get('input#teamtext')
+            .should('have.value', newTeamName)
     })
 
     it('Shows all teams', () => {
@@ -87,5 +87,42 @@ describe('Team', () => {
         cy.get('table.table td')
             .contains('Member')
             .should('exist')
+    })
+
+    it('Allows an admin to add members to the team', () => {
+        TeamMemberFactory.create(1, {
+            team_id: 1,
+            admin: true,
+        })
+        TeamFactory.create(1, {
+            id: 1,
+        })
+        const users = UserFactory.create(5)
+        
+        cy.visit('/teams/1/edit')
+        cy.get('.card')
+            .contains('Team Members')
+            .get('.card-content .multiselect .input-wrapper input')
+            .type(users[1].username)
+        cy.get('.card')
+            .contains('Team Members')
+            .get('.card-content .multiselect .search-results')
+				.children()
+				.first()
+				.click()
+        cy.get('.card')
+            .contains('Team Members')
+            .get('.card-content .button')
+            .contains('Add To Team')
+            .click()
+        
+        cy.get('table.table td')
+            .contains('Admin')
+            .should('exist')
+        cy.get('table.table tr')
+            .should('contain', users[1].username)
+            .should('contain', 'Member')
+        cy.get('.global-notification')
+			.should('contain', 'Success')
     })
 })

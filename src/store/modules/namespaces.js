@@ -40,6 +40,14 @@ export default {
 		addNamespace(state, namespace) {
 			state.namespaces.push(namespace)
 		},
+		removeNamespaceById(state, namespaceId) {
+			for (const n in state.namespaces) {
+				if (state.namespaces[n].id === namespaceId) {
+					state.namespaces.splice(n, 1)
+					return
+				}
+			}
+		},
 		addListToNamespace(state, list) {
 			for (const n in state.namespaces) {
 				if (state.namespaces[n].id === list.namespaceId) {
@@ -88,7 +96,7 @@ export default {
 	},
 	actions: {
 		loadNamespaces(ctx) {
-			const cancel = setLoading(ctx)
+			const cancel = setLoading(ctx, 'namespaces')
 
 			const namespaceService = new NamespaceService()
 			// We always load all namespaces and filter them on the frontend
@@ -106,7 +114,7 @@ export default {
 
 					ctx.commit('lists/addLists', lists, {root: true})
 
-					return Promise.resolve()
+					return Promise.resolve(r)
 				})
 				.catch(e => {
 					return Promise.reject(e)

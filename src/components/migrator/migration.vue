@@ -4,13 +4,13 @@
 		<p>Vikunja will import all lists, tasks, notes, reminders and files you have access to.</p>
 		<template v-if="isMigrating === false && message === '' && lastMigrationDate === null">
 			<p>To authorize Vikunja to access your {{ name }} Account, click the button below.</p>
-			<a
-				:class="{'is-loading': migrationService.loading}"
+			<x-button
+				:loading="migrationService.loading"
 				:disabled="migrationService.loading"
 				:href="authUrl"
-				class="button is-primary">
+			>
 				Get Started
-			</a>
+			</x-button>
 		</template>
 		<div
 			class="migration-in-progress-container"
@@ -38,8 +38,8 @@
 				Are you sure?
 			</p>
 			<div class="buttons">
-				<button @click="migrate" class="button is-primary">I am sure, please start migrating now!</button>
-				<router-link :to="{name: 'home'}" class="button is-danger is-outlined">Cancel</router-link>
+				<x-button @click="migrate">I am sure, please start migrating now!</x-button>
+				<x-button :to="{name: 'home'}" type="tertary" class="has-text-danger">Cancel</x-button>
 			</div>
 		</div>
 		<div v-else>
@@ -48,7 +48,7 @@
 					{{ message }}
 				</div>
 			</div>
-			<router-link :to="{name: 'home'}" class="button is-primary">Refresh</router-link>
+			<x-button :to="{name: 'home'}">Refresh</x-button>
 		</div>
 	</div>
 </template>
@@ -64,7 +64,7 @@ export default {
 			isMigrating: false,
 			lastMigrationDate: null,
 			message: '',
-			wunderlistCode: '',
+			migratorAuthCode: '',
 		}
 	},
 	props: {
@@ -82,13 +82,25 @@ export default {
 		this.getAuthUrl()
 		this.message = ''
 
-		if (typeof this.$route.query.code !== 'undefined') {
-			this.wunderlistCode = this.$route.query.code
+		if (typeof this.$route.query.code !== 'undefined' || location.hash.startsWith('#token=')) {
+			if (location.hash.startsWith('#token=')) {
+				this.migratorAuthCode = location.hash.substring(7)
+				console.log(location.hash.substring(7))
+			} else {
+				this.migratorAuthCode = this.$route.query.code
+			}
 			this.migrationService.getStatus()
 				.then(r => {
 					if (r.time) {
-						this.lastMigrationDate = new Date(r.time)
-						return
+						if (typeof r.time === 'string' && r.time.startsWith('0001-')) {
+							this.lastMigrationDate = null
+						} else {
+							this.lastMigrationDate = new Date(r.time)
+						}
+
+						if (this.lastMigrationDate) {
+							return
+						}
 					}
 					this.migrate()
 				})
@@ -109,10 +121,12 @@ export default {
 		},
 		migrate() {
 			this.isMigrating = true
-			this.lastMigrationDate = 0
-			this.migrationService.migrate({code: this.wunderlistCode})
+			this.lastMigrationDate = null
+			this.message = ''
+			this.migrationService.migrate({code: this.migratorAuthCode})
 				.then(r => {
 					this.message = r.message
+					this.$store.dispatch('namespaces/loadNamespaces')
 				})
 				.catch(e => {
 					this.error(e, this)

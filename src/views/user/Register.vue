@@ -15,7 +15,9 @@
 							type="text"
 							autocomplete="username"
 							v-focus
-							v-model="credentials.username"/>
+							v-model="credentials.username"
+							@keyup.enter="submit"
+						/>
 					</div>
 				</div>
 				<div class="field">
@@ -28,7 +30,9 @@
 							placeholder="e.g. frederic@vikunja.io"
 							required
 							type="email"
-							v-model="credentials.email"/>
+							v-model="credentials.email"
+							@keyup.enter="submit"
+						/>
 					</div>
 				</div>
 				<div class="field">
@@ -42,7 +46,9 @@
 							required
 							type="password"
 							autocomplete="new-password"
-							v-model="credentials.password"/>
+							v-model="credentials.password"
+							@keyup.enter="submit"
+						/>
 					</div>
 				</div>
 				<div class="field">
@@ -56,16 +62,23 @@
 							required
 							type="password"
 							autocomplete="new-password"
-							v-model="credentials.password2"/>
+							v-model="credentials.password2"
+							@keyup.enter="submit"
+						/>
 					</div>
 				</div>
 
 				<div class="field is-grouped">
 					<div class="control">
-						<button class="button is-primary" type="submit" :class="{ 'is-loading': loading}" id="register-submit">
+						<x-button
+							:loading="loading"
+							id="register-submit"
+							@click="submit"
+							class="mr-2"
+						>
 							Register
-						</button>
-						<router-link :to="{ name: 'user.login' }" class="button">Login</router-link>
+						</x-button>
+						<x-button :to="{ name: 'user.login' }" type="secondary">Login</x-button>
 					</div>
 				</div>
 				<div class="notification is-info" v-if="loading">
@@ -132,13 +145,8 @@ export default {
 			}
 
 			this.$store.dispatch('auth/register', credentials)
+				.catch(() => {})
 		},
 	},
 }
 </script>
-
-<style scoped>
-.button {
-	margin: 0 0.4em 0 0;
-}
-</style>

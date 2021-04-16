@@ -1,9 +1,11 @@
-$bucket-background: #e8f0f5;
+$bucket-background: $grey-100;
 $task-background: $white;
 $ease-out: all .3s cubic-bezier(0.23, 1, 0.32, 1);
 $bucket-width: 300px;
 
-$crazy-height-calculation: '100vh - 4.5rem - 1.5rem - 1em - 1.5em - 8px';
+$crazy-height-calculation: '100vh - 4.5rem - 1.5rem - 1rem - 1.5rem - 11px';
+$crazy-height-calculation-tasks: '#{$crazy-height-calculation} - 1rem - 2.5rem - 2rem - #{$button-height} - 1rem';
+$filter-container-height: '1rem - #{$switch-view-height}';
 
 .app-content.list\.kanban {
   padding-bottom: 0;
@@ -17,23 +19,30 @@ $crazy-height-calculation: '100vh - 4.5rem - 1.5rem - 1em - 1.5em - 8px';
   overflow-y: hidden;
   height: calc(#{$crazy-height-calculation});
   margin: 0 -1.5rem;
-  padding: 0 1.5em;
+  padding: 0 1.5rem;
+
+  @media screen and (max-width: $tablet) {
+    height: calc(#{$crazy-height-calculation} - #{$filter-container-height});
+  }
 
   .bucket {
-
     background-color: $bucket-background;
     border-radius: $radius;
     position: relative;
 
     flex: 0 0 $bucket-width;
-    margin: 0 1em 0 0;
+    margin: 0 1rem 0 0;
     max-height: 100%;
     min-height: 20px;
     max-width: $bucket-width;
 
     .tasks {
-      max-height: calc(#{$crazy-height-calculation} - 1rem - 2.5rem - 2em - #{$button-height} - 1em);
+      max-height: calc(#{$crazy-height-calculation-tasks});
       overflow: auto;
+
+      @media screen and (max-width: $tablet) {
+        max-height: calc(#{$crazy-height-calculation-tasks} - #{$filter-container-height});
+      }
 
       .task {
 
@@ -50,20 +59,20 @@ $crazy-height-calculation: '100vh - 4.5rem - 1.5rem - 1em - 1.5em - 8px';
 
         transition: $ease-out;
         cursor: pointer;
-        box-shadow: 2px 2px 2px darken($white, 12%);
+        box-shadow: $shadow-xs;
         display: block;
 
-        font-size: .9em;
-        padding: .5em;
-        margin: .5em;
+        font-size: .9rem;
+        padding: .5rem;
+        margin: .5rem;
         border-radius: $radius;
         background: $task-background;
 
         &.loader-container.is-loading:after {
-          width: 1.5em;
-          height: 1.5em;
-          top: calc(50% - .75em);
-          left: calc(50% - .75em);
+          width: 1.5rem;
+          height: 1.5rem;
+          top: calc(50% - .75rem);
+          left: calc(50% - .75rem);
           border-width: 2px;
         }
 
@@ -73,14 +82,19 @@ $crazy-height-calculation: '100vh - 4.5rem - 1.5rem - 1em - 1.5em - 8px';
           word-break: break-word;
         }
 
+        .progress {
+          margin: 8px 0 0 0;
+          width: 100%;
+          height: 0.5rem;
+        }
+
         .due-date {
           float: right;
           display: flex;
           align-items: center;
 
           .icon {
-            margin-right: 2px;
-            margin-left: 5px;
+            margin-right: .25rem;
           }
 
           &.overdue {
@@ -89,22 +103,19 @@ $crazy-height-calculation: '100vh - 4.5rem - 1.5rem - 1em - 1.5em - 8px';
         }
 
         .label-wrapper .tag {
-          margin: .5em .5em 0 0;
+          margin: .5rem .5rem 0 0;
         }
 
         .footer {
           background: transparent;
           padding: 0;
           display: flex;
-          justify-content: space-between;
+          flex-wrap: wrap;
+          align-items: center;
 
-          .items {
-            display: flex;
-            align-items: center;
-
-            > :not(:last-child) {
-              margin-right: .5em;
-            }
+          .tag, .assignees, .icon, .priority-label {
+            margin-top: .25rem;
+            margin-right: .25rem;
           }
 
           .assignees {
@@ -112,22 +123,26 @@ $crazy-height-calculation: '100vh - 4.5rem - 1.5rem - 1em - 1.5em - 8px';
 
             .user {
               display: inline;
-              margin: 0 -12px 0 0;
+              margin: 0;
 
               img {
-                margin-right: 0;
+                margin: 0;
               }
             }
           }
 
-          .icon {
-            svg {
-              margin: 4px 0 4px 4px;
-              fill: $dark;
+          .tag {
+            margin-left: 0;
+          }
 
-              &:not(.svg-inline--fa) {
-                width: 16px;
-              }
+          .priority-label {
+            font-size: .75rem;
+            height: 2rem;
+
+            .icon {
+              height: 1rem;
+              padding: 0 .25rem;
+              margin-top: 0;
             }
           }
         }
@@ -135,25 +150,26 @@ $crazy-height-calculation: '100vh - 4.5rem - 1.5rem - 1em - 1.5em - 8px';
         .footer .icon,
         .due-date,
         .priority-label {
-          background: darken($task-background, 5%);
+          background: $grey-100;
           border-radius: $radius;
-          padding-right: 5px;
+          padding: 0 .5rem;
         }
 
-        .priority-label {
-          margin: .5em 0;
-          display: inline-block;
+        .due-date {
+          padding: 0 .25rem;
         }
 
         .task-id {
-          color: $grey;
+          color: $grey-500;
           font-size: .8rem;
+          margin-bottom: .25rem;
+          display: flex;
         }
 
         .is-done {
-          margin: 0;
-          font-size: .8em;
-          padding: .25em .5em;
+          font-size: .75rem;
+          padding: .2rem .3rem;
+          margin: 0 .25rem 0 0;
         }
 
         &.is-moving {
@@ -168,13 +184,13 @@ $crazy-height-calculation: '100vh - 4.5rem - 1.5rem - 1em - 1.5em - 8px';
           color: $white;
 
           .task-id {
-            color: $grey-lighter;
+            color: $grey-200;
           }
 
           .footer .icon,
           .due-date,
           .priority-label {
-            background: darken($task-background, 80%);
+            background: $grey-800;
           }
 
           .footer {
@@ -187,9 +203,9 @@ $crazy-height-calculation: '100vh - 4.5rem - 1.5rem - 1em - 1.5em - 8px';
 
       .drop-preview {
         border-radius: $radius;
-        margin: 0 .5em .5em;
+        margin: 0 .5rem .5rem;
         background: transparent;
-        border: 3px dashed darken($bucket-background, 5%);
+        border: 3px dashed $grey-300;
       }
     }
 
@@ -216,10 +232,6 @@ $crazy-height-calculation: '100vh - 4.5rem - 1.5rem - 1em - 1.5em - 8px';
 
     a.dropdown-item {
       padding-right: 1rem;
-
-      .input {
-        height: 2.25em;
-      }
     }
   }
 
@@ -227,7 +239,7 @@ $crazy-height-calculation: '100vh - 4.5rem - 1.5rem - 1em - 1.5em - 8px';
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: .5em;
+    padding: .5rem;
 
     .limit {
       padding-left: .5rem;
@@ -238,19 +250,20 @@ $crazy-height-calculation: '100vh - 4.5rem - 1.5rem - 1em - 1.5em - 8px';
       }
     }
 
-    .dropdown-trigger {
-      cursor: pointer;
-    }
-
     .title.input {
       height: auto;
-      padding: .4em .5em;
+      padding: .4rem .5rem;
       display: inline-block;
     }
   }
 
+  .dropdown-trigger {
+    cursor: pointer;
+    padding: .5rem;
+  }
+
   .bucket-footer {
-    padding: .5em;
+    padding: .5rem;
 
     .button {
       background-color: transparent;

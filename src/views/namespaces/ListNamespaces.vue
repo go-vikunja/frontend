@@ -1,29 +1,56 @@
 <template>
 	<div class="content namespaces-list loader-container" :class="{'is-loading': loading}">
-		<router-link :to="{name: 'namespace.create'}" class="button is-success new-namespace">
-			<span class="icon is-small">
-				<icon icon="plus"/>
-			</span>
-			Create new namespace
-		</router-link>
-		<router-link :to="{name: 'filters.create'}" class="button is-primary new-namespace">
-			<span class="icon is-small">
-				<icon icon="filter"/>
-			</span>
-			Create a new saved filter
-		</router-link>
+		<x-button :to="{name: 'namespace.create'}" class="new-namespace" icon="plus">
+			Create namespace
+		</x-button>
+		<x-button :to="{name: 'filters.create'}" class="new-namespace" icon="filter">
+			Create saved filter
+		</x-button>
 
-		<fancycheckbox class="show-archived-check" v-model="showArchived">
+		<fancycheckbox class="show-archived-check" v-model="showArchived" @change="saveShowArchivedState">
 			Show Archived
 		</fancycheckbox>
 
+		<p class="has-text-centered has-text-grey mt-4 is-italic" v-if="namespaces.length === 0">
+			You don't have any namespaces right now.
+			<router-link :to="{name: 'namespace.create'}">
+				Create a namespace.
+			</router-link>
+		</p>
+
 		<div :key="`n${n.id}`" class="namespace" v-for="n in namespaces">
+			<x-button
+				:to="{name: 'list.create', params: {id:  n.id}}"
+				class="is-pulled-right"
+				type="secondary"
+				v-if="n.id > 0 && n.lists.length > 0"
+				icon="plus"
+			>
+				Create list
+			</x-button>
+			<x-button
+				:to="{name: 'namespace.settings.archive', params: {id:  n.id}}"
+				class="is-pulled-right mr-4"
+				type="secondary"
+				v-if="n.isArchived"
+				icon="archive"
+			>
+				Un-Archive
+			</x-button>
+
 			<h1>
 				<span>{{ n.title }}</span>
 				<span class="is-archived" v-if="n.isArchived">
 					Archived
 				</span>
 			</h1>
+
+			<p class="has-text-centered has-text-grey mt-4 is-italic" v-if="n.lists.length === 0">
+				This namespace does not contain any lists.
+				<router-link :to="{name: 'list.create', params: {id:  n.id}}">
+					Create a new list in this namespace.
+				</router-link>
+			</p>
 
 			<div class="lists">
 				<template v-for="l in n.lists">
@@ -81,6 +108,7 @@ export default {
 		}
 	},
 	created() {
+		this.showArchived = localStorage.getItem('showArchived') ?? false
 		this.loadBackgroundsForLists()
 	},
 	mounted() {
@@ -117,6 +145,9 @@ export default {
 			}
 			this.$store.dispatch('lists/toggleListFavorite', list)
 				.catch(e => this.error(e, this))
+		},
+		saveShowArchivedState() {
+			localStorage.setItem('showArchived', this.showArchived)
 		},
 	},
 }

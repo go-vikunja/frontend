@@ -15,10 +15,12 @@
 			:rgbSliders="true"
 			model="hex"
 			picker="square"
-			v-model="color"/>
-		<a @click="reset" class="reset">
+			v-model="color"
+			:class="{'is-empty': empty}"
+		/>
+		<x-button @click="reset" class="is-small ml-2" :shadow="false" type="secondary">
 			Reset Color
-		</a>
+		</x-button>
 	</div>
 </template>
 
@@ -57,8 +59,17 @@ export default {
 	mounted() {
 		this.color = this.value
 	},
+	computed: {
+		empty() {
+			return this.color === '#000000' || this.color === ''
+		},
+	},
 	methods: {
-		update() {
+		update(force = false) {
+
+			if(this.empty && !force) {
+				return
+			}
 
 			if (this.lastChangeTimeout !== null) {
 				clearTimeout(this.lastChangeTimeout)
@@ -73,8 +84,20 @@ export default {
 			// FIXME: I havn't found a way to make it clear to the user the color war reset.
 			//  Not sure if verte is capable of this - it does not show the change when setting this.color = ''
 			this.color = ''
-			this.update()
+			this.update(true)
 		},
 	},
 }
 </script>
+
+<style lang="scss">
+.verte.is-empty {
+	.verte__icon {
+		opacity: 0;
+	}
+
+	.verte__guide {
+		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGklEQVQYlWM4c+bMf3TMgA0MBYWDzDkUKQQAlHCpV9ycHeMAAAAASUVORK5CYII=);
+	}
+}
+</style>

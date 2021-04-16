@@ -1,10 +1,13 @@
-@import '../../../node_modules/bulma/bulma';
+@import "../../../node_modules/bulma/bulma";
 
-@import 'fonts';
+@import "fonts";
 
-@import 'variables-derived';
+@import "variables-derived";
 
-*, *:hover, *:active, *:focus {
+*,
+*:hover,
+*:active,
+*:focus {
   outline: none;
 }
 
@@ -16,28 +19,27 @@
   outline: 0;
 }
 
-:focus-visible, :-moz-focusring {
+:focus-visible,
+:-moz-focusring {
   box-shadow: 0 0 0 2px rgba($primary, 0.5);
 }
 
 body {
-  background: url('../../public/images/llama.svg') no-repeat bottom left fixed $light-background;
+  background: $light-background;
   min-height: 100vh;
-
-  @media screen and (max-width: $tablet) {
-    &:not(.has-llama) {
-      background: $light-background;
-    }
-  }
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $vikunja-font;
   font-weight: 400 !important;
 }
 
 .logo {
-
   padding-left: 2rem !important;
 
   img {
@@ -58,6 +60,10 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: $radius;
 }
 
+.has-overflow {
+  overflow: visible;
+}
+
 .image.is-avatar {
   border-radius: 100%;
 }
@@ -66,18 +72,37 @@ button.table {
   margin-bottom: 0 !important;
 }
 
-.dropdown-item.is-disabled {
-  cursor: not-allowed;
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: left !important;
 
-  &:hover {
-    background-color: transparent;
+  .icon {
+    padding-right: .5rem;
+  }
+
+  .icon:not(.has-text-success) {
+    color: $grey-300 !important;
+  }
+
+  &.has-text-danger .icon {
+    color: $danger !important;
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: transparent;
+    }
   }
 }
 
 .pagination {
-  padding-bottom: 1em;
+  padding-bottom: 1rem;
 
-  .pagination-previous, .pagination-next {
+  .pagination-previous,
+  .pagination-next {
     &:not(:disabled):hover {
       background: $button-background-color;
       cursor: pointer;
@@ -92,7 +117,16 @@ button.table {
 }
 
 .has-no-shadow {
-  box-shadow: none !important;
+  &,
+  &.is-hovered,
+  &:hover,
+  &.is-active,
+  &.is-focused,
+  &:active,
+  &:focus,
+  &:focus:not(:active) {
+    box-shadow: none !important;
+  }
 }
 
 .is-fullwidth {
@@ -103,4 +137,10 @@ button.table {
   display: inline-block;
   border-radius: 100%;
   margin-right: 4px;
+}
+
+.dropdown-menu {
+  .dropdown-content {
+    box-shadow: $shadow-md;
+  }
 }

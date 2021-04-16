@@ -22,7 +22,7 @@ describe('User Settings', () => {
 			.contains('Upload Avatar')
 			.click()
 
-		cy.wait(1000) // Wait for the request to finish
+		cy.wait(3000) // Wait for the request to finish
 		cy.get('.global-notification')
 			.should('contain', 'Success')
 	})
@@ -32,11 +32,11 @@ describe('User Settings', () => {
 
 		cy.get('input#newName')
 			.type('Lorem Ipsum')
-		cy.get('.card.update-name button.button.is-primary')
+		cy.get('.card.general-settings .button.is-primary')
 			.contains('Save')
 			.click()
 
-		cy.wait(1000) // Wait for the request to finish
+		cy.wait(3000) // Wait for the request to finish
 		cy.get('.global-notification')
 			.should('contain', 'Success')
 		cy.get('.navbar .user .username')

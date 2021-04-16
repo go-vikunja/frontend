@@ -1,66 +1,80 @@
 <template>
 	<div class="task-relations">
-		<template v-if="editEnabled">
-			<label class="label">
-				New Task Relation
-				<transition name="fade">
-					<span class="is-inline-flex" v-if="taskRelationService.loading">
-						<span class="loader is-inline-block mr-2"></span>
-						Saving...
-					</span>
-					<span class="has-text-success" v-if="!taskRelationService.loading && saved">
-						Saved!
-					</span>
-				</transition>
-			</label>
-			<div class="field">
-				<multiselect
-					:internal-search="true"
-					:loading="taskService.loading"
-					:multiple="false"
-					:options="foundTasks"
-					:searchable="true"
-					:showNoOptions="false"
-					:taggable="true"
-					@search-change="findTasks"
-					@tag="createAndRelateTask"
-					label="title"
-					placeholder="Type search for a new task to add as related..."
-					tag-placeholder="Add this as new related task"
-					track-by="id"
-					v-model="newTaskRelationTask"
-				>
-					<template slot="clear" slot-scope="props">
-						<div
-							@mousedown.prevent.stop="clearAllFoundTasks(props.search)"
-							class="multiselect__clear"
-							v-if="newTaskRelationTask !== null && newTaskRelationTask.id !== 0"></div>
-					</template>
-					<span slot="noResult">No task found. Consider changing the search query.</span>
-				</multiselect>
-			</div>
-			<div class="field has-addons">
-				<div class="control is-expanded">
-					<div class="select is-fullwidth has-defaults">
-						<select v-model="newTaskRelationKind">
-							<option value="unset">Select a relation kind</option>
-							<option :key="rk" :value="rk" v-for="(label, rk) in relationKinds">
-								{{ label[0] }}
-							</option>
-						</select>
+		<x-button
+			v-if="Object.keys(relatedTasks).length > 0"
+			@click="showNewRelationForm = !showNewRelationForm"
+			class="is-pulled-right add-task-relation-button"
+			:class="{'is-active': showNewRelationForm}"
+			v-tooltip="'Add a New Task Relation'"
+			type="secondary"
+			icon="plus"
+			:shadow="false"
+		/>
+		<transition-group name="fade">
+			<template v-if="editEnabled && showCreate">
+				<label class="label" key="label">
+					New Task Relation
+					<transition name="fade">
+						<span class="is-inline-flex" v-if="taskRelationService.loading">
+							<span class="loader is-inline-block mr-2"></span>
+							Saving...
+						</span>
+						<span class="has-text-success" v-if="!taskRelationService.loading && saved">
+							Saved!
+						</span>
+					</transition>
+				</label>
+				<div class="field" key="field-search">
+					<multiselect
+						placeholder="Type search for a new task to add as related..."
+						@search="findTasks"
+						:loading="taskService.loading"
+						:search-results="foundTasks"
+						label="title"
+						v-model="newTaskRelationTask"
+						:creatable="true"
+						create-placeholder="Add this as new related task"
+						@create="createAndRelateTask"
+					>
+						<template v-slot:searchResult="props">
+							<span v-if="typeof props.option !== 'string'" class="search-result">
+								<span
+									class="different-list"
+									v-if="props.option.listId !== listId"
+									v-tooltip="'This task belongs to a different list.'">
+									{{ $store.getters['lists/getListById'](props.option.listId) === null ? '' : $store.getters['lists/getListById'](props.option.listId).title }} >
+								</span>
+								{{ props.option.title }}
+							</span>
+							<span class="search-result" v-else>
+								{{ props.option }}
+							</span>
+						</template>
+					</multiselect>
+				</div>
+				<div class="field has-addons mb-4" key="field-kind">
+					<div class="control is-expanded">
+						<div class="select is-fullwidth has-defaults">
+							<select v-model="newTaskRelationKind">
+								<option value="unset">Select a relation kind</option>
+								<option :key="rk" :value="rk" v-for="(label, rk) in relationKinds">
+									{{ label[0] }}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="control">
+						<x-button @click="addTaskRelation()">Add Task Relation</x-button>
 					</div>
 				</div>
-				<div class="control">
-					<a @click="addTaskRelation()" class="button is-primary">Add task Relation</a>
-				</div>
-			</div>
-		</template>
+			</template>
+		</transition-group>
 
 		<div :key="kind" class="related-tasks" v-for="(rts, kind ) in relatedTasks">
 			<template v-if="rts.length > 0">
 				<span class="title">{{ relationKindTitle(kind, rts.length) }}</span>
 				<div class="tasks noborder">
-					<div :key="t.id" class="task" v-for="t in rts">
+					<div :key="t.id" class="task" v-for="t in rts.filter(t => t)">
 						<router-link :to="{ name: $route.name, params: { id: t.id } }">
 							<span :class="{ 'done': t.done}" class="tasktext">
 								<span
@@ -89,14 +103,16 @@
 		</p>
 
 		<!-- Delete modal -->
-		<modal
-			@close="showDeleteModal = false"
-			@submit="removeTaskRelation()"
-			v-if="showDeleteModal">
-			<span slot="header">Delete Task Relation</span>
-			<p slot="text">Are you sure you want to delete this task relation?<br/>
-				<b>This CANNOT BE UNDONE!</b></p>
-		</modal>
+		<transition name="modal">
+			<modal
+				@close="showDeleteModal = false"
+				@submit="removeTaskRelation()"
+				v-if="showDeleteModal">
+				<span slot="header">Delete Task Relation</span>
+				<p slot="text">Are you sure you want to delete this task relation?<br/>
+					<b>This CANNOT BE UNDONE!</b></p>
+			</modal>
+		</transition>
 	</div>
 </template>
 
@@ -107,8 +123,7 @@ import TaskRelationService from '../../../services/taskRelation'
 import relationKinds from '../../../models/relationKinds'
 import TaskRelationModel from '../../../models/taskRelation'
 
-import LoadingComponent from '../../misc/loading'
-import ErrorComponent from '../../misc/error'
+import Multiselect from '@/components/input/multiselect'
 
 export default {
 	name: 'relatedTasks',
@@ -124,15 +139,11 @@ export default {
 			showDeleteModal: false,
 			relationToDelete: {},
 			saved: false,
+			showNewRelationForm: false,
 		}
 	},
 	components: {
-		multiselect: () => ({
-			component: import(/* webpackChunkName: "multiselect" */ 'vue-multiselect'),
-			loading: LoadingComponent,
-			error: ErrorComponent,
-			timeout: 60000,
-		}),
+		Multiselect,
 	},
 	props: {
 		taskId: {
@@ -169,13 +180,13 @@ export default {
 	mounted() {
 		this.relatedTasks = this.initialRelatedTasks
 	},
+	computed: {
+		showCreate() {
+			return Object.keys(this.relatedTasks).length === 0 || this.showNewRelationForm
+		},
+	},
 	methods: {
 		findTasks(query) {
-			if (query === '') {
-				this.clearAllFoundTasks()
-				return
-			}
-
 			this.taskService.getAll({}, {s: query})
 				.then(response => {
 					this.$set(this, 'foundTasks', response)
@@ -183,9 +194,6 @@ export default {
 				.catch(e => {
 					this.error(e, this)
 				})
-		},
-		clearAllFoundTasks() {
-			this.$set(this, 'foundTasks', [])
 		},
 		addTaskRelation() {
 			let rel = new TaskRelationModel({
@@ -199,8 +207,9 @@ export default {
 						this.$set(this.relatedTasks, this.newTaskRelationKind, [])
 					}
 					this.relatedTasks[this.newTaskRelationKind].push(this.newTaskRelationTask)
-					this.newTaskRelationTask = new TaskModel()
+					this.newTaskRelationTask = null
 					this.saved = true
+					this.showNewRelationForm = false
 					setTimeout(() => {
 						this.saved = false
 					}, 2000)
@@ -210,7 +219,7 @@ export default {
 				})
 		},
 		removeTaskRelation() {
-			let rel = new TaskRelationModel({
+			const rel = new TaskRelationModel({
 				relationKind: this.relationToDelete.relationKind,
 				taskId: this.taskId,
 				otherTaskId: this.relationToDelete.otherTaskId,
@@ -256,3 +265,19 @@ export default {
 	},
 }
 </script>
+
+<style lang="scss">
+@import '@/styles/theme/variables/all';
+
+.add-task-relation-button {
+	margin-top: -3rem;
+
+	svg {
+		transition: transform $transition;
+	}
+
+	&.is-active svg {
+		transform: rotate(45deg);
+	}
+}
+</style>

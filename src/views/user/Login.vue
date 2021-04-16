@@ -8,7 +8,7 @@
 			<api-config/>
 			<form @submit.prevent="submit" id="loginform" v-if="localAuthEnabled">
 				<div class="field">
-					<label class="label" for="username">Username</label>
+					<label class="label" for="username">Username Or Email Address</label>
 					<div class="control">
 						<input
 							class="input" id="username"
@@ -19,6 +19,7 @@
 							type="text"
 							autocomplete="username"
 							v-focus
+							@keyup.enter="submit"
 						/>
 					</div>
 				</div>
@@ -34,6 +35,7 @@
 							required
 							type="password"
 							autocomplete="current-password"
+							@keyup.enter="submit"
 						/>
 					</div>
 				</div>
@@ -48,18 +50,26 @@
 							required
 							type="text"
 							v-focus
+							@keyup.enter="submit"
 						/>
 					</div>
 				</div>
 
 				<div class="field is-grouped login-buttons">
 					<div class="control is-expanded">
-						<button class="button is-primary" type="submit" v-bind:class="{ 'is-loading': loading}">
+						<x-button
+							@click="submit"
+							:loading="loading"
+						>
 							Login
-						</button>
-						<router-link :to="{ name: 'user.register' }" class="button" v-if="registrationEnabled">
+						</x-button>
+						<x-button
+							:to="{ name: 'user.register' }"
+							v-if="registrationEnabled"
+							type="secondary"
+						>
 							Register
-						</router-link>
+						</x-button>
 					</div>
 					<div class="control">
 						<router-link :to="{ name: 'user.password-reset.request' }" class="reset-password-link">
@@ -73,9 +83,15 @@
 			</form>
 
 			<div v-if="openidConnect.enabled && openidConnect.providers && openidConnect.providers.length > 0" class="mt-4">
-				<a @click="redirectToProvider(p)" v-for="(p, k) in openidConnect.providers" :key="k" class="button is-fullwidth">
+				<x-button
+					@click="redirectToProvider(p)"
+					v-for="(p, k) in openidConnect.providers"
+					:key="k"
+					type="secondary"
+					class="is-fullwidth"
+				>
 					Log in with {{ p.name }}
-				</a>
+				</x-button>
 			</div>
 
 			<legal/>
@@ -155,11 +171,7 @@ export default {
 			}
 
 			this.$store.dispatch('auth/login', credentials)
-				.then(() => {
-					router.push({name: 'home'})
-				})
-				.catch(() => {
-				})
+				.catch(() => {})
 		},
 		redirectToProvider(provider) {
 			const state = Math.random().toString(36).substring(2, 24)
@@ -173,7 +185,7 @@ export default {
 
 <style scoped>
 .button {
-	margin: 0 0.4em 0 0;
+	margin: 0 0.4rem 0 0;
 }
 
 .reset-password-link {

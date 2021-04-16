@@ -35,9 +35,12 @@
 
 				<div class="field is-grouped">
 					<div class="control">
-						<button :class="{ 'is-loading': this.passwordResetService.loading}" class="button is-primary"
-								type="submit">Reset your password
-						</button>
+						<x-button
+							:loading="this.passwordResetService.loading"
+							@click="submit"
+						>
+							Reset your password
+						</x-button>
 					</div>
 				</div>
 				<div class="notification is-info" v-if="this.passwordResetService.loading">
@@ -51,7 +54,9 @@
 				<div class="notification is-success">
 					{{ successMessage }}
 				</div>
-				<router-link :to="{ name: 'user.login' }" class="button is-primary">Login</router-link>
+				<x-button :to="{ name: 'user.login' }">
+					Login
+				</x-button>
 			</div>
 			<legal/>
 		</div>
@@ -96,7 +101,7 @@ export default {
 			let passwordReset = new PasswordResetModel({newPassword: this.credentials.password})
 			this.passwordResetService.resetPassword(passwordReset)
 				.then(response => {
-					this.successMessage = response.data.message
+					this.successMessage = response.message
 					localStorage.removeItem('passwordResetToken')
 				})
 				.catch(e => {
@@ -109,6 +114,6 @@ export default {
 
 <style scoped>
 .button {
-	margin: 0 0.4em 0 0;
+	margin: 0 0.4rem 0 0;
 }
 </style>

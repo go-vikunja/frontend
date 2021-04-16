@@ -57,8 +57,13 @@ import {
 	faChessKnight,
 	faCoffee,
 	faCocktail,
+	faEllipsisH,
+	faArchive,
+	faShareAlt,
+	faImage,
+	faBell,
 } from '@fortawesome/free-solid-svg-icons'
-import {faCalendarAlt, faClock, faComments, faSave, faStar, faTimesCircle, faSun} from '@fortawesome/free-regular-svg-icons'
+import {faCalendarAlt, faClock, faComments, faSave, faStar, faTimesCircle, faSun, faBellSlash} from '@fortawesome/free-regular-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 // PWA
 import './registerServiceWorker'
@@ -68,7 +73,7 @@ import vueShortkey from 'vue-shortkey'
 // Mixins
 import message from './message'
 import {format, formatDistance} from 'date-fns'
-import {colorIsDark} from './helpers/colorIsDark'
+import {colorIsDark} from './helpers/color/colorIsDark'
 import {setTitle} from './helpers/setTitle'
 // Vuex
 import {store} from './store'
@@ -144,6 +149,12 @@ library.add(faSun)
 library.add(faChessKnight)
 library.add(faCoffee)
 library.add(faCocktail)
+library.add(faEllipsisH)
+library.add(faArchive)
+library.add(faShareAlt)
+library.add(faImage)
+library.add(faBell)
+library.add(faBellSlash)
 
 Vue.component('icon', FontAwesomeIcon)
 
@@ -162,9 +173,19 @@ const formatDate = (date, f) => {
 	return date ? format(date, f) : ''
 }
 
+import Button from '@/components/input/button'
+Vue.component('x-button', Button)
+
+import Card from '@/components/misc/card'
+Vue.component('card', Card)
+
 Vue.mixin({
 	methods: {
 		formatDateSince: date => {
+			if (date === null) {
+				return ''
+			}
+
 			if (typeof date === 'string') {
 				date = new Date(date)
 			}
@@ -181,12 +202,17 @@ Vue.mixin({
 			return formatted
 		},
 		formatDate: date => {
+			if (date === null) {
+				return ''
+			}
+
 			if (typeof date === 'string') {
 				date = new Date(date)
 			}
 			return date ? format(date, 'PPPPpppp') : ''
 		},
 		formatDateShort: date => {
+			console.log('short date', date)
 			return formatDate(date, 'PPpp')
 		},
 		error: (e, context, actions = []) => message.error(e, context, actions),

@@ -5,11 +5,11 @@
   font-size: 0.85rem;
   font-weight: bold;
   height: $button-height;
-  box-shadow: 0.3em 0.3em 1em lighten($dark, 75);
+  box-shadow: $shadow-sm;
 
   &.is-hovered,
   &:hover {
-    box-shadow: 0.6em 0.6em 1em lighten($dark, 75);
+    box-shadow: $shadow-md;
   }
 
   &.fullheight {
@@ -22,53 +22,11 @@
   &:active,
   &:focus,
   &:focus:not(:active) {
-    box-shadow: 0.1em 0.1em 0.7em lighten($dark, 75) !important;
-  }
-
-  &.icon-only {
-    padding-left: 16px;
-  }
-
-  @each $name, $pair in $colors {
-    $color: nth($pair, 1);
-
-    &.is-#{$name} {
-      box-shadow: 0.3em 0.3em 1em lighten($color, 30);
-
-      &.is-hovered,
-      &:hover {
-        box-shadow: 0.6em 0.6em 1em lighten($color, 30);
-      }
-
-      &.is-active,
-      &.is-focused,
-      &:active,
-      &:focus,
-      &:focus:not(:active) {
-        box-shadow: 0.1em 0.1em 0.7em lighten($color, 30) !important;
-      }
-
-      &.is-outlined {
-        border: 2px solid $color;
-      }
-    }
+    box-shadow: $shadow-xs !important;
   }
 
   &.is-primary.is-outlined:hover {
     color: $white;
-  }
-
-  &.noshadow {
-    &,
-    &.is-hovered,
-    &:hover,
-    &.is-active,
-    &.is-focused,
-    &:active,
-    &:focus,
-    &:focus:not(:active) {
-      box-shadow: none;
-    }
   }
 
   &.is-small {
@@ -78,6 +36,11 @@
 
 .field.has-addons .button {
   height: 2.5rem;
+  margin-left: 0 !important;
+}
+
+.field.has-addons .select select {
+  margin-right: 0;
 }
 
 .input,
@@ -102,21 +65,21 @@
       &:active,
       &:focus,
       &:focus:not(:active) {
-        border-color: darken($color, 10);
+        border-color: $color;
       }
     }
   }
 }
 
 .select:after {
-  margin-top: -0.575em;
+  margin-top: -0.575rem;
 }
 
 .select select {
   border-width: $thickness;
 
   &:not([multiple]) {
-    height: calc(2.25em + #{$thickness});
+    height: calc(2.25rem + #{$thickness});
   }
 
   &.is-active,
@@ -128,18 +91,8 @@
   }
 }
 
-.field.has-addons {
-  .control .select select {
-    height: 2.25em;
-  }
-}
-
-.bigbuttons {
-  margin-top: 0.5rem;
-}
-
-.buttonright {
-  margin-right: 0.5rem;
+.field.has-addons .control .select select {
+    height: 100%;
 }
 
 .control.has-icons-left .icon, .control.has-icons-right .icon {
@@ -171,9 +124,9 @@
   font-weight: 400 !important;
   background: transparent;
   border-color: transparent;
-  margin: 0 .3em;
+  margin: 0 .3rem;
   height: auto;
-  padding: .3em;
+  padding: .3rem;
 
   &:focus {
     background: $input-background-color;

@@ -1,8 +1,6 @@
 $remove-icon-width: 24px;
 
 .task-relations {
-  padding-bottom: 1em;
-
   &.is-narrow .columns {
     display: block;
 
@@ -11,11 +9,14 @@ $remove-icon-width: 24px;
     }
   }
 
-  .related-tasks {
-    margin-bottom: .75em;
+  .different-list {
+    color: $grey-500;
+    width: auto;
+  }
 
+  .related-tasks {
     .title {
-      font-size: 1em;
+      font-size: 1rem;
       margin: 0;
     }
 
@@ -24,16 +25,6 @@ $remove-icon-width: 24px;
 
       a:not(.remove) {
         width: calc(100% - #{$remove-icon-width});
-
-        .task {
-          padding: .5em;
-          max-width: 100%;
-
-          .different-list {
-            color: lighten($dark, 50);
-            width: auto;
-          }
-        }
       }
 
       .task .tasktext {

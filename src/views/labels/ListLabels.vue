@@ -1,11 +1,26 @@
 <template>
-	<div :class="{ 'is-loading': labelService.loading}" class="loader-container content">
-		<h1>Manage labels</h1>
-		<p>
-			Click on a label to edit it.
-			You can edit all labels you created, you can use all labels which are associated with a task to whose list
-			you have access.
-		</p>
+	<div :class="{ 'is-loading': labelService.loading}" class="loader-container">
+		<x-button
+			:to="{name:'labels.create'}"
+			class="is-pulled-right"
+			icon="plus"
+		>
+			New label
+		</x-button>
+
+		<div class="content">
+			<h1>Manage labels</h1>
+			<p v-if="labels.length > 0">
+				Click on a label to edit it.
+				You can edit all labels you created, you can use all labels which are associated with a task to whose
+				list you have access.
+			</p>
+			<p v-else class="has-text-centered has-text-grey is-italic">
+				You currently do not have any labels.
+				<router-link :to="{name:'labels.create'}">Create a new label.</router-link>
+			</p>
+		</div>
+
 		<div class="columns">
 			<div class="labels-list column">
 				<span
@@ -29,66 +44,55 @@
 				</span>
 			</div>
 			<div class="column is-4" v-if="isLabelEdit">
-				<div class="card">
-					<header class="card-header">
-						<span class="card-header-title">
-							Edit Label
-						</span>
-						<a @click="isLabelEdit = false" class="card-header-icon">
-							<span class="icon">
-								<icon icon="times"/>
-							</span>
-						</a>
-					</header>
-					<div class="card-content">
-						<form @submit.prevent="editLabelSubmit()">
-							<div class="field">
-								<label class="label">Title</label>
-								<div class="control">
-									<input
-										class="input"
-										placeholder="Label title"
-										type="text"
-										v-model="labelEditLabel.title"/>
-								</div>
+				<card title="Edit Label" :has-close="true" @close="() => isLabelEdit = false">
+					<form @submit.prevent="editLabelSubmit()">
+						<div class="field">
+							<label class="label">Title</label>
+							<div class="control">
+								<input
+									class="input"
+									placeholder="Label title"
+									type="text"
+									v-model="labelEditLabel.title"/>
 							</div>
-							<div class="field">
-								<label class="label">Description</label>
-								<div class="control">
-									<editor
-										:preview-is-default="false"
-										placeholder="Label description"
-										v-if="editorActive"
-										v-model="labelEditLabel.description"
-									/>
-								</div>
+						</div>
+						<div class="field">
+							<label class="label">Description</label>
+							<div class="control">
+								<editor
+									:preview-is-default="false"
+									placeholder="Label description"
+									v-if="editorActive"
+									v-model="labelEditLabel.description"
+								/>
 							</div>
-							<div class="field">
-								<label class="label">Color</label>
-								<div class="control">
-									<color-picker v-model="labelEditLabel.hexColor"/>
-								</div>
+						</div>
+						<div class="field">
+							<label class="label">Color</label>
+							<div class="control">
+								<color-picker v-model="labelEditLabel.hexColor"/>
 							</div>
-							<div class="field has-addons">
-								<div class="control is-expanded">
-									<button :class="{ 'is-loading': labelService.loading}" class="button is-fullwidth is-primary"
-											type="submit">
-										Save
-									</button>
-								</div>
-								<div class="control">
-									<a
-										@click="() => {deleteLabel(labelEditLabel);isLabelEdit = false}"
-										class="button has-icon is-danger">
-										<span class="icon">
-											<icon icon="trash-alt"/>
-										</span>
-									</a>
-								</div>
+						</div>
+						<div class="field has-addons">
+							<div class="control is-expanded">
+								<x-button
+									:loading="labelService.loading"
+									class="is-fullwidth"
+									@click="editLabelSubmit()"
+								>
+									Save
+								</x-button>
 							</div>
-						</form>
-					</div>
-				</div>
+							<div class="control">
+								<x-button
+									@click="() => {deleteLabel(labelEditLabel);isLabelEdit = false}"
+									icon="trash-alt"
+									class="is-danger"
+								/>
+							</div>
+						</div>
+					</form>
+				</card>
 			</div>
 		</div>
 	</div>

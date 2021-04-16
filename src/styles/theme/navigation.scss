@@ -1,15 +1,6 @@
 .navbar {
   z-index: 2;
 
-  @each $name, $pair in $colors {
-    $color: nth($pair, 1);
-    $color-invert: nth($pair, 2);
-
-    &.is-#{$name} {
-      border-color: darken($color, 5);
-    }
-  }
-
   .navbar-dropdown {
     box-shadow: $navbar-dropdown-boxed-shadow;
     top: 101%;
@@ -38,6 +29,7 @@
   .navbar-end {
     margin-left: 0;
     align-items: center;
+    display: flex;
   }
 
   @media screen and (max-width: $desktop) {
@@ -75,31 +67,8 @@
   }
 }
 
-.hero {
-  .navbar {
-    border: none;
-    box-shadow: none;
-  }
-
-  @each $name, $pair in $colors {
-    $color: nth($pair, 1);
-    $color-invert: nth($pair, 2);
-
-    &.is-#{$name} {
-      .navbar {
-        box-shadow: none;
-      }
-    }
-  }
-  @include touch {
-    .navbar-menu {
-      box-shadow: none;
-    }
-  }
-}
-
 .navbar-menu .navbar-item .icon {
-  margin: 0 0.5em;
+  margin: 0 0.5rem;
 }
 
 .navbar {
@@ -119,7 +88,7 @@
     overflow-x: auto;
     width: $navbar-width;
 
-    padding: 0 0 1em;
+    padding: 0 0 1rem;
     left: -147vw;
     bottom: 0;
 
@@ -134,19 +103,16 @@
 
     .menu {
       .menu-label {
-        font-size: 1em;
+        font-size: 1rem;
         font-weight: 700;
         font-weight: bold;
         font-family: $vikunja-font;
-        color: $grey;
+        color: $vikunja-nav-color;
         font-weight: 500;
-        min-height: 2.5em;
-        padding-top: $navbar-padding * 0.3;
+        min-height: 2.5rem;
+        padding-top: 0;
         padding-left: $navbar-padding;
 
-        display: block;
-        white-space: nowrap;
-        text-overflow: ellipsis;
         overflow: hidden;
       }
 
@@ -163,8 +129,8 @@
         }
 
         .color-bubble {
-          width: 14px; // Without this, the bubble is only 10.2342357612px wide and seems squashed.
           height: 12px;
+          flex: 0 0 12px;
         }
 
         .favorite {
@@ -198,55 +164,73 @@
         }
       }
 
-      .nsettings {
-        float: right;
-        padding: 10px 0.3em 0;
+      .namespace-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .menu-label {
+          margin-bottom: 0;
+          flex: 1 1 auto;
+
+          .name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+
+        a:not(.dropdown-item) {
+          color: $vikunja-nav-color;
+          padding: 0 .25rem;
+        }
+
+        .dropdown-trigger {
+          padding: .5rem;
+          cursor: pointer;
+        }
       }
 
       .menu-label, .nsettings, .menu-list span.list-menu-link, .menu-list a {
         color: $vikunja-nav-color;
       }
 
-      .checkinput {
-        display: none;
-      }
-
-      .checkinput:checked + .more-container {
-        .menu-list.can-be-hidden {
-          opacity: 1;
-          height: auto;
-        }
-      }
-
-      .checkinput:not(:checked) + .more-container .hidden-hint {
-        opacity: 1;
-        height: auto;
-      }
-
       .hidden-hint {
         display: block;
-        opacity: 0;
-        height: 0;
         text-align: center;
-        color: $grey;
+        color: $grey-500;
         cursor: pointer;
-        font-size: 0.8em;
+        font-size: 0.75rem;
       }
 
       .menu-list {
-        &.can-be-hidden {
-          transition: all $transition;
-          height: 0;
-          overflow: hidden;
-          opacity: 0;
-        }
-
         li {
           height: 44px;
+          display: flex;
+          align-items: center;
+
+          .dropdown-trigger {
+            opacity: 0;
+            padding: .5rem;
+            cursor: pointer;
+            transition: $transition;
+          }
+
+          &:hover {
+            background: $white;
+
+            .dropdown-trigger {
+              opacity: 1;
+            }
+          }
         }
 
-        span.list-menu-link, a {
-          padding: 0.75em .5em 0.75em $navbar-padding * 1.5;
+        a:hover {
+          background: transparent;
+        }
+
+        span.list-menu-link, li > a {
+          padding: 0.75rem .5rem 0.75rem $navbar-padding * 1.5;
           transition: all 0.2s ease;
 
           -webkit-border-radius: 0;
@@ -259,16 +243,15 @@
           border-left: $vikunja-nav-selected-width solid transparent;
 
           .icon {
-            color: lighten($vikunja-nav-color, 20);
             height: 1rem;
             vertical-align: middle;
             padding-bottom: 4px;
-            padding-right: 0.5em;
+            padding-right: 0.5rem;
           }
 
           &.router-link-exact-active {
             color: $primary;
-            border-left: $vikunja-nav-selected-width solid darken($primary, 5%);
+            border-left: $vikunja-nav-selected-width solid $primary;
 
             .icon {
               color: $primary;
@@ -276,10 +259,8 @@
           }
 
           &:hover {
-            background: $white;
-            border-left: $vikunja-nav-selected-width solid darken($primary, 3%);
+            border-left: $vikunja-nav-selected-width solid $primary;
           }
-
         }
       }
 
@@ -296,11 +277,15 @@
       }
 
       &.loader-container.is-loading:after {
-        width: 1.5em;
-        height: 1.5em;
-        top: calc(50% - .75em);
-        left: calc(50% - .75em);
+        width: 1.5rem;
+        height: 1.5rem;
+        top: calc(50% - .75rem);
+        left: calc(50% - .75rem);
         border-width: 2px;
+      }
+
+      .icon {
+        color: $grey-400;
       }
     }
 
@@ -313,8 +298,8 @@
           font-family: $vikunja-font;
         }
 
-        span.list-menu-link, a {
-          padding-left: 2em;
+        span.list-menu-link, li > a {
+          padding-left: 2rem;
           display: inline-block;
         }
       }
@@ -336,7 +321,7 @@
   }
 
   .logout-icon {
-    color: lighten($black, 10);
+    color: $grey-900;
 
     .icon {
       vertical-align: middle;
@@ -353,24 +338,18 @@
       box-shadow: none !important;
     }
   }
-
-  .dropdown-menu {
-    .dropdown-content {
-      box-shadow: 0.3em 0.3em 0.8em darken($light, 6);
-    }
-  }
 }
 
 .menu-hide-button, .menu-show-button {
   display: none;
   z-index: 31;
   font-weight: bold;
-  font-size: 2em;
-  color: $dark;
+  font-size: 2rem;
+  color: $text;
   line-height: 1;
 
   &:hover, &:focus {
-    color: darken($dark, 20);
+    color: $grey-900;
   }
 }
 
@@ -378,7 +357,7 @@
   position: fixed;
 
   &:hover, &:focus {
-    color: $dark;
+    color: $text;
   }
 }
 
@@ -422,14 +401,14 @@
 }
 
 .logout-icon {
-  margin-right: 0.85em !important;
+  margin-right: 0.85rem !important;
 }
 
 .menu-bottom-link {
   width: 100%;
-  color: $grey-light;
+  color: $grey-300;
   text-align: center;
   display: block;
-  margin: 1em 0;
-  font-size: .8em;
+  margin: 1rem 0;
+  font-size: .8rem;
 }

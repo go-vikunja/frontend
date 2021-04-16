@@ -21,19 +21,22 @@ describe('Lists', () => {
 
 	it('Should create a new list', () => {
 		cy.visit('/')
-		cy.get('a.nsettings[href="/namespaces/1/list"]')
+		cy.get('.namespace-title .dropdown-trigger')
+			.click()
+		cy.get('.namespace-title .dropdown .dropdown-item')
+			.contains('New list')
 			.click()
 		cy.url()
 			.should('contain', '/namespaces/1/list')
-		cy.get('h3')
+		cy.get('.card-header-title')
 			.contains('Create a new list')
 		cy.get('input.input')
 			.type('New List')
-		cy.get('button.is-success')
-			.contains('Add')
+		cy.get('.button')
+			.contains('Create')
 			.click()
 
-		cy.wait(3000) // Waiting until the request to create the new list is done
+		cy.wait(1000) // Waiting until the request to create the new list is done
 		cy.get('.global-notification')
 			.should('contain', 'Success')
 		cy.url()
@@ -58,11 +61,11 @@ describe('Lists', () => {
 				.should('contain', '/lists/1/list')
 			cy.get('.list-title h1')
 				.should('contain', 'First List')
-			cy.get('.list-title a.icon')
-				.should('have.attr', 'href')
-				.and('include', '/lists/1/edit')
-			cy.get('.list-is-empty-notice')
-				.should('contain', 'This list is currently empty.')
+			cy.get('.list-title .dropdown')
+				.should('exist')
+			cy.get('p')
+				.contains('This list is currently empty.')
+				.should('exist')
 		})
 
 		it('Should navigate to the task when the title is clicked', () => {
@@ -98,6 +101,44 @@ describe('Lists', () => {
 				.should('not.exist')
 			cy.get('input.input[placeholder="Add a new task..."')
 				.should('not.exist')
+		})
+
+		it('Should only show the color of a list in the navigation and not in the list view', () => {
+			const lists = ListFactory.create(1, {
+				hex_color: '00db60',
+			})
+			TaskFactory.create(10, {
+				list_id: lists[0].id,
+			})
+			cy.visit(`/lists/${lists[0].id}/`)
+
+			cy.get('.menu-list li .list-menu-link .color-bubble')
+				.should('have.css', 'background-color', 'rgb(0, 219, 96)')
+			cy.get('.tasks-container .tasks .color-bubble')
+				.should('not.exist')
+		})
+
+		it('Should paginate for > 50 tasks', () => {
+			const tasks = TaskFactory.create(100, {
+				id: '{increment}',
+				title: i => `task${i}`,
+				list_id: 1,
+			})
+			cy.visit('/lists/1/list')
+
+			cy.get('.tasks-container .tasks')
+				.should('contain', tasks[99].title)
+
+			cy.get('.card-content .pagination .pagination-link')
+				.contains('2')
+				.click()
+
+			cy.url()
+				.should('contain', '?page=2')
+			cy.get('.tasks-container .tasks')
+				.should('contain', tasks[1].title)
+			cy.get('.tasks-container .tasks')
+				.should('not.contain', tasks[99].title)
 		})
 	})
 
@@ -141,9 +182,8 @@ describe('Lists', () => {
 			})
 			cy.visit('/lists/1/table')
 
-			cy.get('.table-view table.table a')
+			cy.get('.table-view table.table')
 				.contains(tasks[0].title)
-				.first()
 				.click()
 
 			cy.url()
@@ -156,7 +196,7 @@ describe('Lists', () => {
 			TaskFactory.create(1)
 			cy.visit('/lists/1/gantt')
 
-			cy.get('.gantt-chart-container .gantt-chart.box .tasks')
+			cy.get('.gantt-chart-container .gantt-chart .tasks')
 				.should('be.empty')
 		})
 
@@ -164,7 +204,7 @@ describe('Lists', () => {
 			const now = new Date()
 			cy.visit('/lists/1/gantt')
 
-			cy.get('.gantt-chart-container .gantt-chart.box .months')
+			cy.get('.gantt-chart-container .gantt-chart .months')
 				.should('contain', format(now, 'MMMM'))
 				.should('contain', format(now.setMonth(now.getMonth() + 1), 'MMMM'))
 		})
@@ -177,9 +217,9 @@ describe('Lists', () => {
 			})
 			cy.visit('/lists/1/gantt')
 
-			cy.get('.gantt-chart-container .gantt-chart.box .tasks')
+			cy.get('.gantt-chart-container .gantt-chart .tasks')
 				.should('not.be.empty')
-			cy.get('.gantt-chart-container .gantt-chart.box .tasks')
+			cy.get('.gantt-chart-container .gantt-chart .tasks')
 				.should('contain', tasks[0].title)
 		})
 
@@ -194,9 +234,9 @@ describe('Lists', () => {
 				.contains('Show tasks which don\'t have dates set')
 				.click()
 
-			cy.get('.gantt-chart-container .gantt-chart.box .tasks')
+			cy.get('.gantt-chart-container .gantt-chart .tasks')
 				.should('not.be.empty')
-			cy.get('.gantt-chart-container .gantt-chart.box .tasks .task.nodate')
+			cy.get('.gantt-chart-container .gantt-chart .tasks .task.nodate')
 				.should('exist')
 		})
 
@@ -208,7 +248,7 @@ describe('Lists', () => {
 			})
 			cy.visit('/lists/1/gantt')
 
-			cy.get('.gantt-chart-container .gantt-chart.box .tasks .task')
+			cy.get('.gantt-chart-container .gantt-chart .tasks .task')
 				.first()
 				.trigger('mousedown', {which: 1})
 				.trigger('mousemove', {clientX: 500, clientY: 0})
@@ -327,6 +367,9 @@ describe('Lists', () => {
 			cy.get('.kanban .bucket .title')
 				.contains(buckets[0].title)
 				.should('not.exist')
+			cy.get('.kanban .bucket .title')
+				.contains(buckets[1].title)
+				.should('exist')
 		})
 
 
@@ -358,13 +401,50 @@ describe('Lists', () => {
 			})
 			cy.visit('/lists/1/kanban')
 
-			cy.get('.kanban .bucket .tasks .task')
+			cy.getAttached('.kanban .bucket .tasks .task')
 				.contains(tasks[0].title)
-				.first()
+				.should('be.visible')
 				.click()
 
 			cy.url()
 				.should('contain', `/tasks/${tasks[0].id}`)
+		})
+
+		it('Should remove a task from the kanban board when moving it to another list', () => {
+			const lists = ListFactory.create(2)
+			BucketFactory.create(2, {
+				list_id: '{increment}',
+			})
+			const tasks = TaskFactory.create(5, {
+				id: '{increment}',
+				list_id: 1,
+				bucket_id: 1,
+			})
+			const task = tasks[0]
+			cy.visit('/lists/1/kanban')
+
+			cy.getAttached('.kanban .bucket .tasks .task')
+				.contains(task.title)
+				.should('be.visible')
+				.click()
+
+			cy.get('.task-view .action-buttons .button')
+				.contains('Move task')
+				.click()
+			cy.get('.task-view .content.details .field .multiselect.control .input-wrapper input')
+				.type(`${lists[1].title}{enter}`)
+			// The requests happen with a 200ms timeout. Because of that, the results are not yet there when cypress
+			// presses enter and we can't simulate pressing on enter to select the item.
+			cy.get('.task-view .content.details .field .multiselect.control .search-results')
+				.children()
+				.first()
+				.click()
+
+			cy.get('.global-notification')
+				.should('contain', 'Success')
+			cy.go('back')
+			cy.get('.kanban .bucket')
+				.should('not.contain', task.title)
 		})
 	})
 })

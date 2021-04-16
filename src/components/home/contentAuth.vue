@@ -12,7 +12,6 @@
 			<div
 				:class="[
 					{
-						'fullpage-overlay': fullpage,
 						'is-menu-enabled': menuActive,
 					},
 					$route.name,
@@ -20,9 +19,13 @@
 				class="app-content"
 			>
 				<a @click="$store.commit('menuActive', false)" class="mobile-overlay" v-if="menuActive"></a>
-				<transition name="fade">
-					<router-view/>
+				
+				<router-view/>
+				
+				<transition name="modal">
+					<router-view name="popup"/>
 				</transition>
+				
 				<a @click="$store.commit('keyboardShortcutsActive', true)" class="keyboard-shortcuts-button">
 					<icon icon="keyboard"/>
 				</a>
@@ -33,7 +36,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import {CURRENT_LIST, IS_FULLPAGE, MENU_ACTIVE} from '@/store/mutation-types'
+import {CURRENT_LIST, MENU_ACTIVE} from '@/store/mutation-types'
 import Navigation from '@/components/home/navigation'
 
 export default {
@@ -46,7 +49,6 @@ export default {
 		this.renewTokenOnFocus()
 	},
 	computed: mapState({
-		fullpage: IS_FULLPAGE,
 		namespaces(state) {
 			return state.namespaces.namespaces.filter(n => !n.isArchived)
 		},
@@ -54,11 +56,11 @@ export default {
 		background: 'background',
 		menuActive: MENU_ACTIVE,
 		userInfo: state => state.auth.info,
+		authenticated: state => state.auth.authenticated,
 	}),
 	methods: {
 		doStuffAfterRoute() {
 			// this.setTitle('') // Reset the title if the page component does not set one itself
-			this.$store.commit(IS_FULLPAGE, false)
 			this.hideMenuOnMobile()
 			this.resetCurrentList()
 		},
@@ -87,7 +89,11 @@ export default {
 			// Check if the token is still valid if the window gets focus again to maybe renew it
 			window.addEventListener('focus', () => {
 
-				const expiresIn = this.userInfo.exp - +new Date() / 1000
+				if (!this.authenticated) {
+					return
+				}
+
+				const expiresIn = (this.userInfo !== null ? this.userInfo.exp : 0) - +new Date() / 1000
 
 				// If the token expiry is negative, it is already expired and we have no choice but to redirect
 				// the user to the login page

@@ -2,12 +2,16 @@
 	<div :class="{'is-loading': taskService.loading}" class="task loader-container">
 		<fancycheckbox :disabled="isArchived || disabled" @change="markAsDone" v-model="task.done"/>
 		<span
+			v-if="showListColor && listColor !== ''"
 			:style="{backgroundColor: listColor }"
 			class="color-bubble"
-			v-if="listColor !== ''">
+		>
 		</span>
-		<span :class="{ 'done': task.done}" class="tasktext">
-			<router-link :to="{ name: taskDetailRoute, params: { id: task.id } }">
+		<router-link
+			:to="{ name: taskDetailRoute, params: { id: task.id } }"
+			:class="{ 'done': task.done}"
+			class="tasktext">
+			<span>
 				<router-link
 					:to="{ name: 'list.list', params: { listId: task.listId } }"
 					class="task-list"
@@ -24,7 +28,7 @@
 					>
 				</span>
 				{{ task.title }}
-			</router-link>
+			</span>
 
 			<labels :labels="task.labels"/>
 			<user
@@ -37,17 +41,31 @@
 			/>
 			<i
 				:class="{'overdue': task.dueDate <= new Date() && !task.done}"
-				@click.stop="showDefer = !showDefer"
+				@click.prevent.stop="showDefer = !showDefer"
 				v-if="+new Date(task.dueDate) > 0"
 				v-tooltip="formatDate(task.dueDate)"
 			>
 				- Due {{ formatDateSince(task.dueDate) }}
 			</i>
 			<transition name="fade">
-				<defer-task v-if="+new Date(task.dueDate) > 0 && showDefer" v-model="task"/>
+				<defer-task v-if="+new Date(task.dueDate) > 0 && showDefer" v-model="task" ref="deferDueDate"/>
 			</transition>
 			<priority-label :priority="task.priority"/>
-		</span>
+			<span>
+				<span class="list-task-icon" v-if="task.attachments.length > 0">
+					<icon icon="paperclip"/>
+				</span>
+				<span class="list-task-icon" v-if="task.description">
+					<icon icon="align-left"/>
+				</span>
+			</span>
+		</router-link>
+		<progress
+			class="progress is-small"
+			v-if="task.percentDone > 0"
+			:value="task.percentDone * 100" max="100">
+			{{ task.percentDone * 100 }}%
+		</progress>
 		<router-link
 			:to="{ name: 'list.list', params: { listId: task.listId } }"
 			class="task-list"
@@ -74,6 +92,8 @@ import Labels from './labels'
 import User from '../../misc/user'
 import Fancycheckbox from '../../input/fancycheckbox'
 import DeferTask from './defer-task'
+import {closeWhenClickedOutside} from '@/helpers/closeWhenClickedOutside'
+import {playPop} from '@/helpers/playPop'
 
 export default {
 	name: 'singleTaskInList',
@@ -112,6 +132,10 @@ export default {
 			type: Boolean,
 			default: false,
 		},
+		showListColor: {
+			type: Boolean,
+			default: true,
+		}
 	},
 	watch: {
 		theTask(newVal) {
@@ -120,10 +144,14 @@ export default {
 	},
 	mounted() {
 		this.task = this.theTask
+		document.addEventListener('click', this.hideDeferDueDatePopup)
 	},
 	created() {
 		this.task = new TaskModel()
 		this.taskService = new TaskService()
+	},
+	beforeDestroy() {
+		document.removeEventListener('click', this.hideDeferDueDatePopup)
 	},
 	computed: {
 		listColor() {
@@ -142,6 +170,9 @@ export default {
 			const updateFunc = () => {
 				this.taskService.update(this.task)
 					.then(t => {
+						if (this.task.done) {
+							playPop()
+						}
 						this.task = t
 						this.$emit('task-updated', t)
 						this.success(
@@ -149,11 +180,10 @@ export default {
 							this,
 							[{
 								title: 'Undo',
-								callback: () => this.markAsDone({
-									target: {
-										checked: !checked,
-									},
-								}),
+								callback: () => {
+									this.task.done = !this.task.done
+									this.markAsDone(!checked)
+								}
 							}],
 						)
 					})
@@ -179,6 +209,13 @@ export default {
 				.catch(e => {
 					this.error(e, this)
 				})
+		},
+		hideDeferDueDatePopup(e) {
+			if (this.showDefer) {
+				closeWhenClickedOutside(e, this.$refs.deferDueDate.$el, () => {
+					this.showDefer = false
+				})
+			}
 		},
 	},
 }

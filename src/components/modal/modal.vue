@@ -1,18 +1,32 @@
 <template>
 	<transition name="modal">
 		<div class="modal-mask">
-			<div class="modal-container">
-				<div class="modal-content">
-					<div class="header">
-						<slot name="header"></slot>
-					</div>
-					<div class="content">
-						<slot name="text"></slot>
-					</div>
-					<div class="actions">
-						<button @click="$emit('close')" class="button is-danger is-inverted noshadow">Cancel</button>
-						<button @click="$emit('submit')" class="button is-success noshadow">Do it!</button>
-					</div>
+			<div class="modal-container" @click.self.prevent.stop="$emit('close')">
+				<div class="modal-content" :class="{'has-overflow': overflow, 'is-wide': wide}">
+					<slot>
+						<div class="header">
+							<slot name="header"></slot>
+						</div>
+						<div class="content">
+							<slot name="text"></slot>
+						</div>
+						<div class="actions">
+							<x-button
+								@click="$emit('close')"
+								type="tertary"
+								class="has-text-danger"
+							>
+								Cancel
+							</x-button>
+							<x-button
+								@click="$emit('submit')"
+								type="primary"
+								:shadow="false"
+							>
+								Do it!
+							</x-button>
+						</div>
+					</slot>
 				</div>
 			</div>
 		</div>
@@ -29,6 +43,16 @@ export default {
 				this.$emit('close')
 			}
 		})
+	},
+	props: {
+		overflow: {
+			type: Boolean,
+			default: false,
+		},
+		wide: {
+			type: Boolean,
+			default: false,
+		},
 	},
 }
 </script>

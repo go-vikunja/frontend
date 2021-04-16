@@ -1,15 +1,17 @@
 <template>
-	<div class="noauth-container">
-		<img alt="Vikunja" src="/images/logo-full.svg"/>
-		<div class="message is-info" v-if="motd !== ''">
-			<div class="message-header">
-				<p>Info</p>
+	<div class="no-auth-wrapper">
+		<div class="noauth-container">
+			<img alt="Vikunja" src="/images/logo-full.svg"/>
+			<div class="message is-info" v-if="motd !== ''">
+				<div class="message-header">
+					<p>Info</p>
+				</div>
+				<div class="message-body">
+					{{ motd }}
+				</div>
 			</div>
-			<div class="message-body">
-				{{ motd }}
-			</div>
+			<router-view/>
 		</div>
-		<router-view/>
 	</div>
 </template>
 
@@ -33,7 +35,9 @@ export default {
 				this.$route.name !== 'user.password-reset.reset' &&
 				this.$route.name !== 'user.register' &&
 				this.$route.name !== 'link-share.auth' &&
-				this.$route.name !== 'openid.auth'
+				this.$route.name !== 'openid.auth' &&
+				localStorage.getItem('passwordResetToken') === null &&
+				localStorage.getItem('emailConfirmToken') === null
 			) {
 				this.$router.push({name: 'user.login'})
 			}

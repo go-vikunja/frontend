@@ -1,22 +1,34 @@
 <template>
 	<div class="content has-text-centered">
-		<h2>Hi {{ userInfo.name !== '' ? userInfo.name : userInfo.username }}!</h2>
+		<h2>
+			Hi {{ userInfo.name !== '' ? userInfo.name : userInfo.username }}!
+		</h2>
 		<template v-if="!hasTasks">
-			<p>Click on a list or namespace on the left to get started.</p>
-			<router-link
-				:to="{name: 'migrate.start'}"
-				class="button is-primary is-right noshadow is-outlined"
-				v-if="migratorsEnabled"
+			<p>You can create a new list for your new tasks:</p>
+			<x-button
+				:to="{name: 'list.create', params: { id: defaultNamespaceId }}"
+				:shadow="false"
+				class="ml-2"
+				v-if="defaultNamespaceId > 0"
 			>
+				Create a new list
+			</x-button>
+			<p class="mt-4" v-if="migratorsEnabled">
+				Or import your lists and tasks from other services into Vikunja:
+			</p>
+			<x-button
+				v-if="migratorsEnabled"
+				:to="{ name: 'migrate.start' }"
+				:shadow="false">
 				Import your data into Vikunja
-			</router-link>
+			</x-button>
 		</template>
-		<ShowTasks :show-all="true"/>
+		<ShowTasks :show-all="true" v-if="hasLists"/>
 	</div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 import ShowTasks from './tasks/ShowTasks'
 
 export default {
@@ -36,6 +48,20 @@ export default {
 		authenticated: state => state.auth.authenticated,
 		userInfo: state => state.auth.info,
 		hasTasks: state => state.hasTasks,
+		defaultNamespaceId: state => {
+			if (state.namespaces.namespaces.length === 0) {
+				return 0
+			}
+
+			return state.namespaces.namespaces[0].id
+		},
+		hasLists: state => {
+			if (state.namespaces.namespaces.length === 0) {
+				return false
+			}
+
+			return state.namespaces.namespaces[0].lists.length > 0
+		},
 	}),
 }
 </script>

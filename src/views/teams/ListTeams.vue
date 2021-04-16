@@ -1,19 +1,27 @@
 <template>
 	<div class="content loader-container is-max-width-desktop" v-bind:class="{ 'is-loading': teamService.loading}">
-		<router-link :to="{name:'teams.create'}" class="button is-success button-right">
-			<span class="icon is-small">
-				<icon icon="plus"/>
-			</span>
+		<x-button
+			:to="{name:'teams.create'}"
+			class="is-pulled-right"
+			icon="plus"
+		>
 			New Team
-		</router-link>
+		</x-button>
+
 		<h1>Teams</h1>
-		<ul class="teams box">
+		<ul class="teams box" v-if="teams.length > 0">
 			<li :key="t.id" v-for="t in teams">
 				<router-link :to="{name: 'teams.edit', params: {id: t.id}}">
 					{{ t.name }}
 				</router-link>
 			</li>
 		</ul>
+		<p v-else-if="!teamService.loading" class="has-text-centered has-text-grey is-italic">
+			You are currently not part of any teams.
+			<router-link :to="{name: 'teams.create'}">
+				Create a new team.
+			</router-link>
+		</p>
 	</div>
 </template>
 

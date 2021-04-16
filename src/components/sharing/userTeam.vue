@@ -1,115 +1,132 @@
 <template>
-	<div class="card is-fullwidth">
-		<header class="card-header">
-			<p class="card-header-title">
-				Shared with these {{ shareType }}s
-			</p>
-		</header>
-		<div class="card-content content sharables-list">
-			<form @submit.prevent="add()" class="add-form" v-if="userIsAdmin">
-				<div class="field is-grouped">
-					<p class="control is-expanded" v-bind:class="{ 'is-loading': searchService.loading}">
-						<multiselect
-							:internal-search="true"
-							:label="searchLabel"
-							:loading="searchService.loading"
-							:multiple="false"
-							:options="found"
-							:searchable="true"
-							:showNoOptions="false"
-							@search-change="find"
-							placeholder="Type to search..."
-							track-by="id"
-							v-model="sharable">
-							<template slot="clear" slot-scope="props">
-								<div
-									@mousedown.prevent.stop="clearAll(props.search)"
-									class="multiselect__clear"
-									v-if="sharable.id !== 0"></div>
-							</template>
-							<span slot="noResult">
-								Oops! No {{ shareType }} found. Consider changing the search query.
-							</span>
-						</multiselect>
-					</p>
-					<p class="control">
-						<button class="button is-success" type="submit">
-								<span class="icon is-small">
-									<icon icon="plus"/>
-								</span>
-							Add
-						</button>
-					</p>
-				</div>
-			</form>
-			<table class="table is-striped is-hoverable is-fullwidth">
-				<tbody>
-				<tr :key="s.id" v-for="s in sharables">
-					<template v-if="shareType === 'user'">
-						<td>{{ s.getDisplayName() }}</td>
-						<td>
-							<template v-if="s.id === userInfo.id">
-								<b class="is-success">You</b>
-							</template>
-						</td>
-					</template>
-					<template v-if="shareType === 'team'">
-						<td>
-							<router-link :to="{name: 'teams.edit', params: {id: s.id}}">
-								{{ s.name }}
-							</router-link>
-						</td>
-					</template>
-					<td class="type">
-						<template v-if="s.right === rights.ADMIN">
+	<div>
+		<p class="has-text-weight-bold">Shared with these {{ shareType }}s</p>
+		<div v-if="userIsAdmin">
+			<div class="field has-addons">
+				<p
+					class="control is-expanded"
+					:class="{ 'is-loading': searchService.loading }"
+				>
+					<multiselect
+						:loading="searchService.loading"
+						placeholder="Type to search..."
+						@search="find"
+						:search-results="found"
+						:label="searchLabel"
+						v-model="sharable"
+					/>
+				</p>
+				<p class="control">
+					<x-button @click="add()"> Share</x-button>
+				</p>
+			</div>
+		</div>
+
+		<table class="table has-actions is-striped is-hoverable is-fullwidth mb-4" v-if="sharables.length > 0">
+			<tbody>
+			<tr :key="s.id" v-for="s in sharables">
+				<template v-if="shareType === 'user'">
+					<td>{{ s.getDisplayName() }}</td>
+					<td>
+						<template v-if="s.id === userInfo.id">
+							<b class="is-success">You</b>
+						</template>
+					</td>
+				</template>
+				<template v-if="shareType === 'team'">
+					<td>
+						<router-link
+							:to="{
+									name: 'teams.edit',
+									params: { id: s.id },
+								}"
+						>
+							{{ s.name }}
+						</router-link>
+					</td>
+				</template>
+				<td class="type">
+					<template v-if="s.right === rights.ADMIN">
 							<span class="icon is-small">
 								<icon icon="lock"/>
 							</span>
-							Admin
-						</template>
-						<template v-else-if="s.right === rights.READ_WRITE">
+						Admin
+					</template>
+					<template v-else-if="s.right === rights.READ_WRITE">
 							<span class="icon is-small">
 								<icon icon="pen"/>
 							</span>
-							Write
-						</template>
-						<template v-else>
+						Write
+					</template>
+					<template v-else>
 							<span class="icon is-small">
 								<icon icon="users"/>
 							</span>
-							Read-only
-						</template>
-					</td>
-					<td class="actions" v-if="userIsAdmin">
-						<div class="select">
-							<select @change="toggleType(s)" class="button buttonright" v-model="selectedRight[s.id]">
-								<option :selected="s.right === rights.READ" :value="rights.READ">Read only</option>
-								<option :selected="s.right === rights.READ_WRITE" :value="rights.READ_WRITE">Read &
-									write
-								</option>
-								<option :selected="s.right === rights.ADMIN" :value="rights.ADMIN">Admin</option>
-							</select>
-						</div>
-						<button @click="() => {sharable = s; showDeleteModal = true}"
-								class="button is-danger icon-only">
-							<span class="icon is-small">
-								<icon icon="trash-alt"/>
-							</span>
-						</button>
-					</td>
-				</tr>
-				</tbody>
-			</table>
-		</div>
+						Read-only
+					</template>
+				</td>
+				<td class="actions" v-if="userIsAdmin">
+					<div class="select">
+						<select
+							@change="toggleType(s)"
+							class="button mr-2"
+							v-model="selectedRight[s.id]"
+						>
+							<option
+								:selected="s.right === rights.READ"
+								:value="rights.READ"
+							>
+								Read only
+							</option>
+							<option
+								:selected="s.right === rights.READ_WRITE"
+								:value="rights.READ_WRITE"
+							>
+								Read & write
+							</option>
+							<option
+								:selected="s.right === rights.ADMIN"
+								:value="rights.ADMIN"
+							>
+								Admin
+							</option>
+						</select>
+					</div>
+					<x-button
+						@click="
+								() => {
+									sharable = s
+									showDeleteModal = true
+								}
+							"
+						class="is-danger"
+						icon="trash-alt"
+					/>
+				</td>
+			</tr>
+			</tbody>
+		</table>
 
-		<modal
-			@close="showDeleteModal = false"
-			@submit="deleteSharable()"
-			v-if="showDeleteModal">
-			<span slot="header">Remove a {{ shareType }} from the {{ typeString }}</span>
-			<p slot="text">Are you sure you want to remove this {{ shareType }} from the {{ typeString }}?<br/>
-				<b>This CANNOT BE UNDONE!</b></p>
-		</modal>
+		<nothing v-else>
+			Not shared with any {{ shareType }} yet.
+		</nothing>
+
+		<transition name="modal">
+			<modal
+				@close="showDeleteModal = false"
+				@submit="deleteSharable()"
+				v-if="showDeleteModal"
+			>
+			<span slot="header"
+			>Remove a {{ shareType }} from the {{ typeString }}</span
+			>
+				<p slot="text">
+					Are you sure you want to remove this {{ shareType }} from the
+					{{ typeString }}?<br/>
+					<b>This CANNOT BE UNDONE!</b>
+				</p>
+			</modal>
+		</transition>
 	</div>
 </template>
 
@@ -131,8 +148,8 @@ import TeamService from '../../services/team'
 import TeamModel from '../../models/team'
 
 import rights from '../../models/rights'
-import LoadingComponent from '../misc/loading'
-import ErrorComponent from '../misc/error'
+import Multiselect from '@/components/input/multiselect'
+import Nothing from '@/components/misc/nothing'
 
 export default {
 	name: 'userTeamShare',
@@ -172,18 +189,13 @@ export default {
 		}
 	},
 	components: {
-		multiselect: () => ({
-			component: import(/* webpackChunkName: "multiselect" */ 'vue-multiselect'),
-			loading: LoadingComponent,
-			error: ErrorComponent,
-			timeout: 60000,
-		}),
+		Nothing,
+		Multiselect,
 	},
 	computed: mapState({
-		userInfo: state => state.auth.info,
+		userInfo: (state) => state.auth.info,
 	}),
 	created() {
-
 		if (this.shareType === 'user') {
 			this.searchService = new UserService()
 			this.sharable = new UserModel()
@@ -196,7 +208,9 @@ export default {
 			} else if (this.type === 'namespace') {
 				this.typeString = `namespace`
 				this.stuffService = new UserNamespaceService()
-				this.stuffModel = new UserNamespaceModel({namespaceId: this.id})
+				this.stuffModel = new UserNamespaceModel({
+					namespaceId: this.id,
+				})
 			} else {
 				throw new Error('Unknown type: ' + this.type)
 			}
@@ -212,7 +226,9 @@ export default {
 			} else if (this.type === 'namespace') {
 				this.typeString = `namespace`
 				this.stuffService = new TeamNamespaceService()
-				this.stuffModel = new TeamNamespaceModel({namespaceId: this.id})
+				this.stuffModel = new TeamNamespaceModel({
+					namespaceId: this.id,
+				})
 			} else {
 				throw new Error('Unknown type: ' + this.type)
 			}
@@ -224,36 +240,51 @@ export default {
 	},
 	methods: {
 		load() {
-			this.stuffService.getAll(this.stuffModel)
-				.then(r => {
+			this.stuffService
+				.getAll(this.stuffModel)
+				.then((r) => {
 					this.$set(this, 'sharables', r)
-					r.forEach(s => this.$set(this.selectedRight, s.id, s.right))
+					r.forEach((s) =>
+						this.$set(this.selectedRight, s.id, s.right)
+					)
 				})
-				.catch(e => {
+				.catch((e) => {
 					this.error(e, this)
 				})
 		},
 		deleteSharable() {
-
 			if (this.shareType === 'user') {
 				this.stuffModel.userId = this.sharable.username
 			} else if (this.shareType === 'team') {
 				this.stuffModel.teamId = this.sharable.id
 			}
-			this.stuffService.delete(this.stuffModel)
+			this.stuffService
+				.delete(this.stuffModel)
 				.then(() => {
 					this.showDeleteModal = false
 					for (const i in this.sharables) {
 						if (
-							(this.sharables[i].id === this.stuffModel.userId && this.shareType === 'user') ||
-							(this.sharables[i].id === this.stuffModel.teamId && this.shareType === 'team')
+							(this.sharables[i].id === this.stuffModel.userId &&
+								this.shareType === 'user') ||
+							(this.sharables[i].id === this.stuffModel.teamId &&
+								this.shareType === 'team')
 						) {
 							this.sharables.splice(i, 1)
 						}
 					}
-					this.success({message: 'The ' + this.shareType + ' was successfully deleted from the ' + this.typeString + '.'}, this)
+					this.success(
+						{
+							message:
+								'The ' +
+								this.shareType +
+								' was successfully deleted from the ' +
+								this.typeString +
+								'.',
+						},
+						this
+					)
 				})
-				.catch(e => {
+				.catch((e) => {
 					this.error(e, this)
 				})
 		},
@@ -272,17 +303,27 @@ export default {
 				this.stuffModel.teamId = this.sharable.id
 			}
 
-			this.stuffService.create(this.stuffModel)
+			this.stuffService
+				.create(this.stuffModel)
 				.then(() => {
-					this.success({message: 'The ' + this.shareType + ' was successfully added.'}, this)
+					this.success(
+						{
+							message:
+								'The ' +
+								this.shareType +
+								' was successfully added.',
+						},
+						this
+					)
 					this.load()
 				})
-				.catch(e => {
+				.catch((e) => {
 					this.error(e, this)
 				})
 		},
 		toggleType(sharable) {
-			if (this.selectedRight[sharable.id] !== rights.ADMIN &&
+			if (
+				this.selectedRight[sharable.id] !== rights.ADMIN &&
 				this.selectedRight[sharable.id] !== rights.READ &&
 				this.selectedRight[sharable.id] !== rights.READ_WRITE
 			) {
@@ -290,26 +331,37 @@ export default {
 			}
 			this.stuffModel.right = this.selectedRight[sharable.id]
 
-
 			if (this.shareType === 'user') {
 				this.stuffModel.userId = sharable.username
 			} else if (this.shareType === 'team') {
 				this.stuffModel.teamId = sharable.id
 			}
 
-			this.stuffService.update(this.stuffModel)
-				.then(r => {
+			this.stuffService
+				.update(this.stuffModel)
+				.then((r) => {
 					for (const i in this.sharables) {
 						if (
-							(this.sharables[i].username === this.stuffModel.userId && this.shareType === 'user') ||
-							(this.sharables[i].id === this.stuffModel.teamId && this.shareType === 'team')
+							(this.sharables[i].username ===
+								this.stuffModel.userId &&
+								this.shareType === 'user') ||
+							(this.sharables[i].id === this.stuffModel.teamId &&
+								this.shareType === 'team')
 						) {
 							this.$set(this.sharables[i], 'right', r.right)
 						}
 					}
-					this.success({message: 'The ' + this.shareType + ' right was successfully updated.'}, this)
+					this.success(
+						{
+							message:
+								'The ' +
+								this.shareType +
+								' right was successfully updated.',
+						},
+						this
+					)
 				})
-				.catch(e => {
+				.catch((e) => {
 					this.error(e, this)
 				})
 		},
@@ -319,11 +371,12 @@ export default {
 				return
 			}
 
-			this.searchService.getAll({}, {s: query})
-				.then(response => {
+			this.searchService
+				.getAll({}, {s: query})
+				.then((response) => {
 					this.$set(this, 'found', response)
 				})
-				.catch(e => {
+				.catch((e) => {
 					this.error(e, this)
 				})
 		},

@@ -4,7 +4,7 @@ name: build
 trigger:
   branch:
     include:
-      - master
+      - main
   event:
     include:
       - push
@@ -95,6 +95,7 @@ steps:
       CYPRESS_TEST_SECRET: averyLongSecretToSe33dtheDB
       YARN_CACHE_FOLDER: .cache/yarn/
       CYPRESS_CACHE_FOLDER: .cache/cypress/
+      CYPRESS_DEFAULT_COMMAND_TIMEOUT: 10000
     commands:
       - sed -i 's/localhost/api/g' public/index.html
       - yarn serve & npx wait-on http://localhost:8080
@@ -117,7 +118,7 @@ steps:
       source: cypress/screenshots/**/**/*
       strip_prefix: cypress/screenshots/
       target: /${DRONE_REPO}/${DRONE_PULL_REQUEST}_${DRONE_BRANCH}/${DRONE_BUILD_NUMBER}/
-    depends_on: 
+    depends_on:
       - test-frontend
     when:
       status:
@@ -128,9 +129,12 @@ steps:
 kind: pipeline
 name: release-latest
 
+depends_on:
+  - build
+
 trigger:
   branch:
-    - master
+    - main
   event:
     - push
 
@@ -170,13 +174,15 @@ steps:
       - "echo '{\"VERSION\": \"'$(git describe --tags --always --abbrev=10 | sed 's/-/+/' | sed 's/^v//' | sed 's/-g/-/')'\"}' > src/version.json"
       - yarn run build
       - sed -i 's/http\:\\/\\/localhost\\:3456\\/api\\/v1/\\/api\\/v1/g' dist/index.html # Override the default api url used for developing
+    depends_on:
+      - restore-cache
 
   - name: static
     image: kolaente/zip
     pull: true
     commands:
       - cd dist
-      - zip -r ../vikunja-frontend-master.zip *
+      - zip -r ../vikunja-frontend-unstable.zip *
       - cd ..
     depends_on: [ build ]
 
@@ -192,13 +198,16 @@ steps:
       endpoint: https://s3.fr-par.scw.cloud
       region: fr-par
       path_style: true
-      source: vikunja-frontend-master.zip
+      source: vikunja-frontend-unstable.zip
       target: /frontend/
     depends_on: [ static ]
 
 ---
 kind: pipeline
 name: release-version
+
+depends_on:
+  - build
 
 trigger:
   event:
@@ -240,6 +249,8 @@ steps:
       - "echo '{\"VERSION\": \"'$(git describe --tags --always --abbrev=10 | sed 's/-/+/' | sed 's/^v//' | sed 's/-g/-/')'\"}' > src/version.json"
       - yarn run build
       - sed -i 's/http\:\\/\\/localhost\\:3456\\/api\\/v1/\\/api\\/v1/g' dist/index.html # Override the default api url used for developing
+    depends_on:
+      - restore-cache
 
   - name: static
     image: kolaente/zip
@@ -272,7 +283,7 @@ name: trigger-desktop-update
 
 trigger:
   branch:
-    - master
+    - main
   event:
     - push
 
@@ -287,29 +298,47 @@ steps:
       token:
         from_secret: drone_token
       repositories:
-        - vikunja/desktop@master
+        - vikunja/desktop@main
 
 ---
 kind: pipeline
 type: docker
 name: docker-arm-release
 
+depends_on:
+  - release-latest
+  - release-version
+
 platform:
   os: linux
-  arch: arm
+  arch: arm64
 
 trigger:
   ref:
-    - refs/heads/master
+    - refs/heads/main
     - "refs/tags/**"
 
 steps:
-  - name: fetch-tags
-    image: docker:git
-    commands:
-      - git fetch --tags
+  - name: docker-latest
+    image: plugins/docker:linux-arm
+    pull: true
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: vikunja/frontend
+      tags: latest-linux-arm
+      build_args:
+        - USE_RELEASE=true
+        - RELEASE_VERSION=unstable
+    when:
+      ref:
+        - refs/heads/main
+    depends_on:
+      - clone
 
-  - name: docker
+  - name: docker-version
     image: plugins/docker:linux-arm
     pull: true
     settings:
@@ -320,8 +349,53 @@ steps:
       repo: vikunja/frontend
       auto_tag: true
       auto_tag_suffix: linux-arm
-    depends_on: 
-      - fetch-tags
+      build_args:
+        - USE_RELEASE=true
+        - RELEASE_VERSION=${DRONE_TAG##v}
+    when:
+      ref:
+        - "refs/tags/**"
+    depends_on:
+      - clone
+
+  - name: docker-latest-arm64
+    image: plugins/docker:linux-arm64
+    pull: true
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: vikunja/frontend
+      tags: latest-linux-arm64
+      build_args:
+        - USE_RELEASE=true
+        - RELEASE_VERSION=unstable
+    when:
+      ref:
+        - refs/heads/main
+    depends_on:
+      - clone
+
+  - name: docker-version-arm64
+    image: plugins/docker:linux-arm64
+    pull: true
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: vikunja/frontend
+      auto_tag: true
+      auto_tag_suffix: linux-arm64
+      build_args:
+        - USE_RELEASE=true
+        - RELEASE_VERSION=${DRONE_TAG##v}
+    when:
+      ref:
+        - "refs/tags/**"
+    depends_on:
+      - clone
 
 ---
 kind: pipeline
@@ -332,36 +406,34 @@ platform:
   os: linux
   arch: amd64
 
+depends_on:
+  - release-latest
+  - release-version
+
 trigger:
   ref:
-    - refs/heads/master
+    - refs/heads/main
     - "refs/tags/**"
 
 steps:
-  - name: fetch-tags
-    image: docker:git
-    commands:
-      - git fetch --tags
-
-  - name: restore-cache
-    image: meltwater/drone-cache:dev
+  - name: docker-latest
+    image: plugins/docker:linux-amd64
     pull: true
-    environment:
-      AWS_ACCESS_KEY_ID:
-        from_secret: cache_aws_access_key_id
-      AWS_SECRET_ACCESS_KEY:
-        from_secret: cache_aws_secret_access_key
     settings:
-      restore: true
-      bucket: kolaente.dev-drone-dependency-cache
-      endpoint: https://s3.fr-par.scw.cloud
-      region: fr-par
-      path_style: true
-      cache_key: '{{ .Repo.Name }}_{{ checksum "yarn.lock" }}_{{ arch }}_{{ os }}'
-      mount:
-        - '.cache'
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: vikunja/frontend
+      tags: latest-linux-amd64
+      build_args:
+        - USE_RELEASE=true
+        - RELEASE_VERSION=unstable
+    when:
+      ref:
+        - refs/heads/main
 
-  - name: docker
+  - name: docker-version
     image: plugins/docker:linux-amd64
     pull: true
     settings:
@@ -372,9 +444,12 @@ steps:
       repo: vikunja/frontend
       auto_tag: true
       auto_tag_suffix: linux-amd64
-    depends_on: 
-      - fetch-tags
-      - restore-cache
+      build_args:
+        - USE_RELEASE=true
+        - RELEASE_VERSION=${DRONE_TAG##v}
+    when:
+      ref:
+        - "refs/tags/**"
 
 ---
 kind: pipeline
@@ -383,7 +458,7 @@ name: docker-manifest
 
 trigger:
   ref:
-    - refs/heads/master
+    - refs/heads/main
     - "refs/tags/**"
 
 depends_on:
@@ -391,7 +466,21 @@ depends_on:
   - docker-arm-release
 
 steps:
-  - name: manifest
+  - name: manifest-latest
+    pull: always
+    image: plugins/manifest
+    settings:
+      tags: latest
+      spec: docker-manifest-latest.tmpl
+      password:
+        from_secret: docker_password
+      username:
+        from_secret: docker_username
+    when:
+      ref:
+        - refs/heads/main
+
+  - name: manifest-release
     pull: always
     image: plugins/manifest
     settings:
@@ -402,6 +491,9 @@ steps:
         from_secret: docker_password
       username:
         from_secret: docker_username
+    when:
+      ref:
+        - "refs/tags/**"
 
 ---
 kind: pipeline
@@ -410,26 +502,28 @@ name: notify
 
 trigger:
   ref:
-    - refs/heads/master
+    - refs/heads/main
     - "refs/tags/**"
 
 depends_on:
+  - build
   - release-version
   - release-latest
+  - trigger-desktop-update
+  - docker-arm-release
+  - docker-amd64-release
   - docker-manifest
 
 steps:
-  - name: telegram
-    image: appleboy/drone-telegram:1-linux-amd64
+  - name: notify
+    image: plugins/matrix
     settings:
-      token:
-        from_secret: TELEGRAM_TOKEN
-      to:
-        from_secret: TELEGRAM_TO
-      message: >
-        {{repo.owner}}/{{repo.name}}: \[{{build.status}}] Build {{build.number}}
-        {{commit.author}} pushed to {{commit.branch}} {{commit.sha}}: `{{commit.message}}`
-        Build started at {{datetime build.started "2006-Jan-02T15:04:05Z" "GMT+2"}} finished at {{datetime build.finished "2006-Jan-02T15:04:05Z" "GMT+2"}}.
+      homeserver: https://matrix.org
+      roomid: WqBDCxzghKcNflkErL:matrix.org
+      username:
+        from_secret: matrix_username
+      password:
+        from_secret: matrix_password
     when:
       status:
         - success

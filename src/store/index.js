@@ -4,9 +4,9 @@ import {
 	CURRENT_LIST,
 	ERROR_MESSAGE,
 	HAS_TASKS,
-	IS_FULLPAGE,
 	KEYBOARD_SHORTCUTS_ACTIVE,
 	LOADING,
+	LOADING_MODULE,
 	MENU_ACTIVE,
 	ONLINE,
 } from './mutation-types'
@@ -35,9 +35,9 @@ export const store = new Vuex.Store({
 	},
 	state: {
 		loading: false,
+		loadingModule: null,
 		errorMessage: '',
 		online: true,
-		isFullpage: false,
 		// This is used to highlight the current list in menu for all list related views
 		currentList: {id: 0},
 		background: '',
@@ -49,14 +49,14 @@ export const store = new Vuex.Store({
 		[LOADING](state, loading) {
 			state.loading = loading
 		},
+		[LOADING_MODULE](state, module) {
+			state.loadingModule = module
+		},
 		[ERROR_MESSAGE](state, error) {
 			state.errorMessage = error
 		},
 		[ONLINE](state, online) {
 			state.online = online
-		},
-		[IS_FULLPAGE](state, fullpage) {
-			state.isFullpage = fullpage
 		},
 		[CURRENT_LIST](state, currentList) {
 
@@ -103,6 +103,16 @@ export const store = new Vuex.Store({
 				}
 			}
 
+			if (typeof currentList.backgroundInformation === 'undefined' || currentList.backgroundInformation === null) {
+				state.background = null
+			}
+
+			// Server updates don't return the right. Therefore the right is reset after updating the list which is
+			// confusing because all the buttons will disappear in that case. To prevent this, we're keeping the right
+			// when updating the list in global state.
+			if (typeof state.currentList.maxRight !== 'undefined') {
+				currentList.maxRight = state.currentList.maxRight
+			}
 			state.currentList = currentList
 		},
 		[HAS_TASKS](state, hasTasks) {

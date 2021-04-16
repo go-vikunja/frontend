@@ -2,13 +2,10 @@ import AbstractModel from './abstractModel'
 import UserModel from './user'
 import LabelModel from './label'
 import AttachmentModel from './attachment'
+import {REPEAT_MODE_DEFAULT} from './taskRepeatModes'
 
-const parseDate = date => {
-	if (date && !date.startsWith('0001')) {
-		return new Date(date)
-	}
-	return null
-}
+import SubscriptionModel from '@/models/subscription'
+import {parseDateOrNull} from '@/helpers/parseDateOrNull'
 
 export default class TaskModel extends AbstractModel {
 
@@ -21,10 +18,10 @@ export default class TaskModel extends AbstractModel {
 		this.listId = Number(this.listId)
 
 		// Make date objects from timestamps
-		this.dueDate = parseDate(this.dueDate)
-		this.startDate = parseDate(this.startDate)
-		this.endDate = parseDate(this.endDate)
-		this.doneAt = parseDate(this.doneAt)
+		this.dueDate = parseDateOrNull(this.dueDate)
+		this.startDate = parseDateOrNull(this.startDate)
+		this.endDate = parseDateOrNull(this.endDate)
+		this.doneAt = parseDateOrNull(this.doneAt)
 
 		// Cancel all scheduled notifications for this task to be sure to only have available notifications
 		this.cancelScheduledNotifications()
@@ -75,6 +72,10 @@ export default class TaskModel extends AbstractModel {
 			this.identifier = ''
 		}
 
+		if (typeof this.subscription !== 'undefined' && this.subscription !== null) {
+			this.subscription = new SubscriptionModel(this.subscription)
+		}
+
 		this.created = new Date(this.created)
 		this.updated = new Date(this.updated)
 	}
@@ -95,6 +96,7 @@ export default class TaskModel extends AbstractModel {
 			endDate: 0,
 			repeatAfter: 0,
 			repeatFromCurrentDate: false,
+			repeatMode: REPEAT_MODE_DEFAULT,
 			reminderDates: [],
 			parentTaskId: 0,
 			hexColor: '',
@@ -104,6 +106,7 @@ export default class TaskModel extends AbstractModel {
 			identifier: '',
 			index: 0,
 			isFavorite: false,
+			subscription: null,
 
 			createdBy: UserModel,
 			created: null,
@@ -111,6 +114,14 @@ export default class TaskModel extends AbstractModel {
 
 			listId: 0, // Meta, only used when creating a new task
 		}
+	}
+
+	getTextIdentifier() {
+		if (this.identifier === '') {
+			return `#${this.index}`
+		}
+
+		return this.identifier
 	}
 
 	/////////////////

@@ -8,8 +8,8 @@
 		>
 			Show tasks without dates
 		</fancycheckbox>
-		<h3 v-if="showAll">Current tasks</h3>
-		<h3 v-else>
+		<h3 v-if="showAll && tasks.length > 0">Current tasks</h3>
+		<h3 v-else-if="!showAll" class="mb-2">
 			Tasks from
 			<flat-pickr
 				:class="{ 'disabled': taskService.loading}"
@@ -29,24 +29,28 @@
 				v-model="cEndDate"
 			/>
 		</h3>
-		<div>
-			<a @click="setDatesToNextWeek()" class="button is-primary is-outlined noshadow mr-2">Next Week</a>
-			<a @click="setDatesToNextMonth()" class="button is-primary is-outlined noshadow">Next Month</a>
+		<div v-if="!showAll" class="mb-4">
+			<x-button type="secondary" @click="showTodaysTasks()" class="mr-2">Today</x-button>
+			<x-button type="secondary" @click="setDatesToNextWeek()" class="mr-2">Next Week</x-button>
+			<x-button type="secondary" @click="setDatesToNextMonth()">Next Month</x-button>
 		</div>
-		<template v-if="!taskService.loading && (!hasUndoneTasks || !tasks || tasks.length === 0)">
+		<template v-if="!taskService.loading && (!tasks || tasks.length === 0) && showNothingToDo">
 			<h3 class="nothing">Nothing to do - Have a nice day!</h3>
 			<img alt="" src="/images/cool.svg"/>
 		</template>
 		<div :class="{ 'is-loading': taskService.loading}" class="spinner"></div>
-		<div class="tasks" v-if="tasks && tasks.length > 0">
-			<single-task-in-list
-				:key="t.id"
-				class="task"
-				v-for="t in tasks"
-				:show-list="true"
-				:the-task="t"
-				@taskUpdated="updateTasks"/>
-		</div>
+
+		<card :padding="false" class="has-overflow" :has-content="false" v-if="tasks && tasks.length > 0">
+			<div class="tasks">
+				<single-task-in-list
+					:key="t.id"
+					class="task"
+					v-for="t in tasks"
+					:show-list="true"
+					:the-task="t"
+					@taskUpdated="updateTasks"/>
+			</div>
+		</card>
 	</div>
 </template>
 <script>
@@ -69,12 +73,14 @@ export default {
 	data() {
 		return {
 			tasks: [],
-			hasUndoneTasks: false,
 			taskService: TaskService,
 			showNulls: true,
+			showOverdue: false,
 
 			cStartDate: null,
 			cEndDate: null,
+
+			showNothingToDo: false,
 
 			flatPickerConfig: {
 				altFormat: 'j M Y H:i',
@@ -95,6 +101,9 @@ export default {
 		this.cStartDate = this.startDate
 		this.cEndDate = this.endDate
 		this.loadPendingTasks()
+	},
+	mounted() {
+		setTimeout(() => this.showNothingToDo = true, 100)
 	},
 	watch: {
 		'$route': 'loadPendingTasks',
@@ -151,21 +160,28 @@ export default {
 				params.filter_value.push(this.cEndDate)
 				params.filter_comparator.push('less')
 
-				params.filter_by.push('due_date')
-				params.filter_value.push(this.cStartDate)
-				params.filter_comparator.push('greater')
+				if (!this.showOverdue) {
+					params.filter_by.push('due_date')
+					params.filter_value.push(this.cStartDate)
+					params.filter_comparator.push('greater')
+				}
 			}
 
 			this.taskService.getAll({}, params)
 				.then(r => {
-					if (r.length > 0) {
-						for (const index in r) {
-							if (r[index].done !== true) {
-								this.hasUndoneTasks = true
-							}
-						}
-					}
-					this.$set(this, 'tasks', r.filter(t => !t.done))
+
+					// Sort all tasks to put those with a due date before the ones without a due date, the
+					// soonest before the later ones.
+					// We can't use the api sorting here because that sorts tasks with a due date after
+					// ones without a due date.
+					r.sort((a, b) => {
+						return a.dueDate === null && b.dueDate === null ? -1 : 1
+					})
+					const tasks = r.
+						filter(t => t.dueDate !== null).
+						concat(r.filter(t => t.dueDate === null))
+
+					this.$set(this, 'tasks', tasks)
 					this.$store.commit(HAS_TASKS, r.length > 0)
 				})
 				.catch(e => {
@@ -188,11 +204,21 @@ export default {
 		setDatesToNextWeek() {
 			this.cStartDate = new Date()
 			this.cEndDate = new Date((new Date()).getTime() + 7 * 24 * 60 * 60 * 1000)
+			this.showOverdue = false
 			this.loadPendingTasks()
 		},
 		setDatesToNextMonth() {
 			this.cStartDate = new Date()
 			this.cEndDate = new Date((new Date()).setMonth((new Date()).getMonth() + 1))
+			this.showOverdue = false
+			this.loadPendingTasks()
+		},
+		showTodaysTasks() {
+			const d = new Date()
+			this.cStartDate = new Date()
+			this.cEndDate = new Date(d.setDate(d.getDate() + 1))
+			this.showNulls = false
+			this.showOverdue = true
 			this.loadPendingTasks()
 		},
 	},

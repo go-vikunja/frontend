@@ -1,12 +1,35 @@
 <template>
-	<div>
+	<div class="kanban-view">
+		<div class="filter-container" v-if="list.isSavedFilter && !list.isSavedFilter()">
+			<div class="items">
+				<x-button
+					@click.prevent.stop="showFilters = !showFilters"
+					icon="filter"
+					type="secondary"
+				>
+					Filters
+				</x-button>
+			</div>
+			<filter-popup
+				@change="() => {filtersChanged = true; loadBuckets()}"
+				:visible="showFilters"
+				v-model="params"
+			/>
+		</div>
 		<div :class="{ 'is-loading': loading && !oneTaskUpdating}" class="kanban loader-container">
 			<div :key="`bucket${bucket.id}`" class="bucket" v-for="bucket in buckets">
 				<div class="bucket-header">
+					<span
+						v-if="bucket.isDoneBucket"
+						class="icon is-small has-text-success mr-2"
+						v-tooltip="'All tasks moved into this bucket will automatically marked as done.'"
+					>
+						<icon icon="check-double"/>
+					</span>
 					<h2
 						:ref="`bucket${bucket.id}title`"
 						@focusout="() => saveBucketTitle(bucket.id)"
-						@keyup.enter="() => saveBucketTitle(bucket.id)"
+						@keydown.enter.prevent.stop="() => saveBucketTitle(bucket.id)"
 						class="title input"
 						contenteditable="true"
 						spellcheck="false">{{ bucket.title }}</h2>
@@ -14,59 +37,62 @@
 						:class="{'is-max': bucket.tasks.length >= bucket.limit}"
 						class="limit"
 						v-if="bucket.limit > 0">
-					{{ bucket.tasks.length }}/{{ bucket.limit }}
-				</span>
-					<div
-						:class="{ 'is-active': bucketOptionsDropDownActive[bucket.id] }"
-						class="dropdown is-right options"
+						{{ bucket.tasks.length }}/{{ bucket.limit }}
+					</span>
+					<dropdown
+						class="is-right options"
 						v-if="canWrite"
+						trigger-icon="ellipsis-v"
+						@close="() => showSetLimitInput = false"
 					>
-						<div @click.stop="toggleBucketDropdown(bucket.id)" class="dropdown-trigger">
-						<span class="icon">
-							<icon icon="ellipsis-v"/>
-						</span>
-						</div>
-						<div class="dropdown-menu" role="menu">
-							<div class="dropdown-content">
-								<a
-									@click.stop="showSetLimitInput = true"
-									class="dropdown-item"
-								>
-									<div class="field has-addons" v-if="showSetLimitInput">
-										<div class="control">
-											<input
-												@change="() => updateBucket(bucket)"
-												@keyup.enter="() => updateBucket(bucket)"
-												class="input"
-												type="number"
-												v-focus.always
-												v-model="bucket.limit"
-											/>
-										</div>
-										<div class="control">
-											<a class="button is-primary has-no-shadow">
-											<span class="icon">
-												<icon :icon="['far', 'save']"/>
-											</span>
-											</a>
-										</div>
-									</div>
-									<template v-else>
-										Limit: {{ bucket.limit > 0 ? bucket.limit : 'Not set' }}
-									</template>
-								</a>
-								<a
-									:class="{'is-disabled': buckets.length <= 1}"
-									@click="() => deleteBucketModal(bucket.id)"
-									class="dropdown-item has-text-danger"
-									v-tooltip="buckets.length <= 1 ? 'You cannot remove the last bucket.' : ''"
-								>
-									<span class="icon is-small"><icon icon="trash-alt"/></span>
-									Delete
-								</a>
+						<a
+							@click.stop="showSetLimitInput = true"
+							class="dropdown-item"
+						>
+							<div class="field has-addons" v-if="showSetLimitInput">
+								<div class="control">
+									<input
+										@change="() => setBucketLimit(bucket)"
+										@keyup.enter="() => setBucketLimit(bucket)"
+										@keyup.esc="() => showSetLimitInput = false"
+										class="input"
+										type="number"
+										min="0"
+										v-focus.always
+										v-model="bucket.limit"
+									/>
+								</div>
+								<div class="control">
+									<x-button
+										:disabled="bucket.limit < 0"
+										:icon="['far', 'save']"
+										:shadow="false"
+									/>
+								</div>
 							</div>
-						</div>
-					</div>
+							<template v-else>
+								Limit: {{ bucket.limit > 0 ? bucket.limit : 'Not set' }}
+							</template>
+						</a>
+						<a
+							@click="toggleDoneBucket(bucket)"
+							class="dropdown-item"
+							v-tooltip="'All tasks moved into the done bucket will be marked as done automatically. All tasks marked as done from elsewhere will be moved as well.'"
+						>
+							<span class="icon is-small" :class="{'has-text-success': bucket.isDoneBucket}"><icon
+								icon="check-double"/></span>
+							Done bucket
+						</a>
+						<a
+							:class="{'is-disabled': buckets.length <= 1}"
+							@click="() => deleteBucketModal(bucket.id)"
+							class="dropdown-item has-text-danger"
+							v-tooltip="buckets.length <= 1 ? 'You cannot remove the last bucket.' : ''"
+						>
+							<span class="icon is-small"><icon icon="trash-alt"/></span>
+							Delete
+						</a>
+					</dropdown>
 				</div>
 				<div :ref="`tasks-container${bucket.id}`" class="tasks">
 					<!-- Make the component either a div or a draggable component based on the user rights -->
@@ -90,8 +116,8 @@
 						>
 							<div
 								:class="{
-							'is-loading': (taskService.loading || loading) && taskUpdating[task.id],
-							'draggable': !(taskService.loading || loading) || !taskUpdating[task.id],
+							'is-loading': (taskService.loading || taskLoading) && taskUpdating[task.id],
+							'draggable': !(taskService.loading || taskLoading) || !taskUpdating[task.id],
 							'has-light-text': !colorIsDark(task.hexColor) && task.hexColor !== `#${task.defaultColor}` && task.hexColor !== task.defaultColor,
 						}"
 								:style="{'background-color': task.hexColor !== '#' && task.hexColor !== `#${task.defaultColor}` ? task.hexColor : false}"
@@ -114,39 +140,44 @@
 									class="due-date"
 									v-if="task.dueDate > 0"
 									v-tooltip="formatDate(task.dueDate)">
-								<span class="icon">
-									<icon :icon="['far', 'calendar-alt']"/>
-								</span>
-								<span>
-									{{ formatDateSince(task.dueDate) }}
-								</span>
-							</span>
-								<h3>{{ task.title }}</h3>
-								<labels :labels="task.labels"/>
-								<div class="footer">
-									<div class="items">
-										<priority-label :priority="task.priority" class="priority-label"/>
-										<div class="assignees" v-if="task.assignees.length > 0">
-											<user
-												:avatar-size="24"
-												:key="task.id + 'assignee' + u.id"
-												:show-username="false"
-												:user="u"
-												v-for="u in task.assignees"
-											/>
-										</div>
-									</div>
-									<div>
-									<span class="icon" v-if="task.attachments.length > 0">
-										<svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-											<rect fill="none" rx="0" ry="0"></rect>
-											<path
-												clip-rule="evenodd"
-												d="M19.86 8.29994C19.8823 8.27664 19.9026 8.25201 19.9207 8.22634C20.5666 7.53541 20.93 6.63567 20.93 5.68001C20.93 4.69001 20.55 3.76001 19.85 3.06001C18.45 1.66001 16.02 1.66001 14.62 3.06001L9.88002 7.80001C9.86705 7.81355 9.85481 7.82753 9.8433 7.8419L4.58 13.1C3.6 14.09 3.06 15.39 3.06 16.78C3.06 18.17 3.6 19.48 4.58 20.46C5.6 21.47 6.93 21.98 8.26 21.98C9.59 21.98 10.92 21.47 11.94 20.46L17.74 14.66C17.97 14.42 17.98 14.04 17.74 13.81C17.5 13.58 17.12 13.58 16.89 13.81L11.09 19.61C10.33 20.36 9.33 20.78 8.26 20.78C7.19 20.78 6.19 20.37 5.43 19.61C4.68 18.85 4.26 17.85 4.26 16.78C4.26 15.72 4.68 14.71 5.43 13.96L15.47 3.91996C15.4962 3.89262 15.5195 3.86346 15.54 3.83292C16.4992 2.95103 18.0927 2.98269 19.01 3.90001C19.48 4.37001 19.74 5.00001 19.74 5.67001C19.74 6.34001 19.48 6.97001 19.01 7.44001L14.27 12.18C14.2571 12.1935 14.2448 12.2075 14.2334 12.2218L8.96 17.4899C8.59 17.8699 7.93 17.8699 7.55 17.4899C7.36 17.2999 7.26 17.0399 7.26 16.7799C7.26 16.5199 7.36 16.2699 7.55 16.0699L15.47 8.14994C15.7 7.90994 15.71 7.52994 15.47 7.29994C15.23 7.06994 14.85 7.06994 14.62 7.29994L6.7 15.2199C6.29 15.6399 6.06 16.1899 6.06 16.7799C6.06 17.3699 6.29 17.9199 6.7 18.3399C7.12 18.7499 7.67 18.9799 8.26 18.9799C8.85 18.9799 9.4 18.7599 9.82 18.3399L19.86 8.29994Z"
-												fill-rule="evenodd"></path>
-										</svg>
+									<span class="icon">
+										<icon :icon="['far', 'calendar-alt']"/>
 									</span>
+									<span>
+										{{ formatDateSince(task.dueDate) }}
+									</span>
+								</span>
+								<h3>{{ task.title }}</h3>
+								<progress
+									class="progress is-small"
+									v-if="task.percentDone > 0"
+									:value="task.percentDone * 100" max="100">
+									{{ task.percentDone * 100 }}%
+								</progress>
+								<div class="footer">
+									<span
+										:key="label.id"
+										:style="{'background': label.hexColor, 'color': label.textColor}"
+										class="tag"
+										v-for="label in task.labels">
+										<span>{{ label.title }}</span>
+									</span>
+									<priority-label :priority="task.priority"/>
+									<div class="assignees" v-if="task.assignees.length > 0">
+										<user
+											:avatar-size="24"
+											:key="task.id + 'assignee' + u.id"
+											:show-username="false"
+											:user="u"
+											v-for="u in task.assignees"
+										/>
 									</div>
+									<span class="icon" v-if="task.attachments.length > 0">
+										<icon icon="paperclip"/>	
+									</span>
+									<span v-if="task.description" class="icon">
+										<icon icon="align-left"/>
+									</span>
 								</div>
 							</div>
 						</component>
@@ -171,24 +202,25 @@
 							Please specify a title.
 						</p>
 					</div>
-					<a
+					<x-button
 						@click="toggleShowNewTaskInput(bucket.id)"
-						class="button noshadow is-transparent is-fullwidth has-text-centered"
-						v-if="!showNewTaskInput[bucket.id]">
-						<span class="icon is-small">
-							<icon icon="plus"/>
-						</span>
-						<span v-if="bucket.tasks.length === 0">
-						Add a task
-						</span>
-						<span v-else>
-						Add another task
-					</span>
-					</a>
+						class="is-transparent is-fullwidth has-text-centered"
+						:shadow="false"
+						v-if="!showNewTaskInput[bucket.id]"
+						icon="plus"
+						type="secondary"
+					>
+						<template v-if="bucket.tasks.length === 0">
+							Add a task
+						</template>
+						<template v-else>
+							Add another task
+						</template>
+					</x-button>
 				</div>
 			</div>
 
-			<div class="bucket new-bucket" v-if="!loading && canWrite">
+			<div class="bucket new-bucket" v-if="canWrite && !loading && buckets.length > 0">
 				<input
 					:class="{'is-loading': loading}"
 					:disabled="loading"
@@ -202,16 +234,16 @@
 					v-if="showNewBucketInput"
 					v-model="newBucketTitle"
 				/>
-				<a
+				<x-button
 					@click="() => showNewBucketInput = true"
-					class="button noshadow is-transparent is-fullwidth has-text-centered" v-if="!showNewBucketInput">
-				<span class="icon is-small">
-					<icon icon="plus"/>
-				</span>
-					<span>
+					:shadow="false"
+					class="is-transparent is-fullwidth has-text-centered"
+					v-if="!showNewBucketInput"
+					type="secondary"
+					icon="plus"
+				>
 					Create a new bucket
-				</span>
-				</a>
+				</x-button>
 			</div>
 		</div>
 
@@ -220,17 +252,18 @@
 			<router-view/>
 		</transition>
 
-		<modal
-			@close="showBucketDeleteModal = false"
-			@submit="deleteBucket()"
-			v-if="showBucketDeleteModal">
-			<span slot="header">Delete the bucket</span>
-			<p slot="text">
-				Are you sure you want to delete this bucket?<br/>
-				This will not delete any tasks but move them into the default bucket.
-			</p>
-		</modal>
-
+		<transition name="modal">
+			<modal
+				@close="showBucketDeleteModal = false"
+				@submit="deleteBucket()"
+				v-if="showBucketDeleteModal">
+				<span slot="header">Delete the bucket</span>
+				<p slot="text">
+					Are you sure you want to delete this bucket?<br/>
+					This will not delete any tasks but move them into the default bucket.
+				</p>
+			</modal>
+		</transition>
 	</div>
 </template>
 
@@ -247,13 +280,18 @@ import Labels from '../../../components/tasks/partials/labels'
 import {filterObject} from '@/helpers/filterObject'
 import {applyDrag} from '@/helpers/applyDrag'
 import {mapState} from 'vuex'
-import {LOADING} from '@/store/mutation-types'
 import {saveListView} from '@/helpers/saveListView'
 import Rights from '../../../models/rights.json'
+import {LOADING, LOADING_MODULE} from '@/store/mutation-types'
+import FilterPopup from '@/components/list/partials/filter-popup'
+import Dropdown from '@/components/misc/dropdown'
+import {playPop} from '@/helpers/playPop'
 
 export default {
 	name: 'Kanban',
 	components: {
+		Dropdown,
+		FilterPopup,
 		Container,
 		Draggable,
 		Labels,
@@ -270,7 +308,6 @@ export default {
 				showOnTop: true,
 			},
 			sourceBucket: 0,
-			bucketOptionsDropDownActive: {},
 
 			showBucketDeleteModal: false,
 			bucketToDelete: 0,
@@ -285,12 +322,20 @@ export default {
 			// We're using this to show the loading animation only at the task when updating it
 			taskUpdating: {},
 			oneTaskUpdating: false,
+
+			params: {
+				filter_by: [],
+				filter_value: [],
+				filter_comparator: [],
+				filter_concat: 'and',
+			},
+			showFilters: false,
+			filtersChanged: false, // To trigger a reload of the board
 		}
 	},
 	created() {
 		this.taskService = new TaskService()
 		this.loadBuckets()
-		this.$nextTick(() => document.addEventListener('click', this.closeBucketDropdowns))
 
 		// Save the current list view to local storage
 		// We use local storage and not vuex here to make it persistent across reloads.
@@ -302,8 +347,10 @@ export default {
 	computed: mapState({
 		buckets: state => state.kanban.buckets,
 		loadedListId: state => state.kanban.listId,
-		loading: LOADING,
+		loading: state => state[LOADING] && state[LOADING_MODULE] === 'kanban',
+		taskLoading: state => state[LOADING] && state[LOADING_MODULE] === 'tasks',
 		canWrite: state => state.currentList.maxRight > Rights.READ,
+		list: state => state.currentList,
 	}),
 	methods: {
 		loadBuckets() {
@@ -315,15 +362,37 @@ export default {
 
 			// Only load buckets if we don't already loaded them
 			if (
+				!this.filtersChanged && (
 				this.loadedListId === this.$route.params.listId ||
-				this.loadedListId === parseInt(this.$route.params.listId)
+				this.loadedListId === parseInt(this.$route.params.listId))
 			) {
 				return
 			}
 
 			console.debug(`Loading buckets, loadedListId = ${this.loadedListId}, $route.params =`, this.$route.params)
+			this.filtersChanged = false
 
-			this.$store.dispatch('kanban/loadBucketsForList', this.$route.params.listId)
+			const minScrollHeightPercent = 0.25
+
+			this.$store.dispatch('kanban/loadBucketsForList', {listId: this.$route.params.listId, params: this.params})
+				.then(bs => {
+					bs.forEach(b => {
+						const e = this.$refs[`tasks-container${b.id}`][0]
+						e.addEventListener('scroll', () => {
+							const scrollTopMax = e.scrollHeight - e.clientHeight
+							if (scrollTopMax <= e.scrollTop + e.scrollTop * minScrollHeightPercent) {
+								this.$store.dispatch('kanban/loadNextTasksForBucket', {
+									listId: this.$route.params.listId,
+									params: this.params,
+									bucketId: b.id,
+								})
+									.catch(e => {
+										this.error(e, this)
+									})
+							}
+						})
+					})
+				})
 				.catch(e => {
 					this.error(e, this)
 				})
@@ -393,6 +462,11 @@ export default {
 			this.$set(this.taskUpdating, task.id, true)
 			task.done = !task.done
 			this.$store.dispatch('tasks/update', task)
+				.then(() => {
+					if (task.done) {
+						playPop()
+					}
+				})
 				.catch(e => {
 					this.error(e, this)
 				})
@@ -410,16 +484,6 @@ export default {
 		},
 		toggleShowNewTaskInput(bucket) {
 			this.$set(this.showNewTaskInput, bucket, !this.showNewTaskInput[bucket])
-		},
-		toggleBucketDropdown(bucketId) {
-			this.closeBucketDropdowns() // Close all eventually open dropdowns
-			this.$set(this.bucketOptionsDropDownActive, bucketId, !this.bucketOptionsDropDownActive[bucketId])
-		},
-		closeBucketDropdowns() {
-			this.showSetLimitInput = false
-			for (const bucketId in this.bucketOptionsDropDownActive) {
-				this.bucketOptionsDropDownActive[bucketId] = false
-			}
 		},
 		addTaskToBucket(bucketId) {
 
@@ -494,7 +558,10 @@ export default {
 				listId: this.$route.params.listId,
 			})
 
-			this.$store.dispatch('kanban/deleteBucket', bucket)
+			this.$store.dispatch('kanban/deleteBucket', {bucket: bucket, params: this.params})
+				.then(() => {
+					this.success({message: 'The bucket has been deleted successfully.'}, this)
+				})
 				.catch(e => {
 					this.error(e, this)
 				})
@@ -523,6 +590,7 @@ export default {
 				.then(r => {
 					realBucket.title = r.title
 					bucketTitleElement.blur()
+					this.success({message: 'The bucket title has been saved successfully.'}, this)
 				})
 				.catch(e => {
 					this.error(e, this)
@@ -531,14 +599,35 @@ export default {
 		updateBucket(bucket) {
 			bucket.limit = parseInt(bucket.limit)
 			this.$store.dispatch('kanban/updateBucket', bucket)
+				.then(() => {
+					this.success({message: 'The bucket limit been saved successfully.'}, this)
+				})
 				.catch(e => {
 					this.error(e, this)
 				})
+		},
+		setBucketLimit(bucket) {
+			if (bucket.limit < 0) {
+				return
+			}
+
+			this.updateBucket(bucket)
 		},
 		shouldAcceptDrop(bucket) {
 			return bucket.id === this.sourceBucket || // When dragging from a bucket who has its limit reached, dragging should still be possible
 				bucket.limit === 0 || // If there is no limit set, dragging & dropping should always work
 				bucket.tasks.length < bucket.limit // Disallow dropping to buckets which have their limit reached
+		},
+		toggleDoneBucket(bucket) {
+			bucket.isDoneBucket = !bucket.isDoneBucket
+			this.$store.dispatch('kanban/updateBucket', bucket)
+				.then(() => {
+					this.success({message: 'The done bucket has been saved successfully.'}, this)
+				})
+				.catch(e => {
+					this.error(e, this)
+					bucket.isDoneBucket = !bucket.isDoneBucket
+				})
 		},
 	},
 }

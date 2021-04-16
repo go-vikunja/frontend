@@ -3,259 +3,240 @@
 		:class="{ 'is-loading': passwordUpdateService.loading || emailUpdateService.loading || totpService.loading }"
 		class="loader-container is-max-width-desktop">
 		<!-- Password update -->
-		<div class="card">
-			<header class="card-header">
-				<p class="card-header-title">
-					Update Your Password
-				</p>
-			</header>
-			<div class="card-content">
-				<div class="content">
-					<form @submit.prevent="updatePassword()">
-						<div class="field">
-							<label class="label" for="newPassword">New Password</label>
-							<div class="control">
-								<input
-									@keyup.enter="updatePassword"
-									class="input"
-									id="newPassword"
-									placeholder="The new password..."
-									type="password"
-									v-model="passwordUpdate.newPassword"/>
-							</div>
-						</div>
-						<div class="field">
-							<label class="label" for="newPasswordConfirm">New Password Confirmation</label>
-							<div class="control">
-								<input
-									@keyup.enter="updatePassword"
-									class="input"
-									id="newPasswordConfirm"
-									placeholder="Confirm your new password..."
-									type="password"
-									v-model="passwordConfirm"/>
-							</div>
-						</div>
-						<div class="field">
-							<label class="label" for="currentPassword">Current Password</label>
-							<div class="control">
-								<input
-									@keyup.enter="updatePassword"
-									class="input"
-									id="currentPassword"
-									placeholder="Your current password"
-									type="password"
-									v-model="passwordUpdate.oldPassword"/>
-							</div>
-						</div>
-					</form>
-
-					<div class="bigbuttons">
-						<button :class="{ 'is-loading': passwordUpdateService.loading}" @click="updatePassword()"
-								class="button is-primary is-fullwidth">
-							Save
-						</button>
+		<card title="Update Your Password">
+			<form @submit.prevent="updatePassword()">
+				<div class="field">
+					<label class="label" for="newPassword">New Password</label>
+					<div class="control">
+						<input
+							@keyup.enter="updatePassword"
+							class="input"
+							id="newPassword"
+							placeholder="The new password..."
+							type="password"
+							v-model="passwordUpdate.newPassword"/>
 					</div>
 				</div>
-			</div>
-		</div>
+				<div class="field">
+					<label class="label" for="newPasswordConfirm">New Password Confirmation</label>
+					<div class="control">
+						<input
+							@keyup.enter="updatePassword"
+							class="input"
+							id="newPasswordConfirm"
+							placeholder="Confirm your new password..."
+							type="password"
+							v-model="passwordConfirm"/>
+					</div>
+				</div>
+				<div class="field">
+					<label class="label" for="currentPassword">Current Password</label>
+					<div class="control">
+						<input
+							@keyup.enter="updatePassword"
+							class="input"
+							id="currentPassword"
+							placeholder="Your current password"
+							type="password"
+							v-model="passwordUpdate.oldPassword"/>
+					</div>
+				</div>
+			</form>
+
+			<x-button
+				:loading="passwordUpdateService.loading"
+				@click="updatePassword()"
+				class="is-fullwidth mt-4">
+				Save
+			</x-button>
+		</card>
 
 		<!-- Update E-Mail -->
-		<div class="card">
-			<header class="card-header">
-				<p class="card-header-title">
-					Update Your E-Mail Address
-				</p>
-			</header>
-			<div class="card-content">
-				<div class="content">
-					<form @submit.prevent="updateEmail()">
-						<div class="field">
-							<label class="label" for="newEmail">New Email Address</label>
-							<div class="control">
-								<input
-									@keyup.enter="updateEmail"
-									class="input"
-									id="newEmail"
-									placeholder="The new email address..."
-									type="email"
-									v-model="emailUpdate.newEmail"/>
-							</div>
-						</div>
-						<div class="field">
-							<label class="label" for="currentPassword">Current Password</label>
-							<div class="control">
-								<input
-									@keyup.enter="updateEmail"
-									class="input"
-									id="currentPassword"
-									placeholder="Your current password"
-									type="password"
-									v-model="emailUpdate.password"/>
-							</div>
-						</div>
-					</form>
-
-					<div class="bigbuttons">
-						<button :class="{ 'is-loading': emailUpdateService.loading}" @click="updateEmail()"
-								class="button is-primary is-fullwidth">
-							Save
-						</button>
+		<card title="Update Your E-Mail Address">
+			<form @submit.prevent="updateEmail()">
+				<div class="field">
+					<label class="label" for="newEmail">New Email Address</label>
+					<div class="control">
+						<input
+							@keyup.enter="updateEmail"
+							class="input"
+							id="newEmail"
+							placeholder="The new email address..."
+							type="email"
+							v-model="emailUpdate.newEmail"/>
 					</div>
 				</div>
-			</div>
-		</div>
-
-		<!-- Name -->
-		<div class="card update-name">
-			<header class="card-header">
-				<p class="card-header-title">
-					Update your name
-				</p>
-			</header>
-			<div class="card-content">
-				<div class="content">
-						<div class="field">
-							<label class="label" for="newName">Name</label>
-							<div class="control">
-								<input
-									@keyup.enter="updateName"
-									class="input"
-									id="newName"
-									placeholder="The new name"
-									type="text"
-									v-model="name"/>
-							</div>
-						</div>
-
-					<div class="bigbuttons">
-						<button :class="{ 'is-loading': userNameService.loading}" @click="updateName()"
-								class="button is-primary is-fullwidth">
-							Save
-						</button>
+				<div class="field">
+					<label class="label" for="currentPassword">Current Password</label>
+					<div class="control">
+						<input
+							@keyup.enter="updateEmail"
+							class="input"
+							id="currentPassword"
+							placeholder="Your current password"
+							type="password"
+							v-model="emailUpdate.password"/>
 					</div>
 				</div>
+			</form>
+
+			<x-button
+				:loading="emailUpdateService.loading"
+				@click="updateEmail()"
+				class="is-fullwidth mt-4">
+				Save
+			</x-button>
+		</card>
+
+		<!-- General -->
+		<card title="General Settings" class="general-settings">
+			<div class="field">
+				<label class="label" for="newName">Name</label>
+				<div class="control">
+					<input
+						@keyup.enter="updateSettings"
+						class="input"
+						id="newName"
+						placeholder="The new name"
+						type="text"
+						v-model="settings.name"/>
+				</div>
 			</div>
-		</div>
+			<div class="field">
+				<label class="checkbox">
+					<input type="checkbox" v-model="settings.emailRemindersEnabled"/>
+					Send me reminders for tasks via Email
+				</label>
+			</div>
+			<div class="field">
+				<label class="checkbox">
+					<input type="checkbox" v-model="settings.overdueTasksRemindersEnabled"/>
+					Send me reminders for overdue undone tasks via email each morning
+				</label>
+			</div>
+			<div class="field">
+				<label class="checkbox">
+					<input type="checkbox" v-model="settings.discoverableByName"/>
+					Let other users find me when they search for my name
+				</label>
+			</div>
+			<div class="field">
+				<label class="checkbox">
+					<input type="checkbox" v-model="settings.discoverableByEmail"/>
+					Let other users find me when they search for my full email
+				</label>
+			</div>
+			<div class="field">
+				<label class="checkbox">
+					<input type="checkbox" v-model="playSoundWhenDone"/>
+					Play a sound when marking tasks as done
+				</label>
+			</div>
+
+			<x-button
+				:loading="userSettingsService.loading"
+				@click="updateSettings()"
+				class="is-fullwidth mt-4"
+			>
+				Save
+			</x-button>
+		</card>
 
 		<!-- Avatar -->
 		<avatar-settings/>
 
 		<!-- TOTP -->
-		<div class="card" v-if="totpEnabled">
-			<header class="card-header">
-				<p class="card-header-title">
-					Two Factor Authentication
+		<card title="Two Factor Authentication" v-if="totpEnabled">
+			<x-button
+				:loading="totpService.loading"
+				@click="totpEnroll()"
+				v-if="!totpEnrolled && totp.secret === ''">
+				Enroll
+			</x-button>
+			<template v-else-if="totp.secret !== '' && !totp.enabled">
+				<p>
+					To finish your setup, use this secret in your totp app (Google Authenticator or similar):
+					<strong>{{ totp.secret }}</strong><br/>
+					After that, enter a code from your app below.
 				</p>
-			</header>
-			<div class="card-content">
-				<a
-					:class="{ 'is-loading': totpService.loading }"
-					@click="totpEnroll()"
-					class="button is-primary"
-					v-if="!totpEnrolled && totp.secret === ''">
-					Enroll
-				</a>
-				<div class="content" v-else-if="totp.secret !== '' && !totp.enabled">
-					<p>
-						To finish your setup, use this secret in your totp app (Google Authenticator or similar):
-						<strong>{{ totp.secret }}</strong><br/>
-						After that, enter a code from your app below.
-					</p>
-					<p>
-						Alternatively you can scan this QR code:<br/>
-						<img :src="totpQR" alt=""/>
-					</p>
+				<p>
+					Alternatively you can scan this QR code:<br/>
+					<img :src="totpQR" alt=""/>
+				</p>
+				<div class="field">
+					<label class="label" for="totpConfirmPasscode">Passcode</label>
+					<div class="control">
+						<input
+							@keyup.enter="totpConfirm()"
+							class="input"
+							id="totpConfirmPasscode"
+							placeholder="A code generated by your totp application"
+							type="text"
+							v-model="totpConfirmPasscode"/>
+					</div>
+				</div>
+				<x-button @click="totpConfirm()">Confirm</x-button>
+			</template>
+			<template v-else-if="totp.secret !== '' && totp.enabled">
+				<p>
+					You've sucessfully set up two factor authentication!
+				</p>
+				<p v-if="!totpDisableForm">
+					<x-button @click="totpDisableForm = true" class="is-danger">Disable</x-button>
+				</p>
+				<div v-if="totpDisableForm">
 					<div class="field">
-						<label class="label" for="totpConfirmPasscode">Passcode</label>
+						<label class="label" for="currentPassword">Please Enter Your Password</label>
 						<div class="control">
 							<input
-								@keyup.enter="totpConfirm()"
+								@keyup.enter="totpDisable"
 								class="input"
-								id="totpConfirmPasscode"
-								placeholder="A code generated by your totp application"
-								type="text"
-								v-model="totpConfirmPasscode"/>
+								id="currentPassword"
+								placeholder="Your current password"
+								type="password"
+								v-focus
+								v-model="totpDisablePassword"/>
 						</div>
 					</div>
-					<a @click="totpConfirm()" class="button is-primary">Confirm</a>
+					<x-button @click="totpDisable()" class="is-danger">Disable two factor authentication</x-button>
 				</div>
-				<div class="content" v-else-if="totp.secret !== '' && totp.enabled">
-					<p>
-						You've sucessfully set up two factor authentication!
-					</p>
-					<p v-if="!totpDisableForm">
-						<a @click="totpDisableForm = true" class="button is-danger">Disable</a>
-					</p>
-					<div v-if="totpDisableForm">
-						<div class="field">
-							<label class="label" for="currentPassword">Please Enter Your Password</label>
-							<div class="control">
-								<input
-									@keyup.enter="totpDisable"
-									class="input"
-									id="currentPassword"
-									placeholder="Your current password"
-									type="password"
-									v-focus
-									v-model="totpDisablePassword"/>
-							</div>
-						</div>
-						<a @click="totpDisable()" class="button is-danger">Disable two factor authentication</a>
-					</div>
-				</div>
-			</div>
-		</div>
+			</template>
+		</card>
 
 		<!-- Migration -->
-		<div class="card" v-if="migratorsEnabled">
-			<header class="card-header">
-				<p class="card-header-title">
-					Migrate from other services to Vikunja
-				</p>
-			</header>
-			<div class="card-content">
-				<router-link
-					:to="{name: 'migrate.start'}"
-					class="button is-primary is-right noshadow is-outlined"
-					v-if="migratorsEnabled"
-				>
-					Import your data into Vikunja
-				</router-link>
-			</div>
-		</div>
+		<card title="Migrate from other services to Vikunja" v-if="migratorsEnabled">
+			<x-button
+				:to="{name: 'migrate.start'}"
+			>
+				Import your data into Vikunja
+			</x-button>
+		</card>
 
 		<!-- Caldav -->
-		<div class="card" v-if="caldavEnabled">
-			<header class="card-header">
-				<p class="card-header-title">
-					Caldav
-				</p>
-			</header>
-			<div class="card-content content">
-				<p>
-					You can connect Vikunja to caldav clients to view and manage all tasks from different clients.
-					Enter this url into your client:
-				</p>
-				<div class="field has-addons no-input-mobile">
-					<div class="control is-expanded">
-						<input type="text" v-model="caldavUrl" class="input" readonly/>
-					</div>
-					<div class="control">
-						<a @click="copy(caldavUrl)" class="button is-success noshadow" v-tooltip="'Copy to clipboard'">
-							<span class="icon">
-								<icon icon="paste"/>
-							</span>
-						</a>
-					</div>
+		<card v-if="caldavEnabled" title="Caldav">
+			<p>
+				You can connect Vikunja to caldav clients to view and manage all tasks from different clients.
+				Enter this url into your client:
+			</p>
+			<div class="field has-addons no-input-mobile">
+				<div class="control is-expanded">
+					<input type="text" v-model="caldavUrl" class="input" readonly/>
 				</div>
-				<p>
-					<a href="https://vikunja.io/docs/caldav/" target="_blank">
-						More information about caldav in Vikunja
-					</a>
-				</p>
+				<div class="control">
+					<x-button
+						@click="copy(caldavUrl)"
+						:shadow="false"
+						v-tooltip="'Copy to clipboard'"
+						icon="paste"
+					/>
+				</div>
 			</div>
-		</div>
+			<p>
+				<a href="https://vikunja.io/docs/caldav/" target="_blank">
+					More information about caldav in Vikunja
+				</a>
+			</p>
+		</card>
 	</div>
 </template>
 
@@ -266,8 +247,9 @@ import EmailUpdateService from '../../services/emailUpdate'
 import EmailUpdateModel from '../../models/emailUpdate'
 import TotpModel from '../../models/totp'
 import TotpService from '../../services/totp'
-import UserNameService from '../../services/userName'
-import UserNameModel from '../../models/userName'
+import UserSettingsService from '../../services/userSettings'
+import UserSettingsModel from '../../models/userSettings'
+import {playSoundWhenDoneKey} from '@/helpers/playPop'
 
 import {mapState} from 'vuex'
 
@@ -292,11 +274,10 @@ export default {
 			totpConfirmPasscode: '',
 			totpDisableForm: false,
 			totpDisablePassword: '',
+			playSoundWhenDone: false,
 
-			caldavUrl: '',
-
-			name: '',
-			userNameService: UserNameService,
+			settings: UserSettingsModel,
+			userSettingsService: UserSettingsService,
 		}
 	},
 	components: {
@@ -312,21 +293,35 @@ export default {
 		this.totpService = new TotpService()
 		this.totp = new TotpModel()
 
-		this.userNameService = new UserNameService()
-		this.name = this.$store.state.auth.info.name
+		this.userSettingsService = new UserSettingsService()
+		this.settings = this.$store.state.auth.settings
+
+		this.playSoundWhenDone = localStorage.getItem(playSoundWhenDoneKey) === 'true' || localStorage.getItem(playSoundWhenDoneKey) === null
 
 		this.totpStatus()
-		this.buildCaldavUrl()
 	},
 	mounted() {
 		this.setTitle('Settings')
 	},
-	computed: mapState({
-		totpEnabled: state => state.config.totpEnabled,
-		migratorsEnabled: state => state.config.availableMigrators !== null && state.config.availableMigrators.length > 0,
-		caldavEnabled: state => state.config.caldavEnabled,
-		userInfo: state => state.auth.info,
-	}),
+	computed: {
+		caldavUrl() {
+			let apiBase = window.API_URL.replace('/api/v1', '')
+			if (apiBase === '') { // Frontend and api on the same host which means we need to prefix the frontend url
+				apiBase = this.$store.state.config.frontendUrl
+			}
+			if (apiBase.endsWith('/')) {
+				apiBase = apiBase.substr(0, apiBase.length - 1)
+			}
+
+			return `${apiBase}/dav/principals/${this.userInfo.username}/`
+		},
+		...mapState({
+			totpEnabled: state => state.config.totpEnabled,
+			migratorsEnabled: state => state.config.availableMigrators !== null && state.config.availableMigrators.length > 0,
+			caldavEnabled: state => state.config.caldavEnabled,
+			userInfo: state => state.auth.info,
+		})
+	},
 	methods: {
 		updatePassword() {
 			if (this.passwordConfirm !== this.passwordUpdate.newPassword) {
@@ -399,19 +394,15 @@ export default {
 				})
 				.catch(e => this.error(e, this))
 		},
-		updateName() {
-			const name = new UserNameModel({name: this.name})
+		updateSettings() {
+			localStorage.setItem(playSoundWhenDoneKey, this.playSoundWhenDone)
 
-			this.userNameService.update(name)
+			this.userSettingsService.update(this.settings)
 				.then(() => {
-					this.$store.commit('auth/setUserName', this.name)
+					this.$store.commit('auth/setUserSettings', this.settings)
 					this.success({message: 'The name was successfully changed.'}, this)
 				})
 				.catch(e => this.error(e, this))
-		},
-		buildCaldavUrl() {
-			const apiBase = window.API_URL.replace('/api/v1', '')
-			this.caldavUrl = `${apiBase}/dav/principals/${this.userInfo.username}/`
 		},
 		copy(text) {
 			copy(text)

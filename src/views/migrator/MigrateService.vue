@@ -33,6 +33,14 @@ export default {
 				this.name = 'Todoist'
 				this.identifier = 'todoist'
 				break
+			case 'trello':
+				this.name = 'Trello'
+				this.identifier = 'trello'
+				break
+			case 'microsoft-todo':
+				this.name = 'Microsoft Todo'
+				this.identifier = 'microsoft-todo'
+				break
 			default:
 				router.push({name: '404'})
 		}

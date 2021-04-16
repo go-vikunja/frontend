@@ -1,15 +1,25 @@
 <template>
 	<div :class="{'is-pulled-up': isEditEnabled}" class="editor">
-		<div class="tabs is-right" v-if="hasPreview && isEditEnabled && !hasEditBottom">
-			<ul>
-				<li :class="{'is-active': isPreviewActive}" v-if="isEditActive">
-					<a @click="showPreview">Preview</a>
-				</li>
-				<li :class="{'is-active': isEditActive}">
-					<a @click="() => {isPreviewActive = false; isEditActive = true}">Edit</a>
-				</li>
-			</ul>
+		<div class="is-pulled-right mb-4" v-if="hasPreview && isEditEnabled && !hasEditBottom">
+			<x-button 
+				v-if="!isEditActive"
+				@click="toggleEdit"
+				:shadow="false"
+				type="secondary"
+			>
+				<icon icon="pen"/>
+			</x-button>
+			<x-button 
+				v-else 
+				@click="toggleEdit"
+				:shadow="false"
+				type="secondary"
+			>
+				Done
+			</x-button>
 		</div>
+
+		<div class="clear"></div>
 
 		<vue-easymde
 			:configs="config"
@@ -19,21 +29,24 @@
 			v-if="isEditActive"
 			v-model="text"/>
 
-		<div class="preview content" v-html="preview" v-if="isPreviewActive">
+		<div class="preview content" v-html="preview" v-if="isPreviewActive && text !== ''">
 		</div>
 
+		<p class="has-text-centered has-text-grey is-italic" v-if="isPreviewActive && text === '' && emptyText !== ''">
+			{{ emptyText }}
+			<a @click="toggleEdit">Edit</a>.
+		</p>
+
 		<ul class="actions">
+			<template v-if="hasEditBottom">
+				<li>
+					<a v-if="!isEditActive" @click="toggleEdit">Edit</a>
+					<a v-else @click="toggleEdit">Done</a>
+				</li>
+			</template>
 			<li v-for="(action, k) in bottomActions" :key="k">
 				<a @click="action.action">{{ action.title }}</a>
 			</li>
-			<template v-if="hasEditBottom">
-				<li :class="{'is-active': isPreviewActive}" v-if="isEditActive">
-					<a @click="showPreview">Preview</a>
-				</li>
-				<li :class="{'is-active': isEditActive}">
-					<a @click="() => {isPreviewActive = false; isEditActive = true}">Edit</a>
-				</li>
-			</template>
 		</ul>
 	</div>
 </template>
@@ -87,6 +100,10 @@ export default {
 		},
 		bottomActions: {
 			default: () => [],
+		},
+		emptyText: {
+			type: String,
+			default: () => '',
 		},
 	},
 	data() {
@@ -261,6 +278,11 @@ export default {
 		// it a higher timeout to make the timouts cancel each other in that case so
 		// that in the end, only one change event is triggered to the outside per change.
 		handleInput(val) {
+			// Don't bubble if the text is up to date
+			if(val === this.text) {
+				return
+			}
+
 			this.text = val
 			this.bubble(1000)
 		},
@@ -309,6 +331,9 @@ export default {
 			return checkboxes[n]
 		},
 		renderPreview() {
+			const renderer = new marked.Renderer()
+			const linkRenderer = renderer.link
+
 			let checkboxNum = -1
 			marked.use({
 				renderer: {
@@ -332,10 +357,20 @@ export default {
 						checkboxNum++
 						return `<input type="checkbox" data-checkbox-num="${checkboxNum}" ${checked} class="text-checkbox-${this._uid}"/>`
 					},
+					link: (href, title, text) => {
+						const isLocal = href.startsWith(`${location.protocol}//${location.hostname}`)
+						const html = linkRenderer.call(renderer, href, title, text)
+						return isLocal ? html : html.replace(/^<a /, `<a target="_blank" rel="noreferrer noopener nofollow" `)
+					},
+				},
+				highlight: function (code, language) {
+					const hljs = require('highlight.js')
+					const validLanguage = hljs.getLanguage(language) ? language : 'plaintext'
+					return hljs.highlight(validLanguage, code).value
 				},
 			})
 
-			this.preview = DOMPurify.sanitize(marked(this.text))
+			this.preview = DOMPurify.sanitize(marked(this.text), { ADD_ATTR: ['target'] })
 
 			// Since the render function is synchronous, we can't do async http requests in it.
 			// Therefore, we can't resolve the blob url at (markdown) compile time.
@@ -346,8 +381,8 @@ export default {
 			// Some docs at https://stackoverflow.com/q/62865160/10924593
 			this.$nextTick(() => {
 				const attachmentImage = document.getElementsByClassName('attachment-image')
-				if(attachmentImage) {
-					attachmentImage.forEach(img => {
+				if (attachmentImage) {
+					for (const img of attachmentImage) {
 						// The url is something like /tasks/<id>/attachments/<id>
 						const parts = img.dataset.src.substr(window.API_URL.length + 1).split('/')
 						const taskId = parseInt(parts[1])
@@ -362,15 +397,15 @@ export default {
 							.then(url => {
 								img.src = url
 							})
-					})
+					}
 				}
 
 				const textCheckbox = document.getElementsByClassName(`text-checkbox-${this._uid}`)
-				if(textCheckbox) {
-					textCheckbox.forEach(check => {
+				if (textCheckbox) {
+					for (const check of textCheckbox) {
 						check.removeEventListener('change', this.handleCheckboxClick)
 						check.addEventListener('change', this.handleCheckboxClick)
-					})
+					}
 				}
 			})
 		},
@@ -381,10 +416,10 @@ export default {
 
 			const index = this.findNthIndex(this.text, numMarkdownCheck)
 			if (index < 0 || typeof index === 'undefined') {
-				console.log('no index found')
+				console.debug('no index found')
 				return
 			}
-			console.log(index, this.text.substr(index, 9))
+			console.debug(index, this.text.substr(index, 9))
 
 			if (checked) {
 				this.text = this.replaceAt(this.text, index, '* [x] ')
@@ -394,22 +429,29 @@ export default {
 			this.bubble()
 			this.renderPreview()
 		},
-		showPreview() {
-			this.isPreviewActive = true
-			this.isEditActive = false
-			this.renderPreview()
+		toggleEdit() {
+			if (this.isEditActive) {
+				this.isPreviewActive = true
+				this.isEditActive = false
+				this.renderPreview()
+				this.bubble(0) // save instantly
+			} else {
+				this.isPreviewActive = false
+				this.isEditActive = true
+			}
 		},
 	},
 }
 </script>
 
 <style lang="scss">
+@import '../../../node_modules/highlight.js/scss/atelier-heath-light';
 @import '../../../node_modules/easymde/dist/easymde.min.css';
-@import '../../styles/theme/variables';
+@import '../../styles/theme/variables/all';
 
 .editor {
-	.tabs ul {
-		margin-left: 0;
+	.clear {
+		clear: both;
 	}
 
 	.preview.content ul li input[type="checkbox"] {
@@ -423,6 +465,11 @@ export default {
 
 	&-lines pre {
 		margin: 0 !important;
+	}
+
+	&-placeholder {
+		color: $grey-400 !important;
+		font-style: italic;
 	}
 }
 
@@ -460,6 +507,7 @@ export default {
 
 pre.CodeMirror-line {
 	margin-bottom: 0 !important;
+	color: $grey-700 !important;
 }
 
 .cm-header {
@@ -468,7 +516,7 @@ pre.CodeMirror-line {
 }
 
 ul.actions {
-	font-size: .8em;
+	font-size: .8rem;
 	margin: 0;
 
 	li {
@@ -485,7 +533,7 @@ ul.actions {
 	}
 
 	&, a {
-		color: $grey;
+		color: $grey-500;
 	}
 
 	a:hover {

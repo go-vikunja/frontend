@@ -1,0 +1,53 @@
+@import 'colors';
+
+$white: #fff;
+$black: hsl(0, 0%, 4%) !default;
+$orange: #ff851b;
+$green: #00db60;
+$red: #ff4136;
+$blue: #1973ff;
+$primary: $blue;
+
+$info-invert: #fff;
+$family-sans-serif: 'Open Sans', Helvetica, Arial, sans-serif;
+$thickness: 1px;
+$pagination-current-border: $primary;
+$navbar-item-active-color: $primary;
+$dropdown-content-shadow: none;
+$navbar-dropdown-boxed-shadow: $dropdown-content-shadow;
+$bulmaswatch-import-font: false !default;
+$light-background: $grey-100;
+$transition-duration: 100ms;
+$flash-background-duration: 750ms;
+
+$vikunja-font: 'Quicksand', sans-serif;
+$vikunja-light-text: $grey-100;
+$vikunja-blue: #7F23FF; // #7F23FF; // #5974d9
+$vikunja-green: #4DB788;
+
+$navbar-padding: 2rem;
+$vikunja-nav-background: $light-background;
+$vikunja-nav-color: $grey-700;
+$vikunja-nav-selected-width: 0.4rem;
+
+$transition-duration: 150ms;
+$transition: $transition-duration ease;
+
+$scrollbar-height: 8px;
+$scrollbar-track-color: $grey-200;
+$scrollbar-thumb-color: $grey-300;
+$scrollbar-hover-color: $grey-500;
+
+$button-height: 34px;
+
+$switch-view-height: 43px;
+
+$user-dropdown-width-mobile: 4rem;
+$hamburger-menu-icon-spacing: 1rem;
+$hamburger-menu-icon-width: 28px;
+$navbar-height: 4rem;
+$navbar-width: 300px;
+
+$editor-border-color: #ddd;
+
+$dropdown-item-hover-background-color: $grey-100;

@@ -1,20 +1,15 @@
 .task-view {
   // This is a workaround to hide the llama background from the top on the task detail page
-  margin-top: -1.5em;
-  padding: 1em;
+  margin-top: -1.5rem;
+  padding: 1rem;
   background-color: $light-background;
 
   .subtitle {
-    color: $grey;
+    color: $grey-500;
 
     a {
-      color: $grey-dark;
+      color: $grey-800;
     }
-  }
-
-  .has-top-border {
-    border-top: 1px solid lighten($grey, 35%);
-    padding-top: .5em;
   }
 
   h3 .button {
@@ -22,7 +17,7 @@
   }
 
   .icon.is-grey {
-    color: lighten($grey, 5%);
+    color: $grey-400;
   }
 
   .heading {
@@ -35,14 +30,23 @@
       margin-bottom: 0;
 
       &.input {
-        // 1.8rem is the font-size, 1.125 is the line-height, .3em padding everywhere, 1px border around the whole thing.
-        min-height: calc(1.8rem * 1.125 + .6em + 2px);
+        // 1.8rem is the font-size, 1.125 is the line-height, .3rem padding everywhere, 1px border around the whole thing.
+        min-height: calc(1.8rem * 1.125 + .6rem + 2px);
       }
     }
 
     .title.task-id {
-      color: lighten($grey, 25%);
+      color: $grey-400;
       white-space: nowrap;
+    }
+
+    @media screen and (max-width: $tablet) {
+      flex-direction: column;
+      align-items: start;
+
+      .title.input {
+        margin: 0 -.3rem .5rem -.3rem; // the title has 0.3rem padding - this make the text inside of it align with the rest
+      }
     }
   }
 
@@ -53,7 +57,7 @@
     a.remove {
       color: $red;
       vertical-align: middle;
-      padding-left: .5em;
+      padding-left: .5rem;
       line-height: 1;
     }
   }
@@ -89,12 +93,12 @@
   }
 
   .details {
-    padding-bottom: 0.75em;
+    padding-bottom: 0.75rem;
     flex-flow: row wrap;
 
     .detail-title {
       display: block;
-      color: lighten($grey, 15%);
+      color: $grey-400;
     }
 
     .none {
@@ -108,39 +112,20 @@
     }
 
     &.labels-list, .assignees {
-      .multiselect__tags {
-        padding: 3px 0 0 3px;
-        border: none;
-        background: transparent;
-      }
-
-      .multiselect__input, .multiselect__single {
-        width: auto !important;
-        margin: 0;
-        padding: .35em !important;
-        position: relative !important;
-        background: transparent;
-        max-width: 100%;
-      }
-
-      .multiselect__placeholder {
-        display: none;
-      }
-
-      .multiselect__select {
-        // We may need to enable this since it may also be responsable for showing the loading spinner
-        display: none;
-      }
-
-      .multiselect__content-wrapper {
-        border: none;
+      .multiselect {
+        .input-wrapper {
+          &:not(:focus-within):not(:hover) {
+            background: transparent !important;
+            border-color: transparent !important;
+          }
+        }
       }
     }
 
     &.description .editor {
 
       &.is-pulled-up {
-        margin-top: -3.5rem;
+        margin-top: -3rem;
       }
 
       .tabs {
@@ -202,28 +187,45 @@
   .action-buttons {
     a.button {
       width: 100%;
-      margin-bottom: .5em;
+      margin-bottom: .5rem;
       justify-content: left;
     }
   }
 
   .created {
     font-size: .75rem;
-    color: $grey;
+    color: $grey-500;
     text-align: right;
   }
 }
 
 .task-view-container {
-  padding-bottom: 1em;
+  padding-bottom: 1rem;
+
+  .task-view * {
+    opacity: 0;
+    transition: opacity 50ms ease;
+  }
+
+  &.is-loading {
+    opacity: 1;
+
+    .task-view * {
+      opacity: 0;
+    }
+  }
+
+  &.visible:not(.is-loading) .task-view * {
+    opacity: 1;
+  }
 }
 
 .is-done {
   background: $green;
   color: $white;
-  padding: .5em;
-  font-size: 1.5em;
-  margin-left: .5em;
+  padding: .5rem;
+  font-size: 1rem;
+  margin-left: .5rem;
   font-weight: bold;
   line-height: 1;
   border-radius: 4px;
@@ -232,13 +234,9 @@
 
 .modal-container .task-view {
   border-radius: $radius;
-  padding: 1em;
+  padding: 1rem;
   color: $text;
   background-color: $light-background !important;
-
-  .task {
-    max-width: 500px;
-  }
 
   @media screen and (max-width: 800px) {
     border-radius: 0;
@@ -248,4 +246,17 @@
 
 .link-share-container .task-view {
   background-color: transparent;
+}
+
+.flash-background-enter, .flash-background-enter-active  {
+  animation: flash-background $flash-background-duration ease 1;
+}
+
+@keyframes flash-background {
+  0% {
+    background: lighten($primary, 30);
+  }
+  100% {
+    background: transparent;
+  }
 }

@@ -7,17 +7,28 @@ export default {
 	state: () => ({
 		authenticated: false,
 		isLinkShareAuth: false,
-		info: {},
+		info: null,
 		needsTotpPasscode: false,
 		avatarUrl: '',
+		lastUserInfoRefresh: null,
+		settings: {},
 	}),
 	mutations: {
 		info(state, info) {
 			state.info = info
-			state.avatarUrl = info.getAvatarUrl()
+			if (info !== null) {
+				state.avatarUrl = info.getAvatarUrl()
+
+				if (info.settings) {
+					state.settings = info.settings
+				}
+			}
 		},
-		setUserName(state, name) {
-			state.info.name = name
+		setUserSettings(state, settings) {
+			state.settings = settings
+			const info = state.info !== null ? state.info : {}
+			info.name = settings.name
+			state.info = info
 		},
 		authenticated(state, authenticated) {
 			state.authenticated = authenticated
@@ -30,6 +41,9 @@ export default {
 		},
 		reloadAvatar(state) {
 			state.avatarUrl = `${state.info.getAvatarUrl()}&=${+new Date()}`
+		},
+		lastUserRefresh(state) {
+			state.lastUserInfoRefresh = new Date()
 		},
 	},
 	actions: {
@@ -67,12 +81,13 @@ export default {
 							return Promise.reject()
 						}
 
-						let errorMsg = e.response.data.message
+						let errorMsg = typeof e.response.data.message !== 'undefined' ? e.response.data.message : null
 						if (e.response.status === 401) {
 							errorMsg = 'Wrong username or password.'
 						}
 						ctx.commit(ERROR_MESSAGE, errorMsg, {root: true})
 					}
+
 					return Promise.reject()
 				})
 				.finally(() => {
@@ -92,10 +107,11 @@ export default {
 					return ctx.dispatch('login', credentials)
 				})
 				.catch(e => {
-					if (e.response) {
+					if (e.response && e.response.data && e.response.data.message) {
 						ctx.commit(ERROR_MESSAGE, e.response.data.message, {root: true})
 					}
-					return Promise.reject()
+
+					return Promise.reject(e)
 				})
 				.finally(() => {
 					ctx.commit(LOADING, false, {root: true})
@@ -123,7 +139,7 @@ export default {
 				})
 				.catch(e => {
 					if (e.response) {
-						let errorMsg = e.response.data.message
+						let errorMsg = typeof e.response.data.message !== 'undefined' ? e.response.data.message : null
 						if (e.response.status === 401) {
 							errorMsg = 'Wrong username or password.'
 						}
@@ -135,10 +151,11 @@ export default {
 					ctx.commit(LOADING, false, {root: true})
 				})
 		},
-
-		linkShareAuth(ctx, hash) {
+		linkShareAuth(ctx, {hash, password}) {
 			const HTTP = HTTPFactory()
-			return HTTP.post('/shares/' + hash + '/auth')
+			return HTTP.post('/shares/' + hash + '/auth', {
+				password: password,
+			})
 				.then(r => {
 					localStorage.setItem('token', r.data.token)
 					ctx.dispatch('checkAuth')
@@ -149,6 +166,13 @@ export default {
 		},
 		// Populates user information from jwt token saved in local storage in store
 		checkAuth(ctx) {
+
+			// This function can be called from multiple places at the same time and shortly after one another.
+			// To prevent hitting the api too frequently or race conditions, we check at most once per minute.
+			if (ctx.state.lastUserInfoRefresh !== null && ctx.state.lastUserInfoRefresh > (new Date()).setMinutes((new Date()).getMinutes() + 1)) {
+				return Promise.resolve()
+			}
+
 			const jwt = localStorage.getItem('token')
 			let authenticated = false
 			if (jwt) {
@@ -158,12 +182,39 @@ export default {
 					.replace('_', '/')
 				const info = new UserModel(JSON.parse(window.atob(base64)))
 				const ts = Math.round((new Date()).getTime() / 1000)
-				if (info.exp >= ts) {
-					authenticated = true
-				}
+				authenticated = info.exp >= ts
 				ctx.commit('info', info)
+
+				if (authenticated) {
+					const HTTP = HTTPFactory()
+					// We're not returning the promise here to prevent blocking the initial ui render if the user is
+					// accessing the site with a token in local storage
+					HTTP.get('user', {
+						headers: {
+							Authorization: `Bearer ${jwt}`,
+						},
+					})
+						.then(r => {
+							const info = new UserModel(r.data)
+							info.type = ctx.state.info.type
+							info.email = ctx.state.info.email
+							info.exp = ctx.state.info.exp
+
+							ctx.commit('info', info)
+							ctx.commit('authenticated', authenticated)
+							ctx.commit('lastUserRefresh')
+						})
+						.catch(e => {
+							console.error('Error while refreshing user info:', e)
+						})
+				}
 			}
+
 			ctx.commit('authenticated', authenticated)
+			if (!authenticated) {
+				ctx.commit('info', null)
+			}
+
 			return Promise.resolve()
 		},
 		// Renews the api token and saves it to local storage
@@ -185,7 +236,12 @@ export default {
 				.catch(e => {
 					// eslint-disable-next-line
 					console.log('Error renewing token: ', e)
-					ctx.dispatch('logout')
+
+					// Don't logout on network errors as the user would then get logged out if they don't have
+					// internet for a short period of time - such as when the laptop is still reconnecting
+					if (e.request.status) {
+						ctx.dispatch('logout')
+					}
 				})
 		},
 		logout(ctx) {

@@ -1,7 +1,7 @@
 <template>
-	<div :class="{ 'is-loading': taskService.loading}" class="loader-container task-view-container">
+	<div :class="{ 'is-loading': taskService.loading, 'visible': visible}" class="loader-container task-view-container">
 		<div class="task-view">
-			<heading v-model="task" :can-write="canWrite"/>
+			<heading v-model="task" :can-write="canWrite" ref="heading"/>
 			<h6 class="subtitle" v-if="parent && parent.namespace && parent.list">
 				{{ parent.namespace.title }} >
 				<router-link :to="{ name: listViewName, params: { listId: parent.list.id } }">
@@ -28,129 +28,155 @@
 								v-model="task.assignees"
 							/>
 						</div>
-						<div class="column" v-if="activeFields.priority">
-							<!-- Priority -->
-							<div class="detail-title">
-								<icon :icon="['far', 'star']"/>
-								Priority
+						<transition name="flash-background" appear>
+							<div class="column" v-if="activeFields.priority">
+								<!-- Priority -->
+								<div class="detail-title">
+									<icon :icon="['far', 'star']"/>
+									Priority
+								</div>
+								<priority-select
+									:disabled="!canWrite"
+									@change="saveTask"
+									ref="priority"
+									v-model="task.priority"/>
 							</div>
-							<priority-select
-								:disabled="!canWrite"
-								@change="saveTask"
-								ref="priority"
-								v-model="task.priority"/>
-						</div>
-						<div class="column" v-if="activeFields.dueDate">
-							<!-- Due Date -->
-							<div class="detail-title">
-								<icon icon="calendar"/>
-								Due Date
-							</div>
-							<div class="date-input">
-								<datepicker
-									v-model="task.dueDate"
-									@close-on-change="() => saveTask()"
-									choose-date-label="Click here to set a due date"
-									:disabled="taskService.loading || !canWrite"
-									ref="dueDate"
+						</transition>
+						<transition name="flash-background" appear>
+							<div class="column" v-if="activeFields.dueDate">
+								<!-- Due Date -->
+								<div class="detail-title">
+									<icon icon="calendar"/>
+									Due Date
+								</div>
+								<div class="date-input">
+									<datepicker
+										v-model="task.dueDate"
+										@close-on-change="() => saveTask()"
+										choose-date-label="Click here to set a due date"
+										:disabled="taskService.loading || !canWrite"
+										ref="dueDate"
 									/>
-								<a @click="() => {task.dueDate = null;saveTask()}" v-if="task.dueDate && canWrite" class="remove">
-									<span class="icon is-small">
-										<icon icon="times"></icon>
-									</span>
-								</a>
+									<a
+										@click="() => {task.dueDate = null;saveTask()}"
+										v-if="task.dueDate && canWrite"
+										class="remove">
+										<span class="icon is-small">
+											<icon icon="times"></icon>
+										</span>
+									</a>
+								</div>
 							</div>
-						</div>
-						<div class="column" v-if="activeFields.percentDone">
-							<!-- Percent Done -->
-							<div class="detail-title">
-								<icon icon="percent"/>
-								Percent Done
+						</transition>
+						<transition name="flash-background" appear>
+							<div class="column" v-if="activeFields.percentDone">
+								<!-- Percent Done -->
+								<div class="detail-title">
+									<icon icon="percent"/>
+									Percent Done
+								</div>
+								<percent-done-select
+									:disabled="!canWrite"
+									@change="saveTask"
+									ref="percentDone"
+									v-model="task.percentDone"/>
 							</div>
-							<percent-done-select
-								:disabled="!canWrite"
-								@change="saveTask"
-								ref="percentDone"
-								v-model="task.percentDone"/>
-						</div>
-						<div class="column" v-if="activeFields.startDate">
-							<!-- Start Date -->
-							<div class="detail-title">
-								<icon icon="calendar-week"/>
-								Start Date
+						</transition>
+						<transition name="flash-background" appear>
+							<div class="column" v-if="activeFields.startDate">
+								<!-- Start Date -->
+								<div class="detail-title">
+									<icon icon="calendar-week"/>
+									Start Date
+								</div>
+								<div class="date-input">
+									<datepicker
+										v-model="task.startDate"
+										@close-on-change="() => saveTask()"
+										choose-date-label="Click here to set a start date"
+										:disabled="taskService.loading || !canWrite"
+										ref="startDate"
+									/>
+									<a
+										@click="() => {task.startDate = null;saveTask()}"
+										v-if="task.startDate && canWrite"
+										class="remove"
+									>
+										<span class="icon is-small">
+											<icon icon="times"></icon>
+										</span>
+									</a>
+								</div>
 							</div>
-							<div class="date-input">
-								<datepicker
-									v-model="task.startDate"
-									@close-on-change="() => saveTask()"
-									choose-date-label="Click here to set a start date"
-									:disabled="taskService.loading || !canWrite"
-									ref="startDate"
-								/>
-								<a @click="() => {task.startDate = null;saveTask()}" v-if="task.startDate && canWrite" class="remove">
-									<span class="icon is-small">
-										<icon icon="times"></icon>
-									</span>
-								</a>
+						</transition>
+						<transition name="flash-background" appear>
+							<div class="column" v-if="activeFields.endDate">
+								<!-- End Date -->
+								<div class="detail-title">
+									<icon icon="calendar-week"/>
+									End Date
+								</div>
+								<div class="date-input">
+									<datepicker
+										v-model="task.endDate"
+										@close-on-change="() => saveTask()"
+										choose-date-label="Click here to set an end date"
+										:disabled="taskService.loading || !canWrite"
+										ref="endDate"
+									/>
+									<a
+										@click="() => {task.endDate = null;saveTask()}"
+										v-if="task.endDate && canWrite"
+										class="remove">
+										<span class="icon is-small">
+											<icon icon="times"></icon>
+										</span>
+									</a>
+								</div>
 							</div>
-						</div>
-						<div class="column" v-if="activeFields.endDate">
-							<!-- End Date -->
-							<div class="detail-title">
-								<icon icon="calendar-week"/>
-								End Date
+						</transition>
+						<transition name="flash-background" appear>
+							<div class="column" v-if="activeFields.reminders">
+								<!-- Reminders -->
+								<div class="detail-title">
+									<icon icon="history"/>
+									Reminders
+								</div>
+								<reminders
+									:disabled="!canWrite"
+									@change="saveTask"
+									ref="reminders"
+									v-model="task.reminderDates"/>
 							</div>
-							<div class="date-input">
-								<datepicker
-									v-model="task.endDate"
-									@close-on-change="() => saveTask()"
-									choose-date-label="Click here to set an end date"
-									:disabled="taskService.loading || !canWrite"
-									ref="endDate"
-								/>
-								<a @click="() => {task.endDate = null;saveTask()}" v-if="task.endDate && canWrite" class="remove">
-									<span class="icon is-small">
-										<icon icon="times"></icon>
-									</span>
-								</a>
+						</transition>
+						<transition name="flash-background" appear>
+							<div class="column" v-if="activeFields.repeatAfter">
+								<!-- Repeat after -->
+								<div class="detail-title">
+									<icon :icon="['far', 'clock']"/>
+									Repeat
+								</div>
+								<repeat-after
+									:disabled="!canWrite"
+									@change="saveTask"
+									ref="repeatAfter"
+									v-model="task"/>
 							</div>
-						</div>
-						<div class="column" v-if="activeFields.reminders">
-							<!-- Reminders -->
-							<div class="detail-title">
-								<icon icon="history"/>
-								Reminders
+						</transition>
+						<transition name="flash-background" appear>
+							<div class="column" v-if="activeFields.color">
+								<!-- Color -->
+								<div class="detail-title">
+									<icon icon="fill-drip"/>
+									Color
+								</div>
+								<color-picker
+									@change="saveTask"
+									menu-position="bottom"
+									ref="color"
+									v-model="taskColor"/>
 							</div>
-							<reminders
-								:disabled="!canWrite"
-								@change="saveTask"
-								ref="reminders"
-								v-model="task.reminderDates"/>
-						</div>
-						<div class="column" v-if="activeFields.repeatAfter">
-							<!-- Repeat after -->
-							<div class="detail-title">
-								<icon :icon="['far', 'clock']"/>
-								Repeat
-							</div>
-							<repeat-after
-								:disabled="!canWrite"
-								@change="saveTask"
-								ref="repeatAfter"
-								v-model="task"/>
-						</div>
-						<div class="column" v-if="activeFields.color">
-							<!-- Color -->
-							<div class="detail-title">
-								<icon icon="fill-drip"/>
-								Color
-							</div>
-							<color-picker
-								@change="saveTask"
-								menu-position="bottom"
-								ref="color"
-								v-model="taskColor"/>
-						</div>
+						</transition>
 					</div>
 
 					<!-- Labels -->
@@ -165,7 +191,7 @@
 					</div>
 
 					<!-- Description -->
-					<div :class="{ 'has-top-border': activeFields.labels }" class="details content description">
+					<div class="details content description">
 						<description
 							v-model="task"
 							:can-write="canWrite"
@@ -174,7 +200,7 @@
 					</div>
 
 					<!-- Attachments -->
-					<div class="content attachments has-top-border" v-if="activeFields.attachments">
+					<div class="content attachments" v-if="activeFields.attachments || hasAttachments">
 						<attachments
 							:edit-enabled="canWrite"
 							:task-id="taskId"
@@ -183,7 +209,7 @@
 					</div>
 
 					<!-- Related Tasks -->
-					<div class="content details has-top-border" v-if="activeFields.relatedTasks">
+					<div class="content details mb-0" v-if="activeFields.relatedTasks">
 						<h3>
 							<span class="icon is-grey">
 								<icon icon="tasks"/>
@@ -201,7 +227,7 @@
 					</div>
 
 					<!-- Move Task -->
-					<div class="content details has-top-border" v-if="activeFields.moveList">
+					<div class="content details" v-if="activeFields.moveList">
 						<h3>
 							<span class="icon is-grey">
 								<icon icon="list"/>
@@ -219,94 +245,130 @@
 					<comments :can-write="canWrite" :task-id="taskId"/>
 				</div>
 				<div class="column is-one-third action-buttons" v-if="canWrite">
-					<a
+					<x-button
 						:class="{'is-success': !task.done}"
+						:shadow="task.done"
 						@click="toggleTaskDone()"
-						class="button is-outlined noshadow has-no-border">
-						<span class="icon is-small"><icon icon="check-double"/></span>
-						<template v-if="task.done">
-							Mark as undone
-						</template>
-						<template v-else>
-							Done!
-						</template>
-					</a>
-					<a
+						class="is-outlined has-no-border"
+						icon="check-double"
+						type="secondary"
+					>
+						{{ task.done ? 'Mark as undone' : 'Done!' }}
+					</x-button>
+					<task-subscription
+						entity="task"
+						:entity-id="task.id"
+						:subscription="task.subscription"
+						@change="sub => task.subscription = sub"
+					/>
+					<x-button
 						@click="setFieldActive('assignees')"
 						@shortkey="setFieldActive('assignees')"
-						class="button"
+						type="secondary"
 						v-shortkey="['a']">
 						<span class="icon is-small"><icon icon="users"/></span>
 						Assign this task to a user
-					</a>
-					<a
+					</x-button>
+					<x-button
 						@click="setFieldActive('labels')"
 						@shortkey="setFieldActive('labels')"
-						class="button"
-						v-shortkey="['l']">
-						<span class="icon is-small"><icon icon="tags"/></span>
+						type="secondary"
+						v-shortkey="['l']"
+						icon="tags"
+					>
 						Add labels
-					</a>
-					<a @click="setFieldActive('reminders')" class="button">
-						<span class="icon is-small"><icon icon="history"/></span>
-						Set Reminders
-					</a>
-					<a
+					</x-button>
+					<x-button
+						@click="setFieldActive('priority')"
+						type="secondary"
+						:icon="['far', 'star']"
+					>
+						Set Priority
+					</x-button>
+					<x-button
 						@click="setFieldActive('dueDate')"
 						@shortkey="setFieldActive('dueDate')"
-						class="button"
-						v-shortkey="['d']">
-						<span class="icon is-small"><icon icon="calendar"/></span>
+						type="secondary"
+						v-shortkey="['d']"
+						icon="calendar"
+					>
 						Set Due Date
-					</a>
-					<a @click="setFieldActive('startDate')" class="button">
-						<span class="icon is-small"><icon icon="calendar-week"/></span>
+					</x-button>
+					<x-button
+						@click="setFieldActive('startDate')"
+						type="secondary"
+						icon="calendar-week"
+					>
 						Set a Start Date
-					</a>
-					<a @click="setFieldActive('endDate')" class="button">
-						<span class="icon is-small"><icon icon="calendar-week"/></span>
+					</x-button>
+					<x-button
+						@click="setFieldActive('endDate')"
+						type="secondary"
+						icon="calendar-week"
+					>
 						Set an End Date
-					</a>
-					<a @click="setFieldActive('repeatAfter')" class="button">
-						<span class="icon is-small"><icon :icon="['far', 'clock']"/></span>
+					</x-button>
+					<x-button
+						@click="setFieldActive('reminders')"
+						type="secondary"
+						icon="history"
+					>
+						Set Reminders
+					</x-button>
+					<x-button
+						@click="setFieldActive('repeatAfter')"
+						type="secondary"
+						:icon="['far', 'clock']"
+					>
 						Set a repeating interval
-					</a>
-					<a @click="setFieldActive('priority')" class="button">
-						<span class="icon is-small"><icon :icon="['far', 'star']"/></span>
-						Set Priority
-					</a>
-					<a @click="setFieldActive('percentDone')" class="button">
-						<span class="icon is-small"><icon icon="percent"/></span>
+					</x-button>
+					<x-button
+						@click="setFieldActive('percentDone')"
+						type="secondary"
+						icon="percent"
+					>
 						Set Percent Done
-					</a>
-					<a
+					</x-button>
+					<x-button
 						@click="setFieldActive('attachments')"
 						@shortkey="setFieldActive('attachments')"
-						class="button"
-						v-shortkey="['f']">
-						<span class="icon is-small"><icon icon="paperclip"/></span>
+						type="secondary"
+						v-shortkey="['f']"
+						icon="paperclip"
+					>
 						Add attachments
-					</a>
-					<a
+					</x-button>
+					<x-button
 						@click="setFieldActive('relatedTasks')"
 						@shortkey="setFieldActive('relatedTasks')"
-						class="button"
-						v-shortkey="['r']">
-						<span class="icon is-small"><icon icon="tasks"/></span>
+						type="secondary"
+						v-shortkey="['r']"
+						icon="tasks"
+					>
 						Add task relations
-					</a>
-					<a @click="setFieldActive('moveList')" class="button">
-						<span class="icon is-small"><icon icon="list"/></span>
+					</x-button>
+					<x-button
+						@click="setFieldActive('moveList')"
+						type="secondary"
+						icon="list"
+					>
 						Move task
-					</a>
-					<a @click="setFieldActive('color')" class="button">
-						<span class="icon is-small"><icon icon="fill-drip"/></span>
+					</x-button>
+					<x-button
+						@click="setFieldActive('color')"
+						type="secondary"
+						icon="fill-drip"
+					>
 						Set task color
-					</a>
-					<a @click="showDeleteModal = true" class="button is-danger is-outlined noshadow has-no-border">
-						<span class="icon is-small"><icon icon="trash-alt"/></span>
+					</x-button>
+					<x-button
+						@click="showDeleteModal = true"
+						icon="trash-alt"
+						:shadow="false"
+						class="is-danger is-outlined has-no-border"
+					>
 						Delete task
-					</a>
+					</x-button>
 
 					<!-- Created / Updated [by] -->
 					<p class="created">
@@ -319,24 +381,26 @@
 						</template>
 						<template v-if="task.done">
 							<br/>
-							Done  <span v-tooltip="doneFormatted">{{ doneSince }}</span>
+							Done <span v-tooltip="doneFormatted">{{ doneSince }}</span>
 						</template>
 					</p>
 				</div>
 			</div>
 		</div>
 
-		<modal
-			@close="showDeleteModal = false"
-			@submit="deleteTask()"
-			v-if="showDeleteModal">
-			<span slot="header">Delete this task</span>
-			<p slot="text">
-				Are you sure you want to remove this task? <br/>
-				This will also remove all attachments, reminders and relations associated with this task and
-				<b>cannot be undone!</b>
-			</p>
-		</modal>
+		<transition name="modal">
+			<modal
+				@close="showDeleteModal = false"
+				@submit="deleteTask()"
+				v-if="showDeleteModal">
+				<span slot="header">Delete this task</span>
+				<p slot="text">
+					Are you sure you want to remove this task? <br/>
+					This will also remove all attachments, reminders and relations associated with this task and
+					<b>cannot be undone!</b>
+				</p>
+			</modal>
+		</transition>
 	</div>
 </template>
 
@@ -363,10 +427,13 @@ import ColorPicker from '../../components/input/colorPicker'
 import attachmentUpload from '../../components/tasks/mixins/attachmentUpload'
 import heading from '@/components/tasks/partials/heading'
 import Datepicker from '@/components/input/datepicker'
+import {playPop} from '@/helpers/playPop'
+import TaskSubscription from '@/components/misc/subscription'
 
 export default {
 	name: 'TaskDetailView',
 	components: {
+		TaskSubscription,
 		Datepicker,
 		ColorPicker,
 		ListSearch,
@@ -402,6 +469,8 @@ export default {
 			showDeleteModal: false,
 			descriptionChanged: false,
 			listViewName: 'list.list',
+			// Used to avoid flashing of empty elements if the task content is not yet loaded.
+			visible: false,
 
 			priorities: priorites,
 			activeFields: {
@@ -436,6 +505,8 @@ export default {
 			this.listViewName = `list.${parts[1]}`
 		}
 
+		console.log(this.task)
+
 		this.loadTask()
 	},
 	computed: {
@@ -468,6 +539,9 @@ export default {
 		doneFormatted() {
 			return this.formatDate(this.task.doneAt)
 		},
+		hasAttachments() {
+			return this.$store.state.attachments.attachments.length > 0
+		},
 	},
 	methods: {
 		loadTask() {
@@ -483,6 +557,13 @@ export default {
 				.catch(e => {
 					this.error(e, this)
 				})
+				.finally(() => {
+					this.$nextTick(() => this.visible = true)
+					this.scrollToHeading()
+				})
+		},
+		scrollToHeading() {
+			this.$refs.heading.$el.scrollIntoView({block: 'center'})
 		},
 		setActiveFields() {
 
@@ -547,6 +628,16 @@ export default {
 			this.$nextTick(() => {
 				if (this.$refs[fieldName]) {
 					this.$refs[fieldName].$el.focus()
+
+					// scroll the field to the center of the screen if not in viewport already
+					const boundingRect = this.$refs[fieldName].$el.getBoundingClientRect()
+
+					if (boundingRect.top > (window.scrollY + window.innerHeight) || boundingRect.top < window.scrollY)
+						this.$refs[fieldName].$el.scrollIntoView({
+							behavior: 'smooth',
+							block: 'center',
+							inline: 'nearest'
+						})
 				}
 			})
 		},
@@ -562,6 +653,11 @@ export default {
 		},
 		toggleTaskDone() {
 			this.task.done = !this.task.done
+
+			if(this.task.done) {
+				playPop()
+			}
+
 			this.saveTask(true, () => this.toggleTaskDone())
 		},
 		setDescriptionChanged(e) {
@@ -583,6 +679,7 @@ export default {
 		changeList(list) {
 			this.task.listId = list.id
 			this.saveTask()
+			this.$store.commit('kanban/removeTaskInBucket', this.task)
 		},
 	},
 }

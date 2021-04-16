@@ -1,177 +1,171 @@
 <template>
-	<div class="loader-container is-max-width-desktop" v-bind:class="{ 'is-loading': teamService.loading}">
-		<div class="card is-fullwidth" v-if="userIsAdmin">
-			<header class="card-header">
-				<p class="card-header-title">
-					Edit Team
+	<div
+		class="loader-container is-max-width-desktop"
+		:class="{ 'is-loading': teamService.loading }"
+	>
+		<card class="is-fullwidth" v-if="userIsAdmin" title="Edit Team">
+			<form @submit.prevent="save()">
+				<div class="field">
+					<label class="label" for="teamtext"
+					>Team Name</label
+					>
+					<div class="control">
+						<input
+							:class="{
+										disabled: teamMemberService.loading,
+									}"
+							:disabled="teamMemberService.loading"
+							class="input"
+							id="teamtext"
+							placeholder="The team text is here..."
+							type="text"
+							v-focus
+							v-model="team.name"
+						/>
+					</div>
+				</div>
+				<p
+					class="help is-danger"
+					v-if="showError && team.name === ''"
+				>
+					Please specify a name.
 				</p>
-			</header>
-			<div class="card-content">
-				<div class="content">
-					<form @submit.prevent="submit()">
-						<div class="field">
-							<label class="label" for="teamtext">Team Name</label>
-							<div class="control">
-								<input
-									:class="{ 'disabled': teamMemberService.loading}"
-									:disabled="teamMemberService.loading"
-									class="input"
-									id="teamtext"
-									placeholder="The team text is here..."
-									type="text"
-									v-focus
-									v-model="team.name"/>
-							</div>
-						</div>
-						<p class="help is-danger" v-if="showError && team.name === ''">
-							Please specify a name.
-						</p>
-						<div class="field">
-							<label class="label" for="teamdescription">Description</label>
-							<div class="control">
-								<editor
-									:class="{ 'disabled': teamService.loading}"
-									:disabled="teamService.loading"
-									:preview-is-default="false"
-									id="teamdescription"
-									placeholder="The teams description goes here..."
-									v-model="team.description"
-								/>
-							</div>
-						</div>
-					</form>
+				<div class="field">
+					<label class="label" for="teamdescription"
+					>Description</label
+					>
+					<div class="control">
+						<editor
+							:class="{ disabled: teamService.loading }"
+							:disabled="teamService.loading"
+							:preview-is-default="false"
+							id="teamdescription"
+							placeholder="The teams description goes here..."
+							v-model="team.description"
+						/>
+					</div>
+				</div>
+			</form>
 
-					<div class="columns bigbuttons">
-						<div class="column">
-							<button :class="{ 'is-loading': teamService.loading}" @click="submit()"
-									class="button is-primary is-fullwidth">
-								Save
-							</button>
-						</div>
-						<div class="column is-1">
-							<button :class="{ 'is-loading': teamService.loading}" @click="showDeleteModal = true"
-									class="button is-danger is-fullwidth">
-								<span class="icon is-small">
-									<icon icon="trash-alt"/>
-								</span>
-							</button>
-						</div>
+			<div class="field has-addons mt-4">
+				<div class="control is-fullwidth">
+					<x-button
+						@click="save()"
+						:loading="teamService.loading"
+						class="is-fullwidth"
+					>
+						Save
+					</x-button>
+				</div>
+				<div class="control">
+					<x-button
+						@click="showDeleteModal = true"
+						:loading="teamService.loading"
+						class="is-danger"
+						icon="trash-alt"
+					/>
+				</div>
+			</div>
+		</card>
+
+		<card class="is-fullwidth has-overflow" title="Team Members" :padding="false">
+			<div class="p-4" v-if="userIsAdmin">
+				<div class="field has-addons">
+					<div class="control is-expanded">
+						<multiselect
+							:loading="userService.loading"
+							placeholder="Type to search..."
+							@search="findUser"
+							:search-results="foundUsers"
+							label="username"
+							v-model="newMember"
+						/>
+					</div>
+					<div class="control">
+						<x-button @click="addUser" icon="plus">
+							Add To Team
+						</x-button>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="card is-fullwidth">
-			<header class="card-header">
-				<p class="card-header-title">
-					Team Members
-				</p>
-			</header>
-			<div class="card-content content team-members">
-				<form @submit.prevent="addUser()" class="add-member-form" v-if="userIsAdmin">
-					<div class="field is-grouped">
-						<p
-							:class="{ 'is-loading': teamMemberService.loading}"
-							class="control has-icons-left is-expanded">
-							<multiselect
-								:internal-search="true"
-								:loading="userService.loading"
-								:multiple="false"
-								:options="foundUsers"
-								:searchable="true"
-								:showNoOptions="false"
-								@search-change="findUser"
-								label="username"
-								placeholder="Type to search..."
-								track-by="id"
-								v-model="newMember">
-								<template slot="clear" slot-scope="props">
-									<div
-										@mousedown.prevent.stop="clearAll(props.search)" class="multiselect__clear"
-										v-if="newMember !== null && newMember.id !== 0">
-									</div>
-								</template>
-								<span slot="noResult">Oops! No user found. Consider changing the search query.</span>
-							</multiselect>
-						</p>
-						<p class="control">
-							<button class="button is-success" type="submit">
+			<table class="table has-actions is-striped is-hoverable is-fullwidth">
+				<tbody>
+				<tr :key="m.id" v-for="m in team.members">
+					<td>{{ m.getDisplayName() }}</td>
+					<td>
+						<template v-if="m.id === userInfo.id">
+							<b class="is-success">You</b>
+						</template>
+					</td>
+					<td class="type">
+						<template v-if="m.admin">
 								<span class="icon is-small">
-									<icon icon="plus"/>
+									<icon icon="lock"/>
 								</span>
-								Add
-							</button>
-						</p>
-					</div>
-				</form>
-				<table class="table is-striped is-hoverable is-fullwidth">
-					<tbody>
-					<tr :key="m.id" v-for="m in team.members">
-						<td>{{ m.getDisplayName() }}</td>
-						<td>
-							<template v-if="m.id === userInfo.id">
-								<b class="is-success">You</b>
-							</template>
-						</td>
-						<td class="type">
-							<template v-if="m.admin">
-									<span class="icon is-small">
-										<icon icon="lock"/>
-									</span>
-								Admin
-							</template>
-							<template v-else>
-									<span class="icon is-small">
-										<icon icon="user"/>
-									</span>
-								Member
-							</template>
-						</td>
-						<td class="actions" v-if="userIsAdmin">
-							<button :class="{'is-loading': teamMemberService.loading}" @click="toggleUserType(m)"
-									class="button buttonright is-primary"
-									v-if="m.id !== userInfo.id">
-								Make
-								<template v-if="!m.admin">
-									Admin
-								</template>
-								<template v-else>
-									Member
-								</template>
-							</button>
-							<button :class="{'is-loading': teamMemberService.loading}" @click="() => {member = m; showUserDeleteModal = true}"
-									class="button is-danger"
-									v-if="m.id !== userInfo.id">
-									<span class="icon is-small">
-										<icon icon="trash-alt"/>
-									</span>
-							</button>
-						</td>
-					</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
+							Admin
+						</template>
+						<template v-else>
+								<span class="icon is-small">
+									<icon icon="user"/>
+								</span>
+							Member
+						</template>
+					</td>
+					<td class="actions" v-if="userIsAdmin">
+						<x-button
+							:loading="teamMemberService.loading"
+							@click="() => toggleUserType(m)"
+							class="mr-2"
+							v-if="m.id !== userInfo.id"
+						>
+							Make {{ m.admin ? 'Member' : 'Admin' }}
+						</x-button>
+						<x-button
+							:loading="teamMemberService.loading"
+							@click="() => {member = m; showUserDeleteModal = true}"
+							class="is-danger"
+							v-if="m.id !== userInfo.id"
+							icon="trash-alt"
+						/>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</card>
 
 		<!-- Team delete modal -->
-		<modal
-			@close="showDeleteModal = false"
-			@submit="deleteTeam()"
-			v-if="showDeleteModal">
-			<span slot="header">Delete the team</span>
-			<p slot="text">Are you sure you want to delete this team and all of its members?<br/>
-				All team members will loose access to lists and namespaces shared with this team.<br/>
-				<b>This CANNOT BE UNDONE!</b></p>
-		</modal>
+		<transition name="modal">
+			<modal
+				@close="showDeleteModal = false"
+				@submit="deleteTeam()"
+				v-if="showDeleteModal"
+			>
+				<span slot="header">Delete the team</span>
+				<p slot="text">
+					Are you sure you want to delete this team and all of its
+					members?<br/>
+					All team members will loose access to lists and namespaces
+					shared with this team.<br/>
+					<b>This CANNOT BE UNDONE!</b>
+				</p>
+			</modal>
+		</transition>
 		<!-- User delete modal -->
-		<modal
-			@close="showUserDeleteModal = false"
-			@submit="deleteUser()"
-			v-if="showUserDeleteModal">
-			<span slot="header">Remove a user from the team</span>
-			<p slot="text">Are you sure you want to remove this user from the team?<br/>
-				They will loose access to all lists and namespaces this team has access to.<br/>
-				<b>This CANNOT BE UNDONE!</b></p>
-		</modal>
+		<transition name="modal">
+			<modal
+				@close="showUserDeleteModal = false"
+				@submit="deleteUser()"
+				v-if="showUserDeleteModal"
+			>
+				<span slot="header">Remove a user from the team</span>
+				<p slot="text">
+					Are you sure you want to remove this user from the team?<br/>
+					They will loose access to all lists and namespaces this team has
+					access to.<br/>
+					<b>This CANNOT BE UNDONE!</b>
+				</p>
+			</modal>
+		</transition>
 	</div>
 </template>
 
@@ -185,9 +179,12 @@ import TeamMemberService from '../../services/teamMember'
 import TeamMemberModel from '../../models/teamMember'
 import UserModel from '../../models/user'
 import UserService from '../../services/user'
+import Rights from '../../models/rights.json'
+
 import LoadingComponent from '../../components/misc/loading'
 import ErrorComponent from '../../components/misc/error'
-import Rights from '../../models/rights.json'
+
+import Multiselect from '@/components/input/multiselect'
 
 export default {
 	name: 'EditTeam',
@@ -210,14 +207,11 @@ export default {
 		}
 	},
 	components: {
-		multiselect: () => ({
-			component: import(/* webpackChunkName: "multiselect" */ 'vue-multiselect'),
-			loading: LoadingComponent,
-			error: ErrorComponent,
-			timeout: 60000,
-		}),
+		Multiselect,
 		editor: () => ({
-			component: import(/* webpackChunkName: "editor" */ '../../components/input/editor'),
+			component: import(
+				/* webpackChunkName: "editor" */ '../../components/input/editor'
+				),
 			loading: LoadingComponent,
 			error: ErrorComponent,
 			timeout: 60000,
@@ -231,61 +225,81 @@ export default {
 	},
 	watch: {
 		// call again the method if the route changes
-		'$route': 'loadTeam',
+		$route: 'loadTeam',
 	},
 	computed: {
 		userIsAdmin() {
-			return this.team && this.team.maxRight && this.team.maxRight > Rights.READ
+			return (
+				this.team &&
+				this.team.maxRight &&
+				this.team.maxRight > Rights.READ
+			)
 		},
 		...mapState({
-			userInfo: state => state.auth.info,
+			userInfo: (state) => state.auth.info,
 		}),
 	},
 	methods: {
 		loadTeam() {
 			this.team = new TeamModel({id: this.teamId})
-			this.teamService.get(this.team)
-				.then(response => {
+			this.teamService
+				.get(this.team)
+				.then((response) => {
 					this.$set(this, 'team', response)
 					this.setTitle(`Edit Team ${this.team.name}`)
 				})
-				.catch(e => {
+				.catch((e) => {
 					this.error(e, this)
 				})
 		},
-		submit() {
+		save() {
 			if (this.team.name === '') {
 				this.showError = true
 				return
 			}
 			this.showError = false
 
-			this.teamService.update(this.team)
-				.then(response => {
+			this.teamService
+				.update(this.team)
+				.then((response) => {
 					this.team = response
-					this.success({message: 'The team was successfully updated.'}, this)
+					this.success(
+						{message: 'The team was successfully updated.'},
+						this
+					)
 				})
-				.catch(e => {
+				.catch((e) => {
 					this.error(e, this)
 				})
 		},
 		deleteTeam() {
-			this.teamService.delete(this.team)
+			this.teamService
+				.delete(this.team)
 				.then(() => {
-					this.success({message: 'The team was successfully deleted.'}, this)
+					this.success(
+						{message: 'The team was successfully deleted.'},
+						this
+					)
 					router.push({name: 'teams.index'})
 				})
-				.catch(e => {
+				.catch((e) => {
 					this.error(e, this)
 				})
 		},
 		deleteUser() {
-			this.teamMemberService.delete(this.member)
+			this.teamMemberService
+				.delete(this.member)
 				.then(() => {
-					this.success({message: 'The user was successfully deleted from the team.'}, this)
+					this.success(
+						{
+							message:
+								'The user was successfully deleted from the team.',
+						},
+						this
+					)
 					this.loadTeam()
 				})
-				.catch(e => {
+				.catch((e) => {
 					this.error(e, this)
 				})
 				.finally(() => {
@@ -297,28 +311,42 @@ export default {
 				teamId: this.teamId,
 				username: this.newMember.username,
 			})
-			this.teamMemberService.create(newMember)
+			this.teamMemberService
+				.create(newMember)
 				.then(() => {
 					this.loadTeam()
-					this.success({message: 'The team member was successfully added.'}, this)
+					this.success(
+						{message: 'The team member was successfully added.'},
+						this
+					)
 				})
-				.catch(e => {
+				.catch((e) => {
 					this.error(e, this)
 				})
 		},
 		toggleUserType(member) {
 			member.admin = !member.admin
-			this.teamMemberService.update(member)
-				.then(r => {
+			member.teamId = this.teamId
+			this.teamMemberService
+				.update(member)
+				.then((r) => {
 					for (const tm in this.team.members) {
 						if (this.team.members[tm].id === member.id) {
 							this.$set(this.team.members[tm], 'admin', r.admin)
 							break
 						}
 					}
-					this.success({message: 'The team member was successfully made ' + (member.admin ? 'admin' : 'member') + '.'}, this)
+					this.success(
+						{
+							message:
+								'The team member was successfully made ' +
+								(member.admin ? 'admin' : 'member') +
+								'.',
+						},
+						this
+					)
 				})
-				.catch(e => {
+				.catch((e) => {
 					this.error(e, this)
 				})
 		},
@@ -328,11 +356,12 @@ export default {
 				return
 			}
 
-			this.userService.getAll({}, {s: query})
-				.then(response => {
+			this.userService
+				.getAll({}, {s: query})
+				.then((response) => {
 					this.$set(this, 'foundUsers', response)
 				})
-				.catch(e => {
+				.catch((e) => {
 					this.error(e, this)
 				})
 		},
@@ -342,21 +371,3 @@ export default {
 	},
 }
 </script>
-
-<style lang="scss" scoped>
-.card {
-	margin-bottom: 1rem;
-
-	.add-member-form {
-		margin: 1rem;
-	}
-}
-
-.team-members {
-	padding: 0;
-
-	.table {
-		border-top: 0;
-	}
-}
-</style>

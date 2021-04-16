@@ -1,6 +1,8 @@
 <template>
-	<div :class="{ 'is-loading': taskCollectionService.loading}" class="loader-container is-max-width-desktop">
-		<div class="filter-container">
+	<div
+		:class="{ 'is-loading': taskCollectionService.loading}"
+		class="loader-container is-max-width-desktop list-view">
+		<div class="filter-container" v-if="list.isSavedFilter && !list.isSavedFilter()">
 			<div class="items">
 				<div class="search">
 					<div :class="{ 'hidden': !showTaskSearch }" class="field has-addons">
@@ -18,73 +20,79 @@
 							</span>
 						</div>
 						<div class="control">
-							<button
-								:class="{'is-loading': taskCollectionService.loading}"
+							<x-button
+								:loading="taskCollectionService.loading"
 								@click="searchTasks"
-								class="button noshadow is-primary">
+								:shadow="false"
+							>
 								Search
-							</button>
+							</x-button>
 						</div>
 					</div>
-					<button @click="showTaskSearch = !showTaskSearch" class="button" v-if="!showTaskSearch">
-						<span class="icon">
-							<icon icon="search"/>
-						</span>
-					</button>
+					<x-button
+						@click="showTaskSearch = !showTaskSearch"
+						icon="search"
+						type="secondary"
+						v-if="!showTaskSearch"
+					/>
 				</div>
-				<button @click="showTaskFilter = !showTaskFilter" class="button">
-					<span class="icon is-small">
-						<icon icon="filter"/>
-					</span>
+				<x-button
+					@click.prevent.stop="showTaskFilter = !showTaskFilter"
+					type="secondary"
+					icon="filter"
+				>
 					Filters
-				</button>
+				</x-button>
 			</div>
-			<transition name="fade">
-				<filters
-					@change="loadTasks(1)"
-					v-if="showTaskFilter"
-					v-model="params"
-				/>
-			</transition>
+			<filter-popup
+				@change="loadTasks(1)"
+				:visible="showTaskFilter"
+				v-model="params"
+			/>
 		</div>
 
-		<div class="field task-add" v-if="!list.isArchived && canWrite && list.id > 0">
-			<div class="field is-grouped">
-				<p :class="{ 'is-loading': taskService.loading}" class="control has-icons-left is-expanded">
-					<input
-						:class="{ 'disabled': taskService.loading}"
-						@keyup.enter="addTask()"
-						class="input"
-						placeholder="Add a new task..."
-						type="text"
-						v-focus
-						v-model="newTaskText"/>
-					<span class="icon is-small is-left">
+		<card :padding="false" :has-content="false" class="has-overflow">
+			<div class="field task-add" v-if="!list.isArchived && canWrite && list.id > 0">
+				<div class="field is-grouped">
+					<p :class="{ 'is-loading': taskService.loading}" class="control has-icons-left is-expanded">
+						<input
+							:class="{ 'disabled': taskService.loading}"
+							@keyup.enter="addTask()"
+							class="input"
+							placeholder="Add a new task..."
+							type="text"
+							v-focus
+							v-model="newTaskText"
+							ref="newTaskInput"
+						/>
+						<span class="icon is-small is-left">
 						<icon icon="tasks"/>
 					</span>
-				</p>
-				<p class="control">
-					<button :disabled="newTaskText.length === 0" @click="addTask()" class="button is-success">
-						<span class="icon is-small">
-							<icon icon="plus"/>
-						</span>
-						Add
-					</button>
+					</p>
+					<p class="control">
+						<x-button
+							:disabled="newTaskText.length === 0"
+							@click="addTask()"
+							icon="plus"
+						>
+							Add
+						</x-button>
+					</p>
+				</div>
+				<p class="help is-danger" v-if="showError && newTaskText === ''">
+					Please specify a list title.
 				</p>
 			</div>
-			<p class="help is-danger" v-if="showError && newTaskText === ''">
-				Please specify a list title.
-			</p>
-		</div>
 
-		<p class="list-is-empty-notice" v-if="tasks.length === 0">
-			This list is currently empty.
-		</p>
+			<nothing v-if="ctaVisible && tasks.length === 0 && !taskCollectionService.loading">
+				This list is currently empty.
+				<a @click="$refs.newTaskInput.focus()">Create a new task.</a>
+			</nothing>
 
-		<div class="columns">
-			<div class="column">
-				<div :class="{'short': isTaskEdit}" class="tasks" v-if="tasks && tasks.length > 0">
+			<div class="tasks-container">
+				<div :class="{'short': isTaskEdit}" class="tasks mt-0" v-if="tasks && tasks.length > 0">
 					<single-task-in-list
+						:show-list-color="false"
 						:disabled="!canWrite"
 						:key="t.id"
 						:the-task="t"
@@ -97,62 +105,49 @@
 						</div>
 					</single-task-in-list>
 				</div>
+				<card
+					v-if="isTaskEdit"
+					class="taskedit mt-0" title="Edit Task" :has-close="true" @close="() => isTaskEdit = false"
+					:shadow="false">
+					<edit-task :task="taskEditTask"/>
+				</card>
 			</div>
-			<div class="column is-4" v-if="isTaskEdit">
-				<div class="card taskedit">
-					<header class="card-header">
-						<p class="card-header-title">
-							Edit Task
-						</p>
-						<a @click="isTaskEdit = false" class="card-header-icon">
-							<span class="icon">
-								<icon icon="angle-right"/>
-							</span>
-						</a>
-					</header>
-					<div class="card-content">
-						<div class="content">
-							<edit-task :task="taskEditTask"/>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
-		<nav
-			aria-label="pagination"
-			class="pagination is-centered"
-			role="navigation"
-			v-if="taskCollectionService.totalPages > 1">
-			<router-link
-				:disabled="currentPage === 1"
-				:to="getRouteForPagination(currentPage - 1)"
-				class="pagination-previous"
-				tag="button">
-				Previous
-			</router-link>
-			<router-link
-				:disabled="currentPage === taskCollectionService.totalPages"
-				:to="getRouteForPagination(currentPage + 1)"
-				class="pagination-next"
-				tag="button">
-				Next page
-			</router-link>
-			<ul class="pagination-list">
-				<template v-for="(p, i) in pages">
-					<li :key="'page'+i" v-if="p.isEllipsis"><span class="pagination-ellipsis">&hellip;</span></li>
-					<li :key="'page'+i" v-else>
-						<router-link
-							:aria-label="'Goto page ' + p.number"
-							:class="{'is-current': p.number === currentPage}"
-							:to="getRouteForPagination(p.number)"
-							class="pagination-link">
-							{{ p.number }}
-						</router-link>
-					</li>
-				</template>
-			</ul>
-		</nav>
+			<nav
+				aria-label="pagination"
+				class="pagination is-centered p-4"
+				role="navigation"
+				v-if="taskCollectionService.totalPages > 1">
+				<router-link
+					:disabled="currentPage === 1"
+					:to="getRouteForPagination(currentPage - 1)"
+					class="pagination-previous"
+					tag="button">
+					Previous
+				</router-link>
+				<router-link
+					:disabled="currentPage === taskCollectionService.totalPages"
+					:to="getRouteForPagination(currentPage + 1)"
+					class="pagination-next"
+					tag="button">
+					Next page
+				</router-link>
+				<ul class="pagination-list">
+					<template v-for="(p, i) in pages">
+						<li :key="'page'+i" v-if="p.isEllipsis"><span class="pagination-ellipsis">&hellip;</span></li>
+						<li :key="'page'+i" v-else>
+							<router-link
+								:aria-label="'Goto page ' + p.number"
+								:class="{'is-current': p.number === currentPage}"
+								:to="getRouteForPagination(p.number)"
+								class="pagination-link">
+								{{ p.number }}
+							</router-link>
+						</li>
+					</template>
+				</ul>
+			</nav>
+		</card>
 
 		<!-- This router view is used to show the task popup while keeping the kanban board itself -->
 		<transition name="modal">
@@ -174,9 +169,11 @@ import EditTask from '../../../components/tasks/edit-task'
 import SingleTaskInList from '../../../components/tasks/partials/singleTaskInList'
 import taskList from '../../../components/tasks/mixins/taskList'
 import {saveListView} from '@/helpers/saveListView'
-import Filters from '../../../components/list/partials/filters'
 import Rights from '../../../models/rights.json'
 import {mapState} from 'vuex'
+import FilterPopup from '@/components/list/partials/filter-popup'
+import {HAS_TASKS} from '@/store/mutation-types'
+import Nothing from '@/components/misc/nothing'
 
 export default {
 	name: 'List',
@@ -190,13 +187,16 @@ export default {
 			showError: false,
 			labelTaskService: LabelTaskService,
 			labelService: LabelService,
+
+			ctaVisible: false,
 		}
 	},
 	mixins: [
 		taskList,
 	],
 	components: {
-		Filters,
+		Nothing,
+		FilterPopup,
 		SingleTaskInList,
 		EditTask,
 	},
@@ -213,6 +213,9 @@ export default {
 		canWrite: state => state.currentList.maxRight > Rights.READ,
 		list: state => state.currentList,
 	}),
+	mounted() {
+		this.$nextTick(() => this.ctaVisible = true)
+	},
 	methods: {
 		// This function initializes the tasks page and loads the first page of tasks
 		initTasks(page, search = '') {
@@ -329,6 +332,7 @@ export default {
 								this.taskService.update(task)
 									.then(updatedTask => {
 										this.updateTasks(updatedTask)
+										this.$store.commit(HAS_TASKS, true)
 									})
 									.catch(e => {
 										this.error(e, this)
