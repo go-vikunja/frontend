@@ -59,7 +59,8 @@
 		</div>
 		<div :style="{ width: fullWidth + 'px' }" class="tasks">
 			<div
-				:key="t.id"
+				v-for="(t, k) in theTasks"
+				:key="t ? t.id : 0"
 				:style="{
 					background:
 						'repeating-linear-gradient(90deg, #ededed, #ededed 1px, ' +
@@ -70,13 +71,11 @@
 						'px)',
 				}"
 				class="row"
-				v-for="(t, k) in theTasks"
 			>
 				<VueDragResize
 					:class="{
-						done: t.done,
-						'is-current-edit':
-							taskToEdit !== null && taskToEdit.id === t.id,
+						done: t ? t.done : false,
+						'is-current-edit': taskToEdit !== null && taskToEdit.id === t.id,
 						'has-light-text': !colorIsDark(t.getHexColor()),
 						'has-dark-text': colorIsDark(t.getHexColor()),
 					}"
@@ -361,33 +360,43 @@ export default {
 							if (a.startDate > b.startDate) return 1
 							return 0
 						})
+
+					let tts = ''
+					this.theTasks.forEach(t => {
+						tts += t.id + ', '
+					})
+					console.log(tts)
 				})
 				.catch((e) => {
 					this.error(e, this)
 				})
 		},
 		addGantAttributes(t) {
+			if (typeof t.durationDays !== 'undefined' && typeof t.offsetDays !== 'undefined') {
+				return t
+			}
+
 			t.endDate === null ? this.endDate : t.endDate
-			t.durationDays =
-				Math.floor((t.endDate - t.startDate) / 1000 / 60 / 60 / 24) + 1
-			t.offsetDays =
-				Math.floor(
-					(t.startDate - this.startDate) / 1000 / 60 / 60 / 24
-				) + 1
+			t.durationDays = Math.floor((t.endDate - t.startDate) / 1000 / 60 / 60 / 24)
+			t.offsetDays = Math.floor((t.startDate - this.startDate) / 1000 / 60 / 60 / 24)
 			return t
 		},
 		setTaskDragged(t) {
 			this.taskDragged = t
 		},
 		resizeTask(newRect) {
+
+			// TODO: Remove all console.log and commented code
 			// Timeout to definitly catch if the user clicked on taskedit
-			setTimeout(() => {
+			// setTimeout(() => {
+
 				if (this.isTaskEdit) {
 					return
 				}
 
-				let didntHaveDates =
-					this.taskDragged.startDate === null ? true : false
+				const didntHaveDates = this.taskDragged.startDate === null ? true : false
+
+				console.log('drag', this.taskDragged.id, this.taskDragged.startDate, didntHaveDates)
 
 				let startDate = new Date(this.startDate)
 				startDate.setDate(
@@ -409,15 +418,28 @@ export default {
 				// FIXME: This is a workaround. We should use a better mechanism to get the task or, even better,
 				// prevent it from containing outdated Data in the first place.
 				for (const tt in this.theTasks) {
+					console.log('for the tasks', this.theTasks[tt].id, this.taskDragged.id)
 					if (this.theTasks[tt].id === this.taskDragged.id) {
 						this.$set(this, 'taskDragged', this.theTasks[tt])
 						break
 					}
 				}
 
+				const ganttData = {
+					endDate: this.taskDragged.endDate,
+					durationDays: this.taskDragged.durationDays,
+					offsetDays: this.taskDragged.offsetDays,
+				}
+
 				this.taskService
 					.update(this.taskDragged)
-					.then((r) => {
+					.then(r => {
+						r.endDate = ganttData.endDate
+						r.durationDays = ganttData.durationDays
+						r.offsetDays = ganttData.offsetDays
+
+						console.log('had dates', didntHaveDates)
+
 						// If the task didn't have dates before, we'll update the list
 						if (didntHaveDates) {
 							for (const t in this.tasksWithoutDates) {
@@ -429,7 +451,9 @@ export default {
 							this.theTasks.push(this.addGantAttributes(r))
 						} else {
 							for (const tt in this.theTasks) {
+								console.log(this.theTasks[tt].id, r.id)
 								if (this.theTasks[tt].id === r.id) {
+									console.log('found')
 									this.$set(
 										this.theTasks,
 										tt,
@@ -443,7 +467,7 @@ export default {
 					.catch((e) => {
 						this.error(e, this)
 					})
-			}, 100)
+			// }, 100)
 		},
 		editTask(task) {
 			this.taskToEdit = task
