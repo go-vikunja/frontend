@@ -360,12 +360,6 @@ export default {
 							if (a.startDate > b.startDate) return 1
 							return 0
 						})
-
-					let tts = ''
-					this.theTasks.forEach(t => {
-						tts += t.id + ', '
-					})
-					console.log(tts)
 				})
 				.catch((e) => {
 					this.error(e, this)
@@ -385,89 +379,76 @@ export default {
 			this.taskDragged = t
 		},
 		resizeTask(newRect) {
+			if (this.isTaskEdit) {
+				return
+			}
 
-			// TODO: Remove all console.log and commented code
-			// Timeout to definitly catch if the user clicked on taskedit
-			// setTimeout(() => {
+			const didntHaveDates = this.taskDragged.startDate === null ? true : false
 
-				if (this.isTaskEdit) {
-					return
+			let startDate = new Date(this.startDate)
+			startDate.setDate(
+				startDate.getDate() + newRect.left / this.dayWidth
+			)
+			startDate.setUTCHours(0)
+			startDate.setUTCMinutes(0)
+			startDate.setUTCSeconds(0)
+			startDate.setUTCMilliseconds(0)
+			this.taskDragged.startDate = startDate
+			let endDate = new Date(startDate)
+			endDate.setDate(
+				startDate.getDate() + newRect.width / this.dayWidth
+			)
+			this.taskDragged.startDate = startDate
+			this.taskDragged.endDate = endDate
+
+			// We take the task from the overall tasks array because the one in it has bad data after it was updated once.
+			// FIXME: This is a workaround. We should use a better mechanism to get the task or, even better,
+			// prevent it from containing outdated Data in the first place.
+			for (const tt in this.theTasks) {
+				if (this.theTasks[tt].id === this.taskDragged.id) {
+					this.$set(this, 'taskDragged', this.theTasks[tt])
+					break
 				}
+			}
 
-				const didntHaveDates = this.taskDragged.startDate === null ? true : false
+			const ganttData = {
+				endDate: this.taskDragged.endDate,
+				durationDays: this.taskDragged.durationDays,
+				offsetDays: this.taskDragged.offsetDays,
+			}
 
-				console.log('drag', this.taskDragged.id, this.taskDragged.startDate, didntHaveDates)
+			this.taskService
+				.update(this.taskDragged)
+				.then(r => {
+					r.endDate = ganttData.endDate
+					r.durationDays = ganttData.durationDays
+					r.offsetDays = ganttData.offsetDays
 
-				let startDate = new Date(this.startDate)
-				startDate.setDate(
-					startDate.getDate() + newRect.left / this.dayWidth
-				)
-				startDate.setUTCHours(0)
-				startDate.setUTCMinutes(0)
-				startDate.setUTCSeconds(0)
-				startDate.setUTCMilliseconds(0)
-				this.taskDragged.startDate = startDate
-				let endDate = new Date(startDate)
-				endDate.setDate(
-					startDate.getDate() + newRect.width / this.dayWidth
-				)
-				this.taskDragged.startDate = startDate
-				this.taskDragged.endDate = endDate
-
-				// We take the task from the overall tasks array because the one in it has bad data after it was updated once.
-				// FIXME: This is a workaround. We should use a better mechanism to get the task or, even better,
-				// prevent it from containing outdated Data in the first place.
-				for (const tt in this.theTasks) {
-					console.log('for the tasks', this.theTasks[tt].id, this.taskDragged.id)
-					if (this.theTasks[tt].id === this.taskDragged.id) {
-						this.$set(this, 'taskDragged', this.theTasks[tt])
-						break
-					}
-				}
-
-				const ganttData = {
-					endDate: this.taskDragged.endDate,
-					durationDays: this.taskDragged.durationDays,
-					offsetDays: this.taskDragged.offsetDays,
-				}
-
-				this.taskService
-					.update(this.taskDragged)
-					.then(r => {
-						r.endDate = ganttData.endDate
-						r.durationDays = ganttData.durationDays
-						r.offsetDays = ganttData.offsetDays
-
-						console.log('had dates', didntHaveDates)
-
-						// If the task didn't have dates before, we'll update the list
-						if (didntHaveDates) {
-							for (const t in this.tasksWithoutDates) {
-								if (this.tasksWithoutDates[t].id === r.id) {
-									this.tasksWithoutDates.splice(t, 1)
-									break
-								}
-							}
-							this.theTasks.push(this.addGantAttributes(r))
-						} else {
-							for (const tt in this.theTasks) {
-								console.log(this.theTasks[tt].id, r.id)
-								if (this.theTasks[tt].id === r.id) {
-									console.log('found')
-									this.$set(
-										this.theTasks,
-										tt,
-										this.addGantAttributes(r)
-									)
-									break
-								}
+					// If the task didn't have dates before, we'll update the list
+					if (didntHaveDates) {
+						for (const t in this.tasksWithoutDates) {
+							if (this.tasksWithoutDates[t].id === r.id) {
+								this.tasksWithoutDates.splice(t, 1)
+								break
 							}
 						}
-					})
-					.catch((e) => {
-						this.error(e, this)
-					})
-			// }, 100)
+						this.theTasks.push(this.addGantAttributes(r))
+					} else {
+						for (const tt in this.theTasks) {
+							if (this.theTasks[tt].id === r.id) {
+								this.$set(
+									this.theTasks,
+									tt,
+									this.addGantAttributes(r)
+								)
+								break
+							}
+						}
+					}
+				})
+				.catch((e) => {
+					this.error(e, this)
+				})
 		},
 		editTask(task) {
 			this.taskToEdit = task
