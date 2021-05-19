@@ -16,6 +16,40 @@
 				v-model="params"
 			/>
 		</div>
+
+
+		<g-gantt-chart
+			:chart-start="dateFrom.toString()"
+			:chart-end="dateTo.toString()"
+			:push-on-overlap="true"
+			row-label-width="0"
+			:grid="true"
+		>
+			<g-gantt-row
+				v-for="(t, k) in theTasks"
+				:key="t ? t.id : 'k'+k"
+				label=""
+				bar-start="start"
+				bar-end="end"
+				:bars="[{
+					start: t.startDate.toString(),
+					end: t.endDate.toString(),
+					label: t.title,
+					ganttBarConfig: {
+						color: colorIsDark(t.getHexColor()) ? 'white' : 'black',
+						backgroundColor: t.getHexColor(),
+						handles: true,
+					}
+				}]"
+				:highlight-on-hover="true"
+			>
+				<template v-slot:label>
+					<span>{{ t.title }}</span>
+				</template>
+			</g-gantt-row>
+		</g-gantt-chart>
+
+
 		<div class="dates">
 			<template v-for="(y, yk) in days">
 				<div :key="yk + 'year'" class="months">
@@ -191,6 +225,7 @@
 
 <script>
 import VueDragResize from 'vue-drag-resize'
+import {GGanttChart, GGanttRow} from 'vue-ganttastic'
 import EditTask from './edit-task'
 
 import TaskService from '../../services/task'
@@ -209,6 +244,8 @@ export default {
 		PriorityLabel,
 		EditTask,
 		VueDragResize,
+		GGanttChart,
+		GGanttRow,
 	},
 	props: {
 		listId: {
