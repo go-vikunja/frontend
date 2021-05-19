@@ -24,6 +24,7 @@
 			:push-on-overlap="true"
 			row-label-width="0"
 			:grid="true"
+			@dragend-bar="dragged($event)"
 		>
 			<g-gantt-row
 				v-for="(t, k) in theTasks"
@@ -43,9 +44,9 @@
 				}]"
 				:highlight-on-hover="true"
 			>
-				<template #bar-label="{bar}">
-					<span>{{bar.label}}</span>
-				</template>
+<!--				<template #bar-label="{bar}">-->
+<!--					<span>{{ bar.label }}</span>-->
+<!--				</template>-->
 			</g-gantt-row>
 		</g-gantt-chart>
 
@@ -523,6 +524,9 @@ export default {
 				.catch((e) => {
 					this.error(e, this)
 				})
+		},
+		dragged(e) {
+			console.log(e)
 		},
 	},
 }
