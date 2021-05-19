@@ -36,15 +36,15 @@
 					end: t.endDate.toString(),
 					label: t.title,
 					ganttBarConfig: {
-						color: colorIsDark(t.getHexColor()) ? 'white' : 'black',
+						color: colorIsDark(t.getHexColor()) ? 'black' : 'white',
 						backgroundColor: t.getHexColor(),
 						handles: true,
 					}
 				}]"
 				:highlight-on-hover="true"
 			>
-				<template v-slot:label>
-					<span>{{ t.title }}</span>
+				<template #bar-label="{bar}">
+					<span>{{bar.label}}</span>
 				</template>
 			</g-gantt-row>
 		</g-gantt-chart>
