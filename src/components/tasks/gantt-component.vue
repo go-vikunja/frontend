@@ -24,8 +24,10 @@
 			:push-on-overlap="true"
 			row-label-width="0"
 			:row-height="37"
-			:grid="true"
+			:grid="false"
 			@dragend-bar="dragged($event)"
+			:style="{'--day-width': dayWidthPercent + 'px'}"
+			ref="g-gantt-chart-container"
 		>
 			<g-gantt-row
 				v-for="(t, k) in ganttBars"
@@ -236,6 +238,18 @@ import Rights from '../../models/rights.json'
 import FilterPopup from '@/components/list/partials/filter-popup'
 import {colorIsDark} from '@/helpers/color/colorIsDark'
 
+// Source: https://stackoverflow.com/a/11252167/10924593
+const treatAsUTC = date => {
+	const  result = new Date(date)
+	result.setMinutes(result.getMinutes() - result.getTimezoneOffset())
+	return result
+}
+
+const daysBetween = (startDate, endDate) => {
+	const millisecondsPerDay = 24 * 60 * 60 * 1000;
+	return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
+}
+
 export default {
 	name: 'GanttChart',
 	components: {
@@ -313,9 +327,21 @@ export default {
 	mounted() {
 		this.buildTheGanttChart()
 	},
-	computed: mapState({
-		canWrite: (state) => state.currentList.maxRight > Rights.READ,
-	}),
+	computed: {
+		...mapState({
+			canWrite: (state) => state.currentList.maxRight > Rights.READ,
+		}),
+		dayWidthPercent() {
+			const days = daysBetween(this.startDate, this.endDate)
+
+			let containerWidth = 1
+			if(this.$refs['g-gantt-chart-container']) {
+				containerWidth = this.$refs['g-gantt-chart-container'].$el.clientWidth
+			}
+
+			return Math.round(containerWidth / days)
+		},
+	},
 	methods: {
 		buildTheGanttChart() {
 			this.setDates()

@@ -236,18 +236,35 @@ $gantt-vertical-border-color: $grey-100;
   display: none;
 }
 
+:root {
+  --day-width: 50px;
+}
+
 #g-gantt-chart {
   * {
     font-family: $family-sans-serif !important;
   }
 
-  // .85rem
+
+  .g-gantt-row {
+    &:nth-child(even) {
+      background: rgba(0, 0, 0, 0) repeating-linear-gradient(90deg, #ededed, #ededed 1px, #fff 1px, #fff var(--day-width)) repeat scroll 0% 0%;
+    }
+
+    &:nth-child(odd) {
+      background: rgba(0, 0, 0, 0) repeating-linear-gradient(90deg, #ededed, #ededed 1px, #fafafa 1px, #fafafa var(--day-width)) repeat scroll 0% 0%;
+    }
+
+    > .g-gantt-row-bars-container {
+      border: 0;
+    }
+  }
 
   .g-gantt-bar {
     border-radius: 6px !important;
     overflow: visible !important;
     cursor: grab;
-    
+
     &:active {
       cursor: grabbing;
     }
