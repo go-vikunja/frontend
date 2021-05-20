@@ -23,30 +23,25 @@
 			:chart-end="dateTo.toString()"
 			:push-on-overlap="true"
 			row-label-width="0"
+			:row-height="37"
 			:grid="true"
 			@dragend-bar="dragged($event)"
 		>
 			<g-gantt-row
-				v-for="(t, k) in theTasks"
+				v-for="(t, k) in ganttBars"
 				:key="t ? t.id : 'k'+k"
 				label=""
 				bar-start="start"
 				bar-end="end"
-				:bars="[{
-					start: t.startDate.toString(),
-					end: t.endDate.toString(),
-					label: t.title,
-					ganttBarConfig: {
-						color: colorIsDark(t.getHexColor()) ? 'black' : 'white',
-						backgroundColor: t.getHexColor(),
-						handles: true,
-					}
-				}]"
+				:bars="t.bars"
 				:highlight-on-hover="true"
 			>
-<!--				<template #bar-label="{bar}">-->
-<!--					<span>{{ bar.label }}</span>-->
-<!--				</template>-->
+				<template v-slot:bar-label>
+					{{ t.title }}
+				</template>
+				<!--				<template #bar-label="{bar}">-->
+				<!--					<span>{{ bar.label }}</span>-->
+				<!--				</template>-->
 			</g-gantt-row>
 		</g-gantt-chart>
 
@@ -228,15 +223,16 @@
 import VueDragResize from 'vue-drag-resize'
 import {GGanttChart, GGanttRow} from 'vue-ganttastic'
 import EditTask from './edit-task'
+import {mapState} from 'vuex'
 
 import TaskService from '../../services/task'
 import TaskModel from '../../models/task'
 import priorities from '../../models/priorities'
 import PriorityLabel from './partials/priorityLabel'
 import TaskCollectionService from '../../services/taskCollection'
-import {mapState} from 'vuex'
 import Rights from '../../models/rights.json'
 import FilterPopup from '@/components/list/partials/filter-popup'
+import {colorIsDark} from '@/helpers/color/colorIsDark'
 
 export default {
 	name: 'GanttChart',
@@ -288,6 +284,8 @@ export default {
 			priorities: {},
 			taskCollectionService: TaskCollectionService,
 			showTaskFilter: false,
+
+			ganttBars: [],
 
 			params: {
 				sort_by: ['done', 'id'],
@@ -398,6 +396,25 @@ export default {
 							if (a.startDate > b.startDate) return 1
 							return 0
 						})
+
+					this.ganttBars = this.theTasks.map(t => {
+						return {
+							id: t.id,
+							title: t.title,
+							bars: [{
+								id: t.id,
+								start: t.startDate.toString(),
+								end: t.endDate.toString(),
+								label: t.title,
+								ganttBarConfig: {
+									color: colorIsDark(t.getHexColor()) ? 'black' : 'white',
+									backgroundColor: t.getHexColor(),
+									handles: true,
+								},
+							}],
+						}
+					})
+
 				})
 				.catch((e) => {
 					this.error(e, this)
@@ -526,7 +543,13 @@ export default {
 				})
 		},
 		dragged(e) {
-			console.log(e)
+			const bar = e.movedBars.entries().next().value[0]
+			const index = this.theTasks.findIndex(t => t.id === bar.id)
+			const task = this.theTasks[index]
+			console.log(bar, task)
+			task.startDate = new Date(bar.start)
+			task.endDate = new Date(bar.end)
+			this.$set(this.theTasks, index, task)
 		},
 	},
 }

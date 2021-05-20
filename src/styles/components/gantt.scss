@@ -235,3 +235,36 @@ $gantt-vertical-border-color: $grey-100;
 .vdr.active::before {
   display: none;
 }
+
+#g-gantt-chart {
+  * {
+    font-family: $family-sans-serif !important;
+  }
+
+  // .85rem
+
+  .g-gantt-bar {
+    border-radius: 6px !important;
+    overflow: visible !important;
+
+    .g-gantt-bar-label {
+      font-size: .85rem;
+      justify-content: start;
+      padding: 0 .5rem !important;
+      overflow: hidden;
+    }
+
+    .g-gantt-bar-handle-left, .g-gantt-bar-handle-right {
+      width: 8px !important;
+      height: 8px !important;
+      opacity: 1 !important;
+      border-radius: 0 !important;
+      margin-left: -2px !important;
+      border: 1px solid $grey-700 !important;
+    }
+
+    .g-gantt-bar-handle-right {
+      margin-right: -2px !important;
+    }
+  }
+}
