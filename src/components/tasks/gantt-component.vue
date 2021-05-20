@@ -37,11 +37,13 @@
 				:highlight-on-hover="true"
 			>
 				<template v-slot:bar-label>
-					{{ t.title }}
+					<span>
+						{{ t.title }}
+					</span>
+					<router-link :to="{name: 'task.detail', params: {id: t.id}}" class="edit-task-link">
+						<icon icon="pen"/>
+					</router-link>
 				</template>
-				<!--				<template #bar-label="{bar}">-->
-				<!--					<span>{{ bar.label }}</span>-->
-				<!--				</template>-->
 			</g-gantt-row>
 		</g-gantt-chart>
 
@@ -546,7 +548,6 @@ export default {
 			const bar = e.movedBars.entries().next().value[0]
 			const index = this.theTasks.findIndex(t => t.id === bar.id)
 			const task = this.theTasks[index]
-			console.log(bar, task)
 			task.startDate = new Date(bar.start)
 			task.endDate = new Date(bar.end)
 			this.$set(this.theTasks, index, task)

@@ -246,12 +246,22 @@ $gantt-vertical-border-color: $grey-100;
   .g-gantt-bar {
     border-radius: 6px !important;
     overflow: visible !important;
+    cursor: grab;
+    
+    &:active {
+      cursor: grabbing;
+    }
 
     .g-gantt-bar-label {
       font-size: .85rem;
-      justify-content: start;
+      justify-content: space-between;
       padding: 0 .5rem !important;
       overflow: hidden;
+
+      .edit-task-link {
+        color: inherit;
+        padding: 0 .25rem;
+      }
     }
 
     .g-gantt-bar-handle-left, .g-gantt-bar-handle-right {
