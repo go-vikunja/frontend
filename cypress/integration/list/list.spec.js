@@ -92,6 +92,28 @@ describe('Lists', () => {
 			.should('not.contain', lists[0].title)
 	})
 
+	it('Should remove a list', () => {
+		cy.visit(`/lists/${lists[0].id}`)
+
+		cy.get('.namespace-container .menu.namespaces-lists .more-container .menu-list li:first-child .dropdown .dropdown-trigger')
+			.click()
+		cy.get('.namespace-container .menu.namespaces-lists .more-container .menu-list li:first-child .dropdown .dropdown-content')
+			.contains('Delete')
+			.click()
+		cy.url()
+			.should('contain', '/settings/delete')
+		cy.get('.modal-mask .modal-container .modal-content .actions a.button')
+			.contains('Do it')
+			.click()
+
+		cy.get('.global-notification')
+			.should('contain', 'Success')
+		cy.get('.namespace-container .menu.namespaces-lists .more-container .menu-list')
+			.should('not.contain', lists[0].title)
+		cy.location('pathname')
+			.should('equal', '/')
+	})
+
 	describe('List View', () => {
 		it('Should be an empty list', () => {
 			cy.visit('/lists/1')
