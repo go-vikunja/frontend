@@ -20,20 +20,51 @@ describe('Namepaces', () => {
 	})
 
 	it('Should create a new Namespace', () => {
+		const newNamespaceTitle = 'New Namespace'
+
 		cy.visit('/namespaces')
 		cy.get('a.button')
 			.contains('Create namespace')
 			.click()
+
 		cy.url()
 			.should('contain', '/namespaces/new')
 		cy.get('.card-header-title')
 			.should('contain', 'Create a new namespace')
 		cy.get('input.input')
-			.type('New Namespace')
+			.type(newNamespaceTitle)
 		cy.get('.button')
 			.contains('Create')
 			.click()
+
+		cy.get('.global-notification')
+			.should('contain', 'Success')
+		cy.get('.namespace-container')
+			.should('contain', newNamespaceTitle)
 		cy.url()
 			.should('contain', '/namespaces')
 	})
+
+	it('Should remove a namespace when deleting it', () => {
+		const newNamespaces = NamespaceFactory.create(5)
+
+		cy.visit('/')
+
+		cy.get(`.namespace-container .menu.namespaces-lists .namespace-title:contains(${newNamespaces[0].title}) .dropdown .dropdown-trigger`)
+			.click()
+		cy.get('.namespace-container .menu.namespaces-lists .namespace-title .dropdown .dropdown-content')
+			.contains('Delete')
+			.click()
+		cy.url()
+			.should('contain', '/settings/delete')
+		cy.get('.modal-mask .modal-container .modal-content .actions a.button')
+			.contains('Do it')
+			.click()
+
+		cy.get('.global-notification')
+			.should('contain', 'Success')
+		cy.get('.namespace-container .menu.namespaces-lists')
+			.should('not.contain', newNamespaces[0].title)
+	})
+
 })
