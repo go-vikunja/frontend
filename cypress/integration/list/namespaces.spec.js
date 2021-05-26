@@ -3,6 +3,7 @@ import {UserFactory} from '../../factories/user'
 import '../../support/authenticateUser'
 import {ListFactory} from '../../factories/list'
 import {NamespaceFactory} from '../../factories/namespace'
+import {TaskFactory} from '../../factories/task'
 
 describe('Namepaces', () => {
 	let namespaces
@@ -45,6 +46,35 @@ describe('Namepaces', () => {
 			.should('contain', '/namespaces')
 	})
 
+	it('Should rename the namespace all places', () => {
+		const newNamespaces = NamespaceFactory.create(5)
+		const newNamespaceName = 'New namespace name'
+
+		cy.visit('/namespaces')
+
+		cy.get(`.namespace-container .menu.namespaces-lists .namespace-title:contains(${newNamespaces[0].title}) .dropdown .dropdown-trigger`)
+			.click()
+		cy.get('.namespace-container .menu.namespaces-lists .namespace-title .dropdown .dropdown-content')
+			.contains('Edit')
+			.click()
+		cy.url()
+			.should('contain', '/settings/edit')
+		cy.get('#namespacetext')
+			.type(`{selectall}${newNamespaceName}`)
+		cy.get('footer.modal-card-foot .button')
+			.contains('Save')
+			.click()
+
+		cy.get('.global-notification')
+			.should('contain', 'Success')
+		cy.get('.namespace-container .menu.namespaces-lists')
+			.should('contain', newNamespaceName)
+			.should('not.contain', newNamespaces[0].title)
+		cy.get('.content.namespaces-list')
+			.should('contain', newNamespaceName)
+			.should('not.contain', newNamespaces[0].title)
+	})
+
 	it('Should remove a namespace when deleting it', () => {
 		const newNamespaces = NamespaceFactory.create(5)
 
@@ -66,5 +96,4 @@ describe('Namepaces', () => {
 		cy.get('.namespace-container .menu.namespaces-lists')
 			.should('not.contain', newNamespaces[0].title)
 	})
-
 })
