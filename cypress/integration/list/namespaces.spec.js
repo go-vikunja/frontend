@@ -60,6 +60,9 @@ describe('Namepaces', () => {
 		cy.url()
 			.should('contain', '/settings/edit')
 		cy.get('#namespacetext')
+			.invoke('val')
+			.should('equal', newNamespaces[0].title) // wait until the namespace data is loaded
+		cy.get('#namespacetext')
 			.type(`{selectall}${newNamespaceName}`)
 		cy.get('footer.modal-card-foot .button')
 			.contains('Save')
