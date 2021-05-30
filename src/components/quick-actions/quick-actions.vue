@@ -222,6 +222,11 @@ export default {
 					.then(r => {
 						r = r.map(t => {
 							t.type = TYPE_TASK
+							const list = this.$store.getters['lists/getListById'](t.listId) === null ? null : this.$store.getters['lists/getListById'](t.listId)
+							if (list !== null) {
+								t.title = `${t.title} (${list.title})`
+							}
+
 							return t
 						})
 						this.$set(this, 'foundTasks', r)
