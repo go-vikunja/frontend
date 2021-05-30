@@ -1,53 +1,51 @@
 <template>
 	<modal v-if="active">
 		<div class="card p-4">
-			<input
-				type="text"
-				class="input"
+			<multiselect
 				placeholder="What do you want to do?"
-				v-focus
-				@keyup="run"
-				v-model="search"/>
-
-			<div v-if="search !== ''">
-				<ul>
-					<li v-for="l in lists" :key="l.id">{{ l.title }}</li>
-				</ul>
-				<nothing v-if="nothing">
-					No results found.
-				</nothing>
-			</div>
+				:search-results="results"
+				label="title"
+				@search="search"
+				:inline="true"
+				:show-empty="false"
+				@select="select"
+				:search-delay="0"
+			/>
 		</div>
 	</modal>
 </template>
 
 <script>
+import Multiselect from '@/components/input/multiselect'
 
-import Nothing from '@/components/misc/nothing'
 export default {
 	name: 'quick-actions',
-	components: {Nothing},
+	components: {
+		Multiselect,
+	},
 	data() {
 		return {
-			search: '',
-			results: [],
+			query: '',
 		}
 	},
 	computed: {
 		active: () => true, // TODO: use state + keyboard shortcut
-		lists() {
-			return Object.fromEntries(Object.entries(this.$store.state.lists).filter(l => {
-				return l[1].title.toLowerCase().includes(this.search.toLowerCase())
-			}))
+		results() {
+			return Object.values(this.$store.state.lists).filter(l => {
+				return l.title.toLowerCase().includes(this.query.toLowerCase())
+			}) ?? []
 		},
 		nothing() {
-			return this.search === '' || Object.keys(this.lists).length === 0
+			return this.search === '' || Object.keys(this.results).length === 0
 		},
 	},
 	methods: {
-		run() {
-			console.log('run', this.search)
-		}
+		search(query) {
+			this.query = query
+		},
+		select(e) {
+			console.log('select', e)
+		},
 	},
 }
 </script>
