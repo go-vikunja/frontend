@@ -522,7 +522,7 @@ export default {
 			}
 
 			const list = this.$store.getters['namespaces/getListAndNamespaceById'](this.task.listId)
-			this.$store.commit(CURRENT_LIST, list)
+			this.$store.commit(CURRENT_LIST, list.list)
 			return list
 		},
 		canWrite() {

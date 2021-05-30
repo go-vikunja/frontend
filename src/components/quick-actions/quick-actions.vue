@@ -19,6 +19,10 @@
 				/>
 			</div>
 
+			<div class="has-text-grey-light p-4" v-if="hintText !== ''">
+				{{ hintText }}
+			</div>
+
 			<div class="results" v-if="selectedCmd === null">
 				<div v-for="(r, k) in results" :key="k" class="result">
 					<span class="result-title">
@@ -143,6 +147,21 @@ export default {
 
 			return 'Type a command or search...'
 		},
+		hintText() {
+			let namespace
+
+			if (this.selectedCmd !== null) {
+				switch (this.selectedCmd.action) {
+					case CMD_NEW_TASK:
+						return `Create a task in the current list (${this.currentList.title})`
+					case CMD_NEW_LIST:
+						namespace = this.$store.getters['namespaces/getNamespaceById'](this.currentList.namespaceId)
+						return `Create a list in the current namespace (${namespace.title})`
+				}
+			}
+
+			return ''
+		},
 		currentList() {
 			return Object.keys(this.$store.state[CURRENT_LIST]).length === 0 ? null : this.$store.state[CURRENT_LIST]
 		},
@@ -182,7 +201,7 @@ export default {
 			this.searchTasks()
 		},
 		searchTasks() {
-			if (this.query === '') {
+			if (this.query === '' || this.selectedCmd !== null) {
 				return
 			}
 
