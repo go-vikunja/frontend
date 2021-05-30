@@ -55,6 +55,7 @@ import NamespaceModel from '@/models/namespace'
 import TeamModel from '@/models/team'
 
 import {CURRENT_LIST} from '@/store/mutation-types'
+import ListModel from '@/models/list'
 
 const TYPE_LIST = 'list'
 const TYPE_TASK = 'task'
@@ -259,6 +260,22 @@ export default {
 				})
 		},
 		newList() {
+			if (this.currentList === null) {
+				return
+			}
+
+			const newList = new ListModel({
+				title: this.query,
+				namespaceId: this.currentList.namespaceId,
+			})
+			this.listService.create(newList)
+				.then(r => {
+					this.success({message: 'The list was successfully created.'}, this)
+					this.$router.push({name: 'list.index', params: {listId: r.id}})
+				})
+				.catch((e) => {
+					this.error(e, this)
+				})
 		},
 		newNamespace() {
 			const newNamespace = new NamespaceModel({title: this.query})
