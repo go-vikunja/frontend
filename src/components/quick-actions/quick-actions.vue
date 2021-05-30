@@ -1,9 +1,9 @@
 <template>
 	<modal v-if="active" class="quick-actions">
 		<div class="card">
-			<div class="action-input" :class="{'has-action': selectedAction !== null}">
-				<div class="selected-action tag" v-if="selectedAction !== null">
-					{{ selectedAction.title }}
+			<div class="action-input" :class="{'has-active-cmd': selectedCmd !== null}">
+				<div class="active-cmd tag" v-if="selectedCmd !== null">
+					{{ selectedCmd.title }}
 				</div>
 				<input
 					v-focus
@@ -14,7 +14,7 @@
 					@keyup="search"
 					ref="searchInput"
 					@keydown.down.prevent="() => select(0, 0)"
-					@keyup.prevent.delete="() => selectedAction = null"
+					@keyup.prevent.delete="() => selectedCmd = null"
 				/>
 			</div>
 
@@ -48,38 +48,38 @@ import TaskService from '@/services/task'
 
 const TYPE_LIST = 'list'
 const TYPE_TASK = 'task'
-const TYPE_ACTION = 'action'
+const TYPE_CMD = 'cmd'
 const TYPE_TEAM = 'team'
 
-const ACTION_NEW_TASK = 'newTask'
-const ACTION_NEW_LIST = 'newList'
-const ACTION_NEW_NAMESPACE = 'newNamespace'
-const ACTION_NEW_TEAM = 'newTeam'
+const CMD_NEW_TASK = 'newTask'
+const CMD_NEW_LIST = 'newList'
+const CMD_NEW_NAMESPACE = 'newNamespace'
+const CMD_NEW_TEAM = 'newTeam'
 
 export default {
 	name: 'quick-actions',
 	data() {
 		return {
 			query: '',
-			availableActions: [
+			availableCmds: [
 				{
 					title: 'New task',
-					action: ACTION_NEW_TASK,
+					action: CMD_NEW_TASK,
 				},
 				{
 					title: 'New list',
-					action: ACTION_NEW_LIST,
+					action: CMD_NEW_LIST,
 				},
 				{
 					title: 'New namespace',
-					action: ACTION_NEW_NAMESPACE,
+					action: CMD_NEW_NAMESPACE,
 				},
 				{
 					title: 'New Team',
-					action: ACTION_NEW_TEAM,
+					action: CMD_NEW_TEAM,
 				},
 			],
-			selectedAction: null,
+			selectedCmd: null,
 
 			foundTasks: [],
 			taskSearchTimeout: null,
@@ -95,14 +95,14 @@ export default {
 				return l.title.toLowerCase().includes(this.query.toLowerCase())
 			}) ?? [])
 
-			const actions = this.availableActions
+			const cmds = this.availableCmds
 				.filter(a => a.title.toLowerCase().includes(this.query.toLowerCase()))
 
 			return [
 				{
-					type: TYPE_ACTION,
-					title: 'Actions',
-					items: actions,
+					type: TYPE_CMD,
+					title: 'Commands',
+					items: cmds,
 				},
 				{
 					type: TYPE_TASK,
@@ -128,15 +128,15 @@ export default {
 			return this.taskService.loading
 		},
 		placeholder() {
-			if (this.selectedAction !== null) {
-				switch (this.selectedAction.action) {
-					case ACTION_NEW_TASK:
+			if (this.selectedCmd !== null) {
+				switch (this.selectedCmd.action) {
+					case CMD_NEW_TASK:
 						return 'Enter the title of the new task...'
-					case ACTION_NEW_LIST:
+					case CMD_NEW_LIST:
 						return 'Enter the title of the new list...'
-					case ACTION_NEW_TEAM:
+					case CMD_NEW_TEAM:
 						return 'Enter the title of the new team...'
-					case ACTION_NEW_NAMESPACE:
+					case CMD_NEW_NAMESPACE:
 						return 'Enter the title of the new namespace...'
 				}
 			}
@@ -180,9 +180,9 @@ export default {
 				case TYPE_TASK:
 					this.$router.push({name: 'task.detail', params: {id: item.id}})
 					break
-				case TYPE_ACTION:
+				case TYPE_CMD:
 					this.query = ''
-					this.selectedAction = item
+					this.selectedCmd = item
 					this.$refs.searchInput.focus()
 					break
 			}
