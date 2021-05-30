@@ -235,9 +235,11 @@ export default {
 			switch (type) {
 				case TYPE_LIST:
 					this.$router.push({name: 'list.index', params: {listId: item.id}})
+					this.closeQuickActions()
 					break
 				case TYPE_TASK:
 					this.$router.push({name: 'task.detail', params: {id: item.id}})
+					this.closeQuickActions()
 					break
 				case TYPE_CMD:
 					this.query = ''
@@ -283,6 +285,7 @@ export default {
 				.then(r => {
 					this.success({message: 'The task was successfully created.'}, this)
 					this.$router.push({name: 'task.detail', params: {id: r.id}})
+					this.closeQuickActions()
 				})
 				.catch((e) => {
 					this.error(e, this)
@@ -301,6 +304,7 @@ export default {
 				.then(r => {
 					this.success({message: 'The list was successfully created.'}, this)
 					this.$router.push({name: 'list.index', params: {listId: r.id}})
+					this.closeQuickActions()
 				})
 				.catch((e) => {
 					this.error(e, this)
@@ -313,6 +317,7 @@ export default {
 					this.$store.commit('namespaces/addNamespace', r)
 					this.success({message: 'The namespace was successfully created.'}, this)
 					this.$router.back()
+					this.closeQuickActions()
 				})
 				.catch((e) => {
 					this.error(e, this)
@@ -327,6 +332,7 @@ export default {
 						params: {id: r.id},
 					})
 					this.success({message: 'The team was successfully created.'}, this)
+					this.closeQuickActions()
 				})
 				.catch((e) => {
 					this.error(e, this)
