@@ -86,7 +86,7 @@ export default {
 				this.$route.name === 'user.settings' ||
 				this.$route.name === 'namespaces.index'
 			) {
-				this.$store.commit(CURRENT_LIST, {})
+				this.$store.commit(CURRENT_LIST, null)
 			}
 		},
 		renewTokenOnFocus() {

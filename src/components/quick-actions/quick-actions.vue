@@ -50,8 +50,11 @@ import ListService from '@/services/list'
 import NamespaceService from '@/services/namespace'
 import TeamService from '@/services/team'
 
+import TaskModel from '@/models/task'
 import NamespaceModel from '@/models/namespace'
 import TeamModel from '@/models/team'
+
+import {CURRENT_LIST} from '@/store/mutation-types'
 
 const TYPE_LIST = 'list'
 const TYPE_TASK = 'task'
@@ -157,6 +160,9 @@ export default {
 
 			return 'Type a command or search...'
 		},
+		currentList() {
+			return Object.keys(this.$store.state[CURRENT_LIST]).length === 0 ? null : this.$store.state[CURRENT_LIST]
+		},
 	},
 	created() {
 		this.taskService = new TaskService()
@@ -229,6 +235,22 @@ export default {
 			}
 		},
 		newTask() {
+			if (this.currentList === null) {
+				return
+			}
+
+			const newTask = new TaskModel({
+				title: this.query,
+				listId: this.currentList.id,
+			})
+			this.taskService.create(newTask)
+				.then(r => {
+					this.success({message: 'The task was successfully created.'}, this)
+					this.$router.push({name: 'task.detail', params: {id: r.id}})
+				})
+				.catch((e) => {
+					this.error(e, this)
+				})
 		},
 		newList() {
 		},

@@ -61,6 +61,12 @@ export const store = new Vuex.Store({
 		},
 		[CURRENT_LIST](state, currentList) {
 
+			if (currentList === null) {
+				state.currentList = {}
+				state.background = null
+				return
+			}
+
 			setTitle(currentList.title)
 
 			// Not sure if this is the right way to do it but hey, it works
