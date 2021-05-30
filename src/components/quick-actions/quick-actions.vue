@@ -201,35 +201,6 @@ export default {
 					break
 			}
 		},
-		select(parentIndex, index) {
-
-			if (index < 0 && parentIndex === 0) {
-				this.$refs.searchInput.focus()
-				return
-			}
-
-			if (index < 0) {
-				parentIndex--
-				index = this.results[parentIndex].items.length - 1
-			}
-
-			let elems = this.$refs[`result-${parentIndex}_${index}`]
-
-			if (this.results[parentIndex].items.length === index) {
-				elems = this.$refs[`result-${parentIndex + 1}_0`]
-			}
-
-			if (typeof elems === 'undefined' || elems.length === 0) {
-				return
-			}
-
-			if (Array.isArray(elems)) {
-				elems[0].focus()
-				return
-			}
-
-			elems.focus()
-		},
 		doCmd() {
 			if (this.selectedCmd === null) {
 				return
@@ -283,6 +254,35 @@ export default {
 				.catch((e) => {
 					this.error(e, this)
 				})
+		},
+		select(parentIndex, index) {
+
+			if (index < 0 && parentIndex === 0) {
+				this.$refs.searchInput.focus()
+				return
+			}
+
+			if (index < 0) {
+				parentIndex--
+				index = this.results[parentIndex].items.length - 1
+			}
+
+			let elems = this.$refs[`result-${parentIndex}_${index}`]
+
+			if (this.results[parentIndex].items.length === index) {
+				elems = this.$refs[`result-${parentIndex + 1}_0`]
+			}
+
+			if (typeof elems === 'undefined' || elems.length === 0) {
+				return
+			}
+
+			if (Array.isArray(elems)) {
+				elems[0].focus()
+				return
+			}
+
+			elems.focus()
 		},
 	},
 }
