@@ -26,6 +26,7 @@
 							@keydown.down.prevent="() => select(k, key + 1)"
 							@click.prevent.stop="() => doAction(r.type, i)"
 							@keyup.prevent.enter="() => doAction(r.type, i)"
+							@keyup.prevent.esc="() => $refs.searchInput.focus()"
 						>
 							{{ i.title }}
 						</button>
