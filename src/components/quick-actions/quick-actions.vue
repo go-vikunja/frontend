@@ -14,7 +14,7 @@
 					@keyup="search"
 					ref="searchInput"
 					@keydown.down.prevent="() => select(0, 0)"
-					@keyup.prevent.delete="() => selectedCmd = null"
+					@keyup.prevent.delete="unselectCmd"
 					@keyup.prevent.enter="doCmd"
 				/>
 			</div>
@@ -136,7 +136,10 @@ export default {
 			return this.search === '' || Object.keys(this.results).length === 0
 		},
 		loading() {
-			return this.taskService.loading
+			return this.taskService.loading ||
+				this.listService.loading ||
+				this.namespaceService.loading ||
+				this.teamService.loading
 		},
 		placeholder() {
 			if (this.selectedCmd !== null) {
@@ -283,6 +286,13 @@ export default {
 			}
 
 			elems.focus()
+		},
+		unselectCmd() {
+			if (this.query !== '') {
+				return
+			}
+
+			this.selectedCmd = null
 		},
 	},
 }
