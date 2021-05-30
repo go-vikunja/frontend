@@ -20,6 +20,8 @@
 			>
 				<a @click="$store.commit('menuActive', false)" class="mobile-overlay" v-if="menuActive"></a>
 
+				<quick-actions/>
+
 				<router-view/>
 
 				<transition name="modal">
@@ -43,10 +45,11 @@
 import {mapState} from 'vuex'
 import {CURRENT_LIST, KEYBOARD_SHORTCUTS_ACTIVE, MENU_ACTIVE} from '@/store/mutation-types'
 import Navigation from '@/components/home/navigation'
+import QuickActions from '@/components/quick-actions/quick-actions'
 
 export default {
 	name: 'contentAuth',
-	components: {Navigation},
+	components: {QuickActions, Navigation},
 	watch: {
 		'$route': 'doStuffAfterRoute',
 	},
