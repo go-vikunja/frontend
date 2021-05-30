@@ -71,24 +71,6 @@ export default {
 	data() {
 		return {
 			query: '',
-			availableCmds: [
-				{
-					title: 'New task',
-					action: CMD_NEW_TASK,
-				},
-				{
-					title: 'New list',
-					action: CMD_NEW_LIST,
-				},
-				{
-					title: 'New namespace',
-					action: CMD_NEW_NAMESPACE,
-				},
-				{
-					title: 'New Team',
-					action: CMD_NEW_TEAM,
-				},
-			],
 			selectedCmd: null,
 
 			foundTasks: [],
@@ -162,6 +144,30 @@ export default {
 		},
 		currentList() {
 			return Object.keys(this.$store.state[CURRENT_LIST]).length === 0 ? null : this.$store.state[CURRENT_LIST]
+		},
+		availableCmds() {
+			const cmds = []
+
+			if (this.currentList !== null) {
+				cmds.push({
+					title: 'New task',
+					action: CMD_NEW_TASK,
+				})
+				cmds.push({
+					title: 'New list',
+					action: CMD_NEW_LIST,
+				})
+			}
+			cmds.push({
+				title: 'New namespace',
+				action: CMD_NEW_NAMESPACE,
+			})
+			cmds.push({
+				title: 'New Team',
+				action: CMD_NEW_TEAM,
+			})
+
+			return cmds
 		},
 	},
 	created() {
