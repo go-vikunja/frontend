@@ -15,10 +15,11 @@
 					ref="searchInput"
 					@keydown.down.prevent="() => select(0, 0)"
 					@keyup.prevent.delete="() => selectedCmd = null"
+					@keyup.prevent.enter="doCmd"
 				/>
 			</div>
 
-			<div class="results">
+			<div class="results" v-if="selectedCmd === null">
 				<div v-for="(r, k) in results" :key="k" class="result">
 					<span class="result-title">
 						{{ r.title }}
@@ -45,6 +46,12 @@
 
 <script>
 import TaskService from '@/services/task'
+import ListService from '@/services/list'
+import NamespaceService from '@/services/namespace'
+import TeamService from '@/services/team'
+
+import NamespaceModel from '@/models/namespace'
+import TeamModel from '@/models/team'
 
 const TYPE_LIST = 'list'
 const TYPE_TASK = 'task'
@@ -86,6 +93,10 @@ export default {
 			taskService: null,
 
 			foundTeams: [],
+			teamService: null,
+
+			namespaceService: null,
+			listService: null,
 		}
 	},
 	computed: {
@@ -134,10 +145,10 @@ export default {
 						return 'Enter the title of the new task...'
 					case CMD_NEW_LIST:
 						return 'Enter the title of the new list...'
-					case CMD_NEW_TEAM:
-						return 'Enter the title of the new team...'
 					case CMD_NEW_NAMESPACE:
 						return 'Enter the title of the new namespace...'
+					case CMD_NEW_TEAM:
+						return 'Enter the name of the new team...'
 				}
 			}
 
@@ -146,6 +157,9 @@ export default {
 	},
 	created() {
 		this.taskService = new TaskService()
+		this.listService = new ListService()
+		this.namespaceService = new NamespaceService()
+		this.teamService = new TeamService()
 	},
 	methods: {
 		search() {
@@ -215,6 +229,60 @@ export default {
 			}
 
 			elems.focus()
+		},
+		doCmd() {
+			if (this.selectedCmd === null) {
+				return
+			}
+
+			if (this.query === '') {
+				return
+			}
+
+			switch (this.selectedCmd.action) {
+				case CMD_NEW_TASK:
+					this.newTask()
+					break
+				case CMD_NEW_LIST:
+					this.newList()
+					break
+				case CMD_NEW_NAMESPACE:
+					this.newNamespace()
+					break
+				case CMD_NEW_TEAM:
+					this.newTeam()
+					break
+			}
+		},
+		newTask() {
+		},
+		newList() {
+		},
+		newNamespace() {
+			const newNamespace = new NamespaceModel({title: this.query})
+			this.namespaceService.create(newNamespace)
+				.then(r => {
+					this.$store.commit('namespaces/addNamespace', r)
+					this.success({message: 'The namespace was successfully created.'}, this)
+					this.$router.back()
+				})
+				.catch((e) => {
+					this.error(e, this)
+				})
+		},
+		newTeam() {
+			const newTeam = new TeamModel({name: this.query})
+			this.teamService.create(newTeam)
+				.then(r => {
+					this.$router.push({
+						name: 'teams.edit',
+						params: {id: r.id},
+					})
+					this.success({message: 'The team was successfully created.'}, this)
+				})
+				.catch((e) => {
+					this.error(e, this)
+				})
 		},
 	},
 }
