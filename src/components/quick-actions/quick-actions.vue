@@ -1,16 +1,22 @@
 <template>
 	<modal v-if="active" class="quick-actions">
 		<div class="card">
-			<input
-				v-focus
-				class="input"
-				:class="{'is-loading': loading}"
-				v-model="query"
-				placeholder="Type a command or search..."
-				@keyup="search"
-				ref="searchInput"
-				@keydown.down.prevent="() => select(0, 0)"
-			/>
+			<div class="action-input" :class="{'has-action': selectedAction !== null}">
+				<div class="selected-action tag" v-if="selectedAction !== null">
+					{{ selectedAction.title }}
+				</div>
+				<input
+					v-focus
+					class="input"
+					:class="{'is-loading': loading}"
+					v-model="query"
+					:placeholder="placeholder"
+					@keyup="search"
+					ref="searchInput"
+					@keydown.down.prevent="() => select(0, 0)"
+					@keyup.prevent.delete="() => selectedAction = null"
+				/>
+			</div>
 
 			<div class="results">
 				<div v-for="(r, k) in results" :key="k" class="result">
@@ -45,6 +51,11 @@ const TYPE_TASK = 'task'
 const TYPE_ACTION = 'action'
 const TYPE_TEAM = 'team'
 
+const ACTION_NEW_TASK = 'newTask'
+const ACTION_NEW_LIST = 'newList'
+const ACTION_NEW_NAMESPACE = 'newNamespace'
+const ACTION_NEW_TEAM = 'newTeam'
+
 export default {
 	name: 'quick-actions',
 	data() {
@@ -53,17 +64,23 @@ export default {
 			availableActions: [
 				{
 					title: 'New task',
+					action: ACTION_NEW_TASK,
 				},
 				{
 					title: 'New list',
+					action: ACTION_NEW_LIST,
 				},
 				{
 					title: 'New namespace',
+					action: ACTION_NEW_NAMESPACE,
 				},
 				{
 					title: 'New Team',
+					action: ACTION_NEW_TEAM,
 				},
 			],
+			selectedAction: null,
+
 			foundTasks: [],
 			taskSearchTimeout: null,
 			taskService: null,
@@ -110,6 +127,22 @@ export default {
 		loading() {
 			return this.taskService.loading
 		},
+		placeholder() {
+			if (this.selectedAction !== null) {
+				switch (this.selectedAction.action) {
+					case ACTION_NEW_TASK:
+						return 'Enter the title of the new task...'
+					case ACTION_NEW_LIST:
+						return 'Enter the title of the new list...'
+					case ACTION_NEW_TEAM:
+						return 'Enter the title of the new team...'
+					case ACTION_NEW_NAMESPACE:
+						return 'Enter the title of the new namespace...'
+				}
+			}
+
+			return 'Type a command or search...'
+		},
 	},
 	created() {
 		this.taskService = new TaskService()
@@ -139,15 +172,18 @@ export default {
 					})
 			}, 150)
 		},
-		doAction(type, e) {
+		doAction(type, item) {
 			switch (type) {
 				case TYPE_LIST:
-					this.$router.push({name: 'list.index', params: {listId: e.id}})
+					this.$router.push({name: 'list.index', params: {listId: item.id}})
 					break
 				case TYPE_TASK:
-					this.$router.push({name: 'task.detail', params: {id: e.id}})
+					this.$router.push({name: 'task.detail', params: {id: item.id}})
 					break
 				case TYPE_ACTION:
+					this.query = ''
+					this.selectedAction = item
+					this.$refs.searchInput.focus()
 					break
 			}
 		},
@@ -159,7 +195,7 @@ export default {
 			}
 
 			if (index < 0) {
-				parentIndex--;
+				parentIndex--
 				index = this.results[parentIndex].items.length - 1
 			}
 

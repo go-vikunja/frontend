@@ -5,9 +5,23 @@
 		transform: translate(-50%, -3rem) !important;
 	}
 
-	.input {
-		border: 0;
-		font-size: 1.5rem;
+	.action-input {
+		display: flex;
+		align-items: center;
+
+		.input {
+			border: 0;
+			font-size: 1.5rem;
+		}
+
+		&.has-action .input {
+			padding-left: .5rem;
+		}
+
+		.selected-action {
+			font-size: 1.25rem;
+			margin-left: .5rem;
+		}
 	}
 
 	.results {
