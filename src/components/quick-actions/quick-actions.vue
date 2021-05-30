@@ -1,5 +1,5 @@
 <template>
-	<modal v-if="active" class="quick-actions">
+	<modal v-if="active" class="quick-actions" @close="closeQuickActions">
 		<div class="card">
 			<div class="action-input" :class="{'has-active-cmd': selectedCmd !== null}">
 				<div class="active-cmd tag" v-if="selectedCmd !== null">
@@ -16,6 +16,7 @@
 					@keydown.down.prevent="() => select(0, 0)"
 					@keyup.prevent.delete="unselectCmd"
 					@keyup.prevent.enter="doCmd"
+					@keyup.prevent.esc="closeQuickActions"
 				/>
 			</div>
 
@@ -58,7 +59,7 @@ import TaskModel from '@/models/task'
 import NamespaceModel from '@/models/namespace'
 import TeamModel from '@/models/team'
 
-import {CURRENT_LIST} from '@/store/mutation-types'
+import {CURRENT_LIST, QUICK_ACTIONS_ACTIVE} from '@/store/mutation-types'
 import ListModel from '@/models/list'
 
 const TYPE_LIST = 'list'
@@ -90,7 +91,13 @@ export default {
 		}
 	},
 	computed: {
-		active: () => true, // TODO: use state + keyboard shortcut
+		active() {
+			const active = this.$store.state[QUICK_ACTIONS_ACTIVE]
+			if (!active) {
+				this.reset()
+			}
+			return active
+		},
 		results() {
 			const lists = (Object.values(this.$store.state.lists).filter(l => {
 				return l.title.toLowerCase().includes(this.query.toLowerCase())
@@ -150,7 +157,7 @@ export default {
 		hintText() {
 			let namespace
 
-			if (this.selectedCmd !== null) {
+			if (this.selectedCmd !== null && this.currentList !== null) {
 				switch (this.selectedCmd.action) {
 					case CMD_NEW_TASK:
 						return `Create a task in the current list (${this.currentList.title})`
@@ -220,6 +227,9 @@ export default {
 						this.$set(this, 'foundTasks', r)
 					})
 			}, 150)
+		},
+		closeQuickActions() {
+			this.$store.commit(QUICK_ACTIONS_ACTIVE, false)
 		},
 		doAction(type, item) {
 			switch (type) {
@@ -358,6 +368,10 @@ export default {
 
 			this.selectedCmd = null
 		},
+		reset() {
+			this.query = ''
+			this.selectedCmd = null
+		}
 	},
 }
 </script>
