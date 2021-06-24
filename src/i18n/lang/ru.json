@@ -1,1 +1,5 @@
-{}
+{
+  "home": {
+    "welcome": "Привет, {username}"
+  }
+}
