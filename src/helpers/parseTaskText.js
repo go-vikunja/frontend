@@ -83,7 +83,13 @@ const parseDate = text => {
 			date: date,
 		}
 	}
-	// TODO "in x [hours|days|weeks|months]
+	const {foundText, date} = getDateFromTextIn(text)
+	if (date !== null) {
+		return {
+			newText: replaceAll(text, foundText, ''),
+			date: date,
+		}
+	}
 
 	// TODO end of month
 	// TODO all of the above with @/at time parsing
@@ -91,11 +97,11 @@ const parseDate = text => {
 	// TODO hours
 	// TODO day - like 25th for the current month or the next (if curDate > 25th)
 
-	const {foundText, date} = getDateFromText(text)
+	const parsed = getDateFromText(text)
 
 	return {
-		newText: replaceAll(text, foundText, ''),
-		date: date,
+		newText: replaceAll(text, parsed.foundText, ''),
+		date: parsed.date,
 	}
 }
 
@@ -147,7 +153,45 @@ export const getDateFromText = (text, now = new Date()) => {
 
 	return {
 		foundText,
-		date: date,
+		date,
+	}
+}
+
+export const getDateFromTextIn = (text, now = new Date()) => {
+	const regex = /(in [0-9]+ (hours?|days?|weeks?|months?))/ig
+	const results = regex.exec(text)
+	if (results === null) {
+		return {
+			foundText: '',
+			date: null,
+		}
+	}
+
+	let foundText = results[0]
+	const date = new Date(now)
+	const parts = foundText.split(' ')
+	switch (parts[2]) {
+		case 'hours':
+		case 'hour':
+			date.setHours(date.getHours() + parseInt(parts[1]))
+			break
+		case 'days':
+		case 'day':
+			date.setDate(date.getDate() + parseInt(parts[1]))
+			break
+		case 'weeks':
+		case 'week':
+			date.setDate(date.getDate() + parseInt(parts[1]) * 7)
+			break
+		case 'months':
+		case 'month':
+			date.setMonth(date.getMonth() + parseInt(parts[1]))
+			break
+	}
+
+	return {
+		foundText,
+		date,
 	}
 }
 

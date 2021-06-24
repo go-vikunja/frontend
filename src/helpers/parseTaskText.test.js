@@ -1,4 +1,4 @@
-import {getDateFromText, parseTaskText} from './parseTaskText'
+import {getDateFromText, parseTaskText, getDateFromTextIn} from './parseTaskText'
 import {calculateDayInterval} from './time/calculateDayInterval'
 
 describe('Parse Task Text', () => {
@@ -157,6 +157,38 @@ describe('Parse Task Text', () => {
 					}
 
 					expect(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`).toBe(cases[c])
+				})
+			}
+		})
+
+		describe('Parse date from text in', () => {
+			const now = new Date()
+			now.setFullYear(2021, 5, 24)
+			now.setHours(12)
+			now.setMinutes(0)
+			now.setSeconds(0)
+
+			const cases = {
+				'Lorem Ipsum in 1 hour': '2021-6-24 13:0',
+				'in 2 hours': '2021-6-24 14:0',
+				'in 1 day': '2021-6-25 12:0',
+				'in 2 days': '2021-6-26 12:0',
+				'in 1 week': '2021-7-1 12:0',
+				'in 2 weeks': '2021-7-8 12:0',
+				'in 4 weeks': '2021-7-22 12:0',
+				'in 1 month': '2021-7-24 12:0',
+				'in 3 months': '2021-9-24 12:0',
+			}
+
+			for (const c in cases) {
+				it(`should parse '${c}' as '${cases[c]}'`, () => {
+					const {date} = getDateFromTextIn(c, now)
+					if (date === null && cases[c] === null) {
+						expect(date).toBeNull()
+						return
+					}
+
+					expect(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`).toBe(cases[c])
 				})
 			}
 		})
