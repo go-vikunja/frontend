@@ -116,6 +116,16 @@ describe('Parse Task Text', () => {
 			expect(result.date.getMonth()).toBe(date.getMonth())
 			expect(result.date.getDate()).toBe(date.getDate())
 		})
+		it('should recognize a end of month', () => {
+			const result = parseTaskText('Lorem Ipsum end of month')
+
+			expect(result.text).toBe('Lorem Ipsum')
+			const curDate = new Date()
+			const date = new Date(curDate.getFullYear(), curDate.getMonth() + 1, 0)
+			expect(result.date.getFullYear()).toBe(date.getFullYear())
+			expect(result.date.getMonth()).toBe(date.getMonth())
+			expect(result.date.getDate()).toBe(date.getDate())
+		})
 
 		describe('Parse date from text', () => {
 			const now = new Date()

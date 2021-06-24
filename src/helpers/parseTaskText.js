@@ -83,6 +83,19 @@ const parseDate = text => {
 			date: date,
 		}
 	}
+	if (lowerText.includes('end of month')) {
+		const curDate = new Date()
+		const date = new Date(curDate.getFullYear(), curDate.getMonth() + 1, 0)
+		date.setHours(calculateNearestHours(date))
+		date.setMinutes(0)
+		date.setSeconds(0)
+
+		return {
+			newText: replaceAll(text, 'end of month', ''),
+			date: date,
+		}
+	}
+
 	const {foundText, date} = getDateFromTextIn(text)
 	if (date !== null) {
 		return {
@@ -91,7 +104,6 @@ const parseDate = text => {
 		}
 	}
 
-	// TODO end of month
 	// TODO all of the above with @/at time parsing
 	// TODO weekdays (just put the name of the weekday in
 	// TODO hours
