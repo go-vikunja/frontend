@@ -84,6 +84,7 @@ const parseDate = text => {
 		}
 	}
 	// TODO "in x [hours|days|weeks|months]
+
 	// TODO end of month
 	// TODO all of the above with @/at time parsing
 	// TODO weekdays (just put the name of the weekday in
@@ -98,38 +99,55 @@ const parseDate = text => {
 	}
 }
 
-export const getDateFromText = text => {
+export const getDateFromText = (text, now = new Date()) => {
 	const fullDateRegex = /([0-9][0-9]?\/[0-9][0-9]?\/[0-9][0-9]([0-9][0-9])?|[0-9][0-9][0-9][0-9]\/[0-9][0-9]?\/[0-9][0-9]?|[0-9][0-9][0-9][0-9]-[0-9][0-9]?-[0-9][0-9]?)/ig
 
+	// 1. Try parsing the text as a "usual" date, like 2021-06-24 or 06/24/2021
 	let results = fullDateRegex.exec(text)
 	let result = results === null ? null : results[0]
 	let foundText = result
+	let containsYear = true
 	if (result === null) {
+		// 2. Try parsing the date as something like "jan 21" or "21 jan"
 		const monthRegex = /((jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec) [0-9][0-9]?|[0-9][0-9]? (jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec))/ig
 		results = monthRegex.exec(text)
-		result = results === null ? null : `${results[0]} ${(new Date()).getFullYear()}`
+		result = results === null ? null : `${results[0]} ${now.getFullYear()}`
 		foundText = results === null ? '' : results[0]
+		containsYear = false
 
 		if (result === null) {
+			// 3. Try parsing the date as "27/01" or "01/27"
 			const monthNumericRegex = /([0-9][0-9]?\/[0-9][0-9]?)/ig
 			results = monthNumericRegex.exec(text)
 
-			result = results === null ? null : `${(new Date()).getFullYear()}/${results[0]}`
+			// Put the year before or after the date, depending on what works
+			result = results === null ? null : `${now.getFullYear()}/${results[0]}`
 			foundText = results === null ? '' : results[0]
 			if (isNaN(new Date(result))) {
-				result = results === null ? null : `${results[0]}/${(new Date()).getFullYear()}`
+				result = results === null ? null : `${results[0]}/${now.getFullYear()}`
 			}
 			if (isNaN(new Date(result)) && results[0] !== null) {
 				const parts = results[0].split('/')
-				result = `${parts[1]}/${parts[0]}/${(new Date()).getFullYear()}`
+				result = `${parts[1]}/${parts[0]}/${now.getFullYear()}`
 			}
 		}
 	}
 
 	const date = new Date(result)
+	if (isNaN(date)) {
+		return {
+			foundText,
+			date: null,
+		}
+	}
+
+	if (!containsYear && date < now) {
+		date.setFullYear(date.getFullYear() + 1)
+	}
+
 	return {
 		foundText,
-		date: isNaN(date) ? null : date,
+		date: date,
 	}
 }
 
