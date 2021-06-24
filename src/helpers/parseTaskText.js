@@ -15,8 +15,13 @@ export const parseTaskText = text => {
 	result.labels = parseLabels(text)
 
 	result.labels.forEach(l => {
-		result.text = result.text.replace(`~${l} `, '')
-		result.text = result.text.replace(`~${l}`, '')
+		result.text = result.text
+			.replace(`~'${l}' `, '')
+			.replace(`~'${l}'`, '')
+			.replace(`~"${l}" `, '')
+			.replace(`~"${l}"`, '')
+			.replace(`~${l} `, '')
+			.replace(`~${l}`, '')
 	})
 
 	result.text = result.text.trim()
@@ -34,12 +39,17 @@ const parseLabels = text => {
 			return
 		}
 
-		// Only until the next space
-		const labelText = p.split(' ')[0]
+		let labelText
+		if (p.charAt(0) === `'`) {
+			labelText = p.split(`'`)[1]
+		} else if (p.charAt(0) === `"`) {
+			labelText = p.split(`"`)[1]
+		} else {
+			// Only until the next space
+			labelText = p.split(' ')[0]
+		}
 		labels.push(labelText)
 	})
-
-	// TODO: Parse labels with spaces in them
 
 	return Array.from(new Set(labels))
 }

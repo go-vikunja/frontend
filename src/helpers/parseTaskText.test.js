@@ -30,5 +30,19 @@ describe('Parse Task Text', () => {
 			expect(result.labels[0]).toBe('label1')
 			expect(result.labels[1]).toBe('label2')
 		})
+		it('should correctly parse labels with spaces in them', () => {
+			const result = parseTaskText(`Lorem ~'label with space' Ipsum`)
+
+			expect(result.text).toBe('Lorem Ipsum')
+			expect(result.labels).toHaveLength(1)
+			expect(result.labels[0]).toBe('label with space')
+		})
+		it('should correctly parse labels with spaces in them and "', () => {
+			const result = parseTaskText('Lorem ~"label with space" Ipsum')
+
+			expect(result.text).toBe('Lorem Ipsum')
+			expect(result.labels).toHaveLength(1)
+			expect(result.labels[0]).toBe('label with space')
+		})
 	})
 })
