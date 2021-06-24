@@ -1,4 +1,4 @@
-import {parseTaskText} from './parseTaskText'
+import {getDateFromText, parseTaskText} from './parseTaskText'
 import {calculateDayInterval} from './time/calculateDayInterval'
 
 describe('Parse Task Text', () => {
@@ -7,6 +7,15 @@ describe('Parse Task Text', () => {
 	})
 
 	describe('Date Parsing', () => {
+		it('should ignore casing', () => {
+			const result = parseTaskText('Lorem Ipsum ToDay')
+
+			expect(result.text).toBe('Lorem Ipsum')
+			const now = new Date()
+			expect(result.date.getFullYear()).toBe(now.getFullYear())
+			expect(result.date.getMonth()).toBe(now.getMonth())
+			expect(result.date.getDate()).toBe(now.getDate())
+		})
 		it('should recognize today', () => {
 			const result = parseTaskText('Lorem Ipsum today')
 
@@ -86,6 +95,68 @@ describe('Parse Task Text', () => {
 			expect(result.date.getMonth()).toBe(nextWeek.getMonth())
 			expect(result.date.getDate()).toBe(nextWeek.getDate())
 		})
+		it('should recognize next month', () => {
+			const result = parseTaskText('Lorem Ipsum next month')
+
+			expect(result.text).toBe('Lorem Ipsum')
+			const nextMonth = new Date()
+			nextMonth.setDate(1)
+			nextMonth.setMonth(nextMonth.getMonth() + 1)
+			expect(result.date.getFullYear()).toBe(nextMonth.getFullYear())
+			expect(result.date.getMonth()).toBe(nextMonth.getMonth())
+			expect(result.date.getDate()).toBe(nextMonth.getDate())
+		})
+		it('should recognize a date', () => {
+			const result = parseTaskText('Lorem Ipsum 06/26/2021')
+
+			expect(result.text).toBe('Lorem Ipsum')
+			const date = new Date()
+			date.setFullYear(2021, 5, 26)
+			expect(result.date.getFullYear()).toBe(date.getFullYear())
+			expect(result.date.getMonth()).toBe(date.getMonth())
+			expect(result.date.getDate()).toBe(date.getDate())
+		})
+
+		describe('Parse date from text', () => {
+			const cases = {
+				'Lorem Ipsum 06/08/2021 ad': '2021-6-8',
+				'Lorem Ipsum 6/7/21 ad': '2021-6-7',
+				'27/07/2021,': null,
+				'2021/07/06,': '2021-7-6',
+				'2021-07-06': '2021-7-6',
+				'27 jan': '2021-1-27',
+				'27/1': '2021-1-27',
+				'27/01': '2021-1-27',
+				'01/27': '2021-1-27',
+				'1/27': '2021-1-27',
+				'Jan 27': '2021-1-27',
+				'jan 27': '2021-1-27',
+				'feb 21': '2021-2-21',
+				'mar 21': '2021-3-21',
+				'apr 21': '2021-4-21',
+				'may 21': '2021-5-21',
+				'jun 21': '2021-6-21',
+				'jul 21': '2021-7-21',
+				'aug 21': '2021-8-21',
+				'sep 21': '2021-9-21',
+				'oct 21': '2021-10-21',
+				'nov 21': '2021-11-21',
+				'dec 21': '2021-12-21',
+			}
+
+			for (const c in cases) {
+				it(`should parse '${c}' as '${cases[c]}'`, () => {
+					const {date} = getDateFromText(c)
+					if (date === null && cases[c] === null) {
+						expect(date).toBeNull()
+						return
+					}
+
+					expect(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`).toBe(cases[c])
+				})
+			}
+		})
+
 	})
 
 	describe('Labels', () => {
