@@ -25,6 +25,33 @@ describe('Parse Task Text', () => {
 			expect(result.date.getMonth()).toBe(now.getMonth())
 			expect(result.date.getDate()).toBe(now.getDate())
 		})
+		describe('should recognize today with a time', () => {
+			const cases = {
+				'at 15:00': '15:0',
+				'@ 15:00': '15:0',
+				'at 15:30': '15:30',
+				'@ 3pm': '15:0',
+				'at 3pm': '15:0',
+				'at 3 pm': '15:0',
+				'at 3am': '3:0',
+				'at 3:12 am': '3:12',
+				'at 3:12 pm': '15:12',
+			}
+
+			for (const c in cases) {
+				it('should recognize today with a time ' + c, () => {
+					const result = parseTaskText('Lorem Ipsum today ' + c)
+
+					expect(result.text).toBe('Lorem Ipsum')
+					const now = new Date()
+					expect(result.date.getFullYear()).toBe(now.getFullYear())
+					expect(result.date.getMonth()).toBe(now.getMonth())
+					expect(result.date.getDate()).toBe(now.getDate())
+					expect(`${result.date.getHours()}:${result.date.getMinutes()}`).toBe(cases[c])
+					expect(result.date.getSeconds()).toBe(0)
+				})
+			}
+		})
 		it('should recognize tomorrow', () => {
 			const result = parseTaskText('Lorem Ipsum tomorrow')
 

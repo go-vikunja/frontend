@@ -29,46 +29,25 @@ const parseDate = text => {
 	const lowerText = text.toLowerCase()
 
 	if (lowerText.includes('today')) {
-		return {
-			newText: replaceAll(text, 'today', ''),
-			date: getDateFromInterval(calculateDayInterval('today')),
-		}
+		return addTimeToDate(text, getDateFromInterval(calculateDayInterval('today')), 'today')
 	}
 	if (lowerText.includes('tomorrow')) {
-		return {
-			newText: replaceAll(text, 'tomorrow', ''),
-			date: getDateFromInterval(calculateDayInterval('tomorrow')),
-		}
+		return addTimeToDate(text, getDateFromInterval(calculateDayInterval('tomorrow')), 'tomorrow')
 	}
 	if (lowerText.includes('next monday')) {
-		return {
-			newText: replaceAll(text, 'next monday', ''),
-			date: getDateFromInterval(calculateDayInterval('nextMonday')),
-		}
+		return addTimeToDate(text, getDateFromInterval(calculateDayInterval('nextMonday')), 'next monday')
 	}
 	if (lowerText.includes('this weekend')) {
-		return {
-			newText: replaceAll(text, 'this weekend', ''),
-			date: getDateFromInterval(calculateDayInterval('thisWeekend')),
-		}
+		return addTimeToDate(text, getDateFromInterval(calculateDayInterval('thisWeekend')), 'this weekend')
 	}
 	if (lowerText.includes('later this week')) {
-		return {
-			newText: replaceAll(text, 'later this week', ''),
-			date: getDateFromInterval(calculateDayInterval('laterThisWeek')),
-		}
+		return addTimeToDate(text, getDateFromInterval(calculateDayInterval('laterThisWeek')), 'later this week')
 	}
 	if (lowerText.includes('later next week')) {
-		return {
-			newText: replaceAll(text, 'later next week', ''),
-			date: getDateFromInterval(calculateDayInterval('laterNextWeek')),
-		}
+		return addTimeToDate(text, getDateFromInterval(calculateDayInterval('laterNextWeek')), 'later next week')
 	}
 	if (lowerText.includes('next week')) {
-		return {
-			newText: replaceAll(text, 'next week', ''),
-			date: getDateFromInterval(calculateDayInterval('nextWeek')),
-		}
+		return addTimeToDate(text, getDateFromInterval(calculateDayInterval('nextWeek')), 'next week')
 	}
 	if (lowerText.includes('next month')) {
 		const date = new Date()
@@ -78,10 +57,7 @@ const parseDate = text => {
 		date.setMinutes(0)
 		date.setSeconds(0)
 
-		return {
-			newText: replaceAll(text, 'next month', ''),
-			date: date,
-		}
+		return addTimeToDate(text, date, 'next month')
 	}
 	if (lowerText.includes('end of month')) {
 		const curDate = new Date()
@@ -90,11 +66,12 @@ const parseDate = text => {
 		date.setMinutes(0)
 		date.setSeconds(0)
 
-		return {
-			newText: replaceAll(text, 'end of month', ''),
-			date: date,
-		}
+		return addTimeToDate(text, date, 'end of month')
 	}
+
+	// TODO weekdays (just put the name of the weekday in
+	// TODO hours
+	// TODO day - like 25th for the current month or the next (if curDate > 25th)
 
 	const {foundText, date} = getDateFromTextIn(text)
 	if (date !== null) {
@@ -104,16 +81,39 @@ const parseDate = text => {
 		}
 	}
 
-	// TODO all of the above with @/at time parsing
-	// TODO weekdays (just put the name of the weekday in
-	// TODO hours
-	// TODO day - like 25th for the current month or the next (if curDate > 25th)
-
 	const parsed = getDateFromText(text)
 
 	return {
 		newText: replaceAll(text, parsed.foundText, ''),
 		date: parsed.date,
+	}
+}
+
+const addTimeToDate = (text, date, match) => {
+	const matcher = new RegExp(`(${match} (at|@) )([0-9][0-9]?(:[0-9][0-9]?)?( ?(a|p)m)?)`, 'ig')
+	const results = matcher.exec(text)
+
+	if (results !== null) {
+		const time = results[3]
+		const parts = time.split(':')
+		let hours = parseInt(parts[0])
+		let minutes = 0
+		if(time.endsWith('pm')) {
+			hours += 12
+		}
+		if (parts.length > 1) {
+			minutes = parseInt(parts[1])
+		}
+
+		date.setHours(hours)
+		date.setMinutes(minutes)
+		date.setSeconds(0)
+	}
+
+	const replace = results !== null ? results[0] : match
+	return {
+		newText: replaceAll(text, replace, ''),
+		date: date,
 	}
 }
 
