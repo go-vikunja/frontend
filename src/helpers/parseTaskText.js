@@ -69,19 +69,22 @@ const parseDate = text => {
 		return addTimeToDate(text, date, 'end of month')
 	}
 
-	// TODO weekdays (just put the name of the weekday in
-	// TODO hours
+	const {foundText, date} = getDateFromWeekday(text)
+	if (date !== null) {
+		return addTimeToDate(text, date, foundText)
+	}
+
 	// TODO day - like 25th for the current month or the next (if curDate > 25th)
 
-	const {foundText, date} = getDateFromTextIn(text)
-	if (date !== null) {
+	let parsed = getDateFromTextIn(text)
+	if (parsed.date !== null) {
 		return {
-			newText: replaceAll(text, foundText, ''),
-			date: date,
+			newText: replaceAll(text, parsed.foundText, ''),
+			date: parsed.date,
 		}
 	}
 
-	const parsed = getDateFromText(text)
+	parsed = getDateFromText(text)
 
 	return {
 		newText: replaceAll(text, parsed.foundText, ''),
@@ -98,7 +101,7 @@ const addTimeToDate = (text, date, match) => {
 		const parts = time.split(':')
 		let hours = parseInt(parts[0])
 		let minutes = 0
-		if(time.endsWith('pm')) {
+		if (time.endsWith('pm')) {
 			hours += 12
 		}
 		if (parts.length > 1) {
@@ -204,6 +207,65 @@ export const getDateFromTextIn = (text, now = new Date()) => {
 	return {
 		foundText,
 		date,
+	}
+}
+
+const getDateFromWeekday = text => {
+	const matcher = /(mon|monday|tue|tuesday|wed|wednesday|thu|thursday|fri|friday|sat|saturday|sun|sunday)/ig
+	const results = matcher.exec(text)
+	if (results === null) {
+		return {
+			foundText: null,
+			date: null,
+		}
+	}
+
+	const date = new Date()
+	const currentDay = date.getDay()
+	let day = 0
+
+	switch (results[0]) {
+		case 'mon':
+		case 'monday':
+			day = 1
+			break
+		case 'tue':
+		case 'tuesday':
+			day = 2
+			break
+		case 'wed':
+		case 'wednesday':
+			day = 3
+			break
+		case 'thu':
+		case 'thursday':
+			day = 4
+			break
+		case 'fri':
+		case 'friday':
+			day = 5
+			break
+		case 'sat':
+		case 'saturday':
+			day = 6
+			break
+		case 'sun':
+		case 'sunday':
+			day = 0
+			break
+		default:
+			return {
+				foundText: null,
+				date: null,
+			}
+	}
+
+	const distance = (day + 7 - currentDay) % 7
+	date.setDate(date.getDate() + distance)
+
+	return {
+		foundText: results[0],
+		date: date,
 	}
 }
 

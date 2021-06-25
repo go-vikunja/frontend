@@ -143,7 +143,7 @@ describe('Parse Task Text', () => {
 			expect(result.date.getMonth()).toBe(date.getMonth())
 			expect(result.date.getDate()).toBe(date.getDate())
 		})
-		it('should recognize a end of month', () => {
+		it('should recognize end of month', () => {
 			const result = parseTaskText('Lorem Ipsum end of month')
 
 			expect(result.text).toBe('Lorem Ipsum')
@@ -152,6 +152,25 @@ describe('Parse Task Text', () => {
 			expect(result.date.getFullYear()).toBe(date.getFullYear())
 			expect(result.date.getMonth()).toBe(date.getMonth())
 			expect(result.date.getDate()).toBe(date.getDate())
+		})
+		it('should recognize weekdays', () => {
+			const result = parseTaskText('Lorem Ipsum thu')
+
+			expect(result.text).toBe('Lorem Ipsum')
+			const nextThursday = new Date()
+			nextThursday.setDate(nextThursday.getDate() + ((4 + 7 - nextThursday.getDay()) % 7))
+			expect(`${result.date.getFullYear()}-${result.date.getMonth()}-${result.date.getDate()}`).toBe(`${nextThursday.getFullYear()}-${nextThursday.getMonth()}-${nextThursday.getDate()}`)
+			expect(+new Date(result.date)).toBeGreaterThan(+new Date())
+		})
+		it('should recognize weekdays with time', () => {
+			const result = parseTaskText('Lorem Ipsum thu at 14:00')
+
+			expect(result.text).toBe('Lorem Ipsum')
+			const nextThursday = new Date()
+			nextThursday.setDate(nextThursday.getDate() + ((4 + 7 - nextThursday.getDay()) % 7))
+			expect(`${result.date.getFullYear()}-${result.date.getMonth()}-${result.date.getDate()}`).toBe(`${nextThursday.getFullYear()}-${nextThursday.getMonth()}-${nextThursday.getDate()}`)
+			expect(`${result.date.getHours()}:${result.date.getMinutes()}`).toBe('14:0')
+			expect(+new Date(result.date)).toBeGreaterThan(+new Date())
 		})
 
 		describe('Parse date from text', () => {
