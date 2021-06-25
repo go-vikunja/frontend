@@ -378,7 +378,12 @@
     "7003": "Tu n’as pas accès à cette liste.",
     "1012": "L’adresse courriel de l’utilisateur·rice n’est pas confirmée.",
     "1010": "Jeton de confirmation de courriel invalide.",
-    "1002": "Un·e utilisateur·rice avec cette adresse courriel existe déjà."
+    "1002": "Un·e utilisateur·rice avec cette adresse courriel existe déjà.",
+    "10005": "",
+    "10004": "",
+    "10003": "",
+    "10002": "",
+    "10001": ""
   },
   "filters": {
     "title": "Filtres",
@@ -468,7 +473,20 @@
       "addTaskPlaceholder": "Entre le nouveau titre de la tâche…",
       "noLimit": "Non défini",
       "limit": "Limite : {limit}",
-      "title": "Kanban"
+      "title": "Kanban",
+      "bucketLimitSavedSuccess": "",
+      "bucketTitleSavedSuccess": "",
+      "deleteBucketSuccess": "",
+      "deleteBucketText2": "",
+      "deleteBucketText1": "",
+      "deleteHeaderBucket": "",
+      "addBucketPlaceholder": "",
+      "addBucket": "",
+      "deleteLast": "",
+      "doneBucketSavedSuccess": "",
+      "doneBucketHintExtended": "",
+      "doneBucketHint": "",
+      "doneBucket": ""
     },
     "table": {
       "columns": "Colonnes",
