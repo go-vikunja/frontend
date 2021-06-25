@@ -13,11 +13,21 @@
       "descriptionPlaceholder": "Die Beschreibung steht hier …",
       "description": "Beschreibung",
       "titlePlaceholder": "Der gespeicherte Filtertitel steht hier …",
-      "title": "Titel"
+      "title": "Titel",
+      "startDateRange": "",
+      "endDateRange": "",
+      "reminderRange": "",
+      "requireAll": "",
+      "includeNulls": "",
+      "dueDateRange": "",
+      "enablePercentDone": "",
+      "enablePriority": "",
+      "showDoneTasks": ""
     },
     "delete": {
       "header": "Diesen gespeicherten Filter löschen",
-      "success": "Der Filter wurde erfolgreich gelöscht."
+      "success": "Der Filter wurde erfolgreich gelöscht.",
+      "text": ""
     },
     "edit": {
       "success": "Der Filter wurde erfolgreich gespeichert.",
@@ -28,14 +38,34 @@
   "sharing": {
     "authenticating": "Authentifizierung …",
     "invalidPassword": "Das Passwort ist ungültig.",
-    "error": "Es ist ein Fehler aufgetreten."
+    "error": "Es ist ein Fehler aufgetreten.",
+    "passwordRequired": ""
   },
   "label": {
     "attributes": {
       "color": "Farbe",
       "description": "Beschreibung",
-      "title": "Titel"
-    }
+      "title": "Titel",
+      "descriptionPlaceholder": "",
+      "titlePlaceholder": ""
+    },
+    "edit": {
+      "success": "",
+      "header": "",
+      "forbidden": ""
+    },
+    "create": {
+      "success": "",
+      "title": "",
+      "titleRequired": "",
+      "header": ""
+    },
+    "title": "",
+    "manage": "",
+    "deleteSuccess": "",
+    "search": "",
+    "newCTA": "",
+    "description": ""
   },
   "misc": {
     "search": "Suchen",
@@ -47,7 +77,16 @@
     "loading": "Wird geladen …",
     "previous": "Vorherige",
     "next": "Weiter",
-    "poweredBy": "Angetrieben von Vikunja"
+    "poweredBy": "Angetrieben von Vikunja",
+    "saved": "",
+    "create": "",
+    "cancel": "",
+    "refresh": "",
+    "default": "",
+    "info": "",
+    "doit": "",
+    "searchPlaceholder": "",
+    "saving": ""
   },
   "task": {
     "delete": "Diese Aufgabe löschen",
@@ -57,7 +96,13 @@
       "titleCurrent": "Aktuelle Aufgaben",
       "noTasks": "Nichts zu tun – Einen schönen Tag noch!",
       "today": "Heute",
-      "nextWeek": "Nächste Woche"
+      "nextWeek": "Nächste Woche",
+      "until": "",
+      "noDates": "",
+      "nextMonth": "",
+      "titleDates": "",
+      "from": "",
+      "current": ""
     },
     "detail": {
       "created": "Erstellt {0} von {1}",
@@ -65,7 +110,9 @@
       "done": "Fertig!",
       "move": "Aufgabe in eine andere Liste verschieben",
       "delete": {
-        "header": "Diese Aufgabe löschen"
+        "header": "Diese Aufgabe löschen",
+        "text2": "",
+        "text1": ""
       },
       "deleteSuccess": "Die Aufgabe wurde erfolgreich gelöscht.",
       "updateSuccess": "Die Aufgabe wurde erfolgreich gespeichert.",
@@ -78,8 +125,20 @@
         "attachments": "Anhänge hinzufügen",
         "delete": "Aufgabe löschen",
         "color": "Taskfarbe einstellen",
-        "moveList": "Aufgabe verschieben"
-      }
+        "moveList": "Aufgabe verschieben",
+        "label": "",
+        "dueDate": "",
+        "endDate": "",
+        "percentDone": "",
+        "assign": "",
+        "startDate": "",
+        "repeatAfter": ""
+      },
+      "chooseStartDate": "",
+      "belongsToList": "",
+      "due": "",
+      "chooseDueDate": "",
+      "chooseEndDate": ""
     },
     "attributes": {
       "color": "Farbe",
@@ -95,16 +154,29 @@
       "percentDone": "% erledigt",
       "repeat": "Wiederholen",
       "reminders": "Erinnerungen",
-      "updated": "Aktualisiert"
+      "updated": "Aktualisiert",
+      "description": "",
+      "assignees": "",
+      "labels": ""
     },
     "subscription": {
       "subscribeSuccess": "Du bist jetzt bei dieser {entity} abonniert",
       "unsubscribe": "Deabonnieren",
-      "subscribe": "Abonnieren"
+      "subscribe": "Abonnieren",
+      "subscribedThroughParent": "",
+      "notSubscribed": "",
+      "unsubscribeSuccess": "",
+      "subscribed": ""
     },
     "attachment": {
       "download": "Herunterladen",
-      "createdBy": "erstellt {0} von {1}"
+      "createdBy": "erstellt {0} von {1}",
+      "title": "",
+      "deleteText2": "",
+      "deleteText1": "",
+      "delete": "",
+      "drop": "",
+      "upload": ""
     },
     "comment": {
       "placeholder": "Füge deinen Kommentar hinzu …",
@@ -115,7 +187,8 @@
       "deleteText2": "Dies kann nicht rückgängig gemacht werden!",
       "deleteText1": "Bist du sicher, dass du diesen Kommentar löschen willst?",
       "delete": "Diesen Kommentar löschen",
-      "comment": "Kommentar"
+      "comment": "Kommentar",
+      "title": ""
     },
     "description": {
       "empty": "Noch keine Beschreibung vorhanden.",
@@ -124,7 +197,8 @@
     "deferDueDate": {
       "1week": "1 Woche",
       "3days": "3 Tage",
-      "1day": "1 Tag"
+      "1day": "1 Tag",
+      "title": ""
     },
     "assignee": {
       "unassignSuccess": "Die Zuweisung wurde erfolgreich aufgehoben.",
@@ -136,7 +210,9 @@
       "doNow": "JETZT TUN",
       "urgent": "Dringend",
       "low": "Niedrig",
-      "unset": "Nicht eingestellt"
+      "unset": "Nicht eingestellt",
+      "high": "",
+      "medium": ""
     },
     "repeat": {
       "each": "Jede/n",
@@ -154,7 +230,27 @@
       "everyDay": "Jeden Tag"
     },
     "relation": {
-      "deleteText2": "Dies kann nicht rückgängig gemacht werden!"
+      "deleteText2": "Dies kann nicht rückgängig gemacht werden!",
+      "new": "",
+      "delete": "",
+      "deleteText1": "",
+      "differentList": "",
+      "createPlaceholder": "",
+      "noneYet": "",
+      "searchPlaceholder": "",
+      "add": ""
+    },
+    "openDetail": "",
+    "undoneSuccess": "",
+    "doneSuccess": "",
+    "addReminder": "",
+    "createSuccess": "",
+    "label": {
+      "addSuccess": "",
+      "createPlaceholder": "",
+      "removeSuccess": "",
+      "createSuccess": "",
+      "placeholder": ""
     }
   },
   "team": {
@@ -177,7 +273,10 @@
         "success": "Der/Die Benutzer:in wurde erfolgreich aus dem Team gelöscht.",
         "text2": "Er oder sie verliert den Zugriff auf alle Listen und Namensräumen, auf die dieses Team Zugriff hat. Dies KANN NICHT RÜCKGÄNGIG gemacht werden!",
         "text1": "Bist du sicher, dass du diese:n Benutzer:in aus dem Team entfernen willst?"
-      }
+      },
+      "makeMember": "",
+      "makeAdmin": "",
+      "search": ""
     },
     "create": {
       "success": "Das Team wurde erfolgreich erstellt.",
@@ -200,7 +299,8 @@
       "explanation": "Ein Namensraum ist eine Sammlung von Listen, die man teilen und verwenden kann, um seine Listen zu organisieren. Tatsächlich gehört jede Liste zu einem Namensraum.",
       "success": "Der Namensraum wurde erfolgreich angelegt.",
       "tooltip": "Was ist ein Namensraum?",
-      "title": "Einen neuen Namensraum erstellen"
+      "title": "Einen neuen Namensraum erstellen",
+      "titleRequired": ""
     },
     "attributes": {
       "isArchived": "Dieser Namensraum wird archiviert",
@@ -221,19 +321,27 @@
     "delete": {
       "success": "Der Namensraum wurde erfolgreich gelöscht.",
       "text2": "Dies umfasst alle Listen und Aufgaben und kann NICHT rückgängig gemacht werden!",
-      "title": "„{namespace}“ löschen"
+      "title": "„{namespace}“ löschen",
+      "text1": ""
     },
     "archive": {
       "description": "Wenn ein Namensraum archiviert ist, kann man keine neuen Listen erstellen oder ihn bearbeiten.",
       "success": "Der Namensraum wurde erfolgreich archiviert.",
       "titleUnarchive": "Archivierung von „{namespace}“ aufheben",
-      "titleArchive": "„{namespace}“ archivieren"
+      "titleArchive": "„{namespace}“ archivieren",
+      "archiveText": "",
+      "unarchiveText": ""
     },
     "noLists": "Dieser Namensraum enthält keine Listen.",
     "title": "Namensräume & Listen",
     "unarchive": "Archivierung aufheben",
     "archived": "Archiviert",
-    "showArchived": "Archivierte anzeigen"
+    "showArchived": "Archivierte anzeigen",
+    "namespace": "",
+    "noneAvailable": "",
+    "namespaces": "",
+    "search": "",
+    "createList": ""
   },
   "list": {
     "kanban": {
@@ -246,7 +354,16 @@
       "addTask": "Eine Aufgabe hinzufügen",
       "doneBucket": "Erledigte-Dinge-Eimer",
       "noLimit": "Nicht eingestellt",
-      "title": "Kanban"
+      "title": "Kanban",
+      "limit": "",
+      "deleteLast": "",
+      "doneBucketHintExtended": "",
+      "bucketLimitSavedSuccess": "",
+      "doneBucketSavedSuccess": "",
+      "addBucketPlaceholder": "",
+      "doneBucketHint": "",
+      "deleteBucketText1": "",
+      "addTaskPlaceholder": ""
     },
     "table": {
       "columns": "Spalten",
@@ -260,14 +377,17 @@
       "default": "Standard",
       "size": "Größe",
       "showTasksWithoutDates": "Aufgaben anzeigen, für die keine Termine festgelegt sind",
-      "title": "Gantt"
+      "title": "Gantt",
+      "noDates": ""
     },
     "list": {
       "empty": "Diese Liste ist derzeit leer.",
       "addPlaceholder": "Eine neue Aufgabe hinzufügen …",
       "add": "Hinzufügen",
       "title": "Liste",
-      "addTitleRequired": "Bitte gib einen Titel an."
+      "addTitleRequired": "Bitte gib einen Titel an.",
+      "newTaskCta": "",
+      "editTask": ""
     },
     "share": {
       "title": "„{Liste}“ teilen",
@@ -277,21 +397,41 @@
         "you": "Du",
         "shared": "Geteilt mit diesen {type}",
         "typeTeam": "Team | Teams",
-        "typeUser": "Benutzer:in | Benutzer:innen"
+        "typeUser": "Benutzer:in | Benutzer:innen",
+        "removeHeader": "",
+        "removeText": "",
+        "removeSuccess": "",
+        "updatedSuccess": "",
+        "addedSuccess": ""
       },
       "attributes": {
         "sharedBy": "Geteilt von",
         "name": "Name",
-        "link": "Link"
+        "link": "Link",
+        "delete": "",
+        "right": ""
       },
       "right": {
         "admin": "Admin",
-        "read": "Nur lesen"
+        "read": "Nur lesen",
+        "readWrite": "",
+        "title": ""
       },
       "links": {
         "noName": "Kein Name angegeben",
         "passwordExplanation": "Bei der Authentifizierung wird der/die Benutzer:in aufgefordert, dieses Passwort einzugeben.",
-        "password": "Passwort (optional)"
+        "password": "Passwort (optional)",
+        "createSuccess": "",
+        "remove": "",
+        "nameExplanation": "",
+        "deleteSuccess": "",
+        "title": "",
+        "what": "",
+        "explanation": "",
+        "removeText": "",
+        "create": "",
+        "namePlaceholder": "",
+        "name": ""
       },
       "share": "Teilen"
     },
@@ -341,20 +481,23 @@
     "create": {
       "createdSuccess": "Die Liste wurde erfolgreich erstellt.",
       "titlePlaceholder": "Der Titel der Liste steht hier …",
-      "header": "Eine neue Liste erstellen"
+      "header": "Eine neue Liste erstellen",
+      "addTitleRequired": ""
     },
     "color": "Farbe",
     "searchSelect": "Klicke auf oder drücke die Eingabetaste, um diese Liste auszuwählen",
     "search": "Tippe, um nach einer Liste zu suchen …",
     "lists": "Listen",
     "title": "Listentitel",
-    "archived": "Diese Liste wird archiviert. Es ist nicht möglich, neue Aufgaben zu erstellen oder sie zu bearbeiten."
+    "archived": "Diese Liste wird archiviert. Es ist nicht möglich, neue Aufgaben zu erstellen oder sie zu bearbeiten.",
+    "shared": ""
   },
   "user": {
     "settings": {
       "caldav": {
         "title": "Caldav",
-        "more": "Mehr Informationen über CalDAV in Vikunja"
+        "more": "Mehr Informationen über CalDAV in Vikunja",
+        "howTo": ""
       },
       "totp": {
         "disableSuccess": "Die Zwei-Faktor-Authentifizierung wurde erfolgreich deaktiviert.",
@@ -365,7 +508,10 @@
         "enterPassword": "Bitte gib dein Passwort ein",
         "setupSuccess": "Du hast die Zwei-Faktor-Authentifizierung erfolgreich eingerichtet!",
         "scanQR": "Alternativ kannst du auch diesen QR-Code scannen:",
-        "finishSetupPart2": "Danach gib unten einen Code aus deiner Anwendung ein."
+        "finishSetupPart2": "Danach gib unten einen Code aus deiner Anwendung ein.",
+        "finishSetupPart1": "",
+        "confirmSuccess": "",
+        "passcodePlaceholder": ""
       },
       "general": {
         "weekStartMonday": "Montag",
@@ -397,7 +543,8 @@
         "setSuccess": "Der Avatar wurde erfolgreich gesetzt!",
         "statusUpdateSuccess": "Avatar-Status wurde erfolgreich aktualisiert!",
         "uploadAvatar": "Avatar hochladen",
-        "upload": "Hochladen"
+        "upload": "Hochladen",
+        "initials": ""
       },
       "updateEmailSuccess": "Deine E-Mail-Adresse wurde erfolgreich aktualisiert. Wir haben dir einen Link zur Bestätigung geschickt.",
       "updateEmailTitle": "Aktualisiere deine E-Mail-Adresse"
@@ -453,7 +600,11 @@
     "task": {
       "assign": "Diese Aufgabe zu einem/einer Benutzer:in zuweisen",
       "done": "Eine Aufgabe als erledigt markieren",
-      "title": "Aufgabenseite"
+      "title": "Aufgabenseite",
+      "dueDate": "",
+      "labels": "",
+      "related": "",
+      "attachment": ""
     },
     "quickSearch": "Such-/Schnellaktionsleiste öffnen",
     "toggleMenu": "Das Menü umschalten",
@@ -518,12 +669,127 @@
     "1001": "Es existiert bereits ein:e Benutzer:in mit diesem Benutzernamen.",
     "0001": "Das darfst du nicht tun.",
     "success": "Erfolg",
-    "error": "Fehler"
+    "error": "Fehler",
+    "7002": "",
+    "4001": "",
+    "8001": "",
+    "9001": "",
+    "8003": "",
+    "12001": "",
+    "8002": "",
+    "2002": "",
+    "6006": "",
+    "5009": "",
+    "4002": "",
+    "4005": "",
+    "10001": "",
+    "4016": "",
+    "3007": "",
+    "4003": "",
+    "3006": "",
+    "4010": "",
+    "4009": "",
+    "4008": "",
+    "4011": "",
+    "10005": "",
+    "6004": "",
+    "4013": "",
+    "5010": "",
+    "3008": "",
+    "6002": "",
+    "5003": "",
+    "1018": "",
+    "6001": "",
+    "12002": "",
+    "4004": "",
+    "4006": "",
+    "4012": "",
+    "4015": "",
+    "4019": "",
+    "5011": "",
+    "5012": "",
+    "10004": "",
+    "1017": "",
+    "1016": "",
+    "5001": "",
+    "13002": "",
+    "13001": "",
+    "6005": "",
+    "4018": "",
+    "4014": "",
+    "4007": "",
+    "2001": "",
+    "1015": "",
+    "5006": "",
+    "11002": "",
+    "10003": "",
+    "10002": "",
+    "6007": "",
+    "4017": ""
   },
   "date": {
     "altFormatShort": "j M Y",
     "altFormatLong": "j M Y H:i",
     "ago": "vor {date}",
-    "locale": "de"
+    "locale": "de",
+    "in": ""
+  },
+  "navigation": {
+    "imprint": "",
+    "overview": "",
+    "privacy": "",
+    "upcoming": "",
+    "settings": ""
+  },
+  "migrate": {
+    "getStarted": "",
+    "alreadyMigrated2": "",
+    "authorize": "",
+    "title": "",
+    "alreadyMigrated1": "",
+    "titleService": "",
+    "inProgress": "",
+    "confirm": "",
+    "descriptionDo": "",
+    "description": "",
+    "import": ""
+  },
+  "input": {
+    "resetColor": "",
+    "datepicker": {
+      "tomorrow": "",
+      "nextWeek": "",
+      "today": "",
+      "chooseDate": "",
+      "laterThisWeek": "",
+      "thisWeekend": "",
+      "nextMonday": ""
+    },
+    "editor": {
+      "italic": "",
+      "sideBySide": "",
+      "bold": "",
+      "heading3": "",
+      "unorderedList": "",
+      "code": "",
+      "heading1": "",
+      "cleanBlock": "",
+      "link": "",
+      "quote": "",
+      "orderedList": "",
+      "done": "",
+      "headingSmaller": "",
+      "headingBigger": "",
+      "strikethrough": "",
+      "heading2": "",
+      "guide": "",
+      "horizontalRule": "",
+      "table": "",
+      "image": ""
+    },
+    "multiselect": {
+      "selectPlaceholder": "",
+      "createPlaceholder": ""
+    }
   }
 }
