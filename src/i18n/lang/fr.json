@@ -149,8 +149,8 @@
       "weeks": "Semaines",
       "days": "Jours",
       "hours": "Heures",
-      "specifyAmount": "Indique un montant…",
-      "each": "Chaque",
+      "specifyAmount": "Indique un nombre…",
+      "each": "Tous/toutes les",
       "fromCurrentDate": "À partir de la date actuelle",
       "monthly": "Mensuel",
       "mode": "Mode de répétition",
@@ -207,7 +207,7 @@
       "delete": "Supprimer ce commentaire",
       "comment": "Commentaire",
       "placeholder": "Ajoute ton commentaire…",
-      "creating": "Créer un commentaire…",
+      "creating": "Création d’un commentaire…",
       "edited": "modifié {date}",
       "loading": "Chargement des commentaires…",
       "title": "Commentaires"
@@ -288,15 +288,15 @@
     },
     "show": {
       "noTasks": "Rien à faire – Passe une bonne journée !",
-      "nextMonth": "Mois prochain",
-      "nextWeek": "Semaine prochaine",
+      "nextMonth": "Le mois prochain",
+      "nextWeek": "La semaine prochaine",
       "today": "Aujourd’hui",
-      "until": "jusqu’au",
+      "until": "au",
       "from": "Tâches du",
       "titleCurrent": "Tâches actuelles",
       "current": "Tâches actuelles",
       "noDates": "Afficher les tâches sans date",
-      "titleDates": "Tâches de {from} à {to}"
+      "titleDates": "Tâches du {from} au {to}"
     },
     "openDetail": "Ouvrir la vue détaillée de la tâche",
     "undoneSuccess": "La tâche a bien été dé-marquée comme terminée.",
@@ -758,7 +758,8 @@
     "altFormatShort": "j M Y",
     "altFormatLong": "j M Y H:i",
     "ago": "il y a {date}",
-    "in": "en {date}"
+    "in": "en {date}",
+    "locale": "fr"
   },
   "migrate": {
     "confirm": "Je suis sûr·e, commencer à migrer maintenant !",
