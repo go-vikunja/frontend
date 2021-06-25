@@ -69,14 +69,17 @@ const parseDate = text => {
 		return addTimeToDate(text, date, 'end of month')
 	}
 
-	const {foundText, date} = getDateFromWeekday(text)
-	if (date !== null) {
-		return addTimeToDate(text, date, foundText)
+	let parsed = getDateFromWeekday(text)
+	if (parsed.date !== null) {
+		return addTimeToDate(text, parsed.date, parsed.foundText)
 	}
 
-	// TODO day - like 25th for the current month or the next (if curDate > 25th)
+	parsed = getDayFromText(text)
+	if (parsed.date !== null) {
+		return addTimeToDate(text, parsed.date, parsed.foundText)
+	}
 
-	let parsed = getDateFromTextIn(text)
+	parsed = getDateFromTextIn(text)
 	if (parsed.date !== null) {
 		return {
 			newText: replaceAll(text, parsed.foundText, ''),
@@ -262,6 +265,29 @@ const getDateFromWeekday = text => {
 
 	const distance = (day + 7 - currentDay) % 7
 	date.setDate(date.getDate() + distance)
+
+	return {
+		foundText: results[0],
+		date: date,
+	}
+}
+
+const getDayFromText = text => {
+	const matcher = /(([1-2][0-9])|(3[01])|(0?[1-9]))(st|nd|rd|th|\.)/ig
+	const results = matcher.exec(text)
+	if (results === null) {
+		return {
+			foundText: null,
+			date: null,
+		}
+	}
+
+	const date = new Date()
+	date.setDate(parseInt(results[0]))
+
+	if(date < new Date()) {
+		date.setMonth(date.getMonth() + 1)
+	}
 
 	return {
 		foundText: results[0],

@@ -172,6 +172,21 @@ describe('Parse Task Text', () => {
 			expect(`${result.date.getHours()}:${result.date.getMinutes()}`).toBe('14:0')
 			expect(+new Date(result.date)).toBeGreaterThan(+new Date())
 		})
+		it('should recognize dates of the month in the past but next month', () => {
+			const date = new Date()
+			const result = parseTaskText(`Lorem Ipsum ${date.getDate() - 1}nd`)
+
+			expect(result.text).toBe('Lorem Ipsum')
+			expect(result.date.getDate()).toBe(date.getDate() - 1)
+			expect(result.date.getMonth()).toBe(date.getMonth() + 1)
+		})
+		it('should recognize dates of the month in the future', () => {
+			const date = new Date()
+			const result = parseTaskText(`Lorem Ipsum ${date.getDate() + 1}nd`)
+
+			expect(result.text).toBe('Lorem Ipsum')
+			expect(result.date.getDate()).toBe(date.getDate() + 1)
+		})
 
 		describe('Parse date from text', () => {
 			const now = new Date()
