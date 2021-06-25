@@ -111,7 +111,7 @@
       "members": "Teammitglieder",
       "title": "Team „{team}“ bearbeiten",
       "deleteUser": {
-        "header": "Benutzer aus dem Team entfernen"
+        "header": "Benutzer:innen aus dem Team entfernen"
       }
     },
     "create": {
@@ -202,7 +202,14 @@
     },
     "share": {
       "title": "„{Liste}“ teilen",
-      "header": "Diese Liste teilen"
+      "header": "Diese Liste teilen",
+      "userTeam": {
+        "notShared": "Noch nicht mit {type} geteilt.",
+        "you": "Du",
+        "shared": "Geteilt mit diesen {type}",
+        "typeTeam": "Team | Teams",
+        "typeUser": "Benutzer:in | Benutzer:innen"
+      }
     },
     "edit": {
       "success": "Die Liste wurde erfolgreich aktualisiert.",
@@ -265,8 +272,8 @@
         "weekStartSunday": "Sonntag",
         "weekStart": "Woche beginnt am",
         "playSoundWhenDone": "Einen Ton abspielen, wenn Aufgaben als erledigt markiert werden",
-        "discoverableByEmail": "Andere Benutzer mich finden lassen, wenn sie nach meiner vollständigen E-Mail suchen",
-        "discoverableByName": "Andere Benutzer mich finden lassen, wenn sie nach meinem Namen suchen",
+        "discoverableByEmail": "Andere Benutzer:innen mich finden lassen, wenn sie nach meiner vollständigen E-Mail suchen",
+        "discoverableByName": "Andere Benutzer:innen mich finden lassen, wenn sie nach meinem Namen suchen",
         "overdueReminders": "Mir jeden Morgen Erinnerungen für überfällige unerledigte Aufgaben per E-Mail senden",
         "emailReminders": "Mir Erinnerungen für Aufgaben per E-Mail senden",
         "savedSuccess": "Die Einstellungen wurden erfolgreich aktualisiert.",
@@ -280,7 +287,9 @@
       "currentPassword": "Aktuelles Passwort",
       "newPasswordConfirm": "Neue Passwortbestätigung",
       "newPassword": "Neues Passwort",
-      "title": "Einstellungen"
+      "title": "Einstellungen",
+      "currentPasswordPlaceholder": "Dein aktuelles Passwort",
+      "newPasswordTitle": "Aktualisiere dein Passwort"
     },
     "auth": {
       "openIdStateError": "Zustand stimmt nicht überein, weigert sich fortzufahren!",
@@ -297,12 +306,21 @@
       "email": "E-Mail-Adresse",
       "usernamePlaceholder": "z.B. frederick",
       "usernameEmail": "Benutzername oder E-Mail-Adresse",
-      "username": "Benutzername"
+      "username": "Benutzername",
+      "logout": "Abmelden",
+      "confirmEmailSuccess": "Du hast deine E-Mail erfolgreich bestätigt! Du kannst dich jetzt anmelden.",
+      "restPasswordSuccess": "Prüfe deinen Posteingang! Du solltest eine E-Mail mit Anweisungen zum Zurücksetzen deines Passworts erhalten haben.",
+      "resetPasswordAction": "Mir einen Link zum Zurücksetzen des Passworts senden",
+      "resetPassword": "Dein Passwort zurücksetzen",
+      "passwordRepeat": "Gib dein Passwort erneut ein"
     }
   },
   "home": {
     "list": {
-      "new": "Eine neue Liste erstellen"
+      "new": "Eine neue Liste erstellen",
+      "import": "Deine Daten in Vikunja importieren",
+      "importText": "Oder importiere deine Listen und Aufgaben aus anderen Diensten in Vikunja:",
+      "newText": "Du kannst eine neue Liste für deine neuen Aufgaben erstellen:"
     },
     "welcome": "Hallo {username}"
   }
