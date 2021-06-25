@@ -37,7 +37,8 @@
   "filters": {
     "title": "Фильтры",
     "edit": {
-      "success": "Фильтр успешно сохранён."
+      "success": "Фильтр успешно сохранён.",
+      "title": ""
     },
     "attributes": {
       "showDoneTasks": "Показывать завершённые задачи",
@@ -49,10 +50,20 @@
       "startDateRange": "Диапазон даты начала",
       "dueDateRange": "Диапазон срока",
       "enablePercentDone": "Вкл. фильтр по % завершения",
-      "enablePriority": "Вкл. фильтр по приоритету"
+      "enablePriority": "Вкл. фильтр по приоритету",
+      "titlePlaceholder": "",
+      "requireAll": "",
+      "includeNulls": ""
     },
     "delete": {
-      "success": "Фильтр успешно удалён."
+      "success": "Фильтр успешно удалён.",
+      "header": "",
+      "text": ""
+    },
+    "create": {
+      "description": "",
+      "action": "",
+      "title": ""
     }
   },
   "list": {
@@ -61,7 +72,21 @@
       "addTask": "Добавить задачу",
       "noLimit": "не установлен",
       "limit": "Лимит: {limit}",
-      "title": "Канбан"
+      "title": "Канбан",
+      "addBucket": "",
+      "deleteBucketText2": "",
+      "deleteHeaderBucket": "",
+      "addTaskPlaceholder": "",
+      "doneBucketHint": "",
+      "deleteLast": "",
+      "addBucketPlaceholder": "",
+      "doneBucketSavedSuccess": "",
+      "doneBucketHintExtended": "",
+      "doneBucket": "",
+      "bucketLimitSavedSuccess": "",
+      "bucketTitleSavedSuccess": "",
+      "deleteBucketSuccess": "",
+      "deleteBucketText1": ""
     },
     "table": {
       "columns": "Столбцы",
@@ -73,12 +98,19 @@
       "month": "Месяц",
       "default": "По умолчанию",
       "size": "Размер",
-      "showTasksWithoutDates": "Показать задачи без установленной даты"
+      "showTasksWithoutDates": "Показать задачи без установленной даты",
+      "to": "",
+      "from": "",
+      "title": ""
     },
     "list": {
       "editTask": "Изменить задачу",
       "newTaskCta": "Создать новую задачу.",
-      "empty": "Список сейчас пуст."
+      "empty": "Список сейчас пуст.",
+      "addTitleRequired": "",
+      "addPlaceholder": "",
+      "add": "",
+      "title": ""
     },
     "edit": {
       "success": "Список успешно обновлён.",
@@ -89,12 +121,14 @@
       "identifier": "Идентификатор списка",
       "titlePlaceholder": "Название списка здесь…",
       "title": "Изменить «{list}»",
-      "header": "Изменить этот список"
+      "header": "Изменить этот список",
+      "identifierTooltip": ""
     },
     "duplicate": {
       "success": "Копия списка успешно создана.",
       "label": "Создать копию",
-      "title": "Создать копию списка"
+      "title": "Создать копию списка",
+      "text": ""
     },
     "delete": {
       "success": "Список успешно удалён.",
@@ -110,10 +144,16 @@
       "remove": "Удалить фон",
       "title": "Установить фон списка",
       "searchPlaceholder": "Введи запрос для поиска фона…",
-      "loadMore": "Загрузить больше фотографий"
+      "loadMore": "Загрузить больше фотографий",
+      "poweredByUnsplash": ""
     },
     "archive": {
-      "title": "Заархивировать «{list}»"
+      "title": "Заархивировать «{list}»",
+      "archive": "",
+      "success": "",
+      "archiveText": "",
+      "unarchiveText": "",
+      "unarchive": ""
     },
     "create": {
       "createdSuccess": "Список успешно создан.",
@@ -124,12 +164,72 @@
     "lists": "Списки",
     "color": "Цвет",
     "title": "Название списка",
-    "search": "Введи запрос для поиска списка…"
+    "search": "Введи запрос для поиска списка…",
+    "share": {
+      "userTeam": {
+        "typeUser": "",
+        "shared": "",
+        "removeSuccess": "",
+        "typeTeam": "",
+        "you": "",
+        "notShared": "",
+        "updatedSuccess": "",
+        "removeHeader": "",
+        "removeText": "",
+        "addedSuccess": ""
+      },
+      "right": {
+        "readWrite": "",
+        "read": "",
+        "title": "",
+        "admin": ""
+      },
+      "title": "",
+      "links": {
+        "noName": "",
+        "removeText": "",
+        "nameExplanation": "",
+        "passwordExplanation": "",
+        "deleteSuccess": "",
+        "password": "",
+        "namePlaceholder": "",
+        "explanation": "",
+        "what": "",
+        "title": "",
+        "createSuccess": "",
+        "name": "",
+        "remove": "",
+        "create": ""
+      },
+      "header": "",
+      "share": "",
+      "attributes": {
+        "delete": "",
+        "right": "",
+        "sharedBy": "",
+        "name": "",
+        "link": ""
+      }
+    },
+    "shared": "",
+    "searchSelect": "",
+    "archived": ""
   },
   "user": {
     "settings": {
       "totp": {
-        "title": "Двухфакторная аутентификация"
+        "title": "Двухфакторная аутентификация",
+        "confirmSuccess": "",
+        "passcode": "",
+        "passcodePlaceholder": "",
+        "disableSuccess": "",
+        "setupSuccess": "",
+        "enterPassword": "",
+        "scanQR": "",
+        "disable": "",
+        "finishSetupPart2": "",
+        "finishSetupPart1": "",
+        "enroll": ""
       },
       "avatar": {
         "setSuccess": "Аватар успешно установлен!",
@@ -187,7 +287,13 @@
       "password": "Пароль",
       "email": "E-mail адрес",
       "usernameEmail": "Имя пользователя или Email",
-      "username": "Имя пользователя"
+      "username": "Имя пользователя",
+      "openIdStateError": "",
+      "totpPlaceholder": "",
+      "passwordPlaceholder": "",
+      "usernamePlaceholder": "",
+      "emailPlaceholder": "",
+      "restPasswordSuccess": ""
     }
   },
   "404": {
@@ -200,7 +306,9 @@
     "setBackground": "Задать фон",
     "delete": "Удалить",
     "duplicate": "Создать копию",
-    "edit": "Изменить"
+    "edit": "Изменить",
+    "unarchive": "",
+    "archive": ""
   },
   "update": {
     "do": "Обновить сейчас",
@@ -236,12 +344,14 @@
       "deleteUser": {
         "success": "Пользователь успешно удалён из команды.",
         "text1": "Ты точно хочешь удалить этого пользователя из команды?",
-        "header": "Удалить пользователя из команды"
+        "header": "Удалить пользователя из команды",
+        "text2": ""
       },
       "delete": {
         "success": "Команда успешно удалена.",
         "text1": "Ты точно хочешь удалить эту команду вместе с участниками?",
-        "header": "Удалить команду"
+        "header": "Удалить команду",
+        "text2": ""
       },
       "madeAdmin": "Участник успешно сделан администратором.",
       "madeMember": "Участник успешно сделан участником.",
@@ -274,12 +384,16 @@
       "everyMonth": "Каждый месяц",
       "everyWeek": "Каждую неделю",
       "everyDay": "Каждый день",
-      "hours": "Часов"
+      "hours": "Часов",
+      "specifyAmount": ""
     },
     "priority": {
       "high": "Высокий",
       "medium": "Средний",
-      "low": "Низкий"
+      "low": "Низкий",
+      "doNow": "",
+      "unset": "",
+      "urgent": ""
     },
     "label": {
       "removeSuccess": "Метка успешно удалена.",
@@ -317,11 +431,17 @@
       "upload": "Загрузить вложение",
       "download": "Скачать",
       "createdBy": "создано {0} пользователем {1}",
-      "title": "Вложения"
+      "title": "Вложения",
+      "drop": ""
     },
     "subscription": {
       "unsubscribe": "Отписаться",
-      "subscribe": "Подписаться"
+      "subscribe": "Подписаться",
+      "subscribed": "",
+      "notSubscribed": "",
+      "subscribeSuccess": "",
+      "subscribedThroughParent": "",
+      "unsubscribeSuccess": ""
     },
     "attributes": {
       "updated": "Дата изменения",
@@ -339,7 +459,8 @@
       "done": "Завершено",
       "startDate": "Дата начала",
       "endDate": "Дата завершения",
-      "dueDate": "Срок"
+      "dueDate": "Срок",
+      "relatedTasks": ""
     },
     "detail": {
       "actions": {
@@ -372,7 +493,10 @@
       "done": "Завершено!",
       "chooseEndDate": "Нажми для выбора даты завершения",
       "chooseStartDate": "Нажми для выбора даты начала",
-      "chooseDueDate": "Нажми для выбора срока"
+      "chooseDueDate": "Нажми для выбора срока",
+      "due": "",
+      "belongsToList": "",
+      "move": ""
     },
     "show": {
       "noTasks": "Делать нечего - хорошего дня!",
@@ -409,7 +533,8 @@
       "searchPlaceholder": "Введи запрос для поиска задачи, чтобы добавить связь…"
     },
     "undoneSuccess": "Задача успешно помечена как незавершённая.",
-    "doneSuccess": "Задача успешно помечена как завершённая."
+    "doneSuccess": "Задача успешно помечена как завершённая.",
+    "openDetail": ""
   },
   "input": {
     "editor": {
@@ -431,7 +556,8 @@
       "heading3": "Заголовок 3",
       "heading2": "Заголовок 2",
       "heading1": "Заголовок 1",
-      "done": "Завершено"
+      "done": "Завершено",
+      "sideBySide": ""
     },
     "datepicker": {
       "nextWeek": "Через неделю",
@@ -439,9 +565,14 @@
       "tomorrow": "Завтра",
       "today": "Сегодня",
       "chooseDate": "Выбрать дату",
-      "thisWeekend": "Конец этой недели"
+      "thisWeekend": "Конец этой недели",
+      "laterThisWeek": ""
     },
-    "resetColor": "Сбросить цвет"
+    "resetColor": "Сбросить цвет",
+    "multiselect": {
+      "selectPlaceholder": "",
+      "createPlaceholder": ""
+    }
   },
   "misc": {
     "saved": "Сохранено!",
@@ -458,18 +589,25 @@
     "loading": "Загрузка…",
     "default": "По умолчанию",
     "searchPlaceholder": "Введи запрос для поиска…",
-    "search": "Поиск"
+    "search": "Поиск",
+    "confirm": "",
+    "poweredBy": "",
+    "refresh": "",
+    "info": ""
   },
   "navigation": {
     "settings": "Настройки",
     "upcoming": "Предстоящие задачи",
-    "overview": "Обзор"
+    "overview": "Обзор",
+    "privacy": "",
+    "imprint": ""
   },
   "quickActions": {
     "cmds": {
       "newTeam": "Новая команда",
       "newList": "Новый список",
-      "newTask": "Новая задача"
+      "newTask": "Новая задача",
+      "newNamespace": ""
     },
     "createTask": "Создать задачу в текущем списке ({title})",
     "newTeam": "Введи название новой команды…",
@@ -480,17 +618,26 @@
     "tasks": "Задачи",
     "hint": "Используй # для поиска только задач, * для поиска только списков и @ для поиска только команд.",
     "placeholder": "Введи команду или поисковый запрос…",
-    "commands": "Команды"
+    "commands": "Команды",
+    "createList": "",
+    "newNamespace": ""
   },
   "notification": {
-    "none": "Уведомлений нет. Хорошего дня!"
+    "none": "Уведомлений нет. Хорошего дня!",
+    "explainer": ""
   },
   "loadingError": {
     "contact": "связаться с нами",
-    "tryAgain": "попробуй ещё раз"
+    "tryAgain": "попробуй ещё раз",
+    "failed": ""
   },
   "apiConfig": {
-    "signInOn": "Войди в свой аккаунт Vikunja на {0}"
+    "signInOn": "Войди в свой аккаунт Vikunja на {0}",
+    "change": "",
+    "url": "",
+    "success": "",
+    "error": "",
+    "urlPlaceholder": ""
   },
   "error": {
     "6001": "Имя команды не может быть пустым.",
@@ -523,10 +670,58 @@
     "success": "Успех",
     "error": "Ошибка",
     "4009": "Эта связь с задачей не существует.",
-    "4008": "Нельзя создать связь, которая уже существует."
+    "4008": "Нельзя создать связь, которая уже существует.",
+    "3004": "",
+    "9001": "",
+    "4007": "",
+    "5006": "",
+    "4006": "",
+    "5012": "",
+    "10002": "",
+    "4003": "",
+    "8001": "",
+    "5010": "",
+    "5011": "",
+    "4002": "",
+    "1016": "",
+    "1017": "",
+    "4019": "",
+    "6006": "",
+    "5003": "",
+    "3008": "",
+    "6004": "",
+    "4018": "",
+    "6007": "",
+    "7002": "",
+    "4017": "",
+    "13002": "",
+    "13001": "",
+    "12002": "",
+    "12001": "",
+    "11002": "",
+    "11001": "",
+    "10005": "",
+    "10004": "",
+    "10003": "",
+    "8003": "",
+    "8002": "",
+    "7003": "",
+    "6005": "",
+    "4005": "",
+    "4004": "",
+    "3006": "",
+    "1015": "",
+    "10001": "",
+    "4001": "",
+    "5009": "",
+    "4014": "",
+    "5001": ""
   },
   "sharing": {
-    "authenticating": "Аутентификация…"
+    "authenticating": "Аутентификация…",
+    "passwordRequired": "",
+    "invalidPassword": "",
+    "error": ""
   },
   "migrate": {
     "inProgress": "Импортируем…",
@@ -536,6 +731,65 @@
     "description": "Нажмите на логотип одного из сторонних сервисов, чтобы начать.",
     "import": "Импорт данных в Vikunja",
     "titleService": "Импорт твоих данных из {name} в Vikunja",
-    "title": "Миграция из других сервисов в Vikunja"
+    "title": "Миграция из других сервисов в Vikunja",
+    "confirm": "",
+    "alreadyMigrated1": "",
+    "alreadyMigrated2": ""
+  },
+  "namespace": {
+    "create": {
+      "explanation": "",
+      "tooltip": "",
+      "success": "",
+      "title": "",
+      "titleRequired": ""
+    },
+    "namespaces": "",
+    "edit": {
+      "title": "",
+      "success": ""
+    },
+    "showArchived": "",
+    "noLists": "",
+    "share": {
+      "title": ""
+    },
+    "unarchive": "",
+    "archive": {
+      "unarchiveText": "",
+      "titleArchive": "",
+      "success": "",
+      "archiveText": "",
+      "description": "",
+      "titleUnarchive": ""
+    },
+    "createList": "",
+    "delete": {
+      "title": "",
+      "success": "",
+      "text1": "",
+      "text2": ""
+    },
+    "attributes": {
+      "descriptionPlaceholder": "",
+      "description": "",
+      "color": "",
+      "archived": "",
+      "title": "",
+      "isArchived": "",
+      "titlePlaceholder": ""
+    },
+    "archived": "",
+    "noneAvailable": "",
+    "search": "",
+    "namespace": "",
+    "title": ""
+  },
+  "date": {
+    "ago": "",
+    "altFormatLong": "",
+    "altFormatShort": "",
+    "locale": "",
+    "in": ""
   }
 }
