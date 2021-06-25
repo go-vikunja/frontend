@@ -155,9 +155,9 @@
       "title": "Share \"{list}\"",
       "share": "Share",
       "links": {
-        "title": "Share Links",
-        "what": "What is a share link?",
-        "explanation": "Share Links allow you to easily share a list with other users who don't have an account on Vikunja.",
+        "title": "Link Shares",
+        "what": "What is a link share?",
+        "explanation": "Link Shares allow you to easily share a list with other users who don't have an account on Vikunja.",
         "create": "Create a new link share",
         "name": "Name (optional)",
         "namePlaceholder": "e.g. Lorem Ipsum",
