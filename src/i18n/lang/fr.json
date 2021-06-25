@@ -2,10 +2,10 @@
   "home": {
     "welcome": "Salut {username}",
     "list": {
-      "import": "Importer vos données dans Vikunja",
-      "importText": "Ou importez vos listes et tâches d’autres services dans Vikunja :",
+      "import": "Importer tes données dans Vikunja",
+      "importText": "Ou importe tes listes et tâches d’autres services dans Vikunja :",
       "new": "Créer une nouvelle liste",
-      "newText": "Vous pouvez créer une nouvelle liste pour vos nouvelles tâches :"
+      "newText": "Tu peux créer une nouvelle liste pour tes nouvelles tâches :"
     }
   },
   "label": {
@@ -13,32 +13,39 @@
       "descriptionPlaceholder": "Description de l’étiquette",
       "description": "Description",
       "titlePlaceholder": "Le titre de l’étiquette va ici…",
-      "color": "Couleur"
+      "color": "Couleur",
+      "title": "Titre"
     },
     "create": {
       "success": "L’étiquette a bien été créée.",
-      "titleRequired": "Veuillez préciser un titre.",
+      "titleRequired": "Indique un titre.",
       "title": "Créer une nouvelle étiquette",
       "header": "Nouvelle étiquette"
     },
-    "search": "Tapez pour rechercher une étiquette…",
-    "newCTA": "Vous n’avez actuellement aucune étiquette.",
-    "description": "Cliquez sur une étiquette pour la modifier. Vous pouvez modifier toutes les étiquettes que vous avez créées, vous pouvez utiliser toutes les étiquettes qui sont associées à une tâche dont vous avez accès à la liste.",
+    "search": "Écris pour rechercher une étiquette…",
+    "newCTA": "Tu n’as actuellement aucune étiquette.",
+    "description": "Clique sur une étiquette pour la modifier. Tu peux modifier toutes les étiquettes que tu as créées, tu peux utiliser toutes les étiquettes qui sont associées à une tâche dont tu as accès à la liste.",
     "manage": "Gérer les étiquettes",
-    "title": "Étiquettes"
+    "title": "Étiquettes",
+    "edit": {
+      "header": "Modifier l’étiquette",
+      "success": "L’étiquette a bien été mise à jour.",
+      "forbidden": "Tu n’as pas le droit de modifier cette étiquette car elle ne t’appartient pas."
+    },
+    "deleteSuccess": "L’étiquette a bien été supprimée."
   },
   "quickActions": {
     "createList": "Créer une liste dans l’espace de noms actuel ({title})",
     "createTask": "Créer une tâche dans la liste actuelle ({title})",
-    "newTeam": "Entrez le nom de la nouvelle équipe…",
-    "newNamespace": "Entrez le titre du nouvel espace de noms…",
-    "newTask": "Saisissez le titre de la nouvelle tâche…",
-    "newList": "Entrez le titre de la nouvelle liste…",
+    "newTeam": "Entre le nom de la nouvelle équipe…",
+    "newNamespace": "Entre le titre du nouvel espace de noms…",
+    "newTask": "Entre le titre de la nouvelle tâche…",
+    "newList": "Entre le titre de la nouvelle liste…",
     "teams": "Équipes",
     "lists": "Listes",
     "tasks": "Tâches",
-    "hint": "Vous pouvez utiliser # pour rechercher uniquement les tâches, * pour rechercher uniquement les listes et @ pour rechercher uniquement les équipes.",
-    "placeholder": "Tapez une commande ou recherchez…",
+    "hint": "Tu peux utiliser # pour rechercher uniquement les tâches, * pour rechercher uniquement les listes et @ pour rechercher uniquement les équipes.",
+    "placeholder": "Écris une commande ou une recherche…",
     "commands": "Commandes",
     "cmds": {
       "newTeam": "Nouvelle équipe",
@@ -48,18 +55,18 @@
     }
   },
   "notification": {
-    "explainer": "Des notifications apparaîtront ici lorsque des actions sur les espaces de noms, les listes ou les tâches auxquelles vous êtes abonné·e se produiront.",
-    "none": "Vous n’avez pas de notifications. Passez une bonne journée !"
+    "explainer": "Des notifications apparaîtront ici lorsque des actions sur les espaces de noms, les listes ou les tâches auxquelles tu es abonné·e se produiront.",
+    "none": "Tu n’as pas de notifications. Passe une bonne journée !"
   },
   "loadingError": {
-    "contact": "nous contacter",
-    "tryAgain": "réessayer",
-    "failed": "Le chargement a échoué, veuillez {0}. Si l’erreur persiste, veuillez {1}."
+    "contact": "contacte-nous",
+    "tryAgain": "réessaye",
+    "failed": "Le chargement a échoué, {0}. Si l’erreur persiste, {1}."
   },
   "apiConfig": {
     "success": "Utilisation de l’installation Vikunja à « {domain} ».",
     "error": "Impossible de trouver ou d’utiliser l’installation Vikunja à « {domain} ».",
-    "signInOn": "Se connecter à votre compte Vikunja sur {0}",
+    "signInOn": "Se connecter à ton compte Vikunja sur {0}",
     "change": "changer",
     "urlPlaceholder": "Par exemple : https://localhost:3456",
     "url": "URL Vikunja"
@@ -84,7 +91,7 @@
       "attachment": "Ajouter une pièce jointe à cette tâche",
       "dueDate": "Modifier la date d’échéance de cette tâche",
       "labels": "Ajouter des étiquettes à cette tâche",
-      "assign": "Assigner cette tâche à un utilisateur",
+      "assign": "Assigner cette tâche à un·e utilisateur·rice",
       "done": "Marquer une tâche comme terminée",
       "title": "Page de tâche"
     },
@@ -100,31 +107,31 @@
       "admin": "Admin",
       "descriptionPlaceholder": "La description des équipes va ici…",
       "description": "Description",
-      "nameRequired": "Veuillez indiquer un nom.",
+      "nameRequired": "Indique un nom.",
       "namePlaceholder": "Le nom de l’équipe va ici…",
       "name": "Nom de l’équipe"
     },
     "edit": {
       "deleteUser": {
-        "success": "L’utilisateur a bien été supprimé de l’équipe.",
+        "success": "L’utilisateur·rice a bien été supprimé·e de l’équipe.",
         "text2": "Il perdra l’accès à toutes les listes et espaces de noms auxquels cette équipe a accès. Ceci ne peut pas être annulé !",
-        "text1": "Êtes-vous sûr·e de vouloir retirer cet utilisateur de l’équipe ?",
-        "header": "Retirer un utilisateur de l’équipe"
+        "text1": "Es-tu sûr·e de vouloir retirer cet·te utilisateur·rice de l’équipe ?",
+        "header": "Retirer un·e utilisateur·rice de l’équipe"
       },
       "delete": {
         "success": "L’équipe a bien été supprimée.",
         "text2": "Tous les membres de l’équipe perdront l’accès aux listes et aux espaces de noms partagés avec cette équipe. Ceci ne peut pas être annulé !",
-        "text1": "Êtes-vous sûr·e de vouloir supprimer cette équipe et tous ses membres ?",
+        "text1": "Es-tu sûr·e de vouloir supprimer cette équipe et tous ses membres ?",
         "header": "Supprimer l’équipe"
       },
       "madeAdmin": "Le membre de l’équipe a bien été nommé admin.",
-      "madeMember": "L’utilisateur est bien devenu membre de l’équipe.",
+      "madeMember": "L’utilisateur·rice est bien devenu·e membre de l’équipe.",
       "userAddedSuccess": "Le membre de l’équipe a bien été ajouté.",
       "success": "L’équipe a bien été mise à jour.",
       "makeAdmin": "Rendre admin",
       "makeMember": "Ajouter comme membre",
       "addUser": "Ajouter à l’équipe",
-      "search": "Tapez pour rechercher un utilisateur…",
+      "search": "Écris pour rechercher un·e utilisateur·rice…",
       "members": "Membres de l’équipe",
       "title": "Modifier l’équipe « {team} »"
     },
@@ -132,7 +139,7 @@
       "success": "L’équipe a bien été créée.",
       "title": "Créer une nouvelle équipe"
     },
-    "noTeams": "Vous ne faites actuellement partie d’aucune équipe.",
+    "noTeams": "Tu ne fais actuellement partie d’aucune équipe.",
     "title": "Équipes"
   },
   "task": {
@@ -142,7 +149,7 @@
       "weeks": "Semaines",
       "days": "Jours",
       "hours": "Heures",
-      "specifyAmount": "Indiquez un montant…",
+      "specifyAmount": "Indique un montant…",
       "each": "Chaque",
       "fromCurrentDate": "À partir de la date actuelle",
       "monthly": "Mensuel",
@@ -153,12 +160,12 @@
     },
     "relation": {
       "deleteText2": "Ceci ne peut pas être annulé !",
-      "deleteText1": "Êtes-vous sûr·e de vouloir supprimer cette relation de tâche ?",
+      "deleteText1": "Es-tu sûr·e de vouloir supprimer cette relation de tâche ?",
       "delete": "Supprimer la relation de tâche",
       "noneYet": "Pas encore de relations de tâches.",
       "differentList": "Cette tâche appartient à une autre liste.",
       "createPlaceholder": "Ajouter cette tâche comme nouvelle tâche connexe",
-      "searchPlaceholder": "Tapez la recherche d’une nouvelle tâche à ajouter comme connexe…",
+      "searchPlaceholder": "Écris la recherche d’une nouvelle tâche à ajouter comme connexe…",
       "new": "Nouvelle relation de tâche",
       "add": "Ajouter une nouvelle relation de tâche"
     },
@@ -175,17 +182,17 @@
       "createSuccess": "L’étiquette a bien été créée.",
       "addSuccess": "L’étiquette a bien été ajoutée.",
       "createPlaceholder": "Ajouter ceci comme nouvelle étiquette",
-      "placeholder": "Tapez pour ajouter une nouvelle étiquette…"
+      "placeholder": "Écris pour ajouter une nouvelle étiquette…"
     },
     "assignee": {
-      "unassignSuccess": "L’utilisateur a bien été désaffecté.",
-      "assignSuccess": "L’utilisateur a bien été affecté.",
-      "selectPlaceholder": "Affecter cet utilisateur",
-      "placeholder": "Tapez pour affecter un utilisateur…"
+      "unassignSuccess": "L’utilisateur·rice a bien été désaffecté·e.",
+      "assignSuccess": "L’utilisateur·rice a bien été affecté·e.",
+      "selectPlaceholder": "Affecter cet·te utilisateur·rice",
+      "placeholder": "Écris pour affecter un·e utilisateur·rice…"
     },
     "description": {
       "empty": "Aucune description n’est encore disponible.",
-      "placeholder": "Cliquez ici pour entrer une description…"
+      "placeholder": "Clique ici pour entrer une description…"
     },
     "deferDueDate": {
       "1week": "1 semaine",
@@ -196,10 +203,10 @@
     "comment": {
       "addedSuccess": "Le commentaire a bien été ajouté.",
       "deleteText2": "Ceci ne peut être annulé !",
-      "deleteText1": "Êtes-vous sûr·e de vouloir supprimer ce commentaire ?",
+      "deleteText1": "Es-tu sûr·e de vouloir supprimer ce commentaire ?",
       "delete": "Supprimer ce commentaire",
       "comment": "Commentaire",
-      "placeholder": "Ajoutez votre commentaire…",
+      "placeholder": "Ajoute ton commentaire…",
       "creating": "Créer un commentaire…",
       "edited": "modifié {date}",
       "loading": "Chargement des commentaires…",
@@ -207,22 +214,22 @@
     },
     "attachment": {
       "deleteText2": "Ceci ne peut être annulé !",
-      "deleteText1": "Êtes-vous sûr·e de vouloir supprimer la pièce jointe {filename} ?",
+      "deleteText1": "Es-tu sûr·e de vouloir supprimer la pièce jointe {filename} ?",
       "delete": "Supprimer la pièce jointe",
-      "drop": "Déposez les fichiers ici pour les téléverser",
+      "drop": "Dépose les fichiers ici pour les téléverser",
       "upload": "Téléverser la pièce jointe",
       "download": "Télécharger",
       "createdBy": "créé {0} par {1}",
       "title": "Pièces jointes"
     },
     "subscription": {
-      "unsubscribeSuccess": "Vous êtes maintenant désabonné·e de cette {entity}",
-      "subscribeSuccess": "Vous êtes maintenant abonné·e à cette {entity}",
+      "unsubscribeSuccess": "Tu es maintenant désabonné·e de cette {entity}",
+      "subscribeSuccess": "Tu es maintenant abonné·e à cette {entity}",
       "unsubscribe": "Se désabonner",
       "subscribe": "S’abonner",
-      "notSubscribed": "Vous n’êtes pas abonné·e à cette {entity} et ne recevrez pas de notifications pour les changements.",
-      "subscribed": "Vous êtes actuellement abonné·e à cette {entity} et recevrez des notifications pour les changements.",
-      "subscribedThroughParent": "Vous ne pouvez pas vous désabonner ici car vous êtes abonné·e à cette {entity} par le biais de son {parent}."
+      "notSubscribed": "Tu n’es pas abonné·e à cette {entity} et ne recevras pas de notifications pour les changements.",
+      "subscribed": "Tu es actuellement abonné·e à cette {entity} et recevras des notifications pour les changements.",
+      "subscribedThroughParent": "Tu ne peux pas te désabonner ici car tu es abonné·e à cette {entity} par le biais de son {parent}."
     },
     "attributes": {
       "updated": "Mis à jour",
@@ -240,7 +247,8 @@
       "description": "Description",
       "createdBy": "Créé par",
       "created": "Créé",
-      "color": "Couleur"
+      "color": "Couleur",
+      "assignees": "Attributaires"
     },
     "detail": {
       "actions": {
@@ -257,11 +265,11 @@
         "dueDate": "Définir l’échéance",
         "priority": "Définir la priorité",
         "label": "Ajouter des étiquettes",
-        "assign": "Assigner cette tâche à un utilisateur"
+        "assign": "Assigner cette tâche à un·e utilisateur·rice"
       },
       "delete": {
         "text2": "Ceci supprimera également toutes les pièces jointes, les rappels et les relations associés à cette tâche et ne pourra pas être annulé !",
-        "text1": "Êtes-vous sûr·e de vouloir supprimer cette tâche ?",
+        "text1": "Es-tu sûr·e de vouloir supprimer cette tâche ?",
         "header": "Supprimer cette tâche"
       },
       "due": "Échéance {at}",
@@ -274,12 +282,12 @@
       "undone": "Marquer comme inachevé",
       "done": "Terminé !",
       "move": "Déplacer une tâche vers une autre liste",
-      "chooseEndDate": "Cliquez ici pour fixer une date de fin",
-      "chooseStartDate": "Cliquez ici pour fixer une date de début",
-      "chooseDueDate": "Cliquez ici pour définir une date d’échéance"
+      "chooseEndDate": "Clique ici pour fixer une date de fin",
+      "chooseStartDate": "Clique ici pour fixer une date de début",
+      "chooseDueDate": "Clique ici pour définir une date d’échéance"
     },
     "show": {
-      "noTasks": "Rien à faire – Passez une bonne journée !",
+      "noTasks": "Rien à faire – Passe une bonne journée !",
       "nextMonth": "Mois prochain",
       "nextWeek": "Semaine prochaine",
       "today": "Aujourd’hui",
@@ -300,9 +308,9 @@
     "task": "Tâche"
   },
   "error": {
-    "5009": "Vous devez avoir un accès en lecture à l’espace de noms pour effectuer cette action.",
+    "5009": "Tu dois avoir un accès en lecture à l’espace de noms pour effectuer cette action.",
     "5006": "Le nom de l’espace de noms ne peut pas être vide.",
-    "5003": "Vous n’avez pas accès à l’espace de noms indiqué.",
+    "5003": "Tu n’as pas accès à l’espace de noms indiqué.",
     "5001": "L’espace de noms n’existe pas.",
     "4019": "Valeur de filtre de tâche invalide.",
     "4018": "Concaténateur de filtre de tâche invalide.",
@@ -315,62 +323,62 @@
     "4011": "La pièce jointe de la tâche n’existe pas.",
     "4010": "Impossible de relier une tâche avec elle-même.",
     "4009": "La relation de tâche n’existe pas.",
-    "4008": "Vous ne pouvez pas créer une relation de tâche qui existe déjà.",
-    "4007": "Vous ne pouvez pas créer une relation de tâche avec un type de relation invalide.",
-    "4006": "Vous ne pouvez pas définir une tâche parente comme tâche elle-même.",
-    "4005": "Vous n’avez pas le droit de voir la tâche.",
+    "4008": "Tu ne peux pas créer une relation de tâche qui existe déjà.",
+    "4007": "Tu ne peux pas créer une relation de tâche avec un type de relation invalide.",
+    "4006": "Tu ne peux pas définir une tâche parente comme tâche elle-même.",
+    "4005": "Tu n’as pas le droit de voir la tâche.",
     "4004": "Besoin d’au moins une tâche lors de la modification en bloc de tâches.",
     "4003": "Toutes les tâches de modification en bloc doivent appartenir à la même liste.",
     "4002": "La tâche de liste n’existe pas.",
     "4001": "Le texte de la tâche de liste ne peut pas être vide.",
     "3008": "La liste est archivée et ne peut donc être consultée qu’en lecture seule. Ceci est également vrai pour toutes les tâches associées à cette liste.",
     "3007": "Une liste avec cet identifiant existe déjà.",
-    "0001": "Vous n’avez pas le droit de faire cela.",
+    "0001": "Tu n’as pas le droit de faire cela.",
     "13002": "Le mot de passe de partage de lien fourni était invalide.",
     "13001": "Ce partage de lien nécessite un mot de passe pour l’authentification, mais aucun n’a été fourni.",
-    "12002": "Vous êtes déjà abonné·e à l’entité elle-même ou à une entité parente.",
-    "7002": "L’utilisateur a déjà accès à cette liste.",
+    "12002": "Tu es déjà abonné·e à l’entité elle-même ou à une entité parente.",
+    "7002": "L’utilisateur·rice a déjà accès à cette liste.",
     "6007": "L’équipe n’a pas accès à la liste pour effectuer cette action.",
     "6006": "Impossible de supprimer le dernier membre de l’équipe.",
-    "6005": "L’utilisateur est déjà membre de cette équipe.",
+    "6005": "L’utilisateur·rice est déjà membre de cette équipe.",
     "6004": "L’équipe a déjà accès à cet espace de noms ou à cette liste.",
     "6002": "L’équipe n’existe pas.",
     "6001": "Le nom de l’équipe ne peut pas être vide.",
     "5012": "L’espace de noms est archivé et ne peut donc être consulté qu’en lecture seule.",
-    "5011": "Cet utilisateur a déjà accès à cet espace de noms.",
+    "5011": "Cet·e utilisateur·rice a déjà accès à cet espace de noms.",
     "5010": "Cette équipe n’a pas accès à cet espace de noms.",
     "3006": "Le partage de liste n’existe pas.",
     "3005": "Le titre de la liste ne peut pas être vide.",
-    "3004": "Vous devez avoir des droits de lecture sur cette liste pour effectuer cette action.",
+    "3004": "Tu dois avoir des droits de lecture sur cette liste pour effectuer cette action.",
     "3001": "La liste n’existe pas.",
     "2002": "Certaines des données de la requête étaient invalides.",
     "2001": "L’identifiant ne peut pas être vide ou égal à 0.",
-    "1018": "Le paramètre du type d’avatar de l’utilisateur est invalide.",
+    "1018": "Le paramètre du type d’avatar de l’utilisateur·rice est invalide.",
     "1017": "Le code d’accès à usage unique est invalide.",
-    "1016": "Le mot de passe à usage unique n’est pas activé pour cet utilisateur.",
-    "1015": "Le mot de passe à usage unique est déjà activé pour cet utilisateur.",
+    "1016": "Le mot de passe à usage unique n’est pas activé pour cet·te utilisateur·rice.",
+    "1015": "Le mot de passe à usage unique est déjà activé pour cet·te utilisateur·rice.",
     "1014": "L’ancien mot de passe est vide.",
     "1013": "Le nouveau mot de passe est vide.",
-    "1011": "Nom d’utilisateur ou mot de passe erroné.",
+    "1011": "Nom d’utilisateur·rice ou mot de passe erroné.",
     "1009": "Le jeton de réinitialisation du mot de passe est invalide.",
     "1008": "Aucun jeton de réinitialisation du mot de passe n’est fourni.",
-    "1006": "Impossible d’obtenir l’identifiant de l’utilisateur.",
+    "1006": "Impossible d’obtenir l’identifiant de l’utilisateur·rice.",
     "success": "Succès",
     "error": "Erreur",
-    "1005": "L’utilisateur n’existe pas.",
-    "1004": "Aucun nom d’utilisateur et mot de passe n’a été indiqué.",
-    "1001": "Un utilisateur avec ce nom d’utilisateur existe déjà.",
+    "1005": "L’utilisateur·rice n’existe pas.",
+    "1004": "Aucun nom d’utilisateur·rice et mot de passe n’a été indiqué.",
+    "1001": "Un·e utilisateur·rice avec ce nom d’utilisateur·rice existe déjà.",
     "12001": "Le type d’entité d’abonnement est invalide.",
     "11002": "Les filtres enregistrés ne sont pas disponibles pour les partages de liens.",
     "11001": "Le filtre enregistré n’existe pas.",
     "9001": "Le droit est invalide.",
-    "8003": "Vous n’avez pas accès à cette étiquette.",
+    "8003": "Tu n’as pas accès à cette étiquette.",
     "8002": "L’étiquette n’existe pas.",
     "8001": "Cette étiquette existe déjà sur cette tâche.",
-    "7003": "Vous n’avez pas accès à cette liste.",
-    "1012": "L’adresse courriel de l’utilisateur n’est pas confirmée.",
+    "7003": "Tu n’as pas accès à cette liste.",
+    "1012": "L’adresse courriel de l’utilisateur·rice n’est pas confirmée.",
     "1010": "Jeton de confirmation de courriel invalide.",
-    "1002": "Un utilisateur avec cette adresse courriel existe déjà."
+    "1002": "Un·e utilisateur·rice avec cette adresse courriel existe déjà."
   },
   "filters": {
     "title": "Filtres",
@@ -380,7 +388,7 @@
     },
     "delete": {
       "success": "Le filtre a bien été supprimé.",
-      "text": "Êtes-vous sûr·e de vouloir supprimer ce filtre enregistré ?",
+      "text": "Es-tu sûr·e de vouloir supprimer ce filtre enregistré ?",
       "header": "Supprimer ce filtre enregistré"
     },
     "create": {
@@ -424,31 +432,31 @@
     "delete": {
       "success": "L’espace de noms a bien été supprimé.",
       "text2": "Ceci inclut toutes les listes et les tâches et ne peut être annulé !",
-      "text1": "Êtes-vous sûr·e de vouloir supprimer cet espace de noms et tout son contenu ?",
+      "text1": "Es-tu sûr·e de vouloir supprimer cet espace de noms et tout son contenu ?",
       "title": "Supprimer « {namespace} »"
     },
     "archive": {
-      "description": "Si un espace de noms est archivé, vous ne pouvez pas créer de nouvelles listes ni le modifier.",
+      "description": "Si un espace de noms est archivé, tu ne peux pas créer de nouvelles listes ni le modifier.",
       "success": "L’espace de nom a bien été archivé.",
-      "unarchiveText": "Vous pourrez créer de nouvelles listes ou les modifier.",
-      "archiveText": "Vous ne pourrez pas modifier cet espace de noms ou créer de nouvelles listes tant que vous ne l’aurez pas désarchivé. Ceci archivera également toutes les listes de cet espace de noms.",
+      "unarchiveText": "Tu pourras créer de nouvelles listes ou les modifier.",
+      "archiveText": "Tu ne pourras pas modifier cet espace de noms ou créer de nouvelles listes tant que tu ne l’auras pas désarchivé. Ceci archivera également toutes les listes de cet espace de noms.",
       "titleUnarchive": "Désarchiver « {namespace} »",
       "titleArchive": "Archiver « {namespace} »"
     },
     "create": {
       "success": "L’espace de nom a bien été créé.",
       "tooltip": "Qu’est-ce qu’un espace de noms ?",
-      "explanation": "Un espace de noms est une collection de listes que vous pouvez partager et utiliser pour organiser vos listes. En fait, chaque liste appartient à un espace de noms.",
-      "titleRequired": "Veuillez préciser un titre.",
+      "explanation": "Un espace de noms est une collection de listes que tu peux partager et utiliser pour organiser tes listes. En fait, chaque liste appartient à un espace de noms.",
+      "titleRequired": "Indique un titre.",
       "title": "Créer un nouvel espace de noms"
     },
-    "search": "Tapez pour rechercher un espace de noms…",
+    "search": "Écris pour rechercher un espace de noms…",
     "namespaces": "Espaces de noms",
     "createList": "Créer une nouvelle liste dans cet espace de noms.",
     "noLists": "Cet espace de noms ne contient pas de listes.",
     "archived": "Archivé",
     "unarchive": "Désarchiver",
-    "noneAvailable": "Vous n’avez pas d’espace de noms pour le moment.",
+    "noneAvailable": "Tu n’as pas d’espace de noms pour le moment.",
     "showArchived": "Montrer les archivés",
     "namespace": "Espace de noms",
     "title": "Espaces de noms et listes"
@@ -457,7 +465,7 @@
     "kanban": {
       "addAnotherTask": "Ajouter une autre tâche",
       "addTask": "Ajouter une tâche",
-      "addTaskPlaceholder": "Saisissez le nouveau titre de la tâche…",
+      "addTaskPlaceholder": "Entre le nouveau titre de la tâche…",
       "noLimit": "Non défini",
       "limit": "Limite : {limit}",
       "title": "Kanban"
@@ -481,7 +489,7 @@
       "editTask": "Modifier la tâche",
       "newTaskCta": "Créer une nouvelle tâche.",
       "empty": "Cette liste est actuellement vide.",
-      "addTitleRequired": "Veuillez préciser un titre.",
+      "addTitleRequired": "Indique un titre.",
       "addPlaceholder": "Ajouter une nouvelle tâche…",
       "add": "Ajouter",
       "title": "Liste"
@@ -504,27 +512,27 @@
         "updatedSuccess": "Le {type} a bien été ajouté.",
         "addedSuccess": "Le {type} a bien été ajouté.",
         "removeSuccess": "Le {sharable} a bien été retiré du {type}.",
-        "removeText": "Êtes-vous sûr de vouloir retirer ce {sharable} du {type} ? Ceci ne peut pas être annulé !",
+        "removeText": "Es-tu sûr·e de vouloir retirer ce {sharable} du {type} ? Ceci ne peut pas être annulé !",
         "removeHeader": "Retirer un {type} de la liste {sharable}",
         "notShared": "Pas encore partagé avec des {type}.",
-        "you": "Vous",
+        "you": "Toi",
         "shared": "Partagé avec ces {type}",
         "typeTeam": "équipe | équipes",
-        "typeUser": "utilisateur | utilisateurs"
+        "typeUser": "utilisateur·rice | utilisateur·rice·s"
       },
       "links": {
         "deleteSuccess": "Le partage de lien a bien été supprimé",
         "createSuccess": "Le lien de partage a bien été créé.",
-        "create": "Créer un nouveau partage de lien",
+        "create": "Créer un nouveau lien de partage",
         "nameExplanation": "Toutes les actions effectuées par ce partage de lien apparaîtront avec le nom.",
-        "removeText": "Êtes-vous sûr·e de vouloir supprimer ce partage de lien ? Il ne sera plus possible d’accéder à cette liste avec ce partage de lien. Cette opération ne peut être annulée !",
+        "removeText": "Es-tu sûr·e de vouloir supprimer ce partage de lien ? Il ne sera plus possible d’accéder à cette liste avec ce partage de lien. Cette opération ne peut être annulée !",
         "remove": "Retirer un lien de partage",
         "noName": "Aucun nom défini",
-        "passwordExplanation": "Lors de l’authentification, l’utilisateur devra saisir ce mot de passe.",
+        "passwordExplanation": "Lors de l’authentification, l’utilisateur·rice devra saisir ce mot de passe.",
         "password": "Mot de passe (facultatif)",
         "namePlaceholder": "p. ex. Lorem Ipsum",
         "name": "Nom (facultatif)",
-        "explanation": "Les liens de partage vous permettent de partager facilement une liste avec d’autres utilisateurs qui n’ont pas de compte sur Vikunja.",
+        "explanation": "Les liens de partage permettent de partager facilement une liste avec d’autres personnes qui n’ont pas de compte sur Vikunja.",
         "what": "Qu’est-ce qu’un lien de partage ?",
         "title": "Liens de partage"
       },
@@ -538,7 +546,7 @@
       "descriptionPlaceholder": "La description des listes se trouve ici…",
       "description": "Description",
       "identifierPlaceholder": "L’identifiant de la liste va ici…",
-      "identifierTooltip": "L’identifiant de liste peut être utilisé pour identifier de manière unique une tâche dans toutes les listes. Vous pouvez le régler sur vide pour le désactiver.",
+      "identifierTooltip": "L’identifiant de liste peut être utilisé pour identifier de manière unique une tâche dans toutes les listes. Tu peux le régler sur vide pour le désactiver.",
       "identifier": "Identifiant de la liste",
       "titlePlaceholder": "Le titre de la liste va ici…",
       "title": "Modifier « {list} »",
@@ -546,14 +554,14 @@
     },
     "duplicate": {
       "success": "La liste a bien été dupliquée.",
-      "text": "Sélectionnez un espace de noms qui doit contenir la liste dupliquée :",
+      "text": "Sélectionne un espace de noms qui doit contenir la liste dupliquée :",
       "label": "Dupliquer",
       "title": "Dupliquer cette liste"
     },
     "delete": {
       "success": "La liste a bien été supprimée.",
       "text2": "Ceci inclut toutes les tâches et NE PEUT PAS ÊTRE ANNULÉ !",
-      "text1": "Êtes-vous sûr·e de vouloir supprimer cette liste et tout son contenu ?",
+      "text1": "Es-tu sûr·e de vouloir supprimer cette liste et tout son contenu ?",
       "header": "Supprimer cette liste",
       "title": "Supprimer « {list} »"
     },
@@ -563,27 +571,27 @@
       "loadMore": "Charger plus de photos",
       "poweredByUnsplash": "Propulsé par Unsplash",
       "searchPlaceholder": "Rechercher un arrière-plan…",
-      "upload": "Choisissez un arrière-plan depuis votre ordinateur",
+      "upload": "Choisis un arrière-plan depuis ton ordinateur",
       "remove": "Retirer l’arrière-plan",
       "title": "Définir l’arrière-plan de la liste"
     },
     "archive": {
       "success": "La liste a bien été archivée.",
-      "archiveText": "Vous ne pourrez pas modifier cette liste ni créer de nouvelles tâches tant que vous ne l’aurez pas désarchivée.",
-      "unarchiveText": "Vous pourrez créer de nouvelles tâches ou les modifier.",
+      "archiveText": "Tu ne pourras pas modifier cette liste ni créer de nouvelles tâches tant que tu ne l’auras pas désarchivée.",
+      "unarchiveText": "Tu pourras créer de nouvelles tâches ou les modifier.",
       "unarchive": "Désarchiver cette liste",
       "archive": "Archiver cette liste",
       "title": "Archiver « {list} »"
     },
     "create": {
       "createdSuccess": "La liste a bien été créée.",
-      "addTitleRequired": "Veuillez préciser un titre.",
+      "addTitleRequired": "Indique un titre.",
       "titlePlaceholder": "Le titre de la liste va ici…",
       "header": "Créer une nouvelle liste"
     },
     "shared": "Listes partagées",
-    "searchSelect": "Cliquez ou appuyez sur la touche Entrée pour sélectionner cette liste",
-    "search": "Tapez pour rechercher une liste…",
+    "searchSelect": "Clique ou appuie sur la touche Entrée pour sélectionner cette liste",
+    "search": "Écris pour rechercher une liste…",
     "lists": "Listes",
     "color": "Couleur",
     "title": "Titre de la liste",
@@ -594,15 +602,15 @@
       "totp": {
         "enroll": "S’inscrire",
         "disableSuccess": "L’authentification à deux facteurs a bien été désactivée.",
-        "confirmSuccess": "Vous avez confirmé avec succès votre configuration de mot de passe à usage unique et vous pouvez l’utiliser à partir de maintenant !",
+        "confirmSuccess": "Tu as confirmé avec succès ta configuration de mot de passe à usage unique et tu peux l’utiliser à partir de maintenant !",
         "disable": "Désactiver l’authentification à deux facteurs",
-        "enterPassword": "Veuillez entrer votre mot de passe",
-        "setupSuccess": "Vous avez réussi à configurer l’authentification à deux facteurs !",
-        "passcodePlaceholder": "Un code généré par votre application de mot de passe à usage unique",
+        "enterPassword": "Entre ton mot de passe",
+        "setupSuccess": "Tu as réussi à configurer l’authentification à deux facteurs !",
+        "passcodePlaceholder": "Un code généré par ton application de mot de passe à usage unique",
         "passcode": "Code d’accès",
-        "scanQR": "Vous pouvez également scanner ce code QR :",
-        "finishSetupPart2": "Après cela, entrez un code de votre application ci-dessous.",
-        "finishSetupPart1": "Pour terminer votre configuration, utilisez ce secret dans votre appli de mot de passe à usage unique (Google Authenticator ou similaire) :",
+        "scanQR": "Tu peux également scanner ce code QR :",
+        "finishSetupPart2": "Après cela, entre un code de ton application ci-dessous.",
+        "finishSetupPart1": "Pour terminer ta configuration, utilise ce secret dans ton appli de mot de passe à usage unique (Google Authenticator ou similaire) :",
         "title": "Authentification à deux facteurs"
       },
       "avatar": {
@@ -616,7 +624,7 @@
       },
       "caldav": {
         "more": "Plus d’informations sur CalDAV dans Vikunja",
-        "howTo": "Vous pouvez connecter Vikunja à des clients CalDAV pour visualiser et gérer toutes les tâches de différents clients. Entrez cette URL dans votre client :",
+        "howTo": "Tu peux connecter Vikunja à des clients CalDAV pour visualiser et gérer toutes les tâches de différents clients. Entre cette URL dans ton client :",
         "title": "CalDAV"
       },
       "general": {
@@ -625,8 +633,8 @@
         "weekStartSunday": "dimanche",
         "weekStart": "La semaine commence le",
         "playSoundWhenDone": "Jouer un son lors du marquage des tâches comme étant effectuées",
-        "discoverableByEmail": "Permettre aux autres utilisateurs de me trouver lorsqu’ils recherchent mon adresse courriel complète",
-        "discoverableByName": "Permettre aux autres utilisateurs de me trouver lorsqu’ils recherchent mon nom",
+        "discoverableByEmail": "Permettre aux autres personnes de me trouver lorsqu’elles recherchent mon adresse courriel complète",
+        "discoverableByName": "Permettre aux autres personnes de me trouver lorsqu’elles recherchent mon nom",
         "overdueReminders": "M’envoyer des rappels pour les tâches en retard et non terminées par courriel chaque matin",
         "emailReminders": "M’envoyer des rappels de tâches par courriel",
         "savedSuccess": "Les paramètres ont bien été mis à jour.",
@@ -634,16 +642,16 @@
         "name": "Nom",
         "title": "Paramètres généraux"
       },
-      "updateEmailSuccess": "Votre adresse électronique a bien été mise à jour. Nous vous avons envoyé un lien pour la confirmer.",
+      "updateEmailSuccess": "Ton adresse électronique a bien été mise à jour. Nous t’avons envoyé un lien pour la confirmer.",
       "updateEmailNew": "Nouvelle adresse courriel",
-      "updateEmailTitle": "Mettez à jour votre adresse électronique",
+      "updateEmailTitle": "Mets à jour ton adresse électronique",
       "passwordUpdateSuccess": "Le mot de passe a bien été mis à jour.",
       "passwordsDontMatch": "Le nouveau mot de passe et sa confirmation ne correspondent pas.",
-      "currentPasswordPlaceholder": "Votre mot de passe actuel",
+      "currentPasswordPlaceholder": "Ton mot de passe actuel",
       "currentPassword": "Mot de passe actuel",
       "newPasswordConfirm": "Confirmation du nouveau mot de passe",
       "newPassword": "Nouveau mot de passe",
-      "newPasswordTitle": "Mettre à jour votre mot de passe",
+      "newPasswordTitle": "Mets à jour ton mot de passe",
       "title": "Paramètres"
     },
     "auth": {
@@ -655,24 +663,24 @@
       "login": "Se connecter",
       "totpPlaceholder": "p. ex. 123456",
       "totpTitle": "Code d’authentification à deux facteurs",
-      "confirmEmailSuccess": "Vous avez bien confirmé votre adresse courriel ! Vous pouvez vous connecter maintenant.",
+      "confirmEmailSuccess": "Tu as bien confirmé ton adresse courriel ! Tu peux te connecter maintenant.",
       "passwordsDontMatch": "Les mots de passe ne correspondent pas",
-      "restPasswordSuccess": "Vérifiez votre boîte de réception ! Vous devriez recevoir un courriel contenant des instructions sur la façon de réinitialiser votre mot de passe.",
+      "restPasswordSuccess": "Vérifie ta boîte de réception ! Tu devrais recevoir un courriel contenant des instructions sur la manière de réinitialiser ton mot de passe.",
       "resetPasswordAction": "M’envoyer un lien de réinitialisation du mot de passe",
-      "resetPassword": "Réinitialiser votre mot de passe",
+      "resetPassword": "Réinitialiser ton mot de passe",
       "passwordPlaceholder": "p. ex. •••••••••••",
-      "passwordRepeat": "Retapez votre mot de passe",
+      "passwordRepeat": "Retape ton mot de passe",
       "password": "Mot de passe",
       "usernamePlaceholder": "p. ex. frederick",
       "emailPlaceholder": "p. ex. frederic@vikunja.io",
       "email": "Adresse courriel",
-      "usernameEmail": "Nom d’utilisateur ou adresse courriel",
-      "username": "Nom d’utilisateur"
+      "usernameEmail": "Nom d’utilisateur·rice ou adresse courriel",
+      "username": "Nom d’utilisateur·rice"
     }
   },
   "input": {
     "multiselect": {
-      "selectPlaceholder": "Cliquez ou appuyez sur la touche Entrée pour sélectionner",
+      "selectPlaceholder": "Clique ou appuie sur la touche Entrée pour sélectionner",
       "createPlaceholder": "Créer un nouveau"
     },
     "editor": {
@@ -718,7 +726,7 @@
     "poweredBy": "Propulsé par Vikunja",
     "next": "Suivant",
     "previous": "Précédent",
-    "searchPlaceholder": "Tapez pour rechercher…",
+    "searchPlaceholder": "Écris pour rechercher…",
     "search": "Rechercher",
     "copy": "Copier dans le presse-papier",
     "disable": "Désactiver",
@@ -739,11 +747,11 @@
   "sharing": {
     "invalidPassword": "Le mot de passe est invalide.",
     "error": "Une erreur s’est produite.",
-    "passwordRequired": "Cette liste partagée nécessite un mot de passe. Veuillez le saisir ci-dessous :",
+    "passwordRequired": "Cette liste partagée nécessite un mot de passe. Entre-le ci-dessous :",
     "authenticating": "Authentification…"
   },
   "404": {
-    "text": "La page que vous avez demandée n’existe pas.",
+    "text": "La page que tu as demandée n’existe pas.",
     "title": "Non trouvé"
   },
   "date": {
@@ -754,15 +762,15 @@
   },
   "migrate": {
     "confirm": "Je suis sûr·e, commencer à migrer maintenant !",
-    "alreadyMigrated2": "Importer à nouveau est possible mais peut créer des doublons. Êtes-vous sûr·e ?",
-    "alreadyMigrated1": "Il semble que vous ayez déjà importé vos affaires de {name} le {date}.",
+    "alreadyMigrated2": "Importer à nouveau est possible mais peut créer des doublons. Es-tu sûr·e ?",
+    "alreadyMigrated1": "Il semble que tu aies déjà importé tes affaires de {name} le {date}.",
     "inProgress": "Importation en cours…",
     "getStarted": "Commencer",
-    "authorize": "Pour autoriser Vikunja à accéder à votre compte {name}, cliquez sur le bouton ci-dessous.",
-    "descriptionDo": "Vikunja importera toutes les listes, tâches, notes, rappels et fichiers auxquels vous avez accès.",
-    "description": "Cliquez sur le logo d’un des services tiers ci-dessous pour commencer.",
-    "import": "Importer vos données dans Vikunja",
-    "titleService": "Importez vos données depuis {name} dans Vikunja",
+    "authorize": "Pour autoriser Vikunja à accéder à ton compte {name}, clique sur le bouton ci-dessous.",
+    "descriptionDo": "Vikunja importera toutes les listes, tâches, notes, rappels et fichiers auxquels tu as accès.",
+    "description": "Clique sur le logo d’un des services tiers ci-dessous pour commencer.",
+    "import": "Importer tes données dans Vikunja",
+    "titleService": "Importe tes données depuis {name} dans Vikunja",
     "title": "Migrer d’autres services vers Vikunja"
   }
 }
