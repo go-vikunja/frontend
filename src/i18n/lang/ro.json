@@ -1,1 +1,795 @@
-{}
+{
+  "task": {
+    "detail": {
+      "actions": {
+        "assign": "",
+        "reminders": "",
+        "repeatAfter": "",
+        "dueDate": "",
+        "moveList": "",
+        "delete": "",
+        "label": "",
+        "endDate": "",
+        "attachments": "",
+        "priority": "",
+        "startDate": "",
+        "percentDone": "",
+        "relatedTasks": "",
+        "color": ""
+      },
+      "deleteSuccess": "",
+      "belongsToList": "",
+      "updated": "",
+      "created": "",
+      "chooseDueDate": "",
+      "move": "",
+      "chooseStartDate": "",
+      "chooseEndDate": "",
+      "done": "",
+      "undone": "",
+      "doneAt": "",
+      "updateSuccess": "",
+      "delete": {
+        "text2": "",
+        "text1": "",
+        "header": ""
+      },
+      "due": ""
+    },
+    "comment": {
+      "loading": "",
+      "deleteText1": "",
+      "creating": "",
+      "delete": "",
+      "deleteText2": "",
+      "comment": "",
+      "title": "",
+      "edited": "",
+      "addedSuccess": "",
+      "placeholder": ""
+    },
+    "attachment": {
+      "createdBy": "",
+      "delete": "",
+      "title": "",
+      "drop": "",
+      "deleteText2": "",
+      "download": "",
+      "upload": "",
+      "deleteText1": ""
+    },
+    "attributes": {
+      "repeat": "",
+      "percentDone": "",
+      "labels": "",
+      "color": "",
+      "assignees": "",
+      "endDate": "",
+      "description": "",
+      "startDate": "",
+      "created": "",
+      "relatedTasks": "",
+      "createdBy": "",
+      "dueDate": "",
+      "reminders": "",
+      "done": "",
+      "priority": "",
+      "updated": "",
+      "title": ""
+    },
+    "repeat": {
+      "mode": "",
+      "months": "",
+      "specifyAmount": "",
+      "everyDay": "",
+      "each": "",
+      "monthly": "",
+      "weeks": "",
+      "hours": "",
+      "fromCurrentDate": "",
+      "everyWeek": "",
+      "everyMonth": "",
+      "days": "",
+      "years": ""
+    },
+    "relation": {
+      "noneYet": "",
+      "differentList": "",
+      "add": "",
+      "delete": "",
+      "searchPlaceholder": "",
+      "new": "",
+      "createPlaceholder": "",
+      "deleteText1": "",
+      "deleteText2": ""
+    },
+    "label": {
+      "removeSuccess": "",
+      "placeholder": "",
+      "addSuccess": "",
+      "createPlaceholder": "",
+      "createSuccess": ""
+    },
+    "assignee": {
+      "selectPlaceholder": "",
+      "unassignSuccess": "",
+      "placeholder": "",
+      "assignSuccess": ""
+    },
+    "show": {
+      "titleDates": "",
+      "today": "",
+      "nextMonth": "",
+      "titleCurrent": "",
+      "noTasks": "",
+      "noDates": "",
+      "current": "",
+      "from": "",
+      "nextWeek": "",
+      "until": ""
+    },
+    "addReminder": "",
+    "createSuccess": "",
+    "subscription": {
+      "subscribed": "",
+      "notSubscribed": "",
+      "unsubscribe": "",
+      "subscribedThroughParent": "",
+      "subscribe": "",
+      "subscribeSuccess": "",
+      "unsubscribeSuccess": ""
+    },
+    "undoneSuccess": "",
+    "doneSuccess": "",
+    "priority": {
+      "doNow": "",
+      "unset": "",
+      "high": "",
+      "low": "",
+      "urgent": "",
+      "medium": ""
+    },
+    "deferDueDate": {
+      "title": "",
+      "3days": "",
+      "1day": "",
+      "1week": ""
+    },
+    "delete": "",
+    "task": "",
+    "description": {
+      "empty": "",
+      "placeholder": ""
+    },
+    "new": "",
+    "openDetail": ""
+  },
+  "date": {
+    "ago": "",
+    "altFormatShort": "",
+    "in": "",
+    "locale": "",
+    "altFormatLong": ""
+  },
+  "migrate": {
+    "inProgress": "",
+    "alreadyMigrated1": "",
+    "description": "",
+    "getStarted": "",
+    "authorize": "",
+    "titleService": "",
+    "title": "",
+    "import": "",
+    "descriptionDo": "",
+    "alreadyMigrated2": "",
+    "confirm": ""
+  },
+  "team": {
+    "create": {
+      "title": "",
+      "success": ""
+    },
+    "edit": {
+      "title": "",
+      "madeMember": "",
+      "makeMember": "",
+      "userAddedSuccess": "",
+      "deleteUser": {
+        "text2": "",
+        "success": "",
+        "text1": "",
+        "header": ""
+      },
+      "success": "",
+      "makeAdmin": "",
+      "delete": {
+        "success": "",
+        "header": "",
+        "text2": "",
+        "text1": ""
+      },
+      "search": "",
+      "members": "",
+      "addUser": "",
+      "madeAdmin": ""
+    },
+    "title": "",
+    "attributes": {
+      "admin": "",
+      "nameRequired": "",
+      "namePlaceholder": "",
+      "name": "",
+      "description": "",
+      "member": "",
+      "descriptionPlaceholder": ""
+    },
+    "noTeams": ""
+  },
+  "input": {
+    "resetColor": "",
+    "editor": {
+      "quote": "",
+      "sideBySide": "",
+      "link": "",
+      "image": "",
+      "heading3": "",
+      "strikethrough": "",
+      "unorderedList": "",
+      "code": "",
+      "orderedList": "",
+      "heading1": "",
+      "headingSmaller": "",
+      "italic": "",
+      "table": "",
+      "guide": "",
+      "horizontalRule": "",
+      "cleanBlock": "",
+      "headingBigger": "",
+      "bold": "",
+      "done": "",
+      "heading2": ""
+    },
+    "datepicker": {
+      "nextWeek": "",
+      "today": "",
+      "tomorrow": "",
+      "nextMonday": "",
+      "thisWeekend": "",
+      "laterThisWeek": "",
+      "chooseDate": ""
+    },
+    "multiselect": {
+      "selectPlaceholder": "",
+      "createPlaceholder": ""
+    }
+  },
+  "list": {
+    "gantt": {
+      "from": "",
+      "size": "",
+      "day": "",
+      "month": "",
+      "default": "",
+      "noDates": "",
+      "to": "",
+      "showTasksWithoutDates": "",
+      "title": ""
+    },
+    "kanban": {
+      "deleteHeaderBucket": "",
+      "addAnotherTask": "",
+      "noLimit": "",
+      "bucketLimitSavedSuccess": "",
+      "deleteBucketText2": "",
+      "addTask": "",
+      "deleteLast": "",
+      "doneBucketHintExtended": "",
+      "limit": "",
+      "addBucket": "",
+      "deleteBucketSuccess": "",
+      "doneBucket": "",
+      "addTaskPlaceholder": "",
+      "bucketTitleSavedSuccess": "",
+      "deleteBucketText1": "",
+      "addBucketPlaceholder": "",
+      "doneBucketSavedSuccess": "",
+      "doneBucketHint": "",
+      "title": ""
+    },
+    "edit": {
+      "success": "",
+      "titlePlaceholder": "",
+      "identifier": "",
+      "identifierPlaceholder": "",
+      "description": "",
+      "descriptionPlaceholder": "",
+      "color": "",
+      "title": "",
+      "identifierTooltip": "",
+      "header": ""
+    },
+    "shared": "",
+    "delete": {
+      "text1": "",
+      "title": "",
+      "success": "",
+      "header": "",
+      "text2": ""
+    },
+    "share": {
+      "links": {
+        "what": "",
+        "password": "",
+        "deleteSuccess": "",
+        "passwordExplanation": "",
+        "createSuccess": "",
+        "namePlaceholder": "",
+        "noName": "",
+        "explanation": "",
+        "title": "",
+        "nameExplanation": "",
+        "remove": "",
+        "removeText": "",
+        "name": "",
+        "create": ""
+      },
+      "right": {
+        "title": "",
+        "read": "",
+        "admin": "",
+        "readWrite": ""
+      },
+      "attributes": {
+        "sharedBy": "",
+        "right": "",
+        "name": "",
+        "link": "",
+        "delete": ""
+      },
+      "userTeam": {
+        "you": "",
+        "typeUser": "",
+        "removeSuccess": "",
+        "removeHeader": "",
+        "removeText": "",
+        "addedSuccess": "",
+        "updatedSuccess": "",
+        "typeTeam": "",
+        "shared": "",
+        "notShared": ""
+      },
+      "title": "",
+      "header": "",
+      "share": ""
+    },
+    "archive": {
+      "unarchiveText": "",
+      "archive": "",
+      "title": "",
+      "success": "",
+      "unarchive": "",
+      "archiveText": ""
+    },
+    "duplicate": {
+      "label": "",
+      "success": "",
+      "text": "",
+      "title": ""
+    },
+    "list": {
+      "empty": "",
+      "title": "",
+      "add": "",
+      "addTitleRequired": "",
+      "newTaskCta": "",
+      "editTask": "",
+      "addPlaceholder": ""
+    },
+    "table": {
+      "title": "",
+      "columns": ""
+    },
+    "color": "",
+    "background": {
+      "removeSuccess": "",
+      "upload": "",
+      "poweredByUnsplash": "",
+      "title": "",
+      "remove": "",
+      "searchPlaceholder": "",
+      "loadMore": "",
+      "success": ""
+    },
+    "create": {
+      "titlePlaceholder": "",
+      "header": "",
+      "addTitleRequired": "",
+      "createdSuccess": ""
+    },
+    "title": "",
+    "searchSelect": "",
+    "archived": "",
+    "lists": "",
+    "search": ""
+  },
+  "loadingError": {
+    "failed": "",
+    "tryAgain": "",
+    "contact": ""
+  },
+  "misc": {
+    "search": "",
+    "loading": "",
+    "delete": "",
+    "disable": "",
+    "previous": "",
+    "default": "",
+    "searchPlaceholder": "",
+    "next": "",
+    "copy": "",
+    "create": "",
+    "save": "",
+    "confirm": "",
+    "cancel": "",
+    "refresh": "",
+    "poweredBy": "",
+    "info": "",
+    "doit": "",
+    "saving": "",
+    "saved": ""
+  },
+  "quickActions": {
+    "newList": "",
+    "newTask": "",
+    "cmds": {
+      "newTask": "",
+      "newList": "",
+      "newTeam": "",
+      "newNamespace": ""
+    },
+    "createList": "",
+    "createTask": "",
+    "tasks": "",
+    "commands": "",
+    "newNamespace": "",
+    "placeholder": "",
+    "hint": "",
+    "lists": "",
+    "teams": "",
+    "newTeam": ""
+  },
+  "menu": {
+    "share": "",
+    "setBackground": "",
+    "edit": "",
+    "unarchive": "",
+    "duplicate": "",
+    "archive": "",
+    "newList": "",
+    "delete": ""
+  },
+  "error": {
+    "1011": "",
+    "5011": "",
+    "1013": "",
+    "5006": "",
+    "4010": "",
+    "4006": "",
+    "4008": "",
+    "6001": "",
+    "1005": "",
+    "1010": "",
+    "4014": "",
+    "1008": "",
+    "4002": "",
+    "10001": "",
+    "1016": "",
+    "6007": "",
+    "1006": "",
+    "5003": "",
+    "5012": "",
+    "0001": "",
+    "4012": "",
+    "4018": "",
+    "1015": "",
+    "4017": "",
+    "6004": "",
+    "6006": "",
+    "1012": "",
+    "1017": "",
+    "1004": "",
+    "8001": "",
+    "5009": "",
+    "3008": "",
+    "9001": "",
+    "5010": "",
+    "success": "",
+    "1018": "",
+    "4004": "",
+    "1001": "",
+    "10002": "",
+    "error": "",
+    "3004": "",
+    "4009": "",
+    "6002": "",
+    "1002": "",
+    "1009": "",
+    "1014": "",
+    "2002": "",
+    "3001": "",
+    "3005": "",
+    "3006": "",
+    "3007": "",
+    "4001": "",
+    "4003": "",
+    "4005": "",
+    "4011": "",
+    "4013": "",
+    "4015": "",
+    "4016": "",
+    "4019": "",
+    "2001": "",
+    "4007": "",
+    "5001": "",
+    "13002": "",
+    "13001": "",
+    "12002": "",
+    "12001": "",
+    "11002": "",
+    "11001": "",
+    "10005": "",
+    "10004": "",
+    "10003": "",
+    "8003": "",
+    "8002": "",
+    "7003": "",
+    "6005": "",
+    "7002": ""
+  },
+  "user": {
+    "settings": {
+      "totp": {
+        "passcodePlaceholder": "",
+        "disable": "",
+        "finishSetupPart1": "",
+        "disableSuccess": "",
+        "scanQR": "",
+        "enroll": "",
+        "title": "",
+        "enterPassword": "",
+        "setupSuccess": "",
+        "finishSetupPart2": "",
+        "passcode": "",
+        "confirmSuccess": ""
+      },
+      "caldav": {
+        "howTo": "",
+        "more": "",
+        "title": ""
+      },
+      "general": {
+        "playSoundWhenDone": "",
+        "weekStart": "",
+        "name": "",
+        "weekStartMonday": "",
+        "discoverableByEmail": "",
+        "savedSuccess": "",
+        "title": "",
+        "weekStartSunday": "",
+        "overdueReminders": "",
+        "newName": "",
+        "emailReminders": "",
+        "language": "",
+        "discoverableByName": ""
+      },
+      "avatar": {
+        "setSuccess": "",
+        "upload": "",
+        "statusUpdateSuccess": "",
+        "uploadAvatar": "",
+        "title": "",
+        "initials": "",
+        "gravatar": ""
+      },
+      "newPasswordConfirm": "",
+      "newPasswordTitle": "",
+      "updateEmailSuccess": "",
+      "title": "",
+      "newPassword": "",
+      "currentPassword": "",
+      "currentPasswordPlaceholder": "",
+      "passwordUpdateSuccess": "",
+      "updateEmailTitle": "",
+      "passwordsDontMatch": "",
+      "updateEmailNew": ""
+    },
+    "auth": {
+      "resetPassword": "",
+      "login": "",
+      "totpTitle": "",
+      "emailPlaceholder": "",
+      "logout": "",
+      "openIdStateError": "",
+      "usernamePlaceholder": "",
+      "email": "",
+      "password": "",
+      "passwordRepeat": "",
+      "passwordPlaceholder": "",
+      "totpPlaceholder": "",
+      "register": "",
+      "authenticating": "",
+      "passwordsDontMatch": "",
+      "loginWith": "",
+      "resetPasswordAction": "",
+      "confirmEmailSuccess": "",
+      "restPasswordSuccess": "",
+      "usernameEmail": "",
+      "username": ""
+    }
+  },
+  "namespace": {
+    "attributes": {
+      "title": "",
+      "isArchived": "",
+      "color": "",
+      "titlePlaceholder": "",
+      "description": "",
+      "archived": "",
+      "descriptionPlaceholder": ""
+    },
+    "delete": {
+      "success": "",
+      "text1": "",
+      "title": "",
+      "text2": ""
+    },
+    "create": {
+      "explanation": "",
+      "title": "",
+      "titleRequired": "",
+      "tooltip": "",
+      "success": ""
+    },
+    "archive": {
+      "unarchiveText": "",
+      "archiveText": "",
+      "titleUnarchive": "",
+      "description": "",
+      "titleArchive": "",
+      "success": ""
+    },
+    "edit": {
+      "success": "",
+      "title": ""
+    },
+    "createList": "",
+    "title": "",
+    "namespaces": "",
+    "showArchived": "",
+    "noneAvailable": "",
+    "unarchive": "",
+    "share": {
+      "title": ""
+    },
+    "noLists": "",
+    "archived": "",
+    "namespace": "",
+    "search": ""
+  },
+  "filters": {
+    "delete": {
+      "header": "",
+      "success": "",
+      "text": ""
+    },
+    "attributes": {
+      "enablePercentDone": "",
+      "descriptionPlaceholder": "",
+      "includeNulls": "",
+      "endDateRange": "",
+      "showDoneTasks": "",
+      "dueDateRange": "",
+      "titlePlaceholder": "",
+      "description": "",
+      "title": "",
+      "enablePriority": "",
+      "startDateRange": "",
+      "reminderRange": "",
+      "requireAll": ""
+    },
+    "create": {
+      "description": "",
+      "title": "",
+      "action": ""
+    },
+    "title": "",
+    "edit": {
+      "title": "",
+      "success": ""
+    }
+  },
+  "apiConfig": {
+    "error": "",
+    "signInOn": "",
+    "success": "",
+    "change": "",
+    "urlPlaceholder": "",
+    "url": ""
+  },
+  "keyboardShortcuts": {
+    "quickSearch": "",
+    "toggleMenu": "",
+    "task": {
+      "related": "",
+      "labels": "",
+      "title": "",
+      "done": "",
+      "assign": "",
+      "dueDate": "",
+      "attachment": ""
+    },
+    "currentPageOnly": "",
+    "title": "",
+    "allPages": ""
+  },
+  "label": {
+    "attributes": {
+      "titlePlaceholder": "",
+      "title": "",
+      "descriptionPlaceholder": "",
+      "description": "",
+      "color": ""
+    },
+    "title": "",
+    "edit": {
+      "success": "",
+      "header": "",
+      "forbidden": ""
+    },
+    "create": {
+      "header": "",
+      "titleRequired": "",
+      "success": "",
+      "title": ""
+    },
+    "newCTA": "",
+    "deleteSuccess": "",
+    "manage": "",
+    "description": "",
+    "search": ""
+  },
+  "update": {
+    "available": "",
+    "do": ""
+  },
+  "navigation": {
+    "upcoming": "",
+    "imprint": "",
+    "privacy": "",
+    "overview": "",
+    "settings": ""
+  },
+  "sharing": {
+    "passwordRequired": "",
+    "invalidPassword": "",
+    "authenticating": "",
+    "error": ""
+  },
+  "notification": {
+    "none": "",
+    "explainer": ""
+  },
+  "404": {
+    "text": "",
+    "title": ""
+  },
+  "home": {
+    "list": {
+      "import": "",
+      "importText": "",
+      "new": "",
+      "newText": ""
+    },
+    "welcome": ""
+  }
+}
