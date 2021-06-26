@@ -1,795 +1,795 @@
 {
-  "namespace": {
-    "noneAvailable": "",
-    "attributes": {
-      "title": "",
-      "titlePlaceholder": "",
-      "archived": "",
-      "isArchived": "",
-      "description": "",
-      "descriptionPlaceholder": "",
-      "color": ""
+    "namespace": {
+        "noneAvailable": "",
+        "attributes": {
+            "title": "",
+            "titlePlaceholder": "",
+            "archived": "",
+            "isArchived": "",
+            "description": "",
+            "descriptionPlaceholder": "",
+            "color": ""
+        },
+        "archive": {
+            "unarchiveText": "",
+            "description": "",
+            "archiveText": "",
+            "success": "",
+            "titleArchive": "",
+            "titleUnarchive": ""
+        },
+        "create": {
+            "explanation": "",
+            "success": "",
+            "tooltip": "",
+            "titleRequired": "",
+            "title": ""
+        },
+        "createList": "",
+        "edit": {
+            "success": "",
+            "title": ""
+        },
+        "showArchived": "",
+        "delete": {
+            "title": "",
+            "success": "",
+            "text1": "",
+            "text2": ""
+        },
+        "share": {
+            "title": ""
+        },
+        "title": "",
+        "unarchive": "",
+        "archived": "",
+        "noLists": "",
+        "search": "",
+        "namespace": "",
+        "namespaces": ""
     },
-    "archive": {
-      "unarchiveText": "",
-      "description": "",
-      "archiveText": "",
-      "success": "",
-      "titleArchive": "",
-      "titleUnarchive": ""
-    },
-    "create": {
-      "explanation": "",
-      "success": "",
-      "tooltip": "",
-      "titleRequired": "",
-      "title": ""
-    },
-    "createList": "",
-    "edit": {
-      "success": "",
-      "title": ""
-    },
-    "showArchived": "",
-    "delete": {
-      "title": "",
-      "success": "",
-      "text1": "",
-      "text2": ""
-    },
-    "share": {
-      "title": ""
-    },
-    "title": "",
-    "unarchive": "",
-    "archived": "",
-    "noLists": "",
-    "search": "",
-    "namespace": "",
-    "namespaces": ""
-  },
-  "list": {
     "list": {
-      "add": "",
-      "empty": "",
-      "title": "",
-      "addPlaceholder": "",
-      "editTask": "",
-      "newTaskCta": "",
-      "addTitleRequired": ""
-    },
-    "share": {
-      "userTeam": {
-        "addedSuccess": "",
-        "you": "",
+        "list": {
+            "add": "",
+            "empty": "",
+            "title": "",
+            "addPlaceholder": "",
+            "editTask": "",
+            "newTaskCta": "",
+            "addTitleRequired": ""
+        },
+        "share": {
+            "userTeam": {
+                "addedSuccess": "",
+                "you": "",
+                "shared": "",
+                "notShared": "",
+                "updatedSuccess": "",
+                "typeTeam": "",
+                "removeText": "",
+                "removeSuccess": "",
+                "typeUser": "",
+                "removeHeader": ""
+            },
+            "title": "",
+            "links": {
+                "password": "",
+                "title": "",
+                "createSuccess": "",
+                "nameExplanation": "",
+                "name": "",
+                "deleteSuccess": "",
+                "noName": "",
+                "namePlaceholder": "",
+                "passwordExplanation": "",
+                "remove": "",
+                "removeText": "¿Está seguro de que desea eliminar este enlace compartido? Ya no será posible acceder a esta lista con este enlace compartido. ¡Esto no se puede deshacer!",
+                "explanation": "",
+                "what": "",
+                "create": ""
+            },
+            "attributes": {
+                "link": "",
+                "right": "",
+                "delete": "",
+                "name": "",
+                "sharedBy": ""
+            },
+            "right": {
+                "read": "",
+                "title": "",
+                "admin": "",
+                "readWrite": ""
+            },
+            "header": "",
+            "share": ""
+        },
+        "archive": {
+            "archiveText": "",
+            "unarchiveText": "",
+            "unarchive": "",
+            "archive": "",
+            "title": "",
+            "success": ""
+        },
+        "background": {
+            "searchPlaceholder": "",
+            "success": "",
+            "poweredByUnsplash": "",
+            "removeSuccess": "",
+            "title": "",
+            "remove": "",
+            "upload": "",
+            "loadMore": ""
+        },
+        "create": {
+            "addTitleRequired": "",
+            "createdSuccess": "",
+            "titlePlaceholder": "",
+            "header": ""
+        },
+        "edit": {
+            "titlePlaceholder": "",
+            "success": "",
+            "color": "",
+            "header": "",
+            "title": "",
+            "descriptionPlaceholder": "",
+            "identifierTooltip": "",
+            "identifier": "",
+            "identifierPlaceholder": "",
+            "description": ""
+        },
+        "gantt": {
+            "from": "",
+            "default": "",
+            "day": "",
+            "size": "",
+            "month": "",
+            "to": "",
+            "showTasksWithoutDates": "",
+            "noDates": "",
+            "title": ""
+        },
+        "duplicate": {
+            "success": "",
+            "text": "",
+            "label": "",
+            "title": ""
+        },
+        "searchSelect": "",
+        "kanban": {
+            "deleteHeaderBucket": "",
+            "addBucket": "",
+            "deleteBucketText1": "",
+            "limit": "",
+            "doneBucketSavedSuccess": "",
+            "deleteBucketSuccess": "",
+            "doneBucket": "",
+            "doneBucketHint": "",
+            "bucketLimitSavedSuccess": "",
+            "addTask": "",
+            "addTaskPlaceholder": "",
+            "addBucketPlaceholder": "",
+            "deleteBucketText2": "",
+            "addAnotherTask": "",
+            "doneBucketHintExtended": "Todas las tareas que se trasladen al depósito de finalizadas se marcarán como realizadas automáticamente. Todas las tareas marcadas como realizadas desde otro lugar también se moverán.",
+            "deleteLast": "",
+            "noLimit": "",
+            "bucketTitleSavedSuccess": "",
+            "title": ""
+        },
         "shared": "",
-        "notShared": "",
-        "updatedSuccess": "",
-        "typeTeam": "",
-        "removeText": "",
-        "removeSuccess": "",
-        "typeUser": "",
-        "removeHeader": ""
-      },
-      "title": "",
-      "links": {
-        "password": "",
+        "delete": {
+            "header": "",
+            "text1": "",
+            "title": "",
+            "success": "",
+            "text2": ""
+        },
+        "table": {
+            "columns": "",
+            "title": ""
+        },
         "title": "",
-        "createSuccess": "",
-        "nameExplanation": "",
-        "name": "",
-        "deleteSuccess": "",
-        "noName": "",
-        "namePlaceholder": "",
-        "passwordExplanation": "",
-        "remove": "",
-        "removeText": "",
-        "explanation": "",
-        "what": "",
-        "create": ""
-      },
-      "attributes": {
-        "link": "",
-        "right": "",
-        "delete": "",
-        "name": "",
-        "sharedBy": ""
-      },
-      "right": {
-        "read": "",
-        "title": "",
-        "admin": "",
-        "readWrite": ""
-      },
-      "header": "",
-      "share": ""
-    },
-    "archive": {
-      "archiveText": "",
-      "unarchiveText": "",
-      "unarchive": "",
-      "archive": "",
-      "title": "",
-      "success": ""
-    },
-    "background": {
-      "searchPlaceholder": "",
-      "success": "",
-      "poweredByUnsplash": "",
-      "removeSuccess": "",
-      "title": "",
-      "remove": "",
-      "upload": "",
-      "loadMore": ""
-    },
-    "create": {
-      "addTitleRequired": "",
-      "createdSuccess": "",
-      "titlePlaceholder": "",
-      "header": ""
-    },
-    "edit": {
-      "titlePlaceholder": "",
-      "success": "",
-      "color": "",
-      "header": "",
-      "title": "",
-      "descriptionPlaceholder": "",
-      "identifierTooltip": "",
-      "identifier": "",
-      "identifierPlaceholder": "",
-      "description": ""
-    },
-    "gantt": {
-      "from": "",
-      "default": "",
-      "day": "",
-      "size": "",
-      "month": "",
-      "to": "",
-      "showTasksWithoutDates": "",
-      "noDates": "",
-      "title": ""
-    },
-    "duplicate": {
-      "success": "",
-      "text": "",
-      "label": "",
-      "title": ""
-    },
-    "searchSelect": "",
-    "kanban": {
-      "deleteHeaderBucket": "",
-      "addBucket": "",
-      "deleteBucketText1": "",
-      "limit": "",
-      "doneBucketSavedSuccess": "",
-      "deleteBucketSuccess": "",
-      "doneBucket": "",
-      "doneBucketHint": "",
-      "bucketLimitSavedSuccess": "",
-      "addTask": "",
-      "addTaskPlaceholder": "",
-      "addBucketPlaceholder": "",
-      "deleteBucketText2": "",
-      "addAnotherTask": "",
-      "doneBucketHintExtended": "",
-      "deleteLast": "",
-      "noLimit": "",
-      "bucketTitleSavedSuccess": "",
-      "title": ""
-    },
-    "shared": "",
-    "delete": {
-      "header": "",
-      "text1": "",
-      "title": "",
-      "success": "",
-      "text2": ""
-    },
-    "table": {
-      "columns": "",
-      "title": ""
-    },
-    "title": "",
-    "lists": "",
-    "color": "",
-    "archived": "",
-    "search": ""
-  },
-  "task": {
-    "detail": {
-      "done": "",
-      "actions": {
-        "attachments": "",
-        "delete": "",
-        "label": "",
-        "percentDone": "",
-        "assign": "",
-        "startDate": "",
-        "relatedTasks": "",
-        "endDate": "",
-        "reminders": "",
-        "moveList": "",
+        "lists": "",
         "color": "",
-        "priority": "",
-        "dueDate": "",
-        "repeatAfter": ""
-      },
-      "delete": {
-        "header": "",
-        "text1": "",
-        "text2": ""
-      },
-      "chooseStartDate": "",
-      "updateSuccess": "",
-      "move": "",
-      "deleteSuccess": "",
-      "doneAt": "",
-      "chooseEndDate": "",
-      "updated": "",
-      "undone": "",
-      "due": "",
-      "belongsToList": "",
-      "chooseDueDate": "",
-      "created": ""
+        "archived": "",
+        "search": ""
     },
-    "repeat": {
-      "mode": "",
-      "hours": "",
-      "everyWeek": "",
-      "everyDay": "",
-      "days": "",
-      "years": "",
-      "months": "",
-      "monthly": "",
-      "everyMonth": "",
-      "each": "",
-      "weeks": "",
-      "specifyAmount": "",
-      "fromCurrentDate": ""
-    },
-    "deferDueDate": {
-      "3days": "",
-      "1week": "",
-      "1day": "",
-      "title": ""
-    },
-    "attachment": {
-      "delete": "",
-      "createdBy": "",
-      "upload": "",
-      "deleteText1": "",
-      "drop": "",
-      "title": "",
-      "deleteText2": "",
-      "download": ""
-    },
-    "show": {
-      "from": "",
-      "titleDates": "",
-      "titleCurrent": "",
-      "current": "",
-      "noTasks": "",
-      "today": "",
-      "nextWeek": "",
-      "until": "",
-      "noDates": "",
-      "nextMonth": ""
-    },
-    "attributes": {
-      "created": "",
-      "percentDone": "",
-      "title": "",
-      "dueDate": "",
-      "reminders": "",
-      "createdBy": "",
-      "done": "",
-      "labels": "",
-      "updated": "",
-      "startDate": "",
-      "priority": "",
-      "color": "",
-      "description": "",
-      "assignees": "",
-      "endDate": "",
-      "relatedTasks": "",
-      "repeat": ""
-    },
-    "subscription": {
-      "unsubscribeSuccess": "",
-      "subscribedThroughParent": "",
-      "subscribeSuccess": "",
-      "subscribed": "",
-      "notSubscribed": "",
-      "subscribe": "",
-      "unsubscribe": ""
-    },
-    "priority": {
-      "doNow": "",
-      "low": "",
-      "medium": "",
-      "high": "",
-      "unset": "",
-      "urgent": ""
-    },
-    "comment": {
-      "comment": "",
-      "placeholder": "",
-      "deleteText1": "",
-      "creating": "",
-      "addedSuccess": "",
-      "delete": "",
-      "deleteText2": "",
-      "title": "",
-      "loading": "",
-      "edited": ""
-    },
-    "description": {
-      "placeholder": "",
-      "empty": ""
-    },
-    "assignee": {
-      "unassignSuccess": "",
-      "selectPlaceholder": "",
-      "assignSuccess": "",
-      "placeholder": ""
-    },
-    "relation": {
-      "deleteText2": "",
-      "differentList": "",
-      "noneYet": "",
-      "searchPlaceholder": "",
-      "createPlaceholder": "",
-      "delete": "",
-      "add": "",
-      "new": "",
-      "deleteText1": ""
-    },
-    "doneSuccess": "",
-    "addReminder": "",
-    "label": {
-      "removeSuccess": "",
-      "placeholder": "",
-      "createPlaceholder": "",
-      "addSuccess": "",
-      "createSuccess": ""
-    },
-    "task": "",
-    "createSuccess": "",
-    "undoneSuccess": "",
-    "openDetail": "",
-    "new": "",
-    "delete": ""
-  },
-  "user": {
-    "settings": {
-      "avatar": {
-        "uploadAvatar": "",
-        "upload": "",
-        "statusUpdateSuccess": "",
-        "initials": "",
-        "title": "",
-        "setSuccess": "",
-        "gravatar": ""
-      },
-      "general": {
-        "title": "",
-        "name": "",
-        "overdueReminders": "",
-        "savedSuccess": "",
-        "weekStartSunday": "",
-        "weekStart": "",
-        "newName": "",
-        "emailReminders": "",
-        "discoverableByName": "",
-        "discoverableByEmail": "",
-        "playSoundWhenDone": "",
-        "weekStartMonday": "",
-        "language": ""
-      },
-      "newPasswordTitle": "",
-      "totp": {
-        "setupSuccess": "",
-        "title": "",
-        "disable": "",
-        "enroll": "",
-        "finishSetupPart1": "",
-        "confirmSuccess": "",
-        "disableSuccess": "",
-        "enterPassword": "",
-        "passcodePlaceholder": "",
-        "finishSetupPart2": "",
-        "scanQR": "",
-        "passcode": ""
-      },
-      "newPassword": "",
-      "caldav": {
-        "more": "",
-        "howTo": "",
-        "title": ""
-      },
-      "currentPasswordPlaceholder": "",
-      "updateEmailSuccess": "",
-      "currentPassword": "",
-      "passwordsDontMatch": "",
-      "title": "",
-      "updateEmailTitle": "",
-      "newPasswordConfirm": "",
-      "passwordUpdateSuccess": "",
-      "updateEmailNew": ""
-    },
-    "auth": {
-      "login": "",
-      "email": "",
-      "passwordRepeat": "",
-      "usernamePlaceholder": "",
-      "confirmEmailSuccess": "",
-      "register": "",
-      "resetPasswordAction": "",
-      "emailPlaceholder": "",
-      "resetPassword": "",
-      "loginWith": "",
-      "passwordsDontMatch": "",
-      "openIdStateError": "",
-      "totpTitle": "",
-      "password": "",
-      "passwordPlaceholder": "",
-      "totpPlaceholder": "",
-      "restPasswordSuccess": "",
-      "logout": "",
-      "authenticating": "",
-      "usernameEmail": "",
-      "username": ""
-    }
-  },
-  "filters": {
-    "attributes": {
-      "includeNulls": "",
-      "requireAll": "",
-      "enablePriority": "",
-      "title": "",
-      "titlePlaceholder": "",
-      "enablePercentDone": "",
-      "dueDateRange": "",
-      "endDateRange": "",
-      "startDateRange": "",
-      "reminderRange": "",
-      "description": "",
-      "descriptionPlaceholder": "",
-      "showDoneTasks": ""
-    },
-    "edit": {
-      "success": "",
-      "title": ""
-    },
-    "create": {
-      "title": "",
-      "action": "",
-      "description": ""
-    },
-    "delete": {
-      "header": "",
-      "success": "",
-      "text": ""
-    },
-    "title": ""
-  },
-  "label": {
-    "create": {
-      "success": "",
-      "header": "",
-      "titleRequired": "",
-      "title": ""
-    },
-    "edit": {
-      "success": "",
-      "header": "",
-      "forbidden": ""
-    },
-    "attributes": {
-      "description": "",
-      "title": "",
-      "color": "",
-      "descriptionPlaceholder": "",
-      "titlePlaceholder": ""
-    },
-    "title": "",
-    "newCTA": "",
-    "deleteSuccess": "",
-    "manage": "",
-    "description": "",
-    "search": ""
-  },
-  "team": {
-    "edit": {
-      "makeAdmin": "",
-      "deleteUser": {
-        "success": "",
-        "text1": "",
-        "text2": "",
-        "header": ""
-      },
-      "delete": {
-        "header": "",
-        "text1": "",
-        "text2": "",
-        "success": ""
-      },
-      "success": "",
-      "search": "",
-      "addUser": "",
-      "madeMember": "",
-      "title": "",
-      "members": "",
-      "userAddedSuccess": "",
-      "makeMember": "",
-      "madeAdmin": ""
-    },
-    "attributes": {
-      "member": "",
-      "namePlaceholder": "",
-      "nameRequired": "",
-      "description": "",
-      "descriptionPlaceholder": "",
-      "admin": "",
-      "name": ""
-    },
-    "title": "",
-    "create": {
-      "title": "",
-      "success": ""
-    },
-    "noTeams": ""
-  },
-  "quickActions": {
-    "teams": "",
-    "newTeam": "",
-    "newTask": "",
-    "createList": "",
-    "lists": "",
-    "cmds": {
-      "newTask": "",
-      "newList": "",
-      "newNamespace": "",
-      "newTeam": ""
-    },
-    "hint": "",
-    "commands": "",
-    "newList": "",
-    "tasks": "",
-    "createTask": "",
-    "placeholder": "",
-    "newNamespace": ""
-  },
-  "error": {
-    "10001": "",
-    "1008": "",
-    "1005": "",
-    "3008": "",
-    "4015": "",
-    "1013": "",
-    "1012": "",
-    "1001": "",
-    "4001": "",
-    "4008": "",
-    "4010": "",
-    "4013": "",
-    "1010": "",
-    "10004": "",
-    "10003": "",
-    "4018": "",
-    "9001": "",
-    "1011": "",
-    "13002": "",
-    "error": "",
-    "4011": "",
-    "4009": "",
-    "1014": "",
-    "8001": "",
-    "8003": "",
-    "4003": "",
-    "3007": "",
-    "11001": "",
-    "4012": "",
-    "4017": "",
-    "5012": "",
-    "3001": "",
-    "1018": "",
-    "8002": "",
-    "1017": "",
-    "1002": "",
-    "5010": "",
-    "12002": "",
-    "1004": "",
-    "6002": "",
-    "success": "",
-    "1006": "",
-    "1009": "",
-    "1016": "",
-    "2002": "",
-    "3004": "",
-    "3005": "",
-    "3006": "",
-    "4004": "",
-    "4005": "",
-    "4006": "",
-    "4016": "",
-    "4019": "",
-    "5003": "",
-    "5009": "",
-    "4002": "",
-    "7002": "",
-    "12001": "",
-    "10002": "",
-    "6001": "",
-    "10005": "",
-    "5011": "",
-    "6004": "",
-    "6006": "",
-    "6007": "",
-    "11002": "",
-    "1015": "",
-    "0001": "",
-    "2001": "",
-    "4007": "",
-    "4014": "",
-    "5006": "",
-    "6005": "",
-    "13001": "",
-    "5001": "",
-    "7003": ""
-  },
-  "input": {
-    "multiselect": {
-      "selectPlaceholder": "",
-      "createPlaceholder": ""
-    },
-    "editor": {
-      "heading2": "",
-      "guide": "",
-      "quote": "",
-      "link": "",
-      "strikethrough": "",
-      "unorderedList": "",
-      "horizontalRule": "",
-      "headingSmaller": "",
-      "sideBySide": "",
-      "heading3": "",
-      "code": "",
-      "bold": "",
-      "orderedList": "",
-      "image": "",
-      "italic": "",
-      "cleanBlock": "",
-      "table": "",
-      "headingBigger": "",
-      "done": "",
-      "heading1": ""
-    },
-    "datepicker": {
-      "nextWeek": "",
-      "nextMonday": "",
-      "tomorrow": "",
-      "laterThisWeek": "",
-      "today": "",
-      "thisWeekend": "",
-      "chooseDate": ""
-    },
-    "resetColor": ""
-  },
-  "sharing": {
-    "passwordRequired": "",
-    "error": "",
-    "authenticating": "",
-    "invalidPassword": ""
-  },
-  "misc": {
-    "info": "",
-    "cancel": "",
-    "loading": "",
-    "previous": "",
-    "refresh": "",
-    "searchPlaceholder": "",
-    "search": "",
-    "poweredBy": "",
-    "confirm": "",
-    "disable": "",
-    "saving": "",
-    "delete": "",
-    "default": "",
-    "create": "",
-    "save": "",
-    "copy": "",
-    "next": "",
-    "doit": "",
-    "saved": ""
-  },
-  "notification": {
-    "none": "",
-    "explainer": ""
-  },
-  "migrate": {
-    "inProgress": "",
-    "getStarted": "",
-    "titleService": "",
-    "description": "",
-    "alreadyMigrated2": "",
-    "alreadyMigrated1": "",
-    "import": "",
-    "descriptionDo": "",
-    "title": "",
-    "authorize": "",
-    "confirm": ""
-  },
-  "date": {
-    "ago": "",
-    "in": "",
-    "locale": "",
-    "altFormatLong": "",
-    "altFormatShort": ""
-  },
-  "apiConfig": {
-    "success": "",
-    "url": "",
-    "change": "",
-    "signInOn": "",
-    "error": "",
-    "urlPlaceholder": ""
-  },
-  "keyboardShortcuts": {
-    "toggleMenu": "",
     "task": {
-      "assign": "",
-      "title": "",
-      "done": "",
-      "labels": "",
-      "attachment": "",
-      "related": "",
-      "dueDate": ""
+        "detail": {
+            "done": "",
+            "actions": {
+                "attachments": "",
+                "delete": "",
+                "label": "",
+                "percentDone": "",
+                "assign": "",
+                "startDate": "",
+                "relatedTasks": "",
+                "endDate": "",
+                "reminders": "",
+                "moveList": "",
+                "color": "",
+                "priority": "",
+                "dueDate": "",
+                "repeatAfter": ""
+            },
+            "delete": {
+                "header": "",
+                "text1": "",
+                "text2": ""
+            },
+            "chooseStartDate": "",
+            "updateSuccess": "",
+            "move": "",
+            "deleteSuccess": "",
+            "doneAt": "",
+            "chooseEndDate": "",
+            "updated": "",
+            "undone": "",
+            "due": "",
+            "belongsToList": "",
+            "chooseDueDate": "",
+            "created": ""
+        },
+        "repeat": {
+            "mode": "",
+            "hours": "",
+            "everyWeek": "",
+            "everyDay": "",
+            "days": "",
+            "years": "",
+            "months": "",
+            "monthly": "",
+            "everyMonth": "",
+            "each": "",
+            "weeks": "",
+            "specifyAmount": "",
+            "fromCurrentDate": ""
+        },
+        "deferDueDate": {
+            "3days": "",
+            "1week": "",
+            "1day": "",
+            "title": ""
+        },
+        "attachment": {
+            "delete": "",
+            "createdBy": "",
+            "upload": "",
+            "deleteText1": "",
+            "drop": "",
+            "title": "",
+            "deleteText2": "",
+            "download": ""
+        },
+        "show": {
+            "from": "",
+            "titleDates": "",
+            "titleCurrent": "",
+            "current": "",
+            "noTasks": "",
+            "today": "",
+            "nextWeek": "",
+            "until": "",
+            "noDates": "",
+            "nextMonth": ""
+        },
+        "attributes": {
+            "created": "",
+            "percentDone": "",
+            "title": "",
+            "dueDate": "",
+            "reminders": "",
+            "createdBy": "",
+            "done": "",
+            "labels": "",
+            "updated": "",
+            "startDate": "",
+            "priority": "",
+            "color": "",
+            "description": "",
+            "assignees": "",
+            "endDate": "",
+            "relatedTasks": "",
+            "repeat": ""
+        },
+        "subscription": {
+            "unsubscribeSuccess": "",
+            "subscribedThroughParent": "",
+            "subscribeSuccess": "",
+            "subscribed": "",
+            "notSubscribed": "",
+            "subscribe": "",
+            "unsubscribe": ""
+        },
+        "priority": {
+            "doNow": "",
+            "low": "",
+            "medium": "",
+            "high": "",
+            "unset": "",
+            "urgent": ""
+        },
+        "comment": {
+            "comment": "",
+            "placeholder": "",
+            "deleteText1": "",
+            "creating": "",
+            "addedSuccess": "",
+            "delete": "",
+            "deleteText2": "",
+            "title": "",
+            "loading": "",
+            "edited": ""
+        },
+        "description": {
+            "placeholder": "",
+            "empty": ""
+        },
+        "assignee": {
+            "unassignSuccess": "",
+            "selectPlaceholder": "",
+            "assignSuccess": "",
+            "placeholder": ""
+        },
+        "relation": {
+            "deleteText2": "",
+            "differentList": "",
+            "noneYet": "",
+            "searchPlaceholder": "",
+            "createPlaceholder": "",
+            "delete": "",
+            "add": "",
+            "new": "",
+            "deleteText1": ""
+        },
+        "doneSuccess": "",
+        "addReminder": "",
+        "label": {
+            "removeSuccess": "",
+            "placeholder": "",
+            "createPlaceholder": "",
+            "addSuccess": "",
+            "createSuccess": ""
+        },
+        "task": "",
+        "createSuccess": "",
+        "undoneSuccess": "",
+        "openDetail": "",
+        "new": "",
+        "delete": ""
     },
-    "title": "",
-    "allPages": "",
-    "currentPageOnly": "",
-    "quickSearch": ""
-  },
-  "home": {
-    "welcome": "",
-    "list": {
-      "new": "",
-      "import": "",
-      "newText": "",
-      "importText": ""
+    "user": {
+        "settings": {
+            "avatar": {
+                "uploadAvatar": "",
+                "upload": "",
+                "statusUpdateSuccess": "",
+                "initials": "",
+                "title": "",
+                "setSuccess": "",
+                "gravatar": ""
+            },
+            "general": {
+                "title": "",
+                "name": "",
+                "overdueReminders": "",
+                "savedSuccess": "",
+                "weekStartSunday": "",
+                "weekStart": "",
+                "newName": "",
+                "emailReminders": "",
+                "discoverableByName": "",
+                "discoverableByEmail": "",
+                "playSoundWhenDone": "",
+                "weekStartMonday": "",
+                "language": ""
+            },
+            "newPasswordTitle": "Actualiza tu contraseña",
+            "totp": {
+                "setupSuccess": "",
+                "title": "",
+                "disable": "",
+                "enroll": "",
+                "finishSetupPart1": "",
+                "confirmSuccess": "",
+                "disableSuccess": "",
+                "enterPassword": "",
+                "passcodePlaceholder": "",
+                "finishSetupPart2": "",
+                "scanQR": "",
+                "passcode": ""
+            },
+            "newPassword": "Nueva contraseña",
+            "caldav": {
+                "more": "",
+                "howTo": "",
+                "title": ""
+            },
+            "currentPasswordPlaceholder": "Tu contraseña actual",
+            "updateEmailSuccess": "",
+            "currentPassword": "Contraseña actual",
+            "passwordsDontMatch": "La contraseña nueva y su confirmación no emparejan.",
+            "title": "Opciones",
+            "updateEmailTitle": "Actualiza tu dirección de correo electrónico",
+            "newPasswordConfirm": "Confirmar contraseña",
+            "passwordUpdateSuccess": "La contraseña se actualizó correctamente.",
+            "updateEmailNew": ""
+        },
+        "auth": {
+            "login": "Ingresar",
+            "email": "Correo electrónico",
+            "passwordRepeat": "Reescribe tu contraseña",
+            "usernamePlaceholder": "p/ej. Federico",
+            "confirmEmailSuccess": "Has confirmado correctamente tu correo electrónico. Ya podés conectarte.",
+            "register": "Registrarse",
+            "resetPasswordAction": "Envíame un enlace para restablecer la contraseña",
+            "emailPlaceholder": "p/ej. frederic@vikunja.io",
+            "resetPassword": "Restablecer tu contraseña",
+            "loginWith": "Inicie sesión con {provider}",
+            "passwordsDontMatch": "Las contraseñas no coinciden",
+            "openIdStateError": "¡El estado no coincide, negándome a continuar!",
+            "totpTitle": "Código de autenticación de dos factores",
+            "password": "Contraseña",
+            "passwordPlaceholder": "p/ej. •••••••••••",
+            "totpPlaceholder": "p/ej. 123456",
+            "restPasswordSuccess": "¡Revisa tu bandeja de entrada! Debe tener un correo electrónico con instrucciones para restablecer su contraseña.",
+            "logout": "Cerrar sesión",
+            "authenticating": "Autenticando…",
+            "usernameEmail": "Nombre de usuario o dirección de correo electrónico",
+            "username": "Nombre de usuario"
+        }
+    },
+    "filters": {
+        "attributes": {
+            "includeNulls": "",
+            "requireAll": "",
+            "enablePriority": "",
+            "title": "Título",
+            "titlePlaceholder": "El título del filtro guardado va acá…",
+            "enablePercentDone": "",
+            "dueDateRange": "",
+            "endDateRange": "",
+            "startDateRange": "",
+            "reminderRange": "",
+            "description": "",
+            "descriptionPlaceholder": "",
+            "showDoneTasks": ""
+        },
+        "edit": {
+            "success": "",
+            "title": ""
+        },
+        "create": {
+            "title": "",
+            "action": "",
+            "description": "Un filtro guardado es una lista virtual que se calcula a partir de un conjunto de filtros cada vez que se accede a él. Una vez creado, aparecerá en un espacio de nombres especial."
+        },
+        "delete": {
+            "header": "",
+            "success": "",
+            "text": ""
+        },
+        "title": ""
+    },
+    "label": {
+        "create": {
+            "success": "",
+            "header": "",
+            "titleRequired": "",
+            "title": ""
+        },
+        "edit": {
+            "success": "",
+            "header": "",
+            "forbidden": ""
+        },
+        "attributes": {
+            "description": "",
+            "title": "",
+            "color": "",
+            "descriptionPlaceholder": "",
+            "titlePlaceholder": ""
+        },
+        "title": "",
+        "newCTA": "",
+        "deleteSuccess": "",
+        "manage": "",
+        "description": "",
+        "search": ""
+    },
+    "team": {
+        "edit": {
+            "makeAdmin": "",
+            "deleteUser": {
+                "success": "",
+                "text1": "",
+                "text2": "",
+                "header": ""
+            },
+            "delete": {
+                "header": "",
+                "text1": "",
+                "text2": "",
+                "success": ""
+            },
+            "success": "",
+            "search": "",
+            "addUser": "",
+            "madeMember": "",
+            "title": "",
+            "members": "",
+            "userAddedSuccess": "",
+            "makeMember": "",
+            "madeAdmin": ""
+        },
+        "attributes": {
+            "member": "",
+            "namePlaceholder": "",
+            "nameRequired": "",
+            "description": "",
+            "descriptionPlaceholder": "",
+            "admin": "",
+            "name": ""
+        },
+        "title": "",
+        "create": {
+            "title": "",
+            "success": ""
+        },
+        "noTeams": ""
+    },
+    "quickActions": {
+        "teams": "",
+        "newTeam": "",
+        "newTask": "",
+        "createList": "",
+        "lists": "",
+        "cmds": {
+            "newTask": "",
+            "newList": "",
+            "newNamespace": "",
+            "newTeam": ""
+        },
+        "hint": "",
+        "commands": "",
+        "newList": "",
+        "tasks": "",
+        "createTask": "",
+        "placeholder": "",
+        "newNamespace": ""
+    },
+    "error": {
+        "10001": "",
+        "1008": "",
+        "1005": "",
+        "3008": "",
+        "4015": "",
+        "1013": "",
+        "1012": "",
+        "1001": "",
+        "4001": "",
+        "4008": "",
+        "4010": "",
+        "4013": "",
+        "1010": "",
+        "10004": "",
+        "10003": "",
+        "4018": "",
+        "9001": "",
+        "1011": "",
+        "13002": "",
+        "error": "",
+        "4011": "",
+        "4009": "",
+        "1014": "",
+        "8001": "",
+        "8003": "",
+        "4003": "",
+        "3007": "",
+        "11001": "",
+        "4012": "",
+        "4017": "",
+        "5012": "",
+        "3001": "",
+        "1018": "",
+        "8002": "",
+        "1017": "",
+        "1002": "",
+        "5010": "",
+        "12002": "",
+        "1004": "",
+        "6002": "",
+        "success": "",
+        "1006": "",
+        "1009": "",
+        "1016": "",
+        "2002": "",
+        "3004": "",
+        "3005": "",
+        "3006": "",
+        "4004": "",
+        "4005": "",
+        "4006": "",
+        "4016": "",
+        "4019": "",
+        "5003": "",
+        "5009": "",
+        "4002": "",
+        "7002": "",
+        "12001": "",
+        "10002": "",
+        "6001": "",
+        "10005": "",
+        "5011": "",
+        "6004": "",
+        "6006": "",
+        "6007": "",
+        "11002": "",
+        "1015": "",
+        "0001": "",
+        "2001": "",
+        "4007": "",
+        "4014": "",
+        "5006": "",
+        "6005": "",
+        "13001": "",
+        "5001": "",
+        "7003": ""
+    },
+    "input": {
+        "multiselect": {
+            "selectPlaceholder": "",
+            "createPlaceholder": ""
+        },
+        "editor": {
+            "heading2": "",
+            "guide": "",
+            "quote": "",
+            "link": "",
+            "strikethrough": "",
+            "unorderedList": "",
+            "horizontalRule": "",
+            "headingSmaller": "",
+            "sideBySide": "",
+            "heading3": "",
+            "code": "",
+            "bold": "",
+            "orderedList": "",
+            "image": "",
+            "italic": "",
+            "cleanBlock": "",
+            "table": "",
+            "headingBigger": "",
+            "done": "",
+            "heading1": ""
+        },
+        "datepicker": {
+            "nextWeek": "",
+            "nextMonday": "",
+            "tomorrow": "",
+            "laterThisWeek": "",
+            "today": "",
+            "thisWeekend": "",
+            "chooseDate": ""
+        },
+        "resetColor": ""
+    },
+    "sharing": {
+        "passwordRequired": "",
+        "error": "",
+        "authenticating": "",
+        "invalidPassword": ""
+    },
+    "misc": {
+        "info": "",
+        "cancel": "",
+        "loading": "",
+        "previous": "",
+        "refresh": "",
+        "searchPlaceholder": "",
+        "search": "",
+        "poweredBy": "",
+        "confirm": "",
+        "disable": "",
+        "saving": "",
+        "delete": "",
+        "default": "",
+        "create": "",
+        "save": "",
+        "copy": "",
+        "next": "",
+        "doit": "",
+        "saved": ""
+    },
+    "notification": {
+        "none": "",
+        "explainer": ""
+    },
+    "migrate": {
+        "inProgress": "",
+        "getStarted": "",
+        "titleService": "",
+        "description": "",
+        "alreadyMigrated2": "",
+        "alreadyMigrated1": "",
+        "import": "",
+        "descriptionDo": "",
+        "title": "",
+        "authorize": "",
+        "confirm": ""
+    },
+    "date": {
+        "ago": "",
+        "in": "",
+        "locale": "",
+        "altFormatLong": "",
+        "altFormatShort": ""
+    },
+    "apiConfig": {
+        "success": "",
+        "url": "",
+        "change": "",
+        "signInOn": "",
+        "error": "",
+        "urlPlaceholder": ""
+    },
+    "keyboardShortcuts": {
+        "toggleMenu": "",
+        "task": {
+            "assign": "",
+            "title": "",
+            "done": "",
+            "labels": "",
+            "attachment": "",
+            "related": "",
+            "dueDate": ""
+        },
+        "title": "",
+        "allPages": "",
+        "currentPageOnly": "",
+        "quickSearch": ""
+    },
+    "home": {
+        "welcome": "Hola, {username}",
+        "list": {
+            "new": "Crear una lista nueva",
+            "import": "Importa tus datos a Vikunja",
+            "newText": "Podés crear una nueva lista para las tareas nuevas:",
+            "importText": "O importa tus listas y tareas de otros servicios a Vikunja:"
+        }
+    },
+    "update": {
+        "do": "",
+        "available": ""
+    },
+    "menu": {
+        "unarchive": "",
+        "share": "",
+        "edit": "",
+        "newList": "",
+        "archive": "",
+        "setBackground": "",
+        "delete": "",
+        "duplicate": ""
+    },
+    "loadingError": {
+        "contact": "",
+        "failed": "",
+        "tryAgain": ""
+    },
+    "navigation": {
+        "overview": "",
+        "imprint": "",
+        "privacy": "",
+        "settings": "",
+        "upcoming": ""
+    },
+    "404": {
+        "text": "La página solicitada no existe.",
+        "title": "No encontrado"
     }
-  },
-  "update": {
-    "do": "",
-    "available": ""
-  },
-  "menu": {
-    "unarchive": "",
-    "share": "",
-    "edit": "",
-    "newList": "",
-    "archive": "",
-    "setBackground": "",
-    "delete": "",
-    "duplicate": ""
-  },
-  "loadingError": {
-    "contact": "",
-    "failed": "",
-    "tryAgain": ""
-  },
-  "navigation": {
-    "overview": "",
-    "imprint": "",
-    "privacy": "",
-    "settings": "",
-    "upcoming": ""
-  },
-  "404": {
-    "text": "",
-    "title": ""
-  }
 }
