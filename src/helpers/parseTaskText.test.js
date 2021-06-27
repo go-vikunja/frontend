@@ -358,4 +358,45 @@ describe('Parse Task Text', () => {
 			expect(result.priority).toBe('1')
 		})
 	})
+
+	describe('Assignee', () => {
+		it('should parse an assignee', () => {
+			const result = parseTaskText('Lorem Ipsum @user')
+
+			expect(result.text).toBe('Lorem Ipsum')
+			expect(result.assignees).toHaveLength(1)
+			expect(result.assignees[0]).toBe('user')
+		})
+		it('should parse multiple assignees', () => {
+			const result = parseTaskText('Lorem Ipsum @user1 @user2 @user3')
+
+			expect(result.text).toBe('Lorem Ipsum')
+			expect(result.assignees).toHaveLength(3)
+			expect(result.assignees[0]).toBe('user1')
+			expect(result.assignees[1]).toBe('user2')
+			expect(result.assignees[2]).toBe('user3')
+		})
+		it('should parse avoid duplicate assignees', () => {
+			const result = parseTaskText('Lorem Ipsum @user1 @user1 @user2')
+
+			expect(result.text).toBe('Lorem Ipsum')
+			expect(result.assignees).toHaveLength(2)
+			expect(result.assignees[0]).toBe('user1')
+			expect(result.assignees[1]).toBe('user2')
+		})
+		it('should parse an assignee with a space in it', () => {
+			const result = parseTaskText(`Lorem Ipsum @'user with long name'`)
+
+			expect(result.text).toBe('Lorem Ipsum')
+			expect(result.assignees).toHaveLength(1)
+			expect(result.assignees[0]).toBe('user with long name')
+		})
+		it('should parse an assignee with a space in it and "', () => {
+			const result = parseTaskText(`Lorem Ipsum @"user with long name"`)
+
+			expect(result.text).toBe('Lorem Ipsum')
+			expect(result.assignees).toHaveLength(1)
+			expect(result.assignees[0]).toBe('user with long name')
+		})
+	})
 })

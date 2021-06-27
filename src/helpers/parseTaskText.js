@@ -4,6 +4,7 @@ import priorities from '../models/priorities.json'
 const LABEL_PREFIX = '~'
 const LIST_PREFIX = '*'
 const PRIORITY_PREFIX = '!'
+const ASSIGNEE_PREFIX = '@'
 
 /**
  * Parses task text for dates, assignees, labels, lists, priorities and returns an object with all found intents.
@@ -26,6 +27,8 @@ export const parseTaskText = text => {
 	result.list = lists.length > 0 ? lists[0] : null
 
 	result.priority = getPriority(text)
+
+	result.assignees = getItemsFromPrefix(text, ASSIGNEE_PREFIX)
 
 	const {newText, date} = parseDate(text)
 	result.text = newText
@@ -93,6 +96,7 @@ const cleanupResult = result => {
 	result.text = cleanupItemText(result.text, result.labels, LABEL_PREFIX)
 	result.text = cleanupItemText(result.text, [result.list], LIST_PREFIX)
 	result.text = cleanupItemText(result.text, [result.priority], PRIORITY_PREFIX)
+	result.text = cleanupItemText(result.text, result.assignees, ASSIGNEE_PREFIX)
 	result.text = result.text.trim()
 
 	return result
