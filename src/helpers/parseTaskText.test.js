@@ -1,4 +1,5 @@
-import {getDateFromText, parseTaskText, getDateFromTextIn} from './parseTaskText'
+import {parseTaskText} from './parseTaskText'
+import {getDateFromText, getDateFromTextIn} from './time/parseDate'
 import {calculateDayInterval} from './time/calculateDayInterval'
 
 describe('Parse Task Text', () => {
