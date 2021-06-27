@@ -307,4 +307,31 @@ describe('Parse Task Text', () => {
 			expect(result.labels[0]).toBe('label with space')
 		})
 	})
+
+	describe('List', () => {
+		it('should parse a list', () => {
+			const result = parseTaskText('Lorem Ipsum *list')
+
+			expect(result.text).toBe('Lorem Ipsum')
+			expect(result.list).toBe('list')
+		})
+		it('should parse a list with a space in it', () => {
+			const result = parseTaskText(`Lorem Ipsum *'list with long name'`)
+
+			expect(result.text).toBe('Lorem Ipsum')
+			expect(result.list).toBe('list with long name')
+		})
+		it('should parse a list with a space in it and "', () => {
+			const result = parseTaskText(`Lorem Ipsum *"list with long name"`)
+
+			expect(result.text).toBe('Lorem Ipsum')
+			expect(result.list).toBe('list with long name')
+		})
+		it('should parse only the first list', () => {
+			const result = parseTaskText(`Lorem Ipsum *list1 *list2 *list3`)
+
+			expect(result.text).toBe('Lorem Ipsum *list2 *list3')
+			expect(result.list).toBe('list1')
+		})
+	})
 })

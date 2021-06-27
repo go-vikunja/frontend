@@ -1,6 +1,7 @@
 import {parseDate} from './time/parseDate'
 
 const LABEL_PREFIX = '~'
+const LIST_PREFIX = '*'
 
 /**
  * Parses task text for dates, assignees, labels, lists, priorities and returns an object with all found intents.
@@ -18,6 +19,10 @@ export const parseTaskText = text => {
 	}
 
 	result.labels = getItemsFromPrefix(text, LABEL_PREFIX)
+
+	const lists = getItemsFromPrefix(text, LIST_PREFIX)
+	result.list = lists.length > 0 ? lists[0] : null
+
 	const {newText, date} = parseDate(text)
 	result.text = newText
 	result.date = date
@@ -65,6 +70,7 @@ const cleanupItemText = (text, items, prefix) => {
 
 const cleanupResult = result => {
 	result.text = cleanupItemText(result.text, result.labels, LABEL_PREFIX)
+	result.text = cleanupItemText(result.text, [result.list], LIST_PREFIX)
 	result.text = result.text.trim()
 
 	return result
