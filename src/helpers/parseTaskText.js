@@ -2,6 +2,8 @@ import {calculateDayInterval} from './time/calculateDayInterval'
 import {calculateNearestHours} from './time/calculateNearestHours'
 import {replaceAll} from './replaceAll'
 
+const LABEL_PREFIX = '~'
+
 /**
  * Parses task text for dates, assignees, labels, lists, priorities and returns an object with all found intents.
  *
@@ -17,7 +19,7 @@ export const parseTaskText = text => {
 		assignees: [],
 	}
 
-	result.labels = parseLabels(text)
+	result.labels = getItemsFromPrefix(text, LABEL_PREFIX)
 	const {newText, date} = parseDate(text)
 	result.text = newText
 	result.date = date
@@ -285,7 +287,7 @@ const getDayFromText = text => {
 	const date = new Date()
 	date.setDate(parseInt(results[0]))
 
-	if(date < new Date()) {
+	if (date < new Date()) {
 		date.setMonth(date.getMonth() + 1)
 	}
 
@@ -305,11 +307,11 @@ const getDateFromInterval = interval => {
 	return newDate
 }
 
-const parseLabels = text => {
-	const labels = []
+const getItemsFromPrefix = (text, prefix) => {
+	const items = []
 
-	const labelParts = text.split('~')
-	labelParts.forEach((p, index) => {
+	const itemParts = text.split(prefix)
+	itemParts.forEach((p, index) => {
 		// First part contains the rest
 		if (index < 1) {
 			return
@@ -324,23 +326,27 @@ const parseLabels = text => {
 			// Only until the next space
 			labelText = p.split(' ')[0]
 		}
-		labels.push(labelText)
+		items.push(labelText)
 	})
 
-	return Array.from(new Set(labels))
+	return Array.from(new Set(items))
+}
+
+const cleanupItemText = (text, items, prefix) => {
+	items.forEach(l => {
+		text = text
+			.replace(`${prefix}'${l}' `, '')
+			.replace(`${prefix}'${l}'`, '')
+			.replace(`${prefix}"${l}" `, '')
+			.replace(`${prefix}"${l}"`, '')
+			.replace(`${prefix}${l} `, '')
+			.replace(`${prefix}${l}`, '')
+	})
+	return text
 }
 
 const cleanupResult = result => {
-	result.labels.forEach(l => {
-		result.text = result.text
-			.replace(`~'${l}' `, '')
-			.replace(`~'${l}'`, '')
-			.replace(`~"${l}" `, '')
-			.replace(`~"${l}"`, '')
-			.replace(`~${l} `, '')
-			.replace(`~${l}`, '')
-	})
-
+	result.text = cleanupItemText(result.text, result.labels, LABEL_PREFIX)
 	result.text = result.text.trim()
 
 	return result
