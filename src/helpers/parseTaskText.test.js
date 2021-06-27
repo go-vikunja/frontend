@@ -1,6 +1,7 @@
 import {parseTaskText} from './parseTaskText'
 import {getDateFromText, getDateFromTextIn} from './time/parseDate'
 import {calculateDayInterval} from './time/calculateDayInterval'
+import priorities from '../models/priorities.json'
 
 describe('Parse Task Text', () => {
 	it('should return text with no intents as is', () => {
@@ -332,6 +333,29 @@ describe('Parse Task Text', () => {
 
 			expect(result.text).toBe('Lorem Ipsum *list2 *list3')
 			expect(result.list).toBe('list1')
+		})
+	})
+
+	describe('Priority', () => {
+		for (const p in priorities) {
+			it(`should parse priority ${p}`, () => {
+				const result = parseTaskText(`Lorem Ipsum !${priorities[p]}`)
+
+				expect(result.text).toBe('Lorem Ipsum')
+				expect(result.priority).toBe(`${priorities[p]}`)
+			})
+		}
+		it(`should not parse an invalid priority`, () => {
+			const result = parseTaskText(`Lorem Ipsum !9999`)
+
+			expect(result.text).toBe('Lorem Ipsum !9999')
+			expect(result.priority).toBe(null)
+		})
+		it(`should not parse an invalid priority but use the first valid one it finds`, () => {
+			const result = parseTaskText(`Lorem Ipsum !9999 !1`)
+
+			expect(result.text).toBe('Lorem Ipsum !9999')
+			expect(result.priority).toBe('1')
 		})
 	})
 })

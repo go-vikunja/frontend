@@ -1,7 +1,9 @@
 import {parseDate} from './time/parseDate'
+import priorities from '../models/priorities.json'
 
 const LABEL_PREFIX = '~'
 const LIST_PREFIX = '*'
+const PRIORITY_PREFIX = '!'
 
 /**
  * Parses task text for dates, assignees, labels, lists, priorities and returns an object with all found intents.
@@ -22,6 +24,8 @@ export const parseTaskText = text => {
 
 	const lists = getItemsFromPrefix(text, LIST_PREFIX)
 	result.list = lists.length > 0 ? lists[0] : null
+
+	result.priority = getPriority(text)
 
 	const {newText, date} = parseDate(text)
 	result.text = newText
@@ -55,6 +59,23 @@ const getItemsFromPrefix = (text, prefix) => {
 	return Array.from(new Set(items))
 }
 
+const getPriority = text => {
+	const ps = getItemsFromPrefix(text, PRIORITY_PREFIX)
+	if (ps.length === 0) {
+		return null
+	}
+
+	for (const p of ps) {
+		for (const pi in priorities) {
+			if (priorities[pi] === parseInt(p)) {
+				return p
+			}
+		}
+	}
+
+	return null
+}
+
 const cleanupItemText = (text, items, prefix) => {
 	items.forEach(l => {
 		text = text
@@ -71,6 +92,7 @@ const cleanupItemText = (text, items, prefix) => {
 const cleanupResult = result => {
 	result.text = cleanupItemText(result.text, result.labels, LABEL_PREFIX)
 	result.text = cleanupItemText(result.text, [result.list], LIST_PREFIX)
+	result.text = cleanupItemText(result.text, [result.priority], PRIORITY_PREFIX)
 	result.text = result.text.trim()
 
 	return result
