@@ -567,7 +567,7 @@
       "username": "Benutzername",
       "logout": "Abmelden",
       "confirmEmailSuccess": "Du hast deine E-Mail erfolgreich bestätigt! Du kannst dich jetzt anmelden.",
-      "restPasswordSuccess": "Prüfe deinen Posteingang! Du solltest eine E-Mail mit Anweisungen zum Zurücksetzen deines Passworts erhalten haben.",
+      "resetPasswordSuccess": "Prüfe deinen Posteingang! Du solltest eine E-Mail mit Anweisungen zum Zurücksetzen deines Passworts erhalten haben.",
       "resetPasswordAction": "Mir einen Link zum Zurücksetzen des Passworts senden",
       "resetPassword": "Dein Passwort zurücksetzen",
       "passwordRepeat": "Gib dein Passwort erneut ein"

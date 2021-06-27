@@ -683,7 +683,7 @@
       "totpTitle": "Code d’authentification à deux facteurs",
       "confirmEmailSuccess": "Tu as bien confirmé ton adresse courriel ! Tu peux te connecter maintenant.",
       "passwordsDontMatch": "Les mots de passe ne correspondent pas",
-      "restPasswordSuccess": "Vérifie ta boîte de réception ! Tu devrais recevoir un courriel contenant des instructions sur la manière de réinitialiser ton mot de passe.",
+      "resetPasswordSuccess": "Vérifie ta boîte de réception ! Tu devrais recevoir un courriel contenant des instructions sur la manière de réinitialiser ton mot de passe.",
       "resetPasswordAction": "M’envoyer un lien de réinitialisation du mot de passe",
       "resetPassword": "Réinitialiser ton mot de passe",
       "passwordPlaceholder": "p. ex. •••••••••••",

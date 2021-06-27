@@ -293,7 +293,7 @@
       "passwordPlaceholder": "",
       "usernamePlaceholder": "",
       "emailPlaceholder": "",
-      "restPasswordSuccess": ""
+      "resetPasswordSuccess": ""
     }
   },
   "404": {
