@@ -1,529 +1,529 @@
 {
-  "404": {
-    "title": "Nicht gefunden",
-    "text": "Die angeforderte Seite existiert nicht."
-  },
-  "filters": {
-    "create": {
-      "action": "Neuen gespeicherten Filter erstellen",
-      "description": "Ein gespeicherter Filter ist eine virtuelle Liste, die bei jedem Zugriff aus einem Satz von Filtern errechnet wird. Einmal erstellt, erscheint er in einem speziellen Namensraum.",
-      "title": "Einen gespeicherten Filter erstellen"
+    "404": {
+        "title": "Nicht gefunden",
+        "text": "Die angeforderte Seite existiert nicht."
     },
-    "attributes": {
-      "descriptionPlaceholder": "Die Beschreibung steht hier …",
-      "description": "Beschreibung",
-      "titlePlaceholder": "Der gespeicherte Filtertitel steht hier …",
-      "title": "Titel"
+    "filters": {
+        "create": {
+            "action": "Neuen gespeicherten Filter erstellen",
+            "description": "Ein gespeicherter Filter ist eine virtuelle Liste, die bei jedem Zugriff aus einem Satz von Filtern errechnet wird. Einmal erstellt, erscheint er in einem speziellen Namensraum.",
+            "title": "Einen gespeicherten Filter erstellen"
+        },
+        "attributes": {
+            "descriptionPlaceholder": "Die Beschreibung steht hier …",
+            "description": "Beschreibung",
+            "titlePlaceholder": "Der gespeicherte Filtertitel steht hier …",
+            "title": "Titel"
+        },
+        "delete": {
+            "header": "Diesen gespeicherten Filter löschen",
+            "success": "Der Filter wurde erfolgreich gelöscht."
+        },
+        "edit": {
+            "success": "Der Filter wurde erfolgreich gespeichert.",
+            "title": "Diesen gespeicherten Filter bearbeiten"
+        },
+        "title": "Filter"
     },
-    "delete": {
-      "header": "Diesen gespeicherten Filter löschen",
-      "success": "Der Filter wurde erfolgreich gelöscht."
+    "sharing": {
+        "authenticating": "Authentifizierung …",
+        "invalidPassword": "Das Passwort ist ungültig.",
+        "error": "Es ist ein Fehler aufgetreten."
     },
-    "edit": {
-      "success": "Der Filter wurde erfolgreich gespeichert.",
-      "title": "Diesen gespeicherten Filter bearbeiten"
+    "label": {
+        "attributes": {
+            "color": "Farbe",
+            "description": "Beschreibung",
+            "title": "Titel"
+        }
     },
-    "title": "Filter"
-  },
-  "sharing": {
-    "authenticating": "Authentifizierung …",
-    "invalidPassword": "Das Passwort ist ungültig.",
-    "error": "Es ist ein Fehler aufgetreten."
-  },
-  "label": {
-    "attributes": {
-      "color": "Farbe",
-      "description": "Beschreibung",
-      "title": "Titel"
-    }
-  },
-  "misc": {
-    "search": "Suchen",
-    "copy": "In Zwischenablage kopieren",
-    "disable": "Deaktivieren",
-    "confirm": "Bestätigen",
-    "delete": "Löschen",
-    "save": "Speichern",
-    "loading": "Wird geladen …",
-    "previous": "Vorherige",
-    "next": "Weiter",
-    "poweredBy": "Angetrieben von Vikunja"
-  },
-  "task": {
-    "delete": "Diese Aufgabe löschen",
-    "new": "Eine neue Aufgabe erstellen",
-    "task": "Aufgabe",
-    "show": {
-      "titleCurrent": "Aktuelle Aufgaben",
-      "noTasks": "Nichts zu tun – Einen schönen Tag noch!",
-      "today": "Heute",
-      "nextWeek": "Nächste Woche"
+    "misc": {
+        "search": "Suchen",
+        "copy": "In Zwischenablage kopieren",
+        "disable": "Deaktivieren",
+        "confirm": "Bestätigen",
+        "delete": "Löschen",
+        "save": "Speichern",
+        "loading": "Wird geladen …",
+        "previous": "Vorherige",
+        "next": "Weiter",
+        "poweredBy": "Angetrieben von Vikunja"
     },
-    "detail": {
-      "created": "Erstellt {0} von {1}",
-      "undone": "Als unerledigt markieren",
-      "done": "Fertig!",
-      "move": "Aufgabe in eine andere Liste verschieben",
-      "delete": {
-        "header": "Diese Aufgabe löschen"
-      },
-      "deleteSuccess": "Die Aufgabe wurde erfolgreich gelöscht.",
-      "updateSuccess": "Die Aufgabe wurde erfolgreich gespeichert.",
-      "doneAt": "Erledigt {0}",
-      "updated": "Aktualisiert {0}",
-      "actions": {
-        "priority": "Priorität einstellen",
-        "reminders": "Erinnerungen einstellen",
-        "relatedTasks": "Aufgabenbeziehungen hinzufügen",
-        "attachments": "Anhänge hinzufügen",
-        "delete": "Aufgabe löschen",
-        "color": "Taskfarbe einstellen",
-        "moveList": "Aufgabe verschieben"
-      }
-    },
-    "attributes": {
-      "color": "Farbe",
-      "done": "Fertig",
-      "createdBy": "Erstellt von",
-      "created": "Erstellt",
-      "endDate": "Enddatum",
-      "dueDate": "Fälligkeitsdatum",
-      "title": "Titel",
-      "startDate": "Anfangsdatum",
-      "relatedTasks": "Verwandte Aufgaben",
-      "priority": "Priorität",
-      "percentDone": "% erledigt",
-      "repeat": "Wiederholen",
-      "reminders": "Erinnerungen",
-      "updated": "Aktualisiert"
-    },
-    "subscription": {
-      "subscribeSuccess": "Du bist jetzt bei dieser {entity} abonniert",
-      "unsubscribe": "Deabonnieren",
-      "subscribe": "Abonnieren"
-    },
-    "attachment": {
-      "download": "Herunterladen",
-      "createdBy": "erstellt {0} von {1}"
-    },
-    "comment": {
-      "placeholder": "Füge deinen Kommentar hinzu …",
-      "creating": "Kommentar wird erstellt …",
-      "edited": "bearbeitet {date}",
-      "loading": "Kommentare werden geladen …",
-      "addedSuccess": "Der Kommentar wurde erfolgreich hinzugefügt.",
-      "deleteText2": "Dies kann nicht rückgängig gemacht werden!",
-      "deleteText1": "Bist du sicher, dass du diesen Kommentar löschen willst?",
-      "delete": "Diesen Kommentar löschen",
-      "comment": "Kommentar"
-    },
-    "description": {
-      "empty": "Noch keine Beschreibung vorhanden.",
-      "placeholder": "Klicke hier, um eine Beschreibung einzugeben …"
-    },
-    "deferDueDate": {
-      "1week": "1 Woche",
-      "3days": "3 Tage",
-      "1day": "1 Tag"
-    },
-    "assignee": {
-      "unassignSuccess": "Die Zuweisung wurde erfolgreich aufgehoben.",
-      "assignSuccess": "Der/Die Benutzer:in wurde erfolgreich zugewiesen.",
-      "selectPlaceholder": "Diese:n Benutzer:in zuweisen",
-      "placeholder": "Tippe, um eine:n Benutzer:in zuzuweisen …"
-    },
-    "priority": {
-      "doNow": "JETZT TUN",
-      "urgent": "Dringend",
-      "low": "Niedrig",
-      "unset": "Nicht eingestellt"
-    },
-    "repeat": {
-      "each": "Jede/n",
-      "years": "Jahre",
-      "months": "Monate",
-      "weeks": "Wochen",
-      "days": "Tage",
-      "hours": "Stunden",
-      "specifyAmount": "Gib einen Anzahl an …",
-      "fromCurrentDate": "Ab aktuellem Datum",
-      "monthly": "Monatlich",
-      "mode": "Wiederholungsmodus",
-      "everyMonth": "Jeden Monat",
-      "everyWeek": "Jede Woche",
-      "everyDay": "Jeden Tag"
-    },
-    "relation": {
-      "deleteText2": "Dies kann nicht rückgängig gemacht werden!"
-    }
-  },
-  "team": {
-    "edit": {
-      "delete": {
-        "header": "Team löschen",
-        "success": "Das Team wurde erfolgreich gelöscht.",
-        "text2": "Alle Teammitglieder verlieren den Zugriff auf Listen und Namensräume, die mit diesem Team geteilt sind. Dies KANN NICHT RÜCKGÄNGIG gemacht werden!",
-        "text1": "Bist du sicher, dass du dieses Team und alle seine Mitglieder löschen willst?"
-      },
-      "madeAdmin": "Das Teammitglied wurde erfolgreich zum Admin gemacht.",
-      "madeMember": "Das Teammitglied wurde erfolgreich zum Mitglied gemacht.",
-      "userAddedSuccess": "Das Teammitglied wurde erfolgreich hinzugefügt.",
-      "success": "Das Team wurde erfolgreich aktualisiert.",
-      "addUser": "Zum Team hinzufügen",
-      "members": "Teammitglieder",
-      "title": "Team „{team}“ bearbeiten",
-      "deleteUser": {
-        "header": "Benutzer:innen aus dem Team entfernen",
-        "success": "Der/Die Benutzer:in wurde erfolgreich aus dem Team gelöscht.",
-        "text2": "Er oder sie verliert den Zugriff auf alle Listen und Namensräumen, auf die dieses Team Zugriff hat. Dies KANN NICHT RÜCKGÄNGIG gemacht werden!",
-        "text1": "Bist du sicher, dass du diese:n Benutzer:in aus dem Team entfernen willst?"
-      }
-    },
-    "create": {
-      "success": "Das Team wurde erfolgreich erstellt.",
-      "title": "Ein neues Team erstellen"
-    },
-    "title": "Teams",
-    "attributes": {
-      "description": "Beschreibung",
-      "descriptionPlaceholder": "Die Beschreibung des Teams steht hier …",
-      "member": "Mitglied",
-      "admin": "Admin",
-      "name": "Teamname",
-      "namePlaceholder": "Der Name des Teams steht hier …",
-      "nameRequired": "Bitte gib einen Namen an."
-    },
-    "noTeams": "Du bist derzeit nicht Teil eines Teams."
-  },
-  "namespace": {
-    "create": {
-      "explanation": "Ein Namensraum ist eine Sammlung von Listen, die man teilen und verwenden kann, um seine Listen zu organisieren. Tatsächlich gehört jede Liste zu einem Namensraum.",
-      "success": "Der Namensraum wurde erfolgreich angelegt.",
-      "tooltip": "Was ist ein Namensraum?",
-      "title": "Einen neuen Namensraum erstellen"
-    },
-    "attributes": {
-      "isArchived": "Dieser Namensraum wird archiviert",
-      "archived": "Ist archiviert",
-      "color": "Farbe",
-      "descriptionPlaceholder": "Die Beschreibung des Namensraums steht hier …",
-      "description": "Beschreibung",
-      "titlePlaceholder": "Der Titel des Namensraums steht hier …",
-      "title": "Namensraumtitel"
-    },
-    "share": {
-      "title": "„{namespace}“ teilen"
-    },
-    "edit": {
-      "success": "Der Namensraum wurde erfolgreich aktualisiert.",
-      "title": "„{namespace}“ bearbeiten"
-    },
-    "delete": {
-      "success": "Der Namensraum wurde erfolgreich gelöscht.",
-      "text2": "Dies umfasst alle Listen und Aufgaben und kann NICHT rückgängig gemacht werden!",
-      "title": "„{namespace}“ löschen"
-    },
-    "archive": {
-      "description": "Wenn ein Namensraum archiviert ist, kann man keine neuen Listen erstellen oder ihn bearbeiten.",
-      "success": "Der Namensraum wurde erfolgreich archiviert.",
-      "titleUnarchive": "Archivierung von „{namespace}“ aufheben",
-      "titleArchive": "„{namespace}“ archivieren"
-    },
-    "noLists": "Dieser Namensraum enthält keine Listen.",
-    "title": "Namensräume & Listen",
-    "unarchive": "Archivierung aufheben",
-    "archived": "Archiviert",
-    "showArchived": "Archivierte anzeigen"
-  },
-  "list": {
-    "kanban": {
-      "bucketTitleSavedSuccess": "Der Eimertitel wurde erfolgreich gespeichert.",
-      "deleteBucketSuccess": "Der Eimer wurde erfolgreich gelöscht.",
-      "deleteBucketText2": "Dies löscht keine Aufgaben, sondern verschiebt sie in den Standard-Eimer.",
-      "deleteHeaderBucket": "Den Eimer löschen",
-      "addBucket": "Einen neuen Eimer erstellen",
-      "addAnotherTask": "Weitere Aufgabe hinzufügen",
-      "addTask": "Eine Aufgabe hinzufügen",
-      "doneBucket": "Erledigte-Dinge-Eimer",
-      "noLimit": "Nicht eingestellt",
-      "title": "Kanban"
-    },
-    "table": {
-      "columns": "Spalten",
-      "title": "Tabelle"
-    },
-    "gantt": {
-      "to": "An",
-      "from": "Von",
-      "day": "Tag",
-      "month": "Monat",
-      "default": "Standard",
-      "size": "Größe",
-      "showTasksWithoutDates": "Aufgaben anzeigen, für die keine Termine festgelegt sind",
-      "title": "Gantt"
-    },
-    "list": {
-      "empty": "Diese Liste ist derzeit leer.",
-      "addPlaceholder": "Eine neue Aufgabe hinzufügen …",
-      "add": "Hinzufügen",
-      "title": "Liste",
-      "addTitleRequired": "Bitte gib einen Titel an."
-    },
-    "share": {
-      "title": "„{Liste}“ teilen",
-      "header": "Diese Liste teilen",
-      "userTeam": {
-        "notShared": "Noch nicht mit {type} geteilt.",
-        "you": "Du",
-        "shared": "Geteilt mit diesen {type}",
-        "typeTeam": "Team | Teams",
-        "typeUser": "Benutzer:in | Benutzer:innen"
-      },
-      "attributes": {
-        "sharedBy": "Geteilt von",
-        "name": "Name",
-        "link": "Link"
-      },
-      "right": {
-        "admin": "Admin",
-        "read": "Nur lesen"
-      },
-      "links": {
-        "noName": "Kein Name angegeben",
-        "passwordExplanation": "Bei der Authentifizierung wird der/die Benutzer:in aufgefordert, dieses Passwort einzugeben.",
-        "password": "Passwort (optional)"
-      },
-      "share": "Teilen"
-    },
-    "edit": {
-      "success": "Die Liste wurde erfolgreich aktualisiert.",
-      "color": "Farbe",
-      "descriptionPlaceholder": "Die Listenbeschreibung geht hier …",
-      "description": "Beschreibung",
-      "identifierPlaceholder": "Der Listenbezeichner geht hier …",
-      "identifier": "Listebezeichner",
-      "identifierTooltip": "Der Listenbezeichner kann zur eindeutigen Identifizierung einer Aufgabe über Listen hinweg verwendet werden. Man kann ihn auf leer setzen, um ihn zu deaktivieren.",
-      "titlePlaceholder": "Der Titel der Liste steht hier …",
-      "title": "„{list}“ bearbeiten",
-      "header": "Diese Liste bearbeiten"
-    },
-    "duplicate": {
-      "success": "Die Liste wurde erfolgreich dupliziert.",
-      "label": "Duplizieren",
-      "title": "Diese Liste duplizieren",
-      "text": "Wähle einen Namensraum aus, der die duplizierte Liste enthalten soll:"
-    },
-    "delete": {
-      "success": "Die Liste wurde erfolgreich gelöscht.",
-      "text2": "Dies umfasst alle Aufgaben und kann NICHT rückgängig gemacht werden!",
-      "header": "Diese Liste löschen",
-      "title": "„{list}“ löschen",
-      "text1": "Bist du sicher, dass du diese Liste und alle ihre Inhalte löschen willst?"
-    },
-    "background": {
-      "removeSuccess": "Der Hintergrund ist erfolgreich entfernt worden!",
-      "success": "Der Hintergrund ist erfolgreich eingestellt worden!",
-      "loadMore": "Mehr Fotos laden",
-      "poweredByUnsplash": "Angetrieben von Unsplash",
-      "searchPlaceholder": "Nach einem Hintergrund suchen …",
-      "remove": "Hintergrund entfernen",
-      "title": "Listenhintergrund festlegen",
-      "upload": "Wähle einen Hintergrund von deinem Computer"
-    },
-    "archive": {
-      "success": "Die Liste wurde erfolgreich archiviert.",
-      "unarchive": "Archivierung dieser Liste aufheben",
-      "archive": "Diese Liste archivieren",
-      "title": "„{Liste}“ archivieren",
-      "archiveText": "Du kannst diese Liste nicht bearbeiten oder neue Aufgaben erstellen, bis du das Archiv aufhebst.",
-      "unarchiveText": "Du kannst neue Aufgaben erstellen oder sie bearbeiten."
-    },
-    "create": {
-      "createdSuccess": "Die Liste wurde erfolgreich erstellt.",
-      "titlePlaceholder": "Der Titel der Liste steht hier …",
-      "header": "Eine neue Liste erstellen"
-    },
-    "color": "Farbe",
-    "searchSelect": "Klicke auf oder drücke die Eingabetaste, um diese Liste auszuwählen",
-    "search": "Tippe, um nach einer Liste zu suchen …",
-    "lists": "Listen",
-    "title": "Listentitel",
-    "archived": "Diese Liste wird archiviert. Es ist nicht möglich, neue Aufgaben zu erstellen oder sie zu bearbeiten."
-  },
-  "user": {
-    "settings": {
-      "caldav": {
-        "title": "Caldav",
-        "more": "Mehr Informationen über CalDAV in Vikunja"
-      },
-      "totp": {
-        "disableSuccess": "Die Zwei-Faktor-Authentifizierung wurde erfolgreich deaktiviert.",
-        "passcode": "Passcode",
-        "enroll": "Einschreiben",
-        "title": "Zwei-Faktor-Authentifizierung",
-        "disable": "Zwei-Faktor-Authentifizierung deaktivieren",
-        "enterPassword": "Bitte gib dein Passwort ein",
-        "setupSuccess": "Du hast die Zwei-Faktor-Authentifizierung erfolgreich eingerichtet!",
-        "scanQR": "Alternativ kannst du auch diesen QR-Code scannen:",
-        "finishSetupPart2": "Danach gib unten einen Code aus deiner Anwendung ein."
-      },
-      "general": {
-        "weekStartMonday": "Montag",
-        "weekStartSunday": "Sonntag",
-        "weekStart": "Woche beginnt am",
-        "playSoundWhenDone": "Einen Ton abspielen, wenn Aufgaben als erledigt markiert werden",
-        "discoverableByEmail": "Andere Benutzer:innen mich finden lassen, wenn sie nach meiner vollständigen E-Mail suchen",
-        "discoverableByName": "Andere Benutzer:innen mich finden lassen, wenn sie nach meinem Namen suchen",
-        "overdueReminders": "Mir jeden Morgen Erinnerungen für überfällige unerledigte Aufgaben per E-Mail senden",
-        "emailReminders": "Mir Erinnerungen für Aufgaben per E-Mail senden",
-        "savedSuccess": "Die Einstellungen wurden erfolgreich aktualisiert.",
-        "newName": "Der neue Name",
-        "name": "Name",
-        "title": "Allgemeine Einstellungen",
-        "language": "Sprache"
-      },
-      "updateEmailNew": "Neue E-Mail-Adresse",
-      "passwordUpdateSuccess": "Das Passwort wurde erfolgreich aktualisiert.",
-      "passwordsDontMatch": "Das neue Passwort und seine Bestätigung stimmen nicht überein.",
-      "currentPassword": "Aktuelles Passwort",
-      "newPasswordConfirm": "Neue Passwortbestätigung",
-      "newPassword": "Neues Passwort",
-      "title": "Einstellungen",
-      "currentPasswordPlaceholder": "Dein aktuelles Passwort",
-      "newPasswordTitle": "Aktualisiere dein Passwort",
-      "avatar": {
-        "gravatar": "Gravatar",
-        "title": "Avatar",
-        "setSuccess": "Der Avatar wurde erfolgreich gesetzt!",
-        "statusUpdateSuccess": "Avatar-Status wurde erfolgreich aktualisiert!",
-        "uploadAvatar": "Avatar hochladen",
-        "upload": "Hochladen"
-      },
-      "updateEmailSuccess": "Deine E-Mail-Adresse wurde erfolgreich aktualisiert. Wir haben dir einen Link zur Bestätigung geschickt.",
-      "updateEmailTitle": "Aktualisiere deine E-Mail-Adresse"
-    },
-    "auth": {
-      "openIdStateError": "Zustand stimmt nicht überein, weigert sich fortzufahren!",
-      "authenticating": "Authentifizierung …",
-      "loginWith": "Mit {provider} anmelden",
-      "register": "Registrieren",
-      "login": "Anmelden",
-      "totpPlaceholder": "z.B. 123456",
-      "totpTitle": "Zwei-Faktor-Authentifizierungscode",
-      "passwordsDontMatch": "Passwörter stimmen nicht überein",
-      "passwordPlaceholder": "z.B. •••••••••••",
-      "password": "Passwort",
-      "emailPlaceholder": "z.B. frederic@vikunja.io",
-      "email": "E-Mail-Adresse",
-      "usernamePlaceholder": "z.B. frederick",
-      "usernameEmail": "Benutzername oder E-Mail-Adresse",
-      "username": "Benutzername",
-      "logout": "Abmelden",
-      "confirmEmailSuccess": "Du hast deine E-Mail erfolgreich bestätigt! Du kannst dich jetzt anmelden.",
-      "resetPasswordSuccess": "Prüfe deinen Posteingang! Du solltest eine E-Mail mit Anweisungen zum Zurücksetzen deines Passworts erhalten haben.",
-      "resetPasswordAction": "Mir einen Link zum Zurücksetzen des Passworts senden",
-      "resetPassword": "Dein Passwort zurücksetzen",
-      "passwordRepeat": "Gib dein Passwort erneut ein"
-    }
-  },
-  "home": {
-    "list": {
-      "new": "Eine neue Liste erstellen",
-      "import": "Deine Daten in Vikunja importieren",
-      "importText": "Oder importiere deine Listen und Aufgaben aus anderen Diensten in Vikunja:",
-      "newText": "Du kannst eine neue Liste für deine neuen Aufgaben erstellen:"
-    },
-    "welcome": "Hallo {username}"
-  },
-  "menu": {
-    "setBackground": "Hintergrund einstellen",
-    "unarchive": "Archivierung aufheben",
-    "delete": "Löschen",
-    "duplicate": "Duplizieren",
-    "archive": "Archivieren",
-    "edit": "Bearbeiten",
-    "share": "Teilen",
-    "newList": "Neue Liste"
-  },
-  "update": {
-    "do": "Jetzt aktualisieren",
-    "available": "Es ist ein Aktualisierung für Vikunja verfügbar!"
-  },
-  "keyboardShortcuts": {
     "task": {
-      "assign": "Diese Aufgabe zu einem/einer Benutzer:in zuweisen",
-      "done": "Eine Aufgabe als erledigt markieren",
-      "title": "Aufgabenseite"
+        "delete": "Diese Aufgabe löschen",
+        "new": "Eine neue Aufgabe erstellen",
+        "task": "Aufgabe",
+        "show": {
+            "titleCurrent": "Aktuelle Aufgaben",
+            "noTasks": "Nichts zu tun. Einen schönen Tag noch!",
+            "today": "Heute",
+            "nextWeek": "Nächste Woche"
+        },
+        "detail": {
+            "created": "Erstellt {0} von {1}",
+            "undone": "Als unerledigt markieren",
+            "done": "Fertig!",
+            "move": "Aufgabe in eine andere Liste verschieben",
+            "delete": {
+                "header": "Diese Aufgabe löschen"
+            },
+            "deleteSuccess": "Die Aufgabe wurde erfolgreich gelöscht.",
+            "updateSuccess": "Die Aufgabe wurde erfolgreich gespeichert.",
+            "doneAt": "Erledigt {0}",
+            "updated": "Aktualisiert {0}",
+            "actions": {
+                "priority": "Priorität einstellen",
+                "reminders": "Erinnerungen einstellen",
+                "relatedTasks": "Aufgabenbeziehungen hinzufügen",
+                "attachments": "Anhänge hinzufügen",
+                "delete": "Aufgabe löschen",
+                "color": "Taskfarbe einstellen",
+                "moveList": "Aufgabe verschieben"
+            }
+        },
+        "attributes": {
+            "color": "Farbe",
+            "done": "Fertig",
+            "createdBy": "Erstellt von",
+            "created": "Erstellt",
+            "endDate": "Enddatum",
+            "dueDate": "Fälligkeitsdatum",
+            "title": "Titel",
+            "startDate": "Anfangsdatum",
+            "relatedTasks": "Verwandte Aufgaben",
+            "priority": "Priorität",
+            "percentDone": "% erledigt",
+            "repeat": "Wiederholen",
+            "reminders": "Erinnerungen",
+            "updated": "Aktualisiert"
+        },
+        "subscription": {
+            "subscribeSuccess": "Du bist jetzt bei dieser {entity} abonniert",
+            "unsubscribe": "Deabonnieren",
+            "subscribe": "Abonnieren"
+        },
+        "attachment": {
+            "download": "Herunterladen",
+            "createdBy": "erstellt {0} von {1}"
+        },
+        "comment": {
+            "placeholder": "Füge deinen Kommentar hinzu …",
+            "creating": "Kommentar wird erstellt …",
+            "edited": "bearbeitet {date}",
+            "loading": "Kommentare werden geladen …",
+            "addedSuccess": "Der Kommentar wurde erfolgreich hinzugefügt.",
+            "deleteText2": "Dies kann nicht rückgängig gemacht werden!",
+            "deleteText1": "Bist du sicher, dass du diesen Kommentar löschen willst?",
+            "delete": "Diesen Kommentar löschen",
+            "comment": "Kommentar"
+        },
+        "description": {
+            "empty": "Noch keine Beschreibung vorhanden.",
+            "placeholder": "Klicke hier, um eine Beschreibung einzugeben …"
+        },
+        "deferDueDate": {
+            "1week": "1 Woche",
+            "3days": "3 Tage",
+            "1day": "1 Tag"
+        },
+        "assignee": {
+            "unassignSuccess": "Die Zuweisung wurde erfolgreich aufgehoben.",
+            "assignSuccess": "Der/Die Benutzer:in wurde erfolgreich zugewiesen.",
+            "selectPlaceholder": "Diese:n Benutzer:in zuweisen",
+            "placeholder": "Tippe, um eine:n Benutzer:in zuzuweisen …"
+        },
+        "priority": {
+            "doNow": "JETZT TUN",
+            "urgent": "Dringend",
+            "low": "Niedrig",
+            "unset": "Nicht eingestellt"
+        },
+        "repeat": {
+            "each": "Jede/n",
+            "years": "Jahre",
+            "months": "Monate",
+            "weeks": "Wochen",
+            "days": "Tage",
+            "hours": "Stunden",
+            "specifyAmount": "Gib einen Anzahl an …",
+            "fromCurrentDate": "Ab aktuellem Datum",
+            "monthly": "Monatlich",
+            "mode": "Wiederholungsmodus",
+            "everyMonth": "Jeden Monat",
+            "everyWeek": "Jede Woche",
+            "everyDay": "Jeden Tag"
+        },
+        "relation": {
+            "deleteText2": "Dies kann nicht rückgängig gemacht werden!"
+        }
     },
-    "quickSearch": "Such-/Schnellaktionsleiste öffnen",
-    "toggleMenu": "Das Menü umschalten",
-    "currentPageOnly": "Diese Tastenkürzel funktionieren nur auf der aktuellen Seite.",
-    "allPages": "Diese Tastenkürzel funktionieren auf allen Seiten.",
-    "title": "Tastenkürzel"
-  },
-  "quickActions": {
-    "placeholder": "Gib einen Befehl oder eine Suche ein …",
-    "commands": "Befehle",
-    "hint": "Du kannst # verwenden, um nur nach Aufgaben zu suchen, *, um nur nach Listen zu suchen und @, um nur nach Teams zu suchen.",
-    "cmds": {
-      "newTeam": "Neues Team",
-      "newNamespace": "Neuer Namensraum",
-      "newList": "Neue Liste",
-      "newTask": "Neue Aufgabe"
+    "team": {
+        "edit": {
+            "delete": {
+                "header": "Team löschen",
+                "success": "Das Team wurde erfolgreich gelöscht.",
+                "text2": "Alle Teammitglieder verlieren den Zugriff auf Listen und Namensräume, die mit diesem Team geteilt sind. Dies KANN NICHT RÜCKGÄNGIG gemacht werden!",
+                "text1": "Bist du sicher, dass du dieses Team und alle seine Mitglieder löschen willst?"
+            },
+            "madeAdmin": "Das Teammitglied wurde erfolgreich zum Admin gemacht.",
+            "madeMember": "Das Teammitglied wurde erfolgreich zum Mitglied gemacht.",
+            "userAddedSuccess": "Das Teammitglied wurde erfolgreich hinzugefügt.",
+            "success": "Das Team wurde erfolgreich aktualisiert.",
+            "addUser": "Zum Team hinzufügen",
+            "members": "Teammitglieder",
+            "title": "Team „{team}“ bearbeiten",
+            "deleteUser": {
+                "header": "Benutzer:innen aus dem Team entfernen",
+                "success": "Der/Die Benutzer:in wurde erfolgreich aus dem Team gelöscht.",
+                "text2": "Er oder sie verliert den Zugriff auf alle Listen und Namensräumen, auf die dieses Team Zugriff hat. Dies KANN NICHT RÜCKGÄNGIG gemacht werden!",
+                "text1": "Bist du sicher, dass du diese:n Benutzer:in aus dem Team entfernen willst?"
+            }
+        },
+        "create": {
+            "success": "Das Team wurde erfolgreich erstellt.",
+            "title": "Ein neues Team erstellen"
+        },
+        "title": "Teams",
+        "attributes": {
+            "description": "Beschreibung",
+            "descriptionPlaceholder": "Die Beschreibung des Teams steht hier …",
+            "member": "Mitglied",
+            "admin": "Admin",
+            "name": "Teamname",
+            "namePlaceholder": "Der Name des Teams steht hier …",
+            "nameRequired": "Bitte gib einen Namen an."
+        },
+        "noTeams": "Du bist derzeit nicht Teil eines Teams."
     },
-    "createList": "Eine Liste im aktuellen Namensraum erstellen ({title})",
-    "createTask": "Eine Aufgabe in der aktuellen Liste erstellen ({title})",
-    "newTeam": "Gib den Namen des neuen Teams ein …",
-    "newNamespace": "Gib den Titel des neuen Namensraumes ein …",
-    "newTask": "Gib den Titel der neuen Aufgabe ein …",
-    "newList": "Gib den Titel der neuen Liste ein …",
-    "teams": "Teams",
-    "lists": "Listen",
-    "tasks": "Aufgaben"
-  },
-  "notification": {
-    "explainer": "Benachrichtigungen werden hier angezeigt, wenn Aktionen für Namensräume, Listen oder Aufgaben, die du abonniert hast, ausgeführt werden.",
-    "none": "Du hast keine Benachrichtigungen. Einen schönen Tag noch!"
-  },
-  "loadingError": {
-    "contact": "wende dich an uns",
-    "tryAgain": "versuche erneut",
-    "failed": "Das Laden ist fehlgeschlagen, bitte {0}. Wenn der Fehler weiterhin besteht, bitte {1}."
-  },
-  "apiConfig": {
-    "success": "Verwendung der Vikunja-Installation unter „{domain}“.",
-    "error": "Konnte die Vikunja-Installation unter „{domain}“ nicht finden oder verwenden.",
-    "signInOn": "Melde dich bei deinem Vikunja-Konto auf {0} an",
-    "change": "ändern",
-    "urlPlaceholder": "z.B. https://localhost:3456",
-    "url": "Vikunja-URL"
-  },
-  "error": {
-    "11001": "Der gespeicherte Filter existiert nicht.",
-    "7003": "Du hast keinen Zugriff auf diese Liste.",
-    "3005": "Der Listentitel darf nicht leer sein.",
-    "3004": "Du musst Leseberechtigungen für diese Liste haben, um diese Aktion ausführen zu können.",
-    "3001": "Die Liste existiert nicht.",
-    "1014": "Alte Passwort ist leer.",
-    "1013": "Neues Passwort ist leer.",
-    "1012": "E-Mail-Adresse des Benutzers nicht bestätigt.",
-    "1011": "Falscher Benutzername oder falsches Passwort.",
-    "1010": "Ungültiges E-Mail-Bestätigungs-Token.",
-    "1009": "Ungültiges Token zum Zurücksetzen des Passworts.",
-    "1008": "Es wird kein Token zum Zurücksetzen des Passworts bereitgestellt.",
-    "1006": "Die Benutzer-ID konnte nicht ermittelt werden.",
-    "1005": "Der/Die Benutzer:in existiert nicht.",
-    "1004": "Kein Benutzername und Passwort angegeben.",
-    "1002": "Es existiert bereits ein:e Benutzer:in mit dieser E-Mail-Adresse.",
-    "1001": "Es existiert bereits ein:e Benutzer:in mit diesem Benutzernamen.",
-    "0001": "Das darfst du nicht tun.",
-    "success": "Erfolg",
-    "error": "Fehler"
-  },
-  "date": {
-    "altFormatShort": "j M Y",
-    "altFormatLong": "j M Y H:i",
-    "ago": "vor {date}",
-    "locale": "de"
-  }
+    "namespace": {
+        "create": {
+            "explanation": "Ein Namensraum ist eine Sammlung von Listen, die man teilen und verwenden kann, um seine Listen zu organisieren. Tatsächlich gehört jede Liste zu einem Namensraum.",
+            "success": "Der Namensraum wurde erfolgreich angelegt.",
+            "tooltip": "Was ist ein Namensraum?",
+            "title": "Einen neuen Namensraum erstellen"
+        },
+        "attributes": {
+            "isArchived": "Dieser Namensraum wird archiviert",
+            "archived": "Ist archiviert",
+            "color": "Farbe",
+            "descriptionPlaceholder": "Die Beschreibung des Namensraums steht hier …",
+            "description": "Beschreibung",
+            "titlePlaceholder": "Der Titel des Namensraums steht hier …",
+            "title": "Namensraumtitel"
+        },
+        "share": {
+            "title": "„{namespace}“ teilen"
+        },
+        "edit": {
+            "success": "Der Namensraum wurde erfolgreich aktualisiert.",
+            "title": "„{namespace}“ bearbeiten"
+        },
+        "delete": {
+            "success": "Der Namensraum wurde erfolgreich gelöscht.",
+            "text2": "Dies umfasst alle Listen und Aufgaben und kann NICHT rückgängig gemacht werden!",
+            "title": "„{namespace}“ löschen"
+        },
+        "archive": {
+            "description": "Wenn ein Namensraum archiviert ist, kann man keine neuen Listen erstellen oder ihn bearbeiten.",
+            "success": "Der Namensraum wurde erfolgreich archiviert.",
+            "titleUnarchive": "Archivierung von „{namespace}“ aufheben",
+            "titleArchive": "„{namespace}“ archivieren"
+        },
+        "noLists": "Dieser Namensraum enthält keine Listen.",
+        "title": "Namensräume & Listen",
+        "unarchive": "Archivierung aufheben",
+        "archived": "Archiviert",
+        "showArchived": "Archivierte anzeigen"
+    },
+    "list": {
+        "kanban": {
+            "bucketTitleSavedSuccess": "Der Eimertitel wurde erfolgreich gespeichert.",
+            "deleteBucketSuccess": "Der Eimer wurde erfolgreich gelöscht.",
+            "deleteBucketText2": "Dies löscht keine Aufgaben, sondern verschiebt sie in den Standard-Eimer.",
+            "deleteHeaderBucket": "Den Eimer löschen",
+            "addBucket": "Einen neuen Eimer erstellen",
+            "addAnotherTask": "Weitere Aufgabe hinzufügen",
+            "addTask": "Eine Aufgabe hinzufügen",
+            "doneBucket": "Erledigte-Dinge-Eimer",
+            "noLimit": "Nicht eingestellt",
+            "title": "Kanban"
+        },
+        "table": {
+            "columns": "Spalten",
+            "title": "Tabelle"
+        },
+        "gantt": {
+            "to": "An",
+            "from": "Von",
+            "day": "Tag",
+            "month": "Monat",
+            "default": "Standard",
+            "size": "Größe",
+            "showTasksWithoutDates": "Aufgaben anzeigen, für die keine Termine festgelegt sind",
+            "title": "Gantt"
+        },
+        "list": {
+            "empty": "Diese Liste ist derzeit leer.",
+            "addPlaceholder": "Eine neue Aufgabe hinzufügen …",
+            "add": "Hinzufügen",
+            "title": "Liste",
+            "addTitleRequired": "Bitte gib einen Titel an."
+        },
+        "share": {
+            "title": "„{Liste}“ teilen",
+            "header": "Diese Liste teilen",
+            "userTeam": {
+                "notShared": "Noch nicht mit {type} geteilt.",
+                "you": "Du",
+                "shared": "Geteilt mit diesen {type}",
+                "typeTeam": "Team | Teams",
+                "typeUser": "Benutzer:in | Benutzer:innen"
+            },
+            "attributes": {
+                "sharedBy": "Geteilt von",
+                "name": "Name",
+                "link": "Link"
+            },
+            "right": {
+                "admin": "Admin",
+                "read": "Nur lesen"
+            },
+            "links": {
+                "noName": "Kein Name angegeben",
+                "passwordExplanation": "Bei der Authentifizierung wird der/die Benutzer:in aufgefordert, dieses Passwort einzugeben.",
+                "password": "Passwort (optional)"
+            },
+            "share": "Teilen"
+        },
+        "edit": {
+            "success": "Die Liste wurde erfolgreich aktualisiert.",
+            "color": "Farbe",
+            "descriptionPlaceholder": "Die Listenbeschreibung geht hier …",
+            "description": "Beschreibung",
+            "identifierPlaceholder": "Der Listenbezeichner geht hier …",
+            "identifier": "Listebezeichner",
+            "identifierTooltip": "Der Listenbezeichner kann zur eindeutigen Identifizierung einer Aufgabe über Listen hinweg verwendet werden. Man kann ihn auf leer setzen, um ihn zu deaktivieren.",
+            "titlePlaceholder": "Der Titel der Liste steht hier …",
+            "title": "„{list}“ bearbeiten",
+            "header": "Diese Liste bearbeiten"
+        },
+        "duplicate": {
+            "success": "Die Liste wurde erfolgreich dupliziert.",
+            "label": "Duplizieren",
+            "title": "Diese Liste duplizieren",
+            "text": "Wähle einen Namensraum aus, der die duplizierte Liste enthalten soll:"
+        },
+        "delete": {
+            "success": "Die Liste wurde erfolgreich gelöscht.",
+            "text2": "Dies umfasst alle Aufgaben und kann NICHT rückgängig gemacht werden!",
+            "header": "Diese Liste löschen",
+            "title": "„{list}“ löschen",
+            "text1": "Bist du sicher, dass du diese Liste und alle ihre Inhalte löschen willst?"
+        },
+        "background": {
+            "removeSuccess": "Der Hintergrund ist erfolgreich entfernt worden!",
+            "success": "Der Hintergrund ist erfolgreich eingestellt worden!",
+            "loadMore": "Mehr Fotos laden",
+            "poweredByUnsplash": "Angetrieben von Unsplash",
+            "searchPlaceholder": "Nach einem Hintergrund suchen …",
+            "remove": "Hintergrund entfernen",
+            "title": "Listenhintergrund festlegen",
+            "upload": "Wähle einen Hintergrund von deinem Computer"
+        },
+        "archive": {
+            "success": "Die Liste wurde erfolgreich archiviert.",
+            "unarchive": "Archivierung dieser Liste aufheben",
+            "archive": "Diese Liste archivieren",
+            "title": "„{Liste}“ archivieren",
+            "archiveText": "Du kannst diese Liste nicht bearbeiten oder neue Aufgaben erstellen, bis du das Archiv aufhebst.",
+            "unarchiveText": "Du kannst neue Aufgaben erstellen oder sie bearbeiten."
+        },
+        "create": {
+            "createdSuccess": "Die Liste wurde erfolgreich erstellt.",
+            "titlePlaceholder": "Der Titel der Liste steht hier …",
+            "header": "Eine neue Liste erstellen"
+        },
+        "color": "Farbe",
+        "searchSelect": "Klicke auf oder drücke die Eingabetaste, um diese Liste auszuwählen",
+        "search": "Tippe, um nach einer Liste zu suchen …",
+        "lists": "Listen",
+        "title": "Listentitel",
+        "archived": "Diese Liste wird archiviert. Es ist nicht möglich, neue Aufgaben zu erstellen oder sie zu bearbeiten."
+    },
+    "user": {
+        "settings": {
+            "caldav": {
+                "title": "CalDAV",
+                "more": "Mehr Informationen über CalDAV in Vikunja"
+            },
+            "totp": {
+                "disableSuccess": "Die Zwei-Faktor-Authentifizierung wurde erfolgreich deaktiviert.",
+                "passcode": "Passcode",
+                "enroll": "Einschreiben",
+                "title": "Zwei-Faktor-Authentifizierung",
+                "disable": "Zwei-Faktor-Authentifizierung deaktivieren",
+                "enterPassword": "Bitte gib dein Passwort ein",
+                "setupSuccess": "Du hast die Zwei-Faktor-Authentifizierung erfolgreich eingerichtet!",
+                "scanQR": "Alternativ kannst du auch diesen QR-Code scannen:",
+                "finishSetupPart2": "Danach gib unten einen Code aus deiner Anwendung ein."
+            },
+            "general": {
+                "weekStartMonday": "Montag",
+                "weekStartSunday": "Sonntag",
+                "weekStart": "Woche beginnt am",
+                "playSoundWhenDone": "Einen Ton abspielen, wenn Aufgaben als erledigt markiert werden",
+                "discoverableByEmail": "Andere Benutzer mich finden lassen, wenn sie nach meiner vollständigen E-Mail suchen",
+                "discoverableByName": "Andere Benutzer:innen mich finden lassen, wenn sie nach meinem Namen suchen",
+                "overdueReminders": "Mir jeden Morgen Erinnerungen für überfällige unerledigte Aufgaben per E-Mail senden",
+                "emailReminders": "Mir Erinnerungen für Aufgaben per E-Mail senden",
+                "savedSuccess": "Die Einstellungen wurden erfolgreich aktualisiert.",
+                "newName": "Der neue Name",
+                "name": "Name",
+                "title": "Allgemeine Einstellungen",
+                "language": "Sprache"
+            },
+            "updateEmailNew": "Neue E-Mail-Adresse",
+            "passwordUpdateSuccess": "Das Passwort wurde erfolgreich aktualisiert.",
+            "passwordsDontMatch": "Das neue Passwort und seine Bestätigung stimmen nicht überein.",
+            "currentPassword": "Aktuelles Passwort",
+            "newPasswordConfirm": "Neue Passwortbestätigung",
+            "newPassword": "Neues Passwort",
+            "title": "Einstellungen",
+            "currentPasswordPlaceholder": "Dein aktuelles Passwort",
+            "newPasswordTitle": "Aktualisiere dein Passwort",
+            "avatar": {
+                "gravatar": "Gravatar",
+                "title": "Avatar",
+                "setSuccess": "Der Avatar wurde erfolgreich gesetzt!",
+                "statusUpdateSuccess": "Avatar-Status wurde erfolgreich aktualisiert!",
+                "uploadAvatar": "Avatar hochladen",
+                "upload": "Hochladen"
+            },
+            "updateEmailSuccess": "Deine E-Mail-Adresse wurde erfolgreich aktualisiert. Wir haben dir einen Link zur Bestätigung geschickt.",
+            "updateEmailTitle": "Aktualisiere deine E-Mail-Adresse"
+        },
+        "auth": {
+            "openIdStateError": "Zustand stimmt nicht überein, weigert sich fortzufahren!",
+            "authenticating": "Authentifizierung …",
+            "loginWith": "Mit {provider} anmelden",
+            "register": "Registrieren",
+            "login": "Anmelden",
+            "totpPlaceholder": "z.B. 123456",
+            "totpTitle": "Zwei-Faktor-Authentifizierungscode",
+            "passwordsDontMatch": "Passwörter stimmen nicht überein",
+            "passwordPlaceholder": "z.B. •••••••••••",
+            "password": "Passwort",
+            "emailPlaceholder": "z.B. frederic@vikunja.io",
+            "email": "E-Mail-Adresse",
+            "usernamePlaceholder": "z.B. frederick",
+            "usernameEmail": "Benutzername oder E-Mail-Adresse",
+            "username": "Benutzername",
+            "logout": "Abmelden",
+            "confirmEmailSuccess": "Du hast deine E-Mail erfolgreich bestätigt! Du kannst dich jetzt anmelden.",
+            "resetPasswordSuccess": "Prüfe deinen Posteingang! Du solltest eine E-Mail mit Anweisungen zum Zurücksetzen deines Passworts erhalten haben.",
+            "resetPasswordAction": "Mir einen Link zum Zurücksetzen des Passworts senden",
+            "resetPassword": "Dein Passwort zurücksetzen",
+            "passwordRepeat": "Gib dein Passwort erneut ein"
+        }
+    },
+    "home": {
+        "list": {
+            "new": "Eine neue Liste erstellen",
+            "import": "Deine Daten in Vikunja importieren",
+            "importText": "Oder importiere deine Listen und Aufgaben aus anderen Diensten in Vikunja:",
+            "newText": "Du kannst eine neue Liste für deine neuen Aufgaben erstellen:"
+        },
+        "welcome": "Hallo {username}"
+    },
+    "menu": {
+        "setBackground": "Hintergrund einstellen",
+        "unarchive": "Archivierung aufheben",
+        "delete": "Löschen",
+        "duplicate": "Duplizieren",
+        "archive": "Archivieren",
+        "edit": "Bearbeiten",
+        "share": "Teilen",
+        "newList": "Neue Liste"
+    },
+    "update": {
+        "do": "Jetzt aktualisieren",
+        "available": "Es ist ein Aktualisierung für Vikunja verfügbar!"
+    },
+    "keyboardShortcuts": {
+        "task": {
+            "assign": "Diese Aufgabe zu einem/einer Benutzer:in zuweisen",
+            "done": "Eine Aufgabe als erledigt markieren",
+            "title": "Aufgabenseite"
+        },
+        "quickSearch": "Such-/Schnellaktionsleiste öffnen",
+        "toggleMenu": "Das Menü umschalten",
+        "currentPageOnly": "Diese Tastenkürzel funktionieren nur auf der aktuellen Seite.",
+        "allPages": "Diese Tastenkürzel funktionieren auf allen Seiten.",
+        "title": "Tastenkürzel"
+    },
+    "quickActions": {
+        "placeholder": "Gib einen Befehl oder eine Suche ein …",
+        "commands": "Befehle",
+        "hint": "Du kannst # verwenden, um nur nach Aufgaben zu suchen, *, um nur nach Listen zu suchen und @, um nur nach Teams zu suchen.",
+        "cmds": {
+            "newTeam": "Neues Team",
+            "newNamespace": "Neuer Namensraum",
+            "newList": "Neue Liste",
+            "newTask": "Neue Aufgabe"
+        },
+        "createList": "Eine Liste im aktuellen Namensraum erstellen ({title})",
+        "createTask": "Eine Aufgabe in der aktuellen Liste erstellen ({title})",
+        "newTeam": "Gib den Namen des neuen Teams ein …",
+        "newNamespace": "Gib den Titel des neuen Namensraumes ein …",
+        "newTask": "Gib den Titel der neuen Aufgabe ein …",
+        "newList": "Gib den Titel der neuen Liste ein …",
+        "teams": "Teams",
+        "lists": "Listen",
+        "tasks": "Aufgaben"
+    },
+    "notification": {
+        "explainer": "Benachrichtigungen werden hier angezeigt, wenn Aktionen für Namensräume, Listen oder Aufgaben, die du abonniert hast, ausgeführt werden.",
+        "none": "Du hast keine Benachrichtigungen. Einen schönen Tag noch!"
+    },
+    "loadingError": {
+        "contact": "wende dich an uns",
+        "tryAgain": "versuche erneut",
+        "failed": "Das Laden ist fehlgeschlagen, bitte {0}. Wenn der Fehler weiterhin besteht, bitte {1}."
+    },
+    "apiConfig": {
+        "success": "Verwendung der Vikunja-Installation unter „{domain}“.",
+        "error": "Konnte die Vikunja-Installation unter „{domain}“ nicht finden oder verwenden.",
+        "signInOn": "Melde dich bei deinem Vikunja-Konto auf {0} an",
+        "change": "ändern",
+        "urlPlaceholder": "z.B. https://localhost:3456",
+        "url": "Vikunja-URL"
+    },
+    "error": {
+        "11001": "Der gespeicherte Filter existiert nicht.",
+        "7003": "Du hast keinen Zugriff auf diese Liste.",
+        "3005": "Der Listentitel darf nicht leer sein.",
+        "3004": "Du musst Leseberechtigungen für diese Liste haben, um diese Aktion ausführen zu können.",
+        "3001": "Die Liste existiert nicht.",
+        "1014": "Alte Passwort ist leer.",
+        "1013": "Neues Passwort ist leer.",
+        "1012": "E-Mail-Adresse des Benutzers nicht bestätigt.",
+        "1011": "Falscher Benutzername oder falsches Passwort.",
+        "1010": "Ungültiges E-Mail-Bestätigungs-Token.",
+        "1009": "Ungültiges Token zum Zurücksetzen des Passworts.",
+        "1008": "Es wird kein Token zum Zurücksetzen des Passworts bereitgestellt.",
+        "1006": "Die Benutzer-ID konnte nicht ermittelt werden.",
+        "1005": "Der/Die Benutzer:in existiert nicht.",
+        "1004": "Kein Benutzername und Passwort angegeben.",
+        "1002": "Es existiert bereits ein:e Benutzer:in mit dieser E-Mail-Adresse.",
+        "1001": "Es existiert bereits ein:e Benutzer:in mit diesem Benutzernamen.",
+        "0001": "Das darfst du nicht tun.",
+        "success": "Erfolg",
+        "error": "Fehler"
+    },
+    "date": {
+        "altFormatShort": "j M Y",
+        "altFormatLong": "j M Y H:i",
+        "ago": "vor {date}",
+        "locale": "de"
+    }
 }
