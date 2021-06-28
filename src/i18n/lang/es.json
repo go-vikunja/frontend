@@ -19,7 +19,15 @@
             "title": "Opciones",
             "updateEmailTitle": "Actualiza tu dirección de correo electrónico",
             "newPasswordConfirm": "Confirmar contraseña",
-            "passwordUpdateSuccess": "La contraseña se actualizó correctamente."
+            "passwordUpdateSuccess": "La contraseña se actualizó correctamente.",
+            "general": {
+                "savedSuccess": "Configuración actualizada.",
+                "newName": "El nombre nuevo",
+                "name": "Nombre",
+                "title": "Configuración General"
+            },
+            "updateEmailSuccess": "Dirección de correo electrónico actualizada. Haga clic en el enlace del correo electrónico que se te ha enviado para confirmarlo.",
+            "updateEmailNew": "Nueva dirección de correo electrónico"
         },
         "auth": {
             "login": "Ingresar",
