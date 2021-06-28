@@ -22,7 +22,6 @@ export default {
 	methods: {
 		createNewTask(newTaskTitle) {
 			const parsedTask = parseTaskText(newTaskTitle)
-			console.log(parsedTask)
 
 			const task = new TaskModel({
 				title: parsedTask.text,
@@ -34,41 +33,25 @@ export default {
 			return this.taskService.create(task)
 				.then(task => {
 
-					// The first element will always contain the title, even if there is no occurrence of ~
-					if (parsedTask.labels.length > 1) {
+					if (parsedTask.labels.length > 0) {
 
-						// First, create an unresolved promise for each entry in the array to wait
-						// until all labels are added to update the task title once again
-						let labelAddings = []
 						let labelAddsToWaitFor = []
-						parsedTask.labels.forEach((p, index) => {
-							if (index < 1) {
-								return
-							}
 
-							labelAddsToWaitFor.push(new Promise((resolve, reject) => {
-								labelAddings.push({resolve: resolve, reject: reject})
-							}))
-						})
-
-						const addLabelToTask = (label, index) => {
+						const addLabelToTask = label => {
 							const labelTask = new LabelTask({
 								taskId: task.id,
 								labelId: label.id,
 							})
-							this.labelTaskService.create(labelTask)
+							return this.labelTaskService.create(labelTask)
 								.then(result => {
 									task.labels.push(label)
-									// Make the promise done (the one with the index 0 does not exist)
-									labelAddings[index - 1].resolve(result)
+									return Promise.resolve(result)
 								})
-								.catch(e => {
-									this.error(e)
-								})
+								.catch(e => Promise.reject(e))
 						}
 
 						// Then do everything that is involved in finding, creating and adding the label to the task
-						parsedTask.labels.forEach((labelTitle, index) => {
+						parsedTask.labels.forEach(labelTitle => {
 							// Check if the label exists
 							const label = Object.values(this.labels).find(l => {
 								return l.title.toLowerCase() === labelTitle.toLowerCase()
@@ -76,17 +59,16 @@ export default {
 
 							// Label found, use it
 							if (typeof label !== 'undefined') {
-								addLabelToTask(label, index)
+								labelAddsToWaitFor.push(addLabelToTask(label))
 							} else {
 								// label not found, create it
 								const label = new LabelModel({title: labelTitle})
-								this.$store.dispatch('labels/createLabel', label)
+								labelAddsToWaitFor.push(this.$store.dispatch('labels/createLabel', label)
 									.then(res => {
-										addLabelToTask(res, index)
+										return addLabelToTask(res)
 									})
-									.catch(e => {
-										this.error(e)
-									})
+									.catch(e => Promise.reject(e))
+								)
 							}
 						})
 
@@ -99,10 +81,7 @@ export default {
 
 					return Promise.resolve(task)
 				})
-				.catch(e => {
-					this.error(e)
-					return Promise.reject(e)
-				})
+				.catch(e => Promise.reject(e))
 		},
 	},
 }

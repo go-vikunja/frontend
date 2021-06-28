@@ -232,6 +232,9 @@ export default {
 					this.sortTasks()
 					this.newTaskText = ''
 				})
+				.catch(e => {
+					this.error(e)
+				})
 		},
 		editTask(id) {
 			// Find the selected task and set it to the current object
