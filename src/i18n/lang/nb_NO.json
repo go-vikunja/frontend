@@ -1,1 +1,434 @@
-{}
+{
+    "namespace": {
+        "namespace": "Navnerom",
+        "edit": {
+            "title": "Rediger «{namespace}»",
+            "success": "Navnerom oppdatert."
+        },
+        "delete": {
+            "title": "Slett «{namespace}»",
+            "success": "Navnerom slettet."
+        },
+        "archive": {
+            "success": "Navnerom arkivert.",
+            "titleArchive": "Arkiver «{namespace}»",
+            "titleUnarchive": "Avarkiver «{namespace}»"
+        },
+        "share": {
+            "title": "Del «{namespace}»"
+        },
+        "create": {
+            "title": "Opprett et nytt navnerom",
+            "success": "Navnerom opprettet.",
+            "tooltip": "Hva er et navnerom?"
+        },
+        "search": "Skriv for å søke etter et navnerom …",
+        "namespaces": "Navnerommet",
+        "createList": "Opprett en ny liste i dette navnerommet.",
+        "noLists": "Dette navnerommet inneholder ingen lister.",
+        "attributes": {
+            "color": "Farge",
+            "description": "Beskrivelse"
+        },
+        "showArchived": "Vis arkiverte",
+        "archived": "Arkivert"
+    },
+    "list": {
+        "duplicate": {
+            "title": "Dupliser denne listen",
+            "success": "Liste duplisert.",
+            "text": "Velg et navnerom som skal romme den dupliserte listen:",
+            "label": "Dupliser"
+        },
+        "background": {
+            "poweredByUnsplash": "Kjøres med Unsplash",
+            "removeSuccess": "Bakgrunn fjernet.",
+            "success": "Bakgrunn satt.",
+            "searchPlaceholder": "Søk etter en bakgrunn …",
+            "remove": "Fjern bakgrunn",
+            "title": "Sett listebakgrunn",
+            "loadMore": "Last inn flere bilder",
+            "upload": "Velg en bakgrunn fra PC-en din"
+        },
+        "kanban": {
+            "deleteBucketSuccess": "Bøtte slettet.",
+            "addAnotherTask": "Legg til et annet gjøremål",
+            "addTask": "Legg til et gjøremål",
+            "deleteBucketText1": "Slett bøtten?",
+            "deleteHeaderBucket": "Slett bøtten",
+            "addBucket": "Opprett en ny bøtte",
+            "noLimit": "Ikke satt",
+            "limit": "Grense: {limit}"
+        },
+        "share": {
+            "links": {
+                "create": "Opprett en ny lenkedeling",
+                "deleteSuccess": "Lenke slettet",
+                "password": "Passord (valgfritt)",
+                "name": "Navn (valgfritt)",
+                "namePlaceholder": "f.eks. Lorem ipsum"
+            },
+            "right": {
+                "admin": "Admin",
+                "title": "Høyre"
+            },
+            "userTeam": {
+                "updatedSuccess": "{type} lagt til.",
+                "addedSuccess": "{type} lagt til.",
+                "removeSuccess": "{sharable} fjernet fra {type}.",
+                "you": "Deg"
+            },
+            "title": "Del «{list}»",
+            "header": "Del denne listen",
+            "attributes": {
+                "delete": "Slett",
+                "sharedBy": "Delt av",
+                "name": "Navn",
+                "link": "Lenke"
+            },
+            "share": "Del"
+        },
+        "edit": {
+            "title": "Rediger «{list}»",
+            "success": "Liste oppdatert.",
+            "description": "Beskrivelse",
+            "header": "Rediger denne listen",
+            "color": "Farge"
+        },
+        "table": {
+            "columns": "Kolonner",
+            "title": "Tabell"
+        },
+        "list": {
+            "title": "Liste",
+            "editTask": "Rediger gjøremål",
+            "newTaskCta": "Opprett et nytt gjøremål.",
+            "addPlaceholder": "Legg til nytt gjøremål …",
+            "add": "Legg til"
+        },
+        "delete": {
+            "success": "Liste slettet.",
+            "title": "Slett «{list}»",
+            "header": "Slett denne listen"
+        },
+        "archive": {
+            "archive": "Arkiver denne listen",
+            "title": "Arkiver «{list}»",
+            "success": "Liste arkivert."
+        },
+        "create": {
+            "createdSuccess": "Liste opprettet.",
+            "addTitleRequired": "Angi en tittel.",
+            "header": "Opprett en ny liste"
+        },
+        "shared": "Delte lister",
+        "search": "Skriv for å søke etter en liste …",
+        "lists": "Lister",
+        "color": "Farge",
+        "gantt": {
+            "to": "Til",
+            "from": "Fra",
+            "day": "Dag",
+            "month": "Måned",
+            "size": "Størrelse",
+            "title": "Gantt-skjema"
+        }
+    },
+    "user": {
+        "settings": {
+            "totp": {
+                "disable": "Skru av to-faktorbekreftelse",
+                "confirmSuccess": "TOTP-oppsett bekreftet, og klar til bruk.",
+                "enterPassword": "Skriv inn passordet ditt",
+                "scanQR": "Alternativt kan du skanne denne QR-koden:"
+            },
+            "avatar": {
+                "statusUpdateSuccess": "Avatarstatus oppdatert.",
+                "uploadAvatar": "Last opp avatar",
+                "initials": "Initialer",
+                "title": "Avatar",
+                "gravatar": "Gravatar",
+                "upload": "Last opp",
+                "setSuccess": "Avatar satt."
+            },
+            "caldav": {
+                "more": "Mer info om CalDAV i Vikunja",
+                "title": "CalDAV"
+            },
+            "general": {
+                "emailReminders": "Send meg påminnelser om gjøremål per e-post",
+                "savedSuccess": "Innstillinger oppdatert.",
+                "language": "Språk",
+                "weekStartMonday": "Mandag",
+                "weekStartSunday": "Søndag",
+                "weekStart": "Ukestart",
+                "newName": "Det nye navnet",
+                "name": "Navn",
+                "title": "Generelle innstillinger"
+            },
+            "passwordsDontMatch": "Nytt passord og bekreftelsen av det samsvarer ikke.",
+            "passwordUpdateSuccess": "Passord oppdatert.",
+            "updateEmailNew": "Ny e-postadresse",
+            "updateEmailTitle": "Oppdater din e-postadresse",
+            "currentPasswordPlaceholder": "Ditt nåværende passord",
+            "currentPassword": "Nåværende",
+            "newPasswordConfirm": "Bekreft nytt passord",
+            "newPassword": "Nytt passord",
+            "title": "Innstillinger",
+            "newPasswordTitle": "Oppdater passordet ditt"
+        },
+        "auth": {
+            "confirmEmailSuccess": "Du kan logge inn med din e-postadresse nå.",
+            "totpPlaceholder": "f.eks. 123456",
+            "emailPlaceholder": "f.eks. fredrik@vikunja.io",
+            "usernamePlaceholder": "f.eks. Fredrik",
+            "passwordPlaceholder": "f.eks. •••••••••••",
+            "logout": "Logg ut",
+            "loginWith": "Logg inn med {provider}",
+            "passwordsDontMatch": "Passordene samsvarer ikke",
+            "resetPassword": "Tilbakestill passordet ditt",
+            "passwordRepeat": "Skriv inn passordet igjen",
+            "password": "Passord",
+            "email": "E-postadresse",
+            "usernameEmail": "Brukernavn eller e-postadresse",
+            "username": "Brukernavn",
+            "authenticating": "Identitetsbekrefter …",
+            "register": "Registrer deg",
+            "login": "Logg inn",
+            "resetPasswordSuccess": "Sjekk innboksen din for e-post med instruks om tilbakestilling av passord.",
+            "resetPasswordAction": "Send lenke for tilbakestilling av passord."
+        }
+    },
+    "team": {
+        "attributes": {
+            "member": "Medlem",
+            "description": "Beskrivelse",
+            "nameRequired": "Angi et navn."
+        },
+        "edit": {
+            "deleteUser": {
+                "header": "Fjern en bruker fra laget",
+                "success": "Bruker fjernet fra laget."
+            },
+            "members": "Lagmedlemmer",
+            "delete": {
+                "success": "Lag slettet.",
+                "header": "Slett laget"
+            },
+            "search": "Skriv for å søke etter bruker…"
+        },
+        "create": {
+            "success": "Lag opprettet.",
+            "title": "Opprett et nytt lag"
+        },
+        "noTeams": "Du er ikke del av noen lag.",
+        "title": "Lag"
+    },
+    "task": {
+        "priority": {
+            "medium": "Middels",
+            "low": "Lav",
+            "doNow": "GJØR NÅ",
+            "urgent": "Haster",
+            "high": "Høy"
+        },
+        "label": {
+            "removeSuccess": "Etikett fjernet.",
+            "createSuccess": "Etikett opprettet.",
+            "addSuccess": "Etikett lagt til.",
+            "createPlaceholder": "Legg til dette som en ny etikett"
+        },
+        "detail": {
+            "actions": {
+                "label": "Legg til etiketter",
+                "delete": "Slett gjøremål",
+                "moveList": "Flytt gjøremål",
+                "attachments": "Legg til vedlegg",
+                "repeatAfter": "Sett gjentagelsesintervaller",
+                "reminders": "Sett påminnelser",
+                "endDate": "Sett en sluttdato",
+                "startDate": "Sett startdato",
+                "dueDate": "Sett fristdato",
+                "priority": "Sett prioritet"
+            },
+            "deleteSuccess": "Gjøremål slettet.",
+            "doneAt": "Ferdig {0}",
+            "updated": "Oppdatert {0}",
+            "created": "Opprettet {0} av {1}",
+            "chooseEndDate": "Klikk her for å sette en sluttdato",
+            "chooseStartDate": "Klikk her for å sette en startdato",
+            "chooseDueDate": "Klikk her for å sette en fristdato",
+            "delete": {
+                "header": "Slett dette gjøremålet"
+            },
+            "updateSuccess": "Gjøremål lagret."
+        },
+        "show": {
+            "today": "I dag",
+            "from": "Gjøremål fra",
+            "current": "Nåværende gjøremål",
+            "noDates": "Vis gjøremål uten datoer",
+            "titleCurrent": "Nåværende gjøremål",
+            "nextMonth": "Neste måned",
+            "nextWeek": "Neste uke"
+        },
+        "openDetail": "Åpne gjøremålets detaljvisning",
+        "undoneSuccess": "Gjøremål avmarkert som ferdig.",
+        "doneSuccess": "Gjøremål markert som ferdig.",
+        "addReminder": "Legg til ny påminnelse …",
+        "comment": {
+            "edited": "redigert {date}",
+            "loading": "Laster inn kommentarer …",
+            "title": "Kommentarer"
+        },
+        "attachment": {
+            "delete": "Slett vedlegg",
+            "title": "Vedlegg"
+        },
+        "attributes": {
+            "startDate": "Startdato",
+            "reminders": "Påminnelser",
+            "repeat": "Gjenta",
+            "relatedTasks": "Relaterte gjøremål",
+            "priority": "Prioritet",
+            "percentDone": "% ferdig",
+            "labels": "Etiketter",
+            "endDate": "Sluttdato",
+            "dueDate": "Fristdato",
+            "done": "Ferdig",
+            "description": "Beskrivelse",
+            "createdBy": "Opprettet av",
+            "created": "Opprettet",
+            "color": "Farge"
+        },
+        "delete": "Slett dette gjøremålet",
+        "new": "Opprett et nytt gjøremål",
+        "repeat": {
+            "years": "År",
+            "months": "Måneder",
+            "weeks": "Uker",
+            "days": "Dager",
+            "hours": "Timer",
+            "specifyAmount": "Angi mengde…",
+            "fromCurrentDate": "Fra nåværende dato",
+            "monthly": "Månedlig",
+            "everyMonth": "Hver måned",
+            "everyWeek": "Hver uke",
+            "everyDay": "Hver dag"
+        }
+    },
+    "label": {
+        "attributes": {
+            "description": "Beskrivelse",
+            "color": "Farge",
+            "descriptionPlaceholder": "Etikettbeskrivelse"
+        },
+        "deleteSuccess": "Etikett slettet.",
+        "edit": {
+            "success": "Etikett oppdatert.",
+            "header": "Rediger etikett"
+        },
+        "create": {
+            "title": "Opprett en ny etikett",
+            "header": "Ny etikett",
+            "success": "Etikett opprettet."
+        },
+        "manage": "Håndter etiketter",
+        "title": "Etiketter"
+    },
+    "filters": {
+        "create": {
+            "action": "Opprett nytt lagret filter"
+        },
+        "edit": {
+            "success": "Filter lagret."
+        },
+        "delete": {
+            "success": "Filter slettet.",
+            "text": "Er du sikker på at du ønsker å slette dette lagrede filteret?",
+            "header": "Slett dette lagrede filteret"
+        },
+        "attributes": {
+            "description": "Beskrivelse"
+        }
+    },
+    "misc": {
+        "searchPlaceholder": "Skriv for å søke …",
+        "disable": "Skru av",
+        "saving": "Lagrer …",
+        "create": "Opprett",
+        "info": "Info",
+        "next": "Neste",
+        "previous": "Forrige",
+        "search": "Søk",
+        "copy": "Kopier til utklippstavle",
+        "cancel": "Avbryt",
+        "confirm": "Bekreft",
+        "delete": "Slett",
+        "save": "Lagre",
+        "loading": "Laster inn …"
+    },
+    "navigation": {
+        "settings": "Innstillinger",
+        "overview": "Oversikt",
+        "privacy": "Personvernspraksis"
+    },
+    "migrate": {
+        "import": "Importer din data inn i Vikunja",
+        "getStarted": "Begynn",
+        "titleService": "Importer din data fra {name} inn i Vikunja"
+    },
+    "404": {
+        "text": "Siden du forespurte finnes ikke.",
+        "title": "Ikke funnet"
+    },
+    "home": {
+        "list": {
+            "importText": "Eller importer lister og gjøremål fra andre tjenester inn i Vikunja:",
+            "import": "Importer din data inn i Vikunja",
+            "new": "Opprett en ny liste",
+            "newText": "Du kan opprette en ny liste for dine nye gjøremål:"
+        },
+        "welcome": "Hei {username}"
+    },
+    "input": {
+        "multiselect": {
+            "createPlaceholder": "Opprett ny"
+        },
+        "editor": {
+            "table": "Tabell",
+            "image": "Bilde",
+            "link": "Lenke",
+            "quote": "Sitat",
+            "code": "Kode",
+            "heading3": "Overskrift 3",
+            "heading2": "Overskrift 2",
+            "heading1": "Overskrift 1",
+            "done": "Ferdig",
+            "strikethrough": "Gjennomstreket",
+            "italic": "Kursiv"
+        },
+        "datepicker": {
+            "chooseDate": "Velg en dato",
+            "nextWeek": "Neste uke",
+            "laterThisWeek": "Senere denne uken",
+            "nextMonday": "Neste mandag",
+            "tomorrow": "I morgen",
+            "today": "I dag"
+        },
+        "resetColor": "Tilbakestill farge"
+    },
+    "apiConfig": {
+        "change": "endre",
+        "url": "Vikunja-nettadresse"
+    },
+    "menu": {
+        "newList": "Ny liste",
+        "share": "Del",
+        "delete": "Slett",
+        "edit": "Rediger"
+    },
+    "sharing": {
+        "invalidPassword": "Passordet er ugyldig."
+    }
+}
