@@ -9,6 +9,12 @@ describe('Parse Task Text', () => {
 	})
 
 	describe('Date Parsing', () => {
+		it('should not return any date if none was provided', () => {
+			const result = parseTaskText('Lorem Ipsum')
+
+			expect(result.text).toBe('Lorem Ipsum')
+			expect(result.date).toBeNull()
+		})
 		it('should ignore casing', () => {
 			const result = parseTaskText('Lorem Ipsum ToDay')
 

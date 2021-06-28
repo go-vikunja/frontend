@@ -134,6 +134,13 @@ export const getDateFromText = (text, now = new Date()) => {
 		}
 	}
 
+	if (result === null) {
+		return {
+			foundText,
+			date: null,
+		}
+	}
+
 	const date = new Date(result)
 	if (isNaN(date)) {
 		return {
