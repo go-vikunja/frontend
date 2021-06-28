@@ -22,7 +22,7 @@ export default {
 	methods: {
 		createNewTask(newTaskTitle) {
 			const parsedTask = parseTaskText(newTaskTitle)
-			console.log(parsedTask.date)
+			console.log(parsedTask)
 
 			const task = new TaskModel({
 				title: parsedTask.text,

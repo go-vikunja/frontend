@@ -342,7 +342,7 @@ describe('Parse Task Text', () => {
 				const result = parseTaskText(`Lorem Ipsum !${priorities[p]}`)
 
 				expect(result.text).toBe('Lorem Ipsum')
-				expect(result.priority).toBe(`${priorities[p]}`)
+				expect(result.priority).toBe(priorities[p])
 			})
 		}
 		it(`should not parse an invalid priority`, () => {
@@ -355,7 +355,7 @@ describe('Parse Task Text', () => {
 			const result = parseTaskText(`Lorem Ipsum !9999 !1`)
 
 			expect(result.text).toBe('Lorem Ipsum !9999')
-			expect(result.priority).toBe('1')
+			expect(result.priority).toBe(1)
 		})
 	})
 
