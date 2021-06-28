@@ -163,10 +163,6 @@
 <script>
 import TaskService from '../../../services/task'
 import TaskModel from '../../../models/task'
-import LabelTaskService from '../../../services/labelTask'
-import LabelTask from '../../../models/labelTask'
-import LabelModel from '../../../models/label'
-import UserModel from '@/models/user'
 
 import EditTask from '../../../components/tasks/edit-task'
 import SingleTaskInList from '../../../components/tasks/partials/singleTaskInList'
@@ -176,8 +172,7 @@ import Rights from '../../../models/rights.json'
 import {mapState} from 'vuex'
 import FilterPopup from '@/components/list/partials/filter-popup'
 import Nothing from '@/components/misc/nothing'
-import {parseTaskText} from '@/helpers/parseTaskText'
-import {formatISO} from 'date-fns'
+import createTask from '@/components/tasks/mixins/createTask'
 
 export default {
 	name: 'List',
@@ -189,13 +184,13 @@ export default {
 			newTaskText: '',
 
 			showError: false,
-			labelTaskService: LabelTaskService,
 
 			ctaVisible: false,
 		}
 	},
 	mixins: [
 		taskList,
+		createTask,
 	],
 	components: {
 		Nothing,
@@ -205,7 +200,6 @@ export default {
 	},
 	created() {
 		this.taskService = new TaskService()
-		this.labelTaskService = new LabelTaskService()
 
 		// Save the current list view to local storage
 		// We use local storage and not vuex here to make it persistent across reloads.
@@ -232,91 +226,11 @@ export default {
 			}
 			this.showError = false
 
-			const parsedTask = parseTaskText(this.newTaskText)
-
-			const task = new TaskModel({
-				title: parsedTask.text,
-				listId: this.$route.params.listId,
-				dueDate: formatISO(parsedTask.date), // I don't know why, but it all goes up in flames when I just pass in the date normally.
-				priority: parsedTask.priority,
-				assignees: parsedTask.assignees.map(a => new UserModel({username: a}))
-			})
-			this.taskService.create(task)
+			this.createNewTask(this.newTaskText)
 				.then(task => {
 					this.tasks.push(task)
 					this.sortTasks()
 					this.newTaskText = ''
-
-					// The first element will always contain the title, even if there is no occurrence of ~
-					if (parsedTask.labels.length > 1) {
-
-						// First, create an unresolved promise for each entry in the array to wait
-						// until all labels are added to update the task title once again
-						let labelAddings = []
-						let labelAddsToWaitFor = []
-						parsedTask.labels.forEach((p, index) => {
-							if (index < 1) {
-								return
-							}
-
-							labelAddsToWaitFor.push(new Promise((resolve, reject) => {
-								labelAddings.push({resolve: resolve, reject: reject})
-							}))
-						})
-
-						// Then do everything that is involved in finding, creating and adding the label to the task
-						parsedTask.labels.forEach((labelTitle, index) => {
-							// Check if the label exists
-							const label = Object.values(this.$store.state.labels.labels).find(l => {
-								return l.title.toLowerCase() === labelTitle.toLowerCase()
-							})
-
-							// Label found, use it
-							if (typeof label !== 'undefined') {
-								const labelTask = new LabelTask({
-									taskId: task.id,
-									labelId: label.id,
-								})
-								this.labelTaskService.create(labelTask)
-									.then(result => {
-										task.labels.push(label)
-										// Make the promise done (the one with the index 0 does not exist)
-										labelAddings[index - 1].resolve(result)
-									})
-									.catch(e => {
-										this.error(e)
-									})
-							} else {
-								// label not found, create it
-								const label = new LabelModel({title: labelTitle})
-								this.$store.dispatch('labels/createLabel', label)
-									.then(res => {
-										const labelTask = new LabelTask({
-											taskId: task.id,
-											labelId: res.id,
-										})
-										this.labelTaskService.create(labelTask)
-											.then(result => {
-												task.labels.push(res)
-												// Make the promise done (the one with the index 0 does not exist)
-												labelAddings[index - 1].resolve(result)
-											})
-											.catch(e => {
-												this.error(e)
-											})
-									})
-									.catch(e => {
-										this.error(e)
-									})
-							}
-						})
-
-						// This waits until all labels are created and added to the task
-						Promise.all(labelAddsToWaitFor)
-					}
-				})
-				.catch(e => {
-					this.error(e)
 				})
 		},
 		editTask(id) {
