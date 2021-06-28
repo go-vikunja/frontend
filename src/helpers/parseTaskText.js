@@ -71,7 +71,7 @@ const getPriority = text => {
 	for (const p of ps) {
 		for (const pi in priorities) {
 			if (priorities[pi] === parseInt(p)) {
-				return p
+				return parseInt(p)
 			}
 		}
 	}
