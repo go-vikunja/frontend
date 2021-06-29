@@ -128,9 +128,9 @@
         },
         "assignee": {
             "unassignSuccess": "Die Zuweisung wurde erfolgreich aufgehoben.",
-            "assignSuccess": "Der/Die Benutzer:in wurde erfolgreich zugewiesen.",
-            "selectPlaceholder": "Diese:n Benutzer:in zuweisen",
-            "placeholder": "Tippe, um eine:n Benutzer:in zuzuweisen …"
+            "assignSuccess": "Der Benutzer wurde erfolgreich zugewiesen.",
+            "selectPlaceholder": "Diese Benutzer zuweisen",
+            "placeholder": "Tippe, um eine Benutzer zuzuweisen …"
         },
         "priority": {
             "doNow": "JETZT TUN",
@@ -173,10 +173,10 @@
             "members": "Teammitglieder",
             "title": "Team „{team}“ bearbeiten",
             "deleteUser": {
-                "header": "Benutzer:innen aus dem Team entfernen",
-                "success": "Der/Die Benutzer:in wurde erfolgreich aus dem Team gelöscht.",
+                "header": "Benutzer aus dem Team entfernen",
+                "success": "Der Benutzer wurde erfolgreich aus dem Team gelöscht.",
                 "text2": "Er oder sie verliert den Zugriff auf alle Listen und Namensräumen, auf die dieses Team Zugriff hat. Dies KANN NICHT RÜCKGÄNGIG gemacht werden!",
-                "text1": "Bist du sicher, dass du diese:n Benutzer:in aus dem Team entfernen willst?"
+                "text1": "Bist du sicher, dass du diese Benutzer aus dem Team entfernen willst?"
             }
         },
         "create": {
@@ -277,7 +277,7 @@
                 "you": "Du",
                 "shared": "Geteilt mit diesen {type}",
                 "typeTeam": "Team | Teams",
-                "typeUser": "Benutzer:in | Benutzer:innen"
+                "typeUser": "Benutzer | Benutzer"
             },
             "attributes": {
                 "sharedBy": "Geteilt von",
@@ -290,7 +290,7 @@
             },
             "links": {
                 "noName": "Kein Name angegeben",
-                "passwordExplanation": "Bei der Authentifizierung wird der/die Benutzer:in aufgefordert, dieses Passwort einzugeben.",
+                "passwordExplanation": "Bei der Authentifizierung wird der Benutzer aufgefordert, dieses Passwort einzugeben.",
                 "password": "Passwort (optional)"
             },
             "share": "Teilen"
@@ -373,7 +373,7 @@
                 "weekStart": "Woche beginnt am",
                 "playSoundWhenDone": "Einen Ton abspielen, wenn Aufgaben als erledigt markiert werden",
                 "discoverableByEmail": "Andere Benutzer mich finden lassen, wenn sie nach meiner vollständigen E-Mail suchen",
-                "discoverableByName": "Andere Benutzer:innen mich finden lassen, wenn sie nach meinem Namen suchen",
+                "discoverableByName": "Andere Benutzer mich finden lassen, wenn sie nach meinem Namen suchen",
                 "overdueReminders": "Mir jeden Morgen Erinnerungen für überfällige unerledigte Aufgaben per E-Mail senden",
                 "emailReminders": "Mir Erinnerungen für Aufgaben per E-Mail senden",
                 "savedSuccess": "Die Einstellungen wurden erfolgreich aktualisiert.",
@@ -451,7 +451,7 @@
     },
     "keyboardShortcuts": {
         "task": {
-            "assign": "Diese Aufgabe zu einem/einer Benutzer:in zuweisen",
+            "assign": "Diese Aufgabe zu einem Benutzer zuweisen",
             "done": "Eine Aufgabe als erledigt markieren",
             "title": "Aufgabenseite"
         },
@@ -512,10 +512,10 @@
         "1009": "Ungültiges Token zum Zurücksetzen des Passworts.",
         "1008": "Es wird kein Token zum Zurücksetzen des Passworts bereitgestellt.",
         "1006": "Die Benutzer-ID konnte nicht ermittelt werden.",
-        "1005": "Der/Die Benutzer:in existiert nicht.",
+        "1005": "Der Benutzer existiert nicht.",
         "1004": "Kein Benutzername und Passwort angegeben.",
-        "1002": "Es existiert bereits ein:e Benutzer:in mit dieser E-Mail-Adresse.",
-        "1001": "Es existiert bereits ein:e Benutzer:in mit diesem Benutzernamen.",
+        "1002": "Es existiert bereits ein Benutzer mit dieser E-Mail-Adresse.",
+        "1001": "Es existiert bereits ein Benutzer mit diesem Benutzernamen.",
         "0001": "Das darfst du nicht tun.",
         "success": "Erfolg",
         "error": "Fehler"
