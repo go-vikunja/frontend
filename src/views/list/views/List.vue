@@ -82,6 +82,10 @@
 				<p class="help is-danger" v-if="showError && newTaskText === ''">
 					{{ $t('list.list.addTitleRequired') }}
 				</p>
+				<p class="help has-text-grey" v-if="!showError">
+					{{ $t('task.quickAddMagic.hint') }}.
+					<a @click="() => quickActionMagicHelpVisible = true">{{ $t('task.quickAddMagic.what') }}</a>
+				</p>
 			</div>
 
 			<nothing v-if="ctaVisible && tasks.length === 0 && !taskCollectionService.loading">
@@ -157,6 +161,8 @@
 			<router-view/>
 		</transition>
 
+		<quick-add-magic :visible="quickActionMagicHelpVisible" @close="() => quickActionMagicHelpVisible = false"/>
+
 	</div>
 </template>
 
@@ -173,6 +179,7 @@ import {mapState} from 'vuex'
 import FilterPopup from '@/components/list/partials/filter-popup'
 import Nothing from '@/components/misc/nothing'
 import createTask from '@/components/tasks/mixins/createTask'
+import QuickAddMagic from '@/components/tasks/partials/quick-add-magic'
 
 export default {
 	name: 'List',
@@ -182,10 +189,9 @@ export default {
 			isTaskEdit: false,
 			taskEditTask: TaskModel,
 			newTaskText: '',
-
 			showError: false,
-
 			ctaVisible: false,
+			quickActionMagicHelpVisible: false,
 		}
 	},
 	mixins: [
@@ -193,6 +199,7 @@ export default {
 		createTask,
 	],
 	components: {
+		QuickAddMagic,
 		Nothing,
 		FilterPopup,
 		SingleTaskInList,
