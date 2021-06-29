@@ -610,7 +610,7 @@
                 "passcode": "Code d’accès",
                 "scanQR": "Tu peux également scanner ce code QR :",
                 "finishSetupPart2": "Après cela, entre un code de ton application ci-dessous.",
-                "finishSetupPart1": "Pour terminer ta configuration, utilise ce secret dans ton appli de mot de passe à usage unique (Google Authenticator ou similaire) :",
+                "finishSetupPart1": "Pour terminer ta configuration, utilise ce secret dans ton appli de mot de passe à usage unique (andOTP ou similaire) :",
                 "title": "Authentification à deux facteurs"
             },
             "avatar": {
