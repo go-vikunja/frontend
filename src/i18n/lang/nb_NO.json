@@ -7,12 +7,17 @@
         },
         "delete": {
             "title": "Slett «{namespace}»",
-            "success": "Navnerom slettet."
+            "success": "Navnerom slettet.",
+            "text2": "Dette inkluderer alle lister og gjøremål, og kan ikke angres!",
+            "text1": "Slett dette navnerommet og hele dets innhold?"
         },
         "archive": {
             "success": "Navnerom arkivert.",
             "titleArchive": "Arkiver «{namespace}»",
-            "titleUnarchive": "Avarkiver «{namespace}»"
+            "titleUnarchive": "Avarkiver «{namespace}»",
+            "description": "Hvis et navnerom arkiveres, kan du ikke opprette nye lister i det, eller redigere det.",
+            "unarchiveText": "Du vil ikke kunne opprette nye lister eller redigere den.",
+            "archiveText": "Du må av-arkivere dette navnerommet for å kunne opprette nye lister i det. Det vil også arkivere alle lister i det navnerommet."
         },
         "share": {
             "title": "Del «{namespace}»"
@@ -20,7 +25,9 @@
         "create": {
             "title": "Opprett et nytt navnerom",
             "success": "Navnerom opprettet.",
-            "tooltip": "Hva er et navnerom?"
+            "tooltip": "Hva er et navnerom?",
+            "explanation": "Samlinger av lister for å dele og organisere listene dine. Hver liste tilhører faktisk et navnerom.",
+            "titleRequired": "Velg et navn."
         },
         "search": "Skriv for å søke etter et navnerom …",
         "namespaces": "Navnerommet",
@@ -28,10 +35,17 @@
         "noLists": "Dette navnerommet inneholder ingen lister.",
         "attributes": {
             "color": "Farge",
-            "description": "Beskrivelse"
+            "description": "Beskrivelse",
+            "titlePlaceholder": "Skriv inn et navneromsnavn…",
+            "title": "Navn på navnerom",
+            "isArchived": "Dette navnerommet er arkivert",
+            "archived": "Er arkivert"
         },
         "showArchived": "Vis arkiverte",
-        "archived": "Arkivert"
+        "archived": "Arkivert",
+        "title": "Navnerom og lister",
+        "unarchive": "Av-arkiver",
+        "noneAvailable": "Du har ingen navnerom akkurat nå."
     },
     "list": {
         "duplicate": {
@@ -58,7 +72,18 @@
             "deleteHeaderBucket": "Slett bøtten",
             "addBucket": "Opprett en ny bøtte",
             "noLimit": "Ikke satt",
-            "limit": "Grense: {limit}"
+            "limit": "Grense: {limit}",
+            "doneBucketSavedSuccess": "Utført-bøtte lagret.",
+            "doneBucketHintExtended": "Alle gjøremål flyttet til utført-bøtten vil markeres som utført automatisk. Alle gjøremål markert som utført annensteds fra flyttes også.",
+            "doneBucketHint": "Alle gjøremål flyttet inn i denne bøtten vil automatisk markeres som utførte.",
+            "doneBucket": "Utført-bøtte",
+            "addTaskPlaceholder": "Skriv inn gjøremålsnavn…",
+            "bucketTitleSavedSuccess": "Bøttenavn lagret.",
+            "bucketLimitSavedSuccess": "Bøttegrense lagret.",
+            "addBucketPlaceholder": "Skriv inn nytt bøttenavn …",
+            "deleteLast": "Du kan ikke fjerne den siste bøtten.",
+            "title": "Kanban",
+            "deleteBucketText2": "Dette vil ikke slette noen gjøremål, men snarere flytte dem til forvalgt bøtte."
         },
         "share": {
             "links": {
@@ -66,17 +91,34 @@
                 "deleteSuccess": "Lenke slettet",
                 "password": "Passord (valgfritt)",
                 "name": "Navn (valgfritt)",
-                "namePlaceholder": "f.eks. Lorem ipsum"
+                "namePlaceholder": "f.eks. Lorem ipsum",
+                "title": "Lenkedelinger",
+                "explanation": "Lar deg dele en liste til dem uten konto på Vikunja.",
+                "removeText": "Fjern denne lenkedeling? Det vil ikke lenger være mulig å nå denne listen med denne linkedelingen. Dette kan ikke angres!",
+                "remove": "Fjern en lenkedeling",
+                "nameExplanation": "Alle handlinger gjort av denne lenkedelingen vil dukke opp med navnet.",
+                "what": "Hva er en lenkedeling?",
+                "createSuccess": "Lenkedeling opprettet.",
+                "noName": "Navn ikke satt",
+                "passwordExplanation": "Brukeren må skrive inn dette passordet for å logge inn."
             },
             "right": {
                 "admin": "Admin",
-                "title": "Høyre"
+                "title": "Høyre",
+                "read": "Skrivebeskyttet",
+                "readWrite": "Lesing og skriving"
             },
             "userTeam": {
                 "updatedSuccess": "{type} lagt til.",
                 "addedSuccess": "{type} lagt til.",
                 "removeSuccess": "{sharable} fjernet fra {type}.",
-                "you": "Deg"
+                "you": "Deg",
+                "removeText": "Fjern denne {sharable} fra {type}? Dette kan ikke angres!",
+                "removeHeader": "Fjern en {type} fra {sharable}",
+                "shared": "Delt med disse {type}",
+                "notShared": "Ikke delt med noe {type} enda.",
+                "typeTeam": "lag | lag",
+                "typeUser": "bruker | brukere"
             },
             "title": "Del «{list}»",
             "header": "Del denne listen",
@@ -84,7 +126,8 @@
                 "delete": "Slett",
                 "sharedBy": "Delt av",
                 "name": "Navn",
-                "link": "Lenke"
+                "link": "Lenke",
+                "right": "Rettighet"
             },
             "share": "Del"
         },
@@ -93,7 +136,12 @@
             "success": "Liste oppdatert.",
             "description": "Beskrivelse",
             "header": "Rediger denne listen",
-            "color": "Farge"
+            "color": "Farge",
+            "identifierTooltip": "Listeidentifikatoren kan brukes for å unikt identifisere gjøremål mellom lister. Du kan la den stå tom for å skru den av.",
+            "descriptionPlaceholder": "Skriv inn listebeskrivelse…",
+            "titlePlaceholder": "Skriv inn listenavn…",
+            "identifierPlaceholder": "Listeidentifikator her …",
+            "identifier": "Listeidentifikator"
         },
         "table": {
             "columns": "Kolonner",
@@ -104,22 +152,30 @@
             "editTask": "Rediger gjøremål",
             "newTaskCta": "Opprett et nytt gjøremål.",
             "addPlaceholder": "Legg til nytt gjøremål …",
-            "add": "Legg til"
+            "add": "Legg til",
+            "addTitleRequired": "Velg et navn.",
+            "empty": "Denne listen er for tiden tom."
         },
         "delete": {
             "success": "Liste slettet.",
             "title": "Slett «{list}»",
-            "header": "Slett denne listen"
+            "header": "Slett denne listen",
+            "text2": "Dette inkluderer alle gjøremål og kan ikke angres!",
+            "text1": "Slett denne listen og hele dens innhold?"
         },
         "archive": {
             "archive": "Arkiver denne listen",
             "title": "Arkiver «{list}»",
-            "success": "Liste arkivert."
+            "success": "Liste arkivert.",
+            "unarchive": "Av-arkiver denne listen",
+            "archiveText": "Du vil ikke kunne redigere denne listen eller opprette nye gjøremål før du av-arkiverer den.",
+            "unarchiveText": "Du vil ikke kunne opprette nye gjøremål eller redigere den."
         },
         "create": {
             "createdSuccess": "Liste opprettet.",
             "addTitleRequired": "Angi en tittel.",
-            "header": "Opprett en ny liste"
+            "header": "Opprett en ny liste",
+            "titlePlaceholder": "Skriv inn listenavn…"
         },
         "shared": "Delte lister",
         "search": "Skriv for å søke etter en liste …",
@@ -131,8 +187,14 @@
             "day": "Dag",
             "month": "Måned",
             "size": "Størrelse",
-            "title": "Gantt-skjema"
-        }
+            "title": "Gantt-skjema",
+            "noDates": "Dette gjøremålet har ingen satte datoer.",
+            "default": "Forvalg",
+            "showTasksWithoutDates": "Vis gjøremål som ikke har satte datoer enda"
+        },
+        "title": "Listens navn",
+        "searchSelect": "Klikk eller trykk Enter for å velge denne listen",
+        "archived": "Denne listen er arkivert. Det er ikke mulig å opprette nye eller redigere gjøremål i den."
     },
     "user": {
         "settings": {
@@ -140,7 +202,15 @@
                 "disable": "Skru av to-faktorbekreftelse",
                 "confirmSuccess": "TOTP-oppsett bekreftet, og klar til bruk.",
                 "enterPassword": "Skriv inn passordet ditt",
-                "scanQR": "Alternativt kan du skanne denne QR-koden:"
+                "scanQR": "Alternativt kan du skanne denne QR-koden:",
+                "finishSetupPart1": "For å fullføre oppsettet, bruker du denne hemmeligheten i ditt TOTP-program (andOTP eller lignende):",
+                "setupSuccess": "Du har nå satt opp to-faktorbekreftelse.",
+                "passcode": "Kode",
+                "finishSetupPart2": "Etter det skriver du inn en kode fra programmet ditt nedenfor.",
+                "disableSuccess": "To-faktorbekreftelse av.",
+                "passcodePlaceholder": "En kode generert av ditt TOTP-program",
+                "title": "To-faktorbekreftelse",
+                "enroll": "Bruk"
             },
             "avatar": {
                 "statusUpdateSuccess": "Avatarstatus oppdatert.",
@@ -153,7 +223,8 @@
             },
             "caldav": {
                 "more": "Mer info om CalDAV i Vikunja",
-                "title": "CalDAV"
+                "title": "CalDAV",
+                "howTo": "Du kan koble Vikunja til CalDAV-klienter for å vise og håndtere alle gjøremål fra forskjellige klienter. Skriv inn denne nettadressen i klienten din:"
             },
             "general": {
                 "emailReminders": "Send meg påminnelser om gjøremål per e-post",
@@ -164,7 +235,11 @@
                 "weekStart": "Ukestart",
                 "newName": "Det nye navnet",
                 "name": "Navn",
-                "title": "Generelle innstillinger"
+                "title": "Generelle innstillinger",
+                "playSoundWhenDone": "Spill lyd når gjøremål markeres som utført",
+                "discoverableByEmail": "La andre finne meg ved å søke etter hele e-postadressen min",
+                "discoverableByName": "La andre finne meg ved å søke etter hele navnet mitt",
+                "overdueReminders": "Send meg påminnelser om gjøremål med utløpt frist via e-post hver morgen"
             },
             "passwordsDontMatch": "Nytt passord og bekreftelsen av det samsvarer ikke.",
             "passwordUpdateSuccess": "Passord oppdatert.",
@@ -175,7 +250,8 @@
             "newPasswordConfirm": "Bekreft nytt passord",
             "newPassword": "Nytt passord",
             "title": "Innstillinger",
-            "newPasswordTitle": "Oppdater passordet ditt"
+            "newPasswordTitle": "Oppdater passordet ditt",
+            "updateEmailSuccess": "E-postadresse oppdatert. Klikk lenken i e-posten sendt til deg for å bekrefte den."
         },
         "auth": {
             "confirmEmailSuccess": "Du kan logge inn med din e-postadresse nå.",
@@ -196,26 +272,43 @@
             "register": "Registrer deg",
             "login": "Logg inn",
             "resetPasswordSuccess": "Sjekk innboksen din for e-post med instruks om tilbakestilling av passord.",
-            "resetPasswordAction": "Send lenke for tilbakestilling av passord."
+            "resetPasswordAction": "Send lenke for tilbakestilling av passord.",
+            "openIdStateError": "Tilstanden stemmer ikke overens. Kan ikke fortsette.",
+            "totpTitle": "Kode fra to-faktorbekreftelse"
         }
     },
     "team": {
         "attributes": {
             "member": "Medlem",
             "description": "Beskrivelse",
-            "nameRequired": "Angi et navn."
+            "nameRequired": "Angi et navn.",
+            "namePlaceholder": "Skriv inn lagnavn …",
+            "admin": "Admin",
+            "name": "Lagnavn"
         },
         "edit": {
             "deleteUser": {
                 "header": "Fjern en bruker fra laget",
-                "success": "Bruker fjernet fra laget."
+                "success": "Bruker fjernet fra laget.",
+                "text2": "Brukeren vil miste tilgang til alle lister og navnerom dette laget har tilgang til. Dette kan ikke angres!",
+                "text1": "Fjern denne brukeren fra laget?"
             },
             "members": "Lagmedlemmer",
             "delete": {
                 "success": "Lag slettet.",
-                "header": "Slett laget"
+                "header": "Slett laget",
+                "text2": "Et lagmedlem vil miste tilgang til lister og navnerom delt med dette laget. Dette kan ikke angres!",
+                "text1": "Slett dette laget og alle dets medlemmer?"
             },
-            "search": "Skriv for å søke etter bruker…"
+            "search": "Skriv for å søke etter bruker…",
+            "madeAdmin": "Lagmedlem gjort til admin.",
+            "madeMember": "Lagmedlem gjort til medlem.",
+            "userAddedSuccess": "Lagmedlem lagt til.",
+            "success": "Lag oppdatert.",
+            "title": "Rediger «{team}»-laget",
+            "makeAdmin": "Gjør til admin",
+            "makeMember": "Gjør til medlem",
+            "addUser": "Legg til i lag"
         },
         "create": {
             "success": "Lag opprettet.",
@@ -230,13 +323,15 @@
             "low": "Lav",
             "doNow": "GJØR NÅ",
             "urgent": "Haster",
-            "high": "Høy"
+            "high": "Høy",
+            "unset": "Ikke satt"
         },
         "label": {
             "removeSuccess": "Etikett fjernet.",
             "createSuccess": "Etikett opprettet.",
             "addSuccess": "Etikett lagt til.",
-            "createPlaceholder": "Legg til dette som en ny etikett"
+            "createPlaceholder": "Legg til dette som en ny etikett",
+            "placeholder": "Skriv for å legge til en ny etikett …"
         },
         "detail": {
             "actions": {
@@ -249,19 +344,30 @@
                 "endDate": "Sett en sluttdato",
                 "startDate": "Sett startdato",
                 "dueDate": "Sett fristdato",
-                "priority": "Sett prioritet"
+                "priority": "Sett prioritet",
+                "percentDone": "Sett % utført",
+                "assign": "Tildel en bruker dette gjøremålet",
+                "color": "Sett gjøremålsfarge",
+                "relatedTasks": "Legg til gjøremålsrelasjoner"
             },
             "deleteSuccess": "Gjøremål slettet.",
-            "doneAt": "Ferdig {0}",
+            "doneAt": "Utført {0}",
             "updated": "Oppdatert {0}",
             "created": "Opprettet {0} av {1}",
             "chooseEndDate": "Klikk her for å sette en sluttdato",
             "chooseStartDate": "Klikk her for å sette en startdato",
             "chooseDueDate": "Klikk her for å sette en fristdato",
             "delete": {
-                "header": "Slett dette gjøremålet"
+                "header": "Slett dette gjøremålet",
+                "text2": "Dette fil også fjerne alle vedlegg, påminnelser og relasjoner tilknyttet dette gjøremålet, og kan ikke angres!",
+                "text1": "Fjern dette gjøremålet?"
             },
-            "updateSuccess": "Gjøremål lagret."
+            "updateSuccess": "Gjøremål lagret.",
+            "done": "Utført!",
+            "belongsToList": "Dette gjøremålet tilhører «{list}»-listen",
+            "due": "Frist {at}",
+            "undone": "Marker som uferdig",
+            "move": "Flytt gjøremål til en annen liste"
         },
         "show": {
             "today": "I dag",
@@ -270,20 +376,36 @@
             "noDates": "Vis gjøremål uten datoer",
             "titleCurrent": "Nåværende gjøremål",
             "nextMonth": "Neste måned",
-            "nextWeek": "Neste uke"
+            "nextWeek": "Neste uke",
+            "noTasks": "Ingenting fore. Ha en fin dag.",
+            "until": "til",
+            "titleDates": "Gjøremål fra {from} til {to}"
         },
         "openDetail": "Åpne gjøremålets detaljvisning",
-        "undoneSuccess": "Gjøremål avmarkert som ferdig.",
-        "doneSuccess": "Gjøremål markert som ferdig.",
+        "undoneSuccess": "Gjøremål avmarkert som utført.",
+        "doneSuccess": "Gjøremål markert som utført.",
         "addReminder": "Legg til ny påminnelse …",
         "comment": {
             "edited": "redigert {date}",
             "loading": "Laster inn kommentarer …",
-            "title": "Kommentarer"
+            "title": "Kommentarer",
+            "addedSuccess": "Kommentar lagt til.",
+            "deleteText2": "Dette kan ikke angres.",
+            "deleteText1": "Slett denne kommentaren?",
+            "delete": "Slett denne kommentaren",
+            "comment": "Kommentar",
+            "placeholder": "Legg til din kommentar …",
+            "creating": "Kommenterer …"
         },
         "attachment": {
             "delete": "Slett vedlegg",
-            "title": "Vedlegg"
+            "title": "Vedlegg",
+            "deleteText2": "Dette kan ikke angres.",
+            "deleteText1": "Slett {filename}-vedlegget?",
+            "drop": "Slipp filer her for å laste opp",
+            "upload": "Last opp vedlegg",
+            "download": "Last ned",
+            "createdBy": "opprettet {0} av {1}"
         },
         "attributes": {
             "startDate": "Startdato",
@@ -291,7 +413,7 @@
             "repeat": "Gjenta",
             "relatedTasks": "Relaterte gjøremål",
             "priority": "Prioritet",
-            "percentDone": "% ferdig",
+            "percentDone": "% utført",
             "labels": "Etiketter",
             "endDate": "Sluttdato",
             "dueDate": "Fristdato",
@@ -299,7 +421,10 @@
             "description": "Beskrivelse",
             "createdBy": "Opprettet av",
             "created": "Opprettet",
-            "color": "Farge"
+            "color": "Farge",
+            "assignees": "Tildelte",
+            "updated": "Oppdatert",
+            "title": "Navn"
         },
         "delete": "Slett dette gjøremålet",
         "new": "Opprett et nytt gjøremål",
@@ -314,34 +439,82 @@
             "monthly": "Månedlig",
             "everyMonth": "Hver måned",
             "everyWeek": "Hver uke",
-            "everyDay": "Hver dag"
-        }
+            "everyDay": "Hver dag",
+            "mode": "Gjentagelsesmodus",
+            "each": "Hver"
+        },
+        "relation": {
+            "new": "Ny gjøremålsrelasjon",
+            "noneYet": "Ingen gjøremålsrelasjoner enda.",
+            "deleteText2": "Dette kan ikke angres!",
+            "deleteText1": "Slett denne gjøremålstilknytningen?",
+            "differentList": "Dette gjøremålet tilhører en annen liste.",
+            "createPlaceholder": "Legg til dette som nytt relatert gjøremål",
+            "searchPlaceholder": "Skriv for å søke etter et nytt gjøremål å legge til som relatert …",
+            "delete": "Slett gjøremålsrelasjon",
+            "add": "Legg til ny gjøremålsrelasjon"
+        },
+        "deferDueDate": {
+            "1week": "1 uke",
+            "3days": "3 dager",
+            "1day": "1 dag"
+        },
+        "subscription": {
+            "subscribedThroughParent": "Du kan ikke oppheve abonnement her fordi du ikke har abonnert på denne {entity} gjennom dens {parent}.",
+            "unsubscribeSuccess": "Du har opphevet abonnementet på denne {entity}",
+            "subscribeSuccess": "Du abonnerer nå på denne {entity}",
+            "unsubscribe": "Opphev abonnement",
+            "subscribe": "Abonner",
+            "subscribed": "Du abonnerer på denne {entity} og vil motta merkander om endringer.",
+            "notSubscribed": "Du abonnerer ikke på denne {entity} og vil ikke motta merknader om endringer."
+        },
+        "assignee": {
+            "unassignSuccess": "Brukertilknytning opphevet.",
+            "assignSuccess": "Bruker tilknyttet.",
+            "selectPlaceholder": "Tilknytt denne brukeren",
+            "placeholder": "Skriv for å tilknytte en bruker …"
+        },
+        "description": {
+            "empty": "Ingen beskrivelse tilgjengelig enda.",
+            "placeholder": "Klikk her for å legge til en beskrivelse …"
+        },
+        "createSuccess": "Gjøremål opprettet.",
+        "task": "Gjøremål"
     },
     "label": {
         "attributes": {
             "description": "Beskrivelse",
             "color": "Farge",
-            "descriptionPlaceholder": "Etikettbeskrivelse"
+            "descriptionPlaceholder": "Etikettbeskrivelse",
+            "titlePlaceholder": "Skriv inn et etikettnavn…",
+            "title": "Navn"
         },
         "deleteSuccess": "Etikett slettet.",
         "edit": {
             "success": "Etikett oppdatert.",
-            "header": "Rediger etikett"
+            "header": "Rediger etikett",
+            "forbidden": "Du kan ikke redigere denne etiketten fordi du ikke eier den."
         },
         "create": {
             "title": "Opprett en ny etikett",
             "header": "Ny etikett",
-            "success": "Etikett opprettet."
+            "success": "Etikett opprettet.",
+            "titleRequired": "Angi et navn."
         },
         "manage": "Håndter etiketter",
-        "title": "Etiketter"
+        "title": "Etiketter",
+        "description": "Klikk på en etikett for å redigere den. Du kan redigere alle dem du har opprettet, og du kan bruke etiketter fra alle fra gjøremål du har tilgang til.",
+        "search": "Skriv for å søke etter en etikett …",
+        "newCTA": "Du har for øyeblikket ingen etiketter."
     },
     "filters": {
         "create": {
-            "action": "Opprett nytt lagret filter"
+            "action": "Opprett nytt lagret filter",
+            "title": "Opprett et lagret filter"
         },
         "edit": {
-            "success": "Filter lagret."
+            "success": "Filter lagret.",
+            "title": "Rediger dette lagrede filteret"
         },
         "delete": {
             "success": "Filter slettet.",
@@ -349,8 +522,21 @@
             "header": "Slett dette lagrede filteret"
         },
         "attributes": {
-            "description": "Beskrivelse"
-        }
+            "description": "Beskrivelse",
+            "requireAll": "Krev alle filter for at et gjøremål skal vises",
+            "showDoneTasks": "Vis utførte gjøremål",
+            "descriptionPlaceholder": "Skriv inn en beskrivelse…",
+            "includeNulls": "Inkluder gjøremål uten verdier",
+            "titlePlaceholder": "Skriv inn et lagret filternavn…",
+            "title": "Navn",
+            "dueDateRange": "Fristdato-område",
+            "startDateRange": "Startdato-område",
+            "reminderRange": "Påminnelsesdato-område",
+            "endDateRange": "Sluttdato-område",
+            "enablePercentDone": "Filtrer etter fullførelse",
+            "enablePriority": "Filtrer etter prioritet"
+        },
+        "title": "Filter"
     },
     "misc": {
         "searchPlaceholder": "Skriv for å søke …",
@@ -366,17 +552,30 @@
         "confirm": "Bekreft",
         "delete": "Slett",
         "save": "Lagre",
-        "loading": "Laster inn …"
+        "loading": "Laster inn …",
+        "default": "Forvalg",
+        "poweredBy": "Drevet av Vikunja",
+        "refresh": "Gjenoppfrisk",
+        "doit": "Gjør det!",
+        "saved": "Lagret!"
     },
     "navigation": {
         "settings": "Innstillinger",
         "overview": "Oversikt",
-        "privacy": "Personvernspraksis"
+        "privacy": "Personvernspraksis",
+        "imprint": "Imprint",
+        "upcoming": "Kommende"
     },
     "migrate": {
         "import": "Importer din data inn i Vikunja",
         "getStarted": "Begynn",
-        "titleService": "Importer din data fra {name} inn i Vikunja"
+        "titleService": "Importer din data fra {name} inn i Vikunja",
+        "confirm": "Jeg er sikker. Begynn migreringen nå.",
+        "alreadyMigrated1": "Det ser ut til at du allerede har importert ting fra {name} den {date}.",
+        "authorize": "Innvilg Vikunja tilgang til din {name}-konto ved å klikke på knappen nedenfor.",
+        "description": "Klikk på logoen til én av tredjepartstjenestene nedenfor for å begynne.",
+        "inProgress": "Importerer …",
+        "descriptionDo": "Vikunja vil importere alle lister, gjøremål, notater, påminnelser og filer du har tilgang til."
     },
     "404": {
         "text": "Siden du forespurte finnes ikke.",
@@ -393,7 +592,8 @@
     },
     "input": {
         "multiselect": {
-            "createPlaceholder": "Opprett ny"
+            "createPlaceholder": "Opprett ny",
+            "selectPlaceholder": "Klikk eller trykk Enter for å velge"
         },
         "editor": {
             "table": "Tabell",
@@ -404,9 +604,18 @@
             "heading3": "Overskrift 3",
             "heading2": "Overskrift 2",
             "heading1": "Overskrift 1",
-            "done": "Ferdig",
+            "done": "Utført",
             "strikethrough": "Gjennomstreket",
-            "italic": "Kursiv"
+            "italic": "Kursiv",
+            "cleanBlock": "Tom blokk",
+            "sideBySide": "Side-ved-side",
+            "horizontalRule": "Vannrett linje",
+            "headingBigger": "Større overskrift",
+            "headingSmaller": "Mindre overskrift",
+            "guide": "Veiledning",
+            "orderedList": "Sortert liste",
+            "unorderedList": "Usortert liste",
+            "bold": "Fet"
         },
         "datepicker": {
             "chooseDate": "Velg en dato",
@@ -414,21 +623,163 @@
             "laterThisWeek": "Senere denne uken",
             "nextMonday": "Neste mandag",
             "tomorrow": "I morgen",
-            "today": "I dag"
+            "today": "I dag",
+            "thisWeekend": "Denne helgen"
         },
         "resetColor": "Tilbakestill farge"
     },
     "apiConfig": {
         "change": "endre",
-        "url": "Vikunja-nettadresse"
+        "url": "Vikunja-nettadresse",
+        "success": "Bruker Vikunja-installasjonen på «{domain}».",
+        "error": "Fant ingen brukbar Vikunja-installasjon på «{domain}».",
+        "urlPlaceholder": "f.eks: https://lokalvert:3456",
+        "signInOn": "Logg inn på din Vikunja-konto på {0}"
     },
     "menu": {
         "newList": "Ny liste",
         "share": "Del",
         "delete": "Slett",
-        "edit": "Rediger"
+        "edit": "Rediger",
+        "setBackground": "Sett bakgrunn",
+        "duplicate": "Dupliser",
+        "unarchive": "Av-arkiver",
+        "archive": "Akriver"
     },
     "sharing": {
-        "invalidPassword": "Passordet er ugyldig."
+        "invalidPassword": "Passordet er ugyldig.",
+        "passwordRequired": "Den delte listen krever et passord. Skriv det inn nedenfor:",
+        "authenticating": "Identitetsbekrefter…",
+        "error": "En feil oppstod."
+    },
+    "date": {
+        "altFormatLong": "j M Y H:i",
+        "altFormatShort": "j M Y",
+        "ago": "{date} siden",
+        "locale": "nb_NO",
+        "in": "den {date}"
+    },
+    "quickActions": {
+        "hint": "Du kan bruke «#» for å kun søke etter gjøremål, «*». for å kun søke etter lister, og «@» for å kun søke etter lag.",
+        "newTask": "Skriv inn gjøremålsnavn…",
+        "newNamespace": "Skriv inn navneromsnavn…",
+        "createList": "Opprett en liste i nåværende navnerom ({title})",
+        "cmds": {
+            "newTeam": "Nytt lag",
+            "newNamespace": "Nytt navnerom",
+            "newList": "Ny liste",
+            "newTask": "Nytt gjøremål"
+        },
+        "newTeam": "Skriv inn navnet på det nye laget …",
+        "teams": "Lag",
+        "lists": "Lister",
+        "tasks": "Gjøremål",
+        "placeholder": "Skriv en kommando, eller søk …",
+        "commands": "Kommandoer",
+        "createTask": "Opprett et gjøremål i nåværende liste ({title})",
+        "newList": "Skriv inn nytt listenavn…"
+    },
+    "notification": {
+        "explainer": "Merknader vil vises her når handlinger på navnerom, lister, eller gjøremål du abonnerer på finner sted.",
+        "none": "Ingen merknader. Ha en fin dag."
+    },
+    "error": {
+        "5012": "Navnerommet er arkivert og kan derfor kun leses.",
+        "5009": "Lesetilgang til navnerom kreves for å utføre denne handlingen.",
+        "10004": "Du kan ikke legge til gjøremålet som bøtte, siden den allerede overskrider grenser for gjøremål den kan holde.",
+        "12002": "Du abonnerer allerede på selve oppføringen, eller en ovennevnt oppføring.",
+        "4018": "Ugyldig gjøremålsfilter-sammentrekning.",
+        "4017": "Ugyldig gjøremålsfilter-sammenligner.",
+        "4005": "Du mangler rettigheten til å se dette gjøremålet.",
+        "4004": "Må ha minst ett gjøremål ved masseredigering av gjøremål.",
+        "4003": "Alle masse-redigeringsgjøremål må tilhøre samme liste.",
+        "0001": "Du tillates ikke å gjøre dette.",
+        "9001": "Rettigheten er ugyldig.",
+        "4013": "Gjøremålssorteringsparameteret er ugyldig.",
+        "4007": "Du kan ikke opprette en gjøremålsrelasjon med ugyldig relasjonstype.",
+        "4006": "Du kan ikke sette et ovennevnt gjøremål som selve gjøremålet.",
+        "3004": "Du må ha lesetilgang til den listen for å utføre denne handlingen.",
+        "1012": "Brukerens e-postadresse er ubekreftet.",
+        "1018": "Brukeravatar-innstillingen er ugyldig.",
+        "6005": "Brukeren er allerede medlem av det laget.",
+        "6004": "Dette lagmedlemmet har allerede tilgang til listen eller navnerommet.",
+        "6002": "Dette lagmedlemmet finnes ikke.",
+        "4009": "Gjøremålsrelasjonen finnes ikke.",
+        "4008": "Du kan ikke opprette en gjøremålsrelasjon som allerede finnes.",
+        "2002": "Noe av forespørselsdataen var ugyldig.",
+        "13001": "Påkrevd passord ble ikke angitt for denne lenkedelingen.",
+        "13002": "Ugyldig lenkedelingspassord.",
+        "4002": "Listegjøremålet finnes ikke.",
+        "1017": "Ugyldig TOTP-kode.",
+        "1016": "Denne brukeren bruker TOTP.",
+        "1015": "Denne brukeren bruker allerede TOTP.",
+        "1014": "Det gamle passordet er tomt.",
+        "1013": "Det nye passordet er tomt.",
+        "1010": "Ugyldig symbol for e-postbekreftelse.",
+        "1009": "Ugyldig symbol for passordtilbakestilling.",
+        "1006": "Kunne ikke hente den bruker-ID-en.",
+        "10005": "Det kan kun være én utført-bøtte per liste.",
+        "3007": "En liste med denne identifikatoren finnes allerede.",
+        "3006": "Lenkedelingen finnes ikke.",
+        "3005": "Du må skrive inn et listenavn.",
+        "4016": "Ugyldig gjøremålsfelt.",
+        "4015": "Gjøremålskommentaren finnes ikke.",
+        "4014": "Gjøremålets sorteringsrekkefølge er ugyldig.",
+        "4012": "Gjøremålsvedlegget er for stort.",
+        "4011": "Gjøremålsvedlegget finnes ikke.",
+        "1005": "Brukeren finnes ikke.",
+        "1004": "Brukernavn og passord ikke angitt.",
+        "1002": "En bruker med den e-postadressen finnes allerede.",
+        "1001": "En bruker med det brukernavnet finnes allerede.",
+        "success": "Vellykket",
+        "11002": "Lagrede filter er ikke tilgjengelige for lenkedelinger.",
+        "11001": "Lagret filter finnes ikke.",
+        "10003": "Du kan ikke fjerne den siste bøtten i en liste.",
+        "10002": "Bøtten hører ikke til den listen.",
+        "10001": "Denne bøtten finnes ikke.",
+        "8003": "Du har ikke tilgang til denne etiketten.",
+        "8002": "Denne etiketten finnes ikke.",
+        "8001": "Denne etiketten finnes allerede for dette gjøremålet.",
+        "7003": "Du har ikke tilgang til den listen.",
+        "7002": "Brukeren har allerede tilgang til den listen.",
+        "3001": "Listen finnes ikke.",
+        "2001": "ID kan ikke være tom eller 0.",
+        "1011": "Feil brukernavn eller passord.",
+        "error": "Feil",
+        "12001": "Abonnementenhetstypen er ugyldig.",
+        "5010": "Dette laget har ikke tilgang til det navnerommet.",
+        "5006": "Navneromsnavnet kan ikke stå tomt.",
+        "5003": "Du har ikke tilgang til angitt navnerom.",
+        "5001": "Navnerommet finnes ikke.",
+        "4019": "Ugyldig gjøremålsfilterverdi.",
+        "4010": "Kan ikke relatere gjøremål til seg selv.",
+        "1008": "Symbol for passordtilbakestilling ble ikke angitt.",
+        "4001": "Listegjøremålsteksten kan ikke være tom.",
+        "3008": "Denne arkiverte listen og alle tilknyttede gjøremål kan kun leses.",
+        "6001": "Skriv inn et lagnavn først.",
+        "5011": "Denne brukeren har allerede tilgang til det navnerommet.",
+        "6007": "Laget har ikke tilgang til listen for å utføre den handlingen.",
+        "6006": "Kan ikke slette siste lagmedlem."
+    },
+    "loadingError": {
+        "failed": "Innlasting feilet, {0}. Hvis feilen vedvarer, {1}.",
+        "tryAgain": "prøv igjen",
+        "contact": "kontakt oss"
+    },
+    "keyboardShortcuts": {
+        "task": {
+            "done": "Marker gjøremål som utført",
+            "related": "Endre relaterte gjøremål for dette gjøremålet",
+            "attachment": "Legg til et vedlegg for dette gjøremålet",
+            "dueDate": "Endre dette gjøremålets fristdato",
+            "labels": "Legg til etiketter for dette gjøremålet",
+            "title": "Gjøremålsside",
+            "assign": "Tildel en bruker dette gjøremålet"
+        },
+        "toggleMenu": "Veksle menyvisning",
+        "currentPageOnly": "Fungerer kun på nåværende side.",
+        "allPages": "Fungerer på alle sider.",
+        "title": "Tastatursnarveier",
+        "quickSearch": "Åpne søk-/hurtighandlingsfeltet"
     }
 }
