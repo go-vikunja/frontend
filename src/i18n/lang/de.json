@@ -230,10 +230,11 @@
             "titleArchive": "„{namespace}“ archivieren"
         },
         "noLists": "Dieser Namensraum enthält keine Listen.",
-        "title": "Namensräume & Listen",
+        "title": "Namensräume und Listen",
         "unarchive": "Archivierung aufheben",
         "archived": "Archiviert",
-        "showArchived": "Archivierte anzeigen"
+        "showArchived": "Archivierte anzeigen",
+        "namespace": "Namensraum"
     },
     "list": {
         "kanban": {
@@ -358,7 +359,7 @@
             },
             "totp": {
                 "disableSuccess": "Die Zwei-Faktor-Authentifizierung wurde erfolgreich deaktiviert.",
-                "passcode": "Passcode",
+                "passcode": "Code",
                 "enroll": "Einschreiben",
                 "title": "Zwei-Faktor-Authentifizierung",
                 "disable": "Zwei-Faktor-Authentifizierung deaktivieren",
