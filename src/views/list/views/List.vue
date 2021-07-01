@@ -82,10 +82,7 @@
 				<p class="help is-danger" v-if="showError && newTaskText === ''">
 					{{ $t('list.list.addTitleRequired') }}
 				</p>
-				<p class="help has-text-grey" v-if="!showError">
-					{{ $t('task.quickAddMagic.hint') }}.
-					<a @click="() => quickActionMagicHelpVisible = true">{{ $t('task.quickAddMagic.what') }}</a>
-				</p>
+				<quick-add-magic v-if="!showError"/>
 			</div>
 
 			<nothing v-if="ctaVisible && tasks.length === 0 && !taskCollectionService.loading">
@@ -161,7 +158,6 @@
 			<router-view/>
 		</transition>
 
-		<quick-add-magic :visible="quickActionMagicHelpVisible" @close="() => quickActionMagicHelpVisible = false"/>
 
 	</div>
 </template>
@@ -191,7 +187,6 @@ export default {
 			newTaskText: '',
 			showError: false,
 			ctaVisible: false,
-			quickActionMagicHelpVisible: false,
 		}
 	},
 	mixins: [
