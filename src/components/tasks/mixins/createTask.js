@@ -22,7 +22,7 @@ export default {
 		labels: state => state.labels.labels,
 	}),
 	methods: {
-		createNewTask(newTaskTitle) {
+		createNewTask(newTaskTitle, bucketId = 0) {
 			const parsedTask = parseTaskText(newTaskTitle)
 			const assignees = []
 
@@ -35,6 +35,7 @@ export default {
 					dueDate: parsedTask.date !== null ? formatISO(parsedTask.date) : null, // I don't know why, but it all goes up in flames when I just pass in the date normally.
 					priority: parsedTask.priority,
 					assignees: assignees,
+					bucketId: bucketId,
 				})
 				return this.taskService.create(task)
 					.then(task => {
