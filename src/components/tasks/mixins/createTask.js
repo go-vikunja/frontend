@@ -22,16 +22,25 @@ export default {
 		labels: state => state.labels.labels,
 	}),
 	methods: {
-		createNewTask(newTaskTitle, bucketId = 0) {
+		createNewTask(newTaskTitle, bucketId = 0, lId = 0) {
 			const parsedTask = parseTaskText(newTaskTitle)
 			const assignees = []
+
+			let listId = null
+			if (parsedTask.list !== null) {
+				const list = this.$store.getters['lists/findListByExactname'](parsedTask.list)
+				listId = list === null ? null : list.id
+			}
+			if (listId === null) {
+				listId = lId !== 0 ? lId : this.$route.params.listId
+			}
 
 			// Separate closure because we need to wait for the results of the user search if users were entered in the
 			// task create request. Because _that_ happens in a promise, we'll need something to call when it resolves.
 			const createTask = () => {
 				const task = new TaskModel({
 					title: parsedTask.text,
-					listId: this.$route.params.listId,
+					listId: listId,
 					dueDate: parsedTask.date !== null ? formatISO(parsedTask.date) : null, // I don't know why, but it all goes up in flames when I just pass in the date normally.
 					priority: parsedTask.priority,
 					assignees: assignees,

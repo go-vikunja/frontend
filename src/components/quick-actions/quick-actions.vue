@@ -53,12 +53,12 @@
 import TaskService from '@/services/task'
 import TeamService from '@/services/team'
 
-import TaskModel from '@/models/task'
 import NamespaceModel from '@/models/namespace'
 import TeamModel from '@/models/team'
 
 import {CURRENT_LIST, LOADING, LOADING_MODULE, QUICK_ACTIONS_ACTIVE} from '@/store/mutation-types'
 import ListModel from '@/models/list'
+import createTask from '@/components/tasks/mixins/createTask'
 
 const TYPE_LIST = 'list'
 const TYPE_TASK = 'task'
@@ -91,6 +91,9 @@ export default {
 			teamService: null,
 		}
 	},
+	mixins: [
+		createTask,
+	],
 	computed: {
 		active() {
 			const active = this.$store.state[QUICK_ACTIONS_ACTIVE]
@@ -348,11 +351,11 @@ export default {
 				return
 			}
 
-			const newTask = new TaskModel({
-				title: this.query,
-				listId: this.currentList.id,
-			})
-			this.taskService.create(newTask)
+			// const newTask = new TaskModel({
+			// 	title: this.query,
+			// 	listId: this.currentList.id,
+			// })
+			this.createNewTask(this.query, 0, this.currentList.id)
 				.then(r => {
 					this.success({message: this.$t('task.createSuccess')})
 					this.$router.push({name: 'task.detail', params: {id: r.id}})
