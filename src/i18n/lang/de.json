@@ -384,7 +384,7 @@
                 "language": "Sprache"
             },
             "updateEmailNew": "Neue E-Mail-Adresse",
-            "passwordUpdateSuccess": "Das Passwort wurde erfolgreich aktualisiert.",
+            "passwordUpdateSuccess": "Passwort aktualisiert.",
             "passwordsDontMatch": "Das neue Passwort und seine Bestätigung stimmen nicht überein.",
             "currentPassword": "Aktuelles Passwort",
             "newPasswordConfirm": "Neue Passwortbestätigung",
@@ -420,7 +420,7 @@
             "usernameEmail": "Benutzername oder E-Mail-Adresse",
             "username": "Benutzername",
             "logout": "Abmelden",
-            "confirmEmailSuccess": "Du hast deine E-Mail erfolgreich bestätigt! Du kannst dich jetzt anmelden.",
+            "confirmEmailSuccess": "Du kannst dich jetzt mit deiner E-Mail-Adresse anmelden.",
             "resetPasswordSuccess": "Prüfe deinen Posteingang! Du solltest eine E-Mail mit Anweisungen zum Zurücksetzen deines Passworts erhalten haben.",
             "resetPasswordAction": "Mir einen Link zum Zurücksetzen des Passworts senden",
             "resetPassword": "Dein Passwort zurücksetzen",
