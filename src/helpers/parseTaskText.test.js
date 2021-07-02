@@ -168,7 +168,7 @@ describe('Parse Task Text', () => {
 			const nextThursday = new Date()
 			nextThursday.setDate(nextThursday.getDate() + ((4 + 7 - nextThursday.getDay()) % 7))
 			expect(`${result.date.getFullYear()}-${result.date.getMonth()}-${result.date.getDate()}`).toBe(`${nextThursday.getFullYear()}-${nextThursday.getMonth()}-${nextThursday.getDate()}`)
-			expect(+new Date(result.date)).toBeGreaterThan(+new Date())
+			expect(+new Date(result.date)).toBeGreaterThan(+new Date() - 10) // In on thursdays, this may be different by one second and thus fails the test
 		})
 		it('should recognize weekdays with time', () => {
 			const result = parseTaskText('Lorem Ipsum thu at 14:00')
@@ -178,14 +178,15 @@ describe('Parse Task Text', () => {
 			nextThursday.setDate(nextThursday.getDate() + ((4 + 7 - nextThursday.getDay()) % 7))
 			expect(`${result.date.getFullYear()}-${result.date.getMonth()}-${result.date.getDate()}`).toBe(`${nextThursday.getFullYear()}-${nextThursday.getMonth()}-${nextThursday.getDate()}`)
 			expect(`${result.date.getHours()}:${result.date.getMinutes()}`).toBe('14:0')
-			expect(+new Date(result.date)).toBeGreaterThan(+new Date())
+			expect(+new Date(result.date)).toBeGreaterThan(+new Date() - 10) // In on thursdays, this may be different by one second and thus fails the test
 		})
 		it('should recognize dates of the month in the past but next month', () => {
 			const date = new Date()
-			const result = parseTaskText(`Lorem Ipsum ${date.getDate() - 1}nd`)
+			date.setDate(date.getDate() - 1)
+			const result = parseTaskText(`Lorem Ipsum ${date.getDate()}nd`)
 
 			expect(result.text).toBe('Lorem Ipsum')
-			expect(result.date.getDate()).toBe(date.getDate() - 1)
+			expect(result.date.getDate()).toBe(date.getDate())
 			expect(result.date.getMonth()).toBe(date.getMonth() + 1)
 		})
 		it('should recognize dates of the month in the future', () => {
