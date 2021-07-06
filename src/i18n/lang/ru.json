@@ -153,13 +153,14 @@
                 "what": "Что такое ссылка для обмена?",
                 "title": "Ссылки для обмена",
                 "noName": "Без имени",
-                "deleteSuccess": "Ссылка удалена.",
+                "deleteSuccess": "Ссылка удалена",
                 "createSuccess": "Ссылка создана.",
                 "removeText": "Удалить эту ссылку для обмена? Больше не удастся получить доступ к списку через эту ссылку. Это действие отменить нельзя!",
                 "remove": "Удалить ссылку для обмена",
                 "passwordExplanation": "Пользователь будет должен ввести пароль для входа.",
                 "password": "Пароль (необязательно)",
-                "nameExplanation": "Все действия, проведённые через эту ссылку, будут подписаны этим именем."
+                "nameExplanation": "Все действия, проведённые через эту ссылку, будут подписаны этим именем.",
+                "namePlaceholder": "напр. Lorem Ipsum"
             },
             "share": "Поделиться",
             "title": "Поделиться списком «{list}»",
@@ -253,7 +254,11 @@
             "email": "E-mail адрес",
             "usernameEmail": "Имя пользователя или Email",
             "username": "Имя пользователя",
-            "resetPasswordSuccess": "Проверь почту! Там должно быть письмо с инструкциями, как сбросить пароль."
+            "resetPasswordSuccess": "Проверь почту! Там должно быть письмо с инструкциями, как сбросить пароль.",
+            "passwordPlaceholder": "напр. •••••••••••",
+            "totpPlaceholder": "напр. 123456",
+            "emailPlaceholder": "напр. frederic@vikunja.io",
+            "usernamePlaceholder": "напр. frederick"
         }
     },
     "404": {
@@ -395,7 +400,12 @@
         },
         "subscription": {
             "unsubscribe": "Отписаться",
-            "subscribe": "Подписаться"
+            "subscribe": "Подписаться",
+            "unsubscribeSuccess": "Ты отписался от {entity}",
+            "subscribeSuccess": "Ты подписался на {entity}",
+            "notSubscribed": "Ты не подписан на {entity} и не будешь получать уведомления об изменениях.",
+            "subscribed": "Ты подписан на {entity} и будешь получать уведомления об изменениях.",
+            "subscribedThroughParent": "Ты не можешь отписаться здесь, потому что ты подписан на {entity} через {parent}."
         },
         "attributes": {
             "updated": "Дата изменения",
@@ -538,12 +548,14 @@
         "searchPlaceholder": "Введи запрос для поиска…",
         "search": "Поиск",
         "info": "Информация",
-        "confirm": "Подтвердить"
+        "confirm": "Подтвердить",
+        "refresh": "Обновить"
     },
     "navigation": {
         "settings": "Настройки",
         "upcoming": "Предстоящие задачи",
-        "overview": "Обзор"
+        "overview": "Обзор",
+        "privacy": "Политика конфиденциальности"
     },
     "quickActions": {
         "cmds": {
@@ -651,7 +663,9 @@
         "description": "Нажмите на логотип одного из сторонних сервисов, чтобы начать.",
         "import": "Импорт данных в Vikunja",
         "titleService": "Импорт твоих данных из {name} в Vikunja",
-        "title": "Миграция из других сервисов в Vikunja"
+        "title": "Миграция из других сервисов в Vikunja",
+        "alreadyMigrated1": "Кажется, ты уже импортировал данные из {name} {date}.",
+        "confirm": "Я уверен, давай начнём миграцию!"
     },
     "namespace": {
         "attributes": {
