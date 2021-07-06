@@ -292,7 +292,13 @@
             "links": {
                 "noName": "Kein Name angegeben",
                 "passwordExplanation": "Bei der Authentifizierung wird der Benutzer aufgefordert, dieses Passwort einzugeben.",
-                "password": "Passwort (optional)"
+                "password": "Passwort (optional)",
+                "namePlaceholder": "z.B. Max Muster",
+                "name": "Name (optional)",
+                "create": "Erstelle einen neuen geteilten Link",
+                "explanation": "Erstellt einen Link zu einer Liste, für User, ohne Vikunja Account.",
+                "what": "Was ist ein geteilter Link?",
+                "title": "Geteilter Link"
             },
             "share": "Teilen"
         },
@@ -342,7 +348,8 @@
         "create": {
             "createdSuccess": "Die Liste wurde erfolgreich erstellt.",
             "titlePlaceholder": "Der Titel der Liste steht hier …",
-            "header": "Eine neue Liste erstellen"
+            "header": "Eine neue Liste erstellen",
+            "addTitleRequired": "Bitte gebe einen Namen an."
         },
         "color": "Farbe",
         "searchSelect": "Klicke auf oder drücke die Eingabetaste, um diese Liste auszuwählen",
@@ -355,29 +362,33 @@
         "settings": {
             "caldav": {
                 "title": "CalDAV",
-                "more": "Mehr Informationen über CalDAV in Vikunja"
+                "more": "Mehr Informationen über CalDAV in Vikunja",
+                "howTo": "Sie können Vikunja mit CalDAV-Clients verbinden, um alle Aufgaben von verschiedenen Clients anzuzeigen und zu verwalten. Geben Sie diese URL in Ihren Client ein:"
             },
             "totp": {
                 "disableSuccess": "Die Zwei-Faktor-Authentifizierung wurde erfolgreich deaktiviert.",
                 "passcode": "Code",
                 "enroll": "Einschreiben",
                 "title": "Zwei-Faktor-Authentifizierung",
-                "disable": "Zwei-Faktor-Authentifizierung deaktivieren",
+                "disable": "Zwei-Faktor-Authentifizierung ausschalten",
                 "enterPassword": "Bitte gib dein Passwort ein",
-                "setupSuccess": "Du hast die Zwei-Faktor-Authentifizierung erfolgreich eingerichtet!",
+                "setupSuccess": "Du hast die Zwei-Faktor-Authentifizierung erfolgreich eingerichtet.",
                 "scanQR": "Alternativ kannst du auch diesen QR-Code scannen:",
-                "finishSetupPart2": "Danach gib unten einen Code aus deiner Anwendung ein."
+                "finishSetupPart2": "Danach gib unten einen Code aus deiner Anwendung ein.",
+                "finishSetupPart1": "Um die Aktivierung zu vollenden, benutze diesen Token in deiner TOTP App (sowie OTP oder ähnlich):",
+                "confirmSuccess": "TOTP wurde verifiziert und ist nun verwendbar.",
+                "passcodePlaceholder": "Ein von deiner TOTP-App generierter code"
             },
             "general": {
                 "weekStartMonday": "Montag",
                 "weekStartSunday": "Sonntag",
                 "weekStart": "Woche beginnt am",
                 "playSoundWhenDone": "Einen Ton abspielen, wenn Aufgaben als erledigt markiert werden",
-                "discoverableByEmail": "Andere Benutzer mich finden lassen, wenn sie nach meiner vollständigen E-Mail suchen",
-                "discoverableByName": "Andere Benutzer mich finden lassen, wenn sie nach meinem Namen suchen",
-                "overdueReminders": "Mir jeden Morgen Erinnerungen für überfällige unerledigte Aufgaben per E-Mail senden",
+                "discoverableByEmail": "Andere Benutzer können mich finden, wenn sie nach meiner kompletten E-Mail-Adresse suchen.",
+                "discoverableByName": "Andere Benutzer können mich finden, wenn sie nach meinem Namen suchen.",
+                "overdueReminders": "Mir jeden Morgen Erinnerungen für überfällige, unerledigte Aufgaben per E-Mail senden",
                 "emailReminders": "Mir Erinnerungen für Aufgaben per E-Mail senden",
-                "savedSuccess": "Die Einstellungen wurden erfolgreich aktualisiert.",
+                "savedSuccess": "Die Einstellungen wurden aktualisiert.",
                 "newName": "Der neue Name",
                 "name": "Name",
                 "title": "Allgemeine Einstellungen",
@@ -398,7 +409,8 @@
                 "setSuccess": "Der Avatar wurde erfolgreich gesetzt!",
                 "statusUpdateSuccess": "Avatar-Status wurde erfolgreich aktualisiert!",
                 "uploadAvatar": "Avatar hochladen",
-                "upload": "Hochladen"
+                "upload": "Hochladen",
+                "initials": "Initialen"
             },
             "updateEmailSuccess": "Deine E-Mail-Adresse wurde erfolgreich aktualisiert. Wir haben dir einen Link zur Bestätigung geschickt.",
             "updateEmailTitle": "Aktualisiere deine E-Mail-Adresse"
