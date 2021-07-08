@@ -24,7 +24,12 @@
                 "savedSuccess": "Configuración actualizada.",
                 "newName": "El nombre nuevo",
                 "name": "Nombre",
-                "title": "Configuración General"
+                "title": "Configuración General",
+                "language": "Idioma",
+                "weekStartMonday": "lunes",
+                "weekStartSunday": "domingo",
+                "weekStart": "La semana empieza en",
+                "playSoundWhenDone": "Reproducir un sonido cuando marcas tareas como hechas"
             },
             "updateEmailSuccess": "Dirección de correo electrónico actualizada. Haga clic en el enlace del correo electrónico que se te ha enviado para confirmarlo.",
             "updateEmailNew": "Nueva dirección de correo electrónico"
