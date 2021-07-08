@@ -789,7 +789,7 @@
         "11002": "Saved filters are not available for link shares.",
         "12001": "The subscription entity type is invalid.",
         "12002": "You are already subscribed to the entity itself or a parent entity.",
-        "13001": "The required passord was not supplied for this link share.",
+        "13001": "The required password was not supplied for this link share.",
         "13002": "Invalid link-share password."
     }
 }
