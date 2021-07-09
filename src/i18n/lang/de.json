@@ -10,17 +10,27 @@
             "title": "Einen gespeicherten Filter erstellen"
         },
         "attributes": {
-            "descriptionPlaceholder": "Die Beschreibung steht hier …",
+            "descriptionPlaceholder": "Eine Beschreibung eingeben…",
             "description": "Beschreibung",
-            "titlePlaceholder": "Der gespeicherte Filtertitel steht hier …",
-            "title": "Titel"
+            "titlePlaceholder": "Einen gespeicherten Filternamen eingeben…",
+            "title": "Titel",
+            "reminderRange": "Erinnerungs-Datumsbereich",
+            "endDateRange": "Enddatumsbereich",
+            "startDateRange": "Startdatumsbereich",
+            "dueDateRange": "Fälligkeitsbereich",
+            "enablePercentDone": "Nach % erledigt",
+            "enablePriority": "Filter nach Priorität aktivieren",
+            "showDoneTasks": "Erledigte Aufgaben anzeigen",
+            "requireAll": "Alle Filter für eine Aufgabe benötigen, um angezeigt zu werden",
+            "includeNulls": "Aufgaben ohne Werte einbeziehen"
         },
         "delete": {
             "header": "Diesen gespeicherten Filter löschen",
-            "success": "Der Filter wurde erfolgreich gelöscht."
+            "success": "Filter gelöscht.",
+            "text": "Diesen gespeicherten Filter löschen?"
         },
         "edit": {
-            "success": "Der Filter wurde erfolgreich gespeichert.",
+            "success": "Filter gespeichert.",
             "title": "Diesen gespeicherten Filter bearbeiten"
         },
         "title": "Filter"
@@ -28,14 +38,34 @@
     "sharing": {
         "authenticating": "Authentifizierung …",
         "invalidPassword": "Das Passwort ist ungültig.",
-        "error": "Es ist ein Fehler aufgetreten."
+        "error": "Es ist ein Fehler aufgetreten.",
+        "passwordRequired": "Diese geteilte Liste benötigt ein Passwort. Bitte gebe es unten ein:"
     },
     "label": {
         "attributes": {
             "color": "Farbe",
             "description": "Beschreibung",
-            "title": "Titel"
-        }
+            "title": "Titel",
+            "descriptionPlaceholder": "Label Beschreibung",
+            "titlePlaceholder": "Gebe einen Labelnamen an…"
+        },
+        "newCTA": "Du hast momentan keine Labels.",
+        "edit": {
+            "success": "Label editiert.",
+            "forbidden": "Du kannst dieses Label nicht editieren, da es nicht dir gehört.",
+            "header": "Label editieren"
+        },
+        "create": {
+            "success": "Label erstellt.",
+            "titleRequired": "Bitte gebe einen Namen an.",
+            "title": "Erstelle ein neues Label",
+            "header": "Neues Label"
+        },
+        "search": "Beginne zu schreiben, um nach einem Label zu suchen…",
+        "description": "Klicke auf ein Label um es zu editieren. Du kannst alle Labels, welche du erstellt hast editieren. Du kannst alle Labels welche mit einer Aufgabe auf die du zugriff hast benutzen.",
+        "manage": "Label migrieren",
+        "title": "Labels",
+        "deleteSuccess": "Label gelöscht."
     },
     "misc": {
         "search": "Suchen",
@@ -47,7 +77,16 @@
         "loading": "Wird geladen …",
         "previous": "Vorherige",
         "next": "Weiter",
-        "poweredBy": "Angetrieben von Vikunja"
+        "poweredBy": "Angetrieben von Vikunja",
+        "cancel": "Abbrechen",
+        "default": "Standard",
+        "saved": "Gespeichert!",
+        "saving": "Speichere…",
+        "doit": "Tu es!",
+        "create": "Erstellen",
+        "info": "Informationen",
+        "searchPlaceholder": "Beginne zu schreiben um zu suchen…",
+        "refresh": "Neu laden"
     },
     "task": {
         "delete": "Diese Aufgabe löschen",
@@ -57,7 +96,13 @@
             "titleCurrent": "Aktuelle Aufgaben",
             "noTasks": "Nichts zu tun. Einen schönen Tag noch!",
             "today": "Heute",
-            "nextWeek": "Nächste Woche"
+            "nextWeek": "Nächste Woche",
+            "nextMonth": "Nächster Monat",
+            "until": "bis",
+            "from": "Aufgaben von",
+            "current": "Momentane Aufgaben",
+            "noDates": "Zeige Aufgaben ohne Datum",
+            "titleDates": "Aufgaben von {from} bis {to}"
         },
         "detail": {
             "created": "Erstellt {0} von {1}",
@@ -65,10 +110,12 @@
             "done": "Fertig!",
             "move": "Aufgabe in eine andere Liste verschieben",
             "delete": {
-                "header": "Diese Aufgabe löschen"
+                "header": "Diese Aufgabe löschen",
+                "text2": "Dies wird auch alle Anhänge, Erinnerungen und Verknüpfungen welche zu dieser Aufgabe gehören löschen und kann nicht wiederhergestell werden!",
+                "text1": "Diese Aufgabe löschen?"
             },
-            "deleteSuccess": "Die Aufgabe wurde erfolgreich gelöscht.",
-            "updateSuccess": "Die Aufgabe wurde erfolgreich gespeichert.",
+            "deleteSuccess": "Aufgabe gelöscht.",
+            "updateSuccess": "Aufgabe gespeichert.",
             "doneAt": "Erledigt {0}",
             "updated": "Aktualisiert {0}",
             "actions": {
@@ -78,8 +125,20 @@
                 "attachments": "Anhänge hinzufügen",
                 "delete": "Aufgabe löschen",
                 "color": "Taskfarbe einstellen",
-                "moveList": "Aufgabe verschieben"
-            }
+                "moveList": "Aufgabe verschieben",
+                "startDate": "Ein Startdatum setzen",
+                "dueDate": "Ein Fälligkeitsdatum setzen",
+                "label": "Label hinzufügen",
+                "assign": "Diese Aufgabe einem Benutzer zuweisen",
+                "percentDone": "Prozentuell erledigt setzen",
+                "repeatAfter": "Einen wiederholenden Intervall setzen",
+                "endDate": "Ein Enddatum setzen"
+            },
+            "due": "Fällig bis {at}",
+            "belongsToList": "Aufgaben gehören zu der \"{list}\" liste",
+            "chooseEndDate": "Clicke hier um ein Enddatum zu setzen",
+            "chooseStartDate": "Clicke hier um ein Startdatum zu setzen",
+            "chooseDueDate": "Klicke hier um ein Fälligkeitsdatum zu setzen"
         },
         "attributes": {
             "color": "Farbe",
@@ -95,27 +154,41 @@
             "percentDone": "% erledigt",
             "repeat": "Wiederholen",
             "reminders": "Erinnerungen",
-            "updated": "Aktualisiert"
+            "updated": "Aktualisiert",
+            "labels": "Labels",
+            "description": "Beschreibung",
+            "assignees": "Zugewiesene"
         },
         "subscription": {
             "subscribeSuccess": "Du bist jetzt bei dieser {entity} abonniert",
             "unsubscribe": "Deabonnieren",
-            "subscribe": "Abonnieren"
+            "subscribe": "Abonnieren",
+            "unsubscribeSuccess": "Du bist nun von dieser {entity} de-abonniert",
+            "notSubscribed": "Du bist nicht für diese {entity} abonniert und wirst keine Benachrichtigungen bei Änderungen erhalten.",
+            "subscribed": "Du bist momentan zu dieser {entity} abonniert und wirst für diese Benachrichtungen erhalten.",
+            "subscribedThroughParent": "DU kannst hier nicht de-abonnieren, da du zu dieser {entity} durch {parent} abonniert bist."
         },
         "attachment": {
             "download": "Herunterladen",
-            "createdBy": "erstellt {0} von {1}"
+            "createdBy": "erstellt {0} von {1}",
+            "deleteText2": "Dies kann nicht rückgängig gemacht werden!",
+            "deleteText1": "Soll der Anhang {filename} gelöscht werden?",
+            "delete": "Anhang löschen",
+            "drop": "Ziehe Dateien hierher, um diese hochzuladen",
+            "upload": "Anhang hochladen",
+            "title": "Anhänge"
         },
         "comment": {
             "placeholder": "Füge deinen Kommentar hinzu …",
-            "creating": "Kommentar wird erstellt …",
+            "creating": "Kommentar wird erstellt…",
             "edited": "bearbeitet {date}",
             "loading": "Kommentare werden geladen …",
-            "addedSuccess": "Der Kommentar wurde erfolgreich hinzugefügt.",
+            "addedSuccess": "Kommentar hinzugefügt.",
             "deleteText2": "Dies kann nicht rückgängig gemacht werden!",
-            "deleteText1": "Bist du sicher, dass du diesen Kommentar löschen willst?",
+            "deleteText1": "Diesen Kommentar löschen?",
             "delete": "Diesen Kommentar löschen",
-            "comment": "Kommentar"
+            "comment": "Kommentar",
+            "title": "Kommentare"
         },
         "description": {
             "empty": "Noch keine Beschreibung vorhanden.",
@@ -127,7 +200,7 @@
             "1day": "1 Tag"
         },
         "assignee": {
-            "unassignSuccess": "Die Zuweisung wurde erfolgreich aufgehoben.",
+            "unassignSuccess": "Benutzerzuweisung aufgehoben.",
             "assignSuccess": "Der Benutzer wurde erfolgreich zugewiesen.",
             "selectPlaceholder": "Diese Benutzer zuweisen",
             "placeholder": "Tippe, um eine Benutzer zuzuweisen …"
@@ -136,7 +209,9 @@
             "doNow": "JETZT TUN",
             "urgent": "Dringend",
             "low": "Niedrig",
-            "unset": "Nicht eingestellt"
+            "unset": "Nicht eingestellt",
+            "medium": "Mittel",
+            "high": "Hoch"
         },
         "repeat": {
             "each": "Jede/n",
@@ -146,7 +221,7 @@
             "days": "Tage",
             "hours": "Stunden",
             "specifyAmount": "Gib einen Anzahl an …",
-            "fromCurrentDate": "Ab aktuellem Datum",
+            "fromCurrentDate": "Ab dem aktuellen Datum",
             "monthly": "Monatlich",
             "mode": "Wiederholungsmodus",
             "everyMonth": "Jeden Monat",
@@ -154,33 +229,56 @@
             "everyDay": "Jeden Tag"
         },
         "relation": {
-            "deleteText2": "Dies kann nicht rückgängig gemacht werden!"
-        }
+            "deleteText2": "Dies kann nicht rückgängig gemacht werden!",
+            "differentList": "Diese Aufgabe gehört zu einer anderen Liste.",
+            "searchPlaceholder": "Beginne zu schreiben, um eine Aufgabe zu suchen, welche als Abhängigkeit hinzugefügt werden soll…",
+            "deleteText1": "Diese Aufgaben Abhängigkeit entfernen?",
+            "delete": "Aufgaben Abhängigkeit entfernen",
+            "noneYet": "Keine Aufgaben Abhängigkeiten definiert.",
+            "createPlaceholder": "Füge diese Aufgabe als neue Abhängigkeit hinzu",
+            "new": "Neue Aufgaben Abhängigkeit",
+            "add": "Neue Aufgaben Abhängigkeit hinzufügen"
+        },
+        "label": {
+            "removeSuccess": "Label entfernt.",
+            "createSuccess": "Label erstellt.",
+            "placeholder": "Beginne zu schreiben, um ein neues Label hinzuzufügen…",
+            "addSuccess": "Label hinzugefügt.",
+            "createPlaceholder": "Dies als neues Label hinzufügen"
+        },
+        "undoneSuccess": "Aufgabe als nicht erledigt markieren.",
+        "doneSuccess": "Aufgabe als erledigt markieren.",
+        "openDetail": "Aufgabe in der Detailansicht anzeigen",
+        "addReminder": "Eine neue Erinnerung erstellen…",
+        "createSuccess": "Aufgabe erstellt."
     },
     "team": {
         "edit": {
             "delete": {
                 "header": "Team löschen",
-                "success": "Das Team wurde erfolgreich gelöscht.",
+                "success": "Team gelöscht.",
                 "text2": "Alle Teammitglieder verlieren den Zugriff auf Listen und Namensräume, die mit diesem Team geteilt sind. Dies KANN NICHT RÜCKGÄNGIG gemacht werden!",
                 "text1": "Bist du sicher, dass du dieses Team und alle seine Mitglieder löschen willst?"
             },
-            "madeAdmin": "Das Teammitglied wurde erfolgreich zum Admin gemacht.",
-            "madeMember": "Das Teammitglied wurde erfolgreich zum Mitglied gemacht.",
-            "userAddedSuccess": "Das Teammitglied wurde erfolgreich hinzugefügt.",
-            "success": "Das Team wurde erfolgreich aktualisiert.",
+            "madeAdmin": "Teammitglied ist nun Administrator.",
+            "madeMember": "Das Teammitglied ist nun ein normales Mitglied.",
+            "userAddedSuccess": "Teammitglied hinzugefügt.",
+            "success": "Team aktualisiert.",
             "addUser": "Zum Team hinzufügen",
             "members": "Teammitglieder",
-            "title": "Team „{team}“ bearbeiten",
+            "title": "Team \"{team}\" bearbeiten",
             "deleteUser": {
                 "header": "Benutzer aus dem Team entfernen",
                 "success": "Der Benutzer wurde erfolgreich aus dem Team gelöscht.",
-                "text2": "Er oder sie verliert den Zugriff auf alle Listen und Namensräumen, auf die dieses Team Zugriff hat. Dies KANN NICHT RÜCKGÄNGIG gemacht werden!",
+                "text2": "Dieser Benutzer verliert den Zugriff auf alle Listen und Namensräumen, auf die dieses Team Zugriff hat. Dies kann nicht rückgängig gemacht werden!",
                 "text1": "Bist du sicher, dass du diese Benutzer aus dem Team entfernen willst?"
-            }
+            },
+            "search": "Beginne zu schreiben, um einenm Benutzer zu suchen…",
+            "makeAdmin": "Administrativ Rechte geben",
+            "makeMember": "Benutzer erstellen"
         },
         "create": {
-            "success": "Das Team wurde erfolgreich erstellt.",
+            "success": "Team erstellt.",
             "title": "Ein neues Team erstellen"
         },
         "title": "Teams",
@@ -190,7 +288,7 @@
             "member": "Mitglied",
             "admin": "Admin",
             "name": "Teamname",
-            "namePlaceholder": "Der Name des Teams steht hier …",
+            "namePlaceholder": "Teamname eingeben…",
             "nameRequired": "Bitte gib einen Namen an."
         },
         "noTeams": "Du bist derzeit nicht Teil eines Teams."
@@ -198,48 +296,56 @@
     "namespace": {
         "create": {
             "explanation": "Ein Namensraum ist eine Sammlung von Listen, die man teilen und verwenden kann, um seine Listen zu organisieren. Tatsächlich gehört jede Liste zu einem Namensraum.",
-            "success": "Der Namensraum wurde erfolgreich angelegt.",
+            "success": "Namensraum angelegt.",
             "tooltip": "Was ist ein Namensraum?",
-            "title": "Einen neuen Namensraum erstellen"
+            "title": "Einen neuen Namensraum erstellen",
+            "titleRequired": "Bitte gebe einen Namen an."
         },
         "attributes": {
             "isArchived": "Dieser Namensraum wird archiviert",
             "archived": "Ist archiviert",
             "color": "Farbe",
-            "descriptionPlaceholder": "Die Beschreibung des Namensraums steht hier …",
+            "descriptionPlaceholder": "Beschreibung für den Namensraum eingeben…",
             "description": "Beschreibung",
-            "titlePlaceholder": "Der Titel des Namensraums steht hier …",
+            "titlePlaceholder": "Titel des Namensraums angeben…",
             "title": "Namensraumtitel"
         },
         "share": {
             "title": "„{namespace}“ teilen"
         },
         "edit": {
-            "success": "Der Namensraum wurde erfolgreich aktualisiert.",
+            "success": "Namensraum aktualisiert.",
             "title": "„{namespace}“ bearbeiten"
         },
         "delete": {
-            "success": "Der Namensraum wurde erfolgreich gelöscht.",
+            "success": "Namensraum gelöscht.",
             "text2": "Dies umfasst alle Listen und Aufgaben und kann NICHT rückgängig gemacht werden!",
-            "title": "„{namespace}“ löschen"
+            "title": "„{namespace}“ löschen",
+            "text1": "Diesen Namensraum und deren Inhalt löschen?"
         },
         "archive": {
-            "description": "Wenn ein Namensraum archiviert ist, kann man keine neuen Listen erstellen oder ihn bearbeiten.",
-            "success": "Der Namensraum wurde erfolgreich archiviert.",
-            "titleUnarchive": "Archivierung von „{namespace}“ aufheben",
-            "titleArchive": "„{namespace}“ archivieren"
+            "description": "Wenn ein Namensraum archiviert wird, kann man darin keine neuen Listen erstellen oder diesen bearbeiten.",
+            "success": "Namensraum archiviert.",
+            "titleUnarchive": "Archivierung von \"{namespace}\" aufheben",
+            "titleArchive": "„{namespace}“ archivieren",
+            "unarchiveText": "Du kannst neue Aufgaben erstellen oder diese bearbeiten.",
+            "archiveText": "Sie können diesen Namensraum nicht mehr bearbeiten oder neue Listen erstellen, bis Sie ihn aus dem Archiv entfernen. Dadurch werden auch alle Listen in diesem Namensraum archiviert."
         },
         "noLists": "Dieser Namensraum enthält keine Listen.",
         "title": "Namensräume und Listen",
         "unarchive": "Archivierung aufheben",
         "archived": "Archiviert",
         "showArchived": "Archivierte anzeigen",
-        "namespace": "Namensraum"
+        "namespace": "Namensraum",
+        "search": "Beginne zu schreiben, um einen Namensraum zu suchen…",
+        "namespaces": "Namensräume",
+        "createList": "Eine neue Liste in diesem Namensraum erstellen.",
+        "noneAvailable": "Du hast momentan keine Namensräume."
     },
     "list": {
         "kanban": {
-            "bucketTitleSavedSuccess": "Der Eimertitel wurde erfolgreich gespeichert.",
-            "deleteBucketSuccess": "Der Eimer wurde erfolgreich gelöscht.",
+            "bucketTitleSavedSuccess": "Korbname gespeichert.",
+            "deleteBucketSuccess": "Korb gelöscht.",
             "deleteBucketText2": "Dies löscht keine Aufgaben, sondern verschiebt sie in den Standard-Eimer.",
             "deleteHeaderBucket": "Den Eimer löschen",
             "addBucket": "Einen neuen Eimer erstellen",
@@ -247,7 +353,16 @@
             "addTask": "Eine Aufgabe hinzufügen",
             "doneBucket": "Erledigte-Dinge-Eimer",
             "noLimit": "Nicht eingestellt",
-            "title": "Kanban"
+            "title": "Kanban",
+            "bucketLimitSavedSuccess": "Korb Limit gespeichert.",
+            "deleteBucketText1": "Diesen Korb löschen?",
+            "addBucketPlaceholder": "Gebe einen neuen Korbnamen ein…",
+            "addTaskPlaceholder": "Gebe einen Aufgabenamen ein…",
+            "deleteLast": "Du kannst den letzten Korb nicht entfernen.",
+            "doneBucketSavedSuccess": "Erledigt Korb gespeichert.",
+            "doneBucketHintExtended": "Alle Aufgaben welche in den Erledigt-Korb gelegt wurden, werden automatisch als erledigt markiert. Aufgaben, welche in einem anderen Korb als Erledigt markiert wurden, werden auch in diesen Korb verschoben.",
+            "doneBucketHint": "Alle Aufgaben welche diesem Korb zugewiesen wurden, werden automatisch als erledigt markiert.",
+            "limit": "Limit: {limit}"
         },
         "table": {
             "columns": "Spalten",
@@ -261,14 +376,17 @@
             "default": "Standard",
             "size": "Größe",
             "showTasksWithoutDates": "Aufgaben anzeigen, für die keine Termine festgelegt sind",
-            "title": "Gantt"
+            "title": "Gantt",
+            "noDates": "Diese Aufgabe hat keine Daten definiert."
         },
         "list": {
             "empty": "Diese Liste ist derzeit leer.",
             "addPlaceholder": "Eine neue Aufgabe hinzufügen …",
             "add": "Hinzufügen",
             "title": "Liste",
-            "addTitleRequired": "Bitte gib einen Titel an."
+            "addTitleRequired": "Bitte gib einen Titel an.",
+            "editTask": "Aufgabe Bearbeiten",
+            "newTaskCta": "Eine neue Aufgabe erstellen."
         },
         "share": {
             "title": "„{Liste}“ teilen",
@@ -278,16 +396,25 @@
                 "you": "Du",
                 "shared": "Geteilt mit diesen {type}",
                 "typeTeam": "Team | Teams",
-                "typeUser": "Benutzer | Benutzer"
+                "typeUser": "Benutzer | Benutzer",
+                "updatedSuccess": "{type} hinzugefügt.",
+                "addedSuccess": "{type} hinzugefügt.",
+                "removeSuccess": "{sharable} von {type} entfernt.",
+                "removeText": "Diesen {sharable} von {type} entfernen? Dies kann nicht rückgängig gemacht werden!",
+                "removeHeader": "Einen {type} von {sharable} entfernen"
             },
             "attributes": {
                 "sharedBy": "Geteilt von",
                 "name": "Name",
-                "link": "Link"
+                "link": "Link",
+                "delete": "Löschen",
+                "right": "Rechts"
             },
             "right": {
                 "admin": "Admin",
-                "read": "Nur lesen"
+                "read": "Nur lesen",
+                "readWrite": "Lesen & Schreiben",
+                "title": "Rechts"
             },
             "links": {
                 "noName": "Kein Name angegeben",
@@ -298,38 +425,43 @@
                 "create": "Erstelle einen neuen geteilten Link",
                 "explanation": "Erstellt einen Link zu einer Liste, für User, ohne Vikunja Account.",
                 "what": "Was ist ein geteilter Link?",
-                "title": "Geteilter Link"
+                "title": "Geteilter Link",
+                "deleteSuccess": "Link gelöscht",
+                "createSuccess": "Linkfreigabe erstellt.",
+                "removeText": "Diese Linkfreigabe entfernen? Es wird nicht mehr möglich sein, mit dieser Linkfreigabe auf diese Liste zuzugreifen. Das kann nicht rückgängig gemacht werden!",
+                "remove": "Eine Linkfreigabe löschen",
+                "nameExplanation": "Alle Aktionen, die von dieser Linkfreigabe ausgehen, werden mit diesem Namen angezeigt."
             },
             "share": "Teilen"
         },
         "edit": {
-            "success": "Die Liste wurde erfolgreich aktualisiert.",
+            "success": "Liste aktualisiert.",
             "color": "Farbe",
-            "descriptionPlaceholder": "Die Listenbeschreibung geht hier …",
+            "descriptionPlaceholder": "Die Listenbeschreibung eingeben…",
             "description": "Beschreibung",
             "identifierPlaceholder": "Der Listenbezeichner geht hier …",
             "identifier": "Listebezeichner",
             "identifierTooltip": "Der Listenbezeichner kann zur eindeutigen Identifizierung einer Aufgabe über Listen hinweg verwendet werden. Man kann ihn auf leer setzen, um ihn zu deaktivieren.",
-            "titlePlaceholder": "Der Titel der Liste steht hier …",
+            "titlePlaceholder": "Listenname eingeben…",
             "title": "„{list}“ bearbeiten",
             "header": "Diese Liste bearbeiten"
         },
         "duplicate": {
-            "success": "Die Liste wurde erfolgreich dupliziert.",
+            "success": "Liste dupliziert.",
             "label": "Duplizieren",
             "title": "Diese Liste duplizieren",
             "text": "Wähle einen Namensraum aus, der die duplizierte Liste enthalten soll:"
         },
         "delete": {
-            "success": "Die Liste wurde erfolgreich gelöscht.",
+            "success": "Liste gelöscht.",
             "text2": "Dies umfasst alle Aufgaben und kann NICHT rückgängig gemacht werden!",
             "header": "Diese Liste löschen",
             "title": "„{list}“ löschen",
             "text1": "Bist du sicher, dass du diese Liste und alle ihre Inhalte löschen willst?"
         },
         "background": {
-            "removeSuccess": "Der Hintergrund ist erfolgreich entfernt worden!",
-            "success": "Der Hintergrund ist erfolgreich eingestellt worden!",
+            "removeSuccess": "Hintergrund entfernt.",
+            "success": "Hintergrund gesetzt.",
             "loadMore": "Mehr Fotos laden",
             "poweredByUnsplash": "Angetrieben von Unsplash",
             "searchPlaceholder": "Nach einem Hintergrund suchen …",
@@ -347,7 +479,7 @@
         },
         "create": {
             "createdSuccess": "Die Liste wurde erfolgreich erstellt.",
-            "titlePlaceholder": "Der Titel der Liste steht hier …",
+            "titlePlaceholder": "Der Titel der Liste steht hier…",
             "header": "Eine neue Liste erstellen",
             "addTitleRequired": "Bitte gebe einen Namen an."
         },
@@ -356,7 +488,8 @@
         "search": "Tippe, um nach einer Liste zu suchen …",
         "lists": "Listen",
         "title": "Listentitel",
-        "archived": "Diese Liste wird archiviert. Es ist nicht möglich, neue Aufgaben zu erstellen oder sie zu bearbeiten."
+        "archived": "Diese Liste wird archiviert. Es ist nicht möglich, neue Aufgaben zu erstellen oder sie zu bearbeiten.",
+        "shared": "Geteilte Listen"
     },
     "user": {
         "settings": {
@@ -384,11 +517,11 @@
                 "weekStartSunday": "Sonntag",
                 "weekStart": "Woche beginnt am",
                 "playSoundWhenDone": "Einen Ton abspielen, wenn Aufgaben als erledigt markiert werden",
-                "discoverableByEmail": "Andere Benutzer können mich finden, wenn sie nach meiner kompletten E-Mail-Adresse suchen.",
-                "discoverableByName": "Andere Benutzer können mich finden, wenn sie nach meinem Namen suchen.",
+                "discoverableByEmail": "Andere Benutzer können mich finden, wenn sie nach meiner kompletten E-Mail-Adresse suchen",
+                "discoverableByName": "Andere Benutzer können mich finden, wenn sie nach meinem Namen suchen",
                 "overdueReminders": "Mir jeden Morgen Erinnerungen für überfällige, unerledigte Aufgaben per E-Mail senden",
                 "emailReminders": "Mir Erinnerungen für Aufgaben per E-Mail senden",
-                "savedSuccess": "Die Einstellungen wurden aktualisiert.",
+                "savedSuccess": "Einstellungen aktualisiert.",
                 "newName": "Der neue Name",
                 "name": "Name",
                 "title": "Allgemeine Einstellungen",
@@ -406,8 +539,8 @@
             "avatar": {
                 "gravatar": "Gravatar",
                 "title": "Avatar",
-                "setSuccess": "Der Avatar wurde erfolgreich gesetzt!",
-                "statusUpdateSuccess": "Avatar-Status wurde erfolgreich aktualisiert!",
+                "setSuccess": "Der Avatar wurde erfolgreich gesetzt.",
+                "statusUpdateSuccess": "Avatar-Status wurde erfolgreich aktualisiert.",
                 "uploadAvatar": "Avatar hochladen",
                 "upload": "Hochladen",
                 "initials": "Initialen"
@@ -466,12 +599,16 @@
         "task": {
             "assign": "Diese Aufgabe zu einem Benutzer zuweisen",
             "done": "Eine Aufgabe als erledigt markieren",
-            "title": "Aufgabenseite"
+            "title": "Aufgabenseite",
+            "labels": "Dieser Aufgabe ein Label hinzufügen",
+            "related": "Ändere die Abhängigen Aufgaben dieser Aufgabe",
+            "attachment": "Einen Anhang dieser Aufgabe hinzufügen",
+            "dueDate": "Ändere das Fälligkeitsdatum dieser Aufgabe"
         },
         "quickSearch": "Such-/Schnellaktionsleiste öffnen",
         "toggleMenu": "Das Menü umschalten",
-        "currentPageOnly": "Diese Tastenkürzel funktionieren nur auf der aktuellen Seite.",
-        "allPages": "Diese Tastenkürzel funktionieren auf allen Seiten.",
+        "currentPageOnly": "Funktioniert nur auf der momentanen Seite.",
+        "allPages": "Funktioniert auf allen Seiten.",
         "title": "Tastenkürzel"
     },
     "quickActions": {
@@ -519,7 +656,7 @@
         "3001": "Die Liste existiert nicht.",
         "1014": "Alte Passwort ist leer.",
         "1013": "Neues Passwort ist leer.",
-        "1012": "E-Mail-Adresse des Benutzers nicht bestätigt.",
+        "1012": "Die E-Mail-Adresse des Benutzers ist nicht bestätigt.",
         "1011": "Falscher Benutzername oder falsches Passwort.",
         "1010": "Ungültiges E-Mail-Bestätigungs-Token.",
         "1009": "Ungültiges Token zum Zurücksetzen des Passworts.",
@@ -531,12 +668,124 @@
         "1001": "Es existiert bereits ein Benutzer mit diesem Benutzernamen.",
         "0001": "Das darfst du nicht tun.",
         "success": "Erfolg",
-        "error": "Fehler"
+        "error": "Fehler",
+        "13002": "Ungültiges Linkfreigabe Passwort.",
+        "11002": "Gespeicherte Ansichten sind nicht verfügbar für Linkfreigaben.",
+        "5011": "Dieser Benutzer hat bereits Zugriff auf diesen Namensraum.",
+        "5010": "Dieses Team hat keinen Zugriff auf diesen Namensraum.",
+        "4007": "Du kannst keine Aufgaben Abhängigkeit mit einer ungültigen Abhängigkeit erstellen.",
+        "4004": "Es benötigt mindestens einen Task, um eine Massenänderung durchzuführen.",
+        "4012": "Der Anhang ist zu gross.",
+        "9001": "Das Recht ist ungültig.",
+        "4003": "Alle Massenbearbeitungen an Aufgaben müssen in derselben Liste geschehen.",
+        "13001": "Das angeforderte Passwort für diese Linkfreigabe wurde nicht angegeben.",
+        "12002": "Du bist bereits zu dieser oder einer Übergeordneten Entität abonniert.",
+        "12001": "Der Abonnement-Entitäts-Typ ist ungültig.",
+        "10005": "Es kann nur einen Erledigt-Korb per Liste geben.",
+        "10004": "Du kannst diese Aufgabe nicht in diesen Korb legen, da dieser schon das Maximum der Aufgaben, welche zuweisbar sind überschritten hat.",
+        "10003": "Du kannst den letzten Korb nicht von der Liste entfernen.",
+        "10002": "Dieser Korb gehört nicht zu dieser Liste.",
+        "10001": "Dieser Korb existiert nicht.",
+        "8003": "Du hast keinen Zugriff auf dieses Label.",
+        "8002": "Das Label existiert nicht.",
+        "8001": "Dieses Label existiert bereits auf dieser Aufgabe.",
+        "7002": "Der Benutzer hat bereits zugriff auf diese Liste.",
+        "6007": "Das Team hat keine Berechtigungen auf dieser Liste, um das durchzuführen.",
+        "6006": "Du kannst den letzten Benutzer dieses Teams nicht löschen.",
+        "6005": "Dieser User ist bereits dem Team beigetreten.",
+        "6004": "Das Tean hat bereits zugriff auf diesen Namensraum oder diese Liste.",
+        "6002": "Das Team existiert nicht.",
+        "6001": "Der Team Name kann nicht leer sein.",
+        "5012": "Dieser Namensraum ist archiviert und kann deshalb nur gelesen werden.",
+        "5009": "Du benötigst Lesezugriff auf diesen Namensraum, um diese Aktion durchzuführen.",
+        "5006": "Der Namensraum Name kann nicht leer sein.",
+        "5003": "Du hast keinen Zugriff auf den Namensraum.",
+        "5001": "Dieser Namensraum existiert nicht.",
+        "4019": "Ungültiger Aufgabenfilter Wert.",
+        "4018": "Ungültiger Aufgabenfilter Zusammenzug.",
+        "4017": "Ungültiger Aufgabenfilter Vergleich.",
+        "4016": "Ungültiges Aufgaben Feld.",
+        "4015": "Dieser Aufgabenkommentar existiert nicht.",
+        "4014": "Die Aufgaben Sortierungsreihenfolge ist ungültig.",
+        "4013": "Ungültiger Aufgaben Sortierung-parameter.",
+        "4011": "Der Anhang existiert nicht.",
+        "4010": "Du kannst deine Aufgabe nicht von sich selbst abhängig machen.",
+        "4009": "Diese Aufgaben Abhängigkeit existiert nicht.",
+        "4008": "Du kannst keine Aufgaben Abhängigkeit erstellen, welche schon existiert.",
+        "3006": "Diese Linkfreigabe existiert nicht.",
+        "1018": "Die Avatar Einstellungen sind falsch.",
+        "1017": "Falscher TOTP Code.",
+        "1016": "Dieser Benutzer verwendet TOTP.",
+        "1015": "Dieser Benutzer verwendet schon TOTP.",
+        "4006": "Du kannst die Übergeordnete Aufgabe nicht auf sich selbst refferenzieren lassen.",
+        "4005": "Du hast keine Berechtigungen, um diese Aufgabe anzuzeigen.",
+        "4002": "Diese Aufgabe existiert nicht.",
+        "4001": "Der Aufgaben Titel kann nicht leer sein.",
+        "3008": "Diese Liste ist archiviert und kann deshalb nur gelesen werden. Dies ist auch für alle Aufgaben, welche mit dieser Liste verbunden sind so.",
+        "3007": "Eine Liste mit dieser Identifizierung existiert bereits.",
+        "2002": "Die Abfrageraten sind ungültig.",
+        "2001": "Die Benutzer-ID kann nicht leer oder 0 sein."
     },
     "date": {
         "altFormatShort": "j M Y",
         "altFormatLong": "j M Y H:i",
         "ago": "vor {date}",
-        "locale": "de"
+        "locale": "de",
+        "in": "in {date}"
+    },
+    "input": {
+        "editor": {
+            "cleanBlock": "Formatierung löschen",
+            "guide": "Hilfslinie",
+            "horizontalRule": "Horizontaler Strich",
+            "table": "Tabelle",
+            "image": "Bild",
+            "link": "Link",
+            "orderedList": "Geordnete Liste",
+            "unorderedList": "Ungeordnete Liste",
+            "quote": "Zitat",
+            "code": "Code",
+            "strikethrough": "Durchgestrichen",
+            "italic": "Kursiv",
+            "bold": "Fett",
+            "headingBigger": "Grössere Überschrift",
+            "headingSmaller": "Kleinere Überschrift",
+            "heading3": "Überschrift 3",
+            "heading2": "Überschrift 2",
+            "heading1": "Überschrift 1",
+            "done": "Fertig"
+        },
+        "multiselect": {
+            "selectPlaceholder": "Klicken oder Enter drücken um auszuwählen",
+            "createPlaceholder": "Neu erstellen"
+        },
+        "datepicker": {
+            "chooseDate": "Wähle ein Datum",
+            "nextWeek": "Nächste Woche",
+            "laterThisWeek": "Später in dieser Woche",
+            "thisWeekend": "Dieses Wochenende",
+            "nextMonday": "Nächsten Montag",
+            "tomorrow": "Morgen",
+            "today": "Heute"
+        },
+        "resetColor": "Farbe zurücksetzen"
+    },
+    "migrate": {
+        "authorize": "Ermögliche Vikunja den Zugriff auf Ihr {Name} Konto, indem du auf die Schaltfläche unten klickst.",
+        "confirm": "Ich bin sicher, bitte starte mit der Migration!",
+        "alreadyMigrated1": "Es scheint, dass du schon von {name} am {date} importiert hast.",
+        "inProgress": "Importiere…",
+        "getStarted": "Loslegen",
+        "descriptionDo": "Vikunja importiert alle Listen, Aufgaben, Notizen, Erinnerungen und Dateien, auf die du Zugriff hast.",
+        "description": "Klicke auf das Logo eines der unten aufgeführten Drittanbieterdienste, um loszulegen.",
+        "import": "Importiere deine Daten von {name} in Vikunja",
+        "titleService": "Importiere deine Daten von {name} in Vikunja"
+    },
+    "navigation": {
+        "privacy": "Datenschutz-Bestimmungen",
+        "imprint": "Impressum",
+        "settings": "Einstellungen",
+        "upcoming": "Anstehend",
+        "overview": "Übersicht"
     }
 }
