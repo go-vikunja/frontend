@@ -6,7 +6,12 @@
             "importText": "Ou importe tes listes et tâches d’autres services dans Vikunja :",
             "new": "Créer une nouvelle liste",
             "newText": "Tu peux créer une nouvelle liste pour tes nouvelles tâches :"
-        }
+        },
+        "lastViewed": "Dernière consultation",
+        "welcomeEvening": "Bonsoir {username}",
+        "welcomeDay": "Salut {username}",
+        "welcomeMorning": "Bonjour {username}",
+        "welcomeNight": "Bonne nuit {username}"
     },
     "label": {
         "attributes": {
@@ -56,7 +61,8 @@
     },
     "notification": {
         "explainer": "Les notifications apparaissent ici lorsque des actions (pour les espaces de noms, les listes ou les tâches) auxquelles tu es abonné·e se produisent.",
-        "none": "Tu n’as pas de notifications. Passe une bonne journée !"
+        "none": "Tu n’as pas de notifications. Passe une bonne journée !",
+        "title": "Notifications"
     },
     "loadingError": {
         "contact": "contacte-nous",
@@ -114,8 +120,8 @@
         "edit": {
             "deleteUser": {
                 "success": "Utilisateur·rice retiré·e de l’équipe.",
-                "text2": "L’utilisateur·rice perdra l’accès à toutes les listes et espaces de noms auxquels cette équipe a accès. Ceci ne peut pas être annulé !",
-                "text1": "Retirer cet·te utilisateur·rice de l’équipe ?",
+                "text2": "La personne perdra accès à toutes les listes et espaces de noms auxquels cette équipe a accès. Ceci ne peut pas être annulé !",
+                "text1": "Retirer cette personne de l’équipe ?",
                 "header": "Retirer un·e utilisateur·rice de l’équipe"
             },
             "delete": {
@@ -220,7 +226,11 @@
             "upload": "Téléverser la pièce jointe",
             "download": "Télécharger",
             "createdBy": "créé {0} par {1}",
-            "title": "Pièces jointes"
+            "title": "Pièces jointes",
+            "copyUrlTooltip": "Copier l’URL de cette pièce jointe pour l’utiliser dans le texte",
+            "copyUrl": "Copier l’URL",
+            "deleteTooltip": "Supprimer cette pièce jointe",
+            "downloadTooltip": "Télécharger cette pièce jointe"
         },
         "subscription": {
             "unsubscribeSuccess": "Tu es maintenant désabonné·e de cette {entity}",
@@ -305,7 +315,29 @@
         "createSuccess": "Tâche créée.",
         "delete": "Supprimer cette tâche",
         "new": "Créer une nouvelle tâche",
-        "task": "Tâche"
+        "task": "Tâche",
+        "quickAddMagic": {
+            "dateTime": "Combinez n’importe lequel des formats de date avec « {time} » (ou {timePM}) pour définir une heure.",
+            "dateNth": "utilisera le {day}e du mois en cours",
+            "dateCurrentYear": "utilisera l’année en cours",
+            "dateWeekday": "n’importe quel jour de la semaine, utilisera la date suivante avec cette date",
+            "date": "Toute date sera utilisée comme date d’échéance de la nouvelle tâche. Vous pouvez utiliser des dates dans un des formats suivants :",
+            "dateAndTime": "Date et heure",
+            "list2": "Ceci renverra une erreur si la liste n’existe pas.",
+            "list1": "Pour définir une liste dans laquelle la tâche doit apparaître, entrez son nom précédé de {prefix}.",
+            "assignees": "Pour attribuer directement la tâche à une personne, ajoutez son nom d’utilisateur préfixé par @ à la tâche.",
+            "priority2": "Plus le numéro est élevé, plus la priorité est élevée.",
+            "priority1": "Pour définir la priorité d’une tâche, ajoutez un chiffre de 1 à 5, précédé d’un {prefix}.",
+            "label4": "Par exemple : {prefix}\"Étiquette avec espaces\".",
+            "label3": "Pour utiliser des espaces, il suffit d’ajouter \" autour du nom de l’étiquette.",
+            "label2": "Vikunja va d’abord vérifier si l’étiquette existe déjà et la créer si ce n’est pas le cas.",
+            "label1": "Pour ajouter une étiquette, il suffit de préfixer le nom de l’étiquette avec {prefix}.",
+            "multiple": "Vous pouvez utiliser ceci plusieurs fois.",
+            "intro": "Lors de la création d’une tâche, vous pouvez utiliser des mots-clés spéciaux pour ajouter directement des attributs à la tâche nouvellement créée. Ceci permet d’ajouter des attributs couramment utilisés aux tâches beaucoup plus rapidement.",
+            "title": "Quick Add Magic",
+            "what": "Quoi ?",
+            "hint": "Vous pouvez utiliser Quick Add Magic"
+        }
     },
     "error": {
         "5009": "Accès en lecture à l’espace de noms nécessaire pour effectuer cette action.",
@@ -464,7 +496,18 @@
         "noneAvailable": "Tu n’as pas d’espace de noms pour le moment.",
         "showArchived": "Montrer les archivés",
         "namespace": "Espace de noms",
-        "title": "Espaces de noms et listes"
+        "title": "Espaces de noms et listes",
+        "pseudo": {
+            "savedFilters": {
+                "title": "Filtres"
+            },
+            "favorites": {
+                "title": "Favoris"
+            },
+            "sharedLists": {
+                "title": "Listes partagées"
+            }
+        }
     },
     "list": {
         "kanban": {
@@ -486,7 +529,8 @@
             "doneBucketHint": "Toutes les tâches déplacées dans ce seau seront automatiquement marquées comme faites.",
             "deleteHeaderBucket": "Supprimer le seau",
             "addBucketPlaceholder": "Entre le nouveau nom du seau…",
-            "doneBucket": "Seau des terminés"
+            "doneBucket": "Seau des terminés",
+            "collapse": "Réduire ce seau"
         },
         "table": {
             "columns": "Colonnes",
@@ -613,7 +657,12 @@
         "lists": "Listes",
         "color": "Couleur",
         "title": "Nom de la liste",
-        "archived": "Cette liste est archivée. Il n’est pas possible d’y créer de nouvelles tâches ou de les modifier."
+        "archived": "Cette liste est archivée. Il n’est pas possible d’y créer de nouvelles tâches ou de les modifier.",
+        "pseudo": {
+            "favorites": {
+                "title": "Favoris"
+            }
+        }
     },
     "user": {
         "settings": {
@@ -721,7 +770,8 @@
             "heading3": "En-tête 3",
             "heading2": "En-tête 2",
             "heading1": "En-tête 1",
-            "done": "Terminé"
+            "done": "Terminé",
+            "edit": "Modifier"
         },
         "datepicker": {
             "chooseDate": "Choisir une date",
@@ -753,7 +803,8 @@
         "confirm": "Confirmer",
         "delete": "Supprimer",
         "save": "Enregistrer",
-        "loading": "Chargement…"
+        "loading": "Chargement…",
+        "close": "Fermer"
     },
     "navigation": {
         "privacy": "Politique de confidentialité",
@@ -791,5 +842,10 @@
         "import": "Importer tes données dans Vikunja",
         "titleService": "Importe tes données depuis {name} dans Vikunja",
         "title": "Migrer d’autres services vers Vikunja"
+    },
+    "about": {
+        "apiVersion": "Version de l’API : {version}",
+        "frontendVersion": "Version : {version}",
+        "title": "À propos"
     }
 }
