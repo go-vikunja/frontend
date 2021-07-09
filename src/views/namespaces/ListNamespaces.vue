@@ -39,7 +39,7 @@
 			</x-button>
 
 			<h1>
-				<span>{{ n.title }}</span>
+				<span>{{ getNamespaceTitle(n) }}</span>
 				<span class="is-archived" v-if="n.isArchived">
 					{{ $t('namespace.archived') }}
 				</span>
@@ -53,37 +53,12 @@
 			</p>
 
 			<div class="lists">
-				<template v-for="l in n.lists">
-					<router-link
-						:class="{
-							'has-light-text': !colorIsDark(l.hexColor),
-							'has-background': typeof backgrounds[l.id] !== 'undefined',
-						}"
-						:key="`l${l.id}`"
-						:style="{
-							'background-color': l.hexColor,
-							'background-image': typeof backgrounds[l.id] !== 'undefined' ? `url(${backgrounds[l.id]})` : false,
-						}"
-						:to="{ name: 'list.index', params: { listId: l.id} }"
-						class="list"
-						tag="span"
-						v-if="showArchived ? true : !l.isArchived"
-					>
-						<div class="is-archived-container">
-							<span class="is-archived" v-if="l.isArchived">
-								{{ $t('namespace.archived') }}
-							</span>
-							<span
-								:class="{'is-favorite': l.isFavorite, 'is-archived': l.isArchived}"
-								@click.stop="toggleFavoriteList(l)"
-								class="favorite">
-								<icon icon="star" v-if="l.isFavorite"/>
-								<icon :icon="['far', 'star']" v-else/>
-							</span>
-						</div>
-						<div class="title">{{ l.title }}</div>
-					</router-link>
-				</template>
+				<list-card
+					v-for="l in n.lists"
+					:key="`l${l.id}`"
+					:list="l"
+					:show-archived="showArchived"
+				/>
 			</div>
 		</div>
 	</div>
@@ -91,25 +66,23 @@
 
 <script>
 import {mapState} from 'vuex'
-import ListService from '../../services/list'
 import Fancycheckbox from '../../components/input/fancycheckbox'
 import {LOADING} from '@/store/mutation-types'
+import ListCard from '@/components/list/partials/list-card'
 
 export default {
 	name: 'ListNamespaces',
 	components: {
+		ListCard,
 		Fancycheckbox,
 	},
 	data() {
 		return {
 			showArchived: false,
-			// listId is the key, the object is the background blob
-			backgrounds: {},
 		}
 	},
 	created() {
 		this.showArchived = JSON.parse(localStorage.getItem('showArchived')) ?? false
-		this.loadBackgroundsForLists()
 	},
 	mounted() {
 		this.setTitle(this.$t('namespace.title'))
@@ -121,31 +94,6 @@ export default {
 		loading: LOADING,
 	}),
 	methods: {
-		loadBackgroundsForLists() {
-			const listService = new ListService()
-			this.namespaces.forEach(n => {
-				n.lists.forEach(l => {
-					if (l.backgroundInformation) {
-						listService.background(l)
-							.then(b => {
-								this.$set(this.backgrounds, l.id, b)
-							})
-							.catch(e => {
-								this.error(e)
-							})
-					}
-				})
-			})
-		},
-		toggleFavoriteList(list) {
-			// The favorites pseudo list is always favorite
-			// Archived lists cannot be marked favorite
-			if (list.id === -1 || list.isArchived) {
-				return
-			}
-			this.$store.dispatch('lists/toggleListFavorite', list)
-				.catch(e => this.error(e))
-		},
 		saveShowArchivedState() {
 			localStorage.setItem('showArchived', JSON.stringify(this.showArchived))
 		},

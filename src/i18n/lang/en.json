@@ -1,7 +1,11 @@
 {
     "home": {
-        "welcome": "Hi {username}",
-        "list": {
+        "welcomeNight": "Good Night {username}",
+    "welcomeMorning": "Good Morning {username}",
+    "welcomeDay": "Hi {username}",
+        "welcomeEvening": "Good Evening {username}",
+    "lastViewed": "Last viewed",
+    "list": {
             "newText": "You can create a new list for your new tasks:",
             "new": "Create a new list",
             "importText": "Or import your lists and tasks from other services into Vikunja:",
@@ -239,8 +243,13 @@
             "deleteBucketText2": "This will not delete any tasks but move them into the default bucket.",
             "deleteBucketSuccess": "Bucket deleted.",
             "bucketTitleSavedSuccess": "Bucket name saved.",
-            "bucketLimitSavedSuccess": "Bucket limit saved."
-        }
+            "bucketLimitSavedSuccess": "Bucket limit saved.",
+        "collapse": "Collapse this bucket"
+    },
+    "pseudo": {
+      "favorites": {
+        "title": "Favorites"
+      }}
     },
     "namespace": {
         "title": "Namespaces and Lists",
@@ -288,7 +297,17 @@
             "descriptionPlaceholder": "Enter a namespace description…",
             "color": "Color",
             "archived": "Is archived",
-            "isArchived": "This namespace is archived"
+            "isArchived": "This namespace is archived"},
+    "pseudo": {
+      "sharedLists": {
+        "title": "Shared Lists"
+      },
+      "favorites": {
+        "title": "Favorites"
+      },
+      "savedFilters": {
+        "title": "Filters"
+      }
         }
     },
     "filters": {
@@ -394,7 +413,8 @@
         "doit": "Do it!",
         "saving": "Saving…",
         "saved": "Saved!",
-        "default": "Default"
+        "default": "Default",
+    "close": "Close"
     },
     "input": {
         "resetColor": "Reset Color",
@@ -408,7 +428,8 @@
             "chooseDate": "Choose a date"
         },
         "editor": {
-            "done": "Done",
+            "edit": "Edit",
+      "done": "Done",
             "heading1": "Heading 1",
             "heading2": "Heading 2",
             "heading3": "Heading 3",
@@ -523,12 +544,15 @@
             "title": "Attachments",
             "createdBy": "created {0} by {1}",
             "download": "Download",
-            "upload": "Upload attachment",
+            "downloadTooltip": "Download this attachment",
+      "upload": "Upload attachment",
             "drop": "Drop files here to upload",
             "delete": "Delete attachment",
-            "deleteText1": "Delete the {filename} attachment?",
-            "deleteText2": "This cannot be undone!"
-        },
+            "deleteTooltip": "Delete this attachment",
+      "deleteText1": "Delete the {filename} attachment?",
+            "deleteText2": "This cannot be undone!",
+        "copyUrl": "Copy URL",
+      "copyUrlTooltip": "Copy the url of this attachment for usage in text"},
         "comment": {
             "title": "Comments",
             "loading": "Loading comments…",
@@ -597,8 +621,29 @@
             "weeks": "Weeks",
             "months": "Months",
             "years": "Years"
-        }
-    },
+        },
+    "quickAddMagic": {
+      "hint": "You can use Quick Add Magic",
+      "what": "What?",
+      "title": "Quick Add Magic",
+      "intro": "When creating a task, you can use special keywords to directly add attributes to the newly created task. This allows to add commonly used attributes to tasks much faster.",
+      "multiple": "You can use this multiple times.",
+      "label1": "To add a label, simply prefix the name of the label with {prefix}.",
+      "label2": "Vikunja will first check if the label already exist and create it if not.",
+      "label3": "To use spaces, simply add a \" around the label name.",
+      "label4": "For example: {prefix}\"Label with spaces\".",
+      "priority1": "To set a task's priority, add a number 1-5, prefixed with a {prefix}.",
+      "priority2": "The higher the number, the higher the priority.",
+      "assignees": "To directly assign the task to a user, add their username prefixed with @ to the task.",
+      "list1": "To set a list for the task to appear in, enter its name prefixed with {prefix}.",
+      "list2": "This will return an error if the list does not exist.",
+      "dateAndTime": "Date and time",
+      "date": "Any date will be used as the due date of the new task. You can use dates in any of these formats:",
+      "dateWeekday": "any weekday, will use the next date with that date",
+      "dateCurrentYear": "will use the current year",
+      "dateNth": "will use the {day}th of the current month",
+      "dateTime": "Combine any of the date formats with \"{time}\" (or {timePM}) to set a time."
+    }},
     "team": {
         "title": "Teams",
         "noTeams": "You are currently not part of any teams.",
@@ -683,7 +728,7 @@
         "tryAgain": "try again",
         "contact": "contact us"
     },
-    "notification": {
+    "notification": {"title": "Notifications",
         "none": "You don't have any notifications. Have a nice day!",
         "explainer": "Notifications appear here when actions (for namespaces, lists, or tasks) you subscribe to happen."
     },
@@ -791,5 +836,10 @@
         "12002": "You are already subscribed to the entity itself or a parent entity.",
         "13001": "The required password was not supplied for this link share.",
         "13002": "Invalid link-share password."
-    }
+    },
+  "about": {
+    "title": "About",
+    "frontendVersion": "Frontend Version: {version}",
+    "apiVersion": "API Version: {version}"
+  }
 }

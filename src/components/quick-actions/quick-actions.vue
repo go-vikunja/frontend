@@ -1,5 +1,5 @@
 <template>
-	<modal v-if="active" class="quick-actions" @close="closeQuickActions">
+	<modal v-if="active" class="quick-actions" @close="closeQuickActions" :overflow="isNewTaskCommand">
 		<div class="card">
 			<div class="action-input" :class="{'has-active-cmd': selectedCmd !== null}">
 				<div class="active-cmd tag" v-if="selectedCmd !== null">
@@ -20,9 +20,11 @@
 				/>
 			</div>
 
-			<div class="help has-text-grey-light p-2" v-if="hintText !== ''">
+			<div class="help has-text-grey-light p-2" v-if="hintText !== '' && !isNewTaskCommand">
 				{{ hintText }}
 			</div>
+
+			<quick-add-magic class="p-2 modal-container-smaller" v-if="isNewTaskCommand"/>
 
 			<div class="results" v-if="selectedCmd === null">
 				<div v-for="(r, k) in results" :key="k" class="result">
@@ -39,6 +41,7 @@
 							@click.prevent.stop="() => doAction(r.type, i)"
 							@keyup.prevent.enter="() => doAction(r.type, i)"
 							@keyup.prevent.esc="() => $refs.searchInput.focus()"
+							:class="{'is-strikethrough': i.done}"
 						>
 							{{ i.title }}
 						</button>
@@ -53,12 +56,14 @@
 import TaskService from '@/services/task'
 import TeamService from '@/services/team'
 
-import TaskModel from '@/models/task'
 import NamespaceModel from '@/models/namespace'
 import TeamModel from '@/models/team'
 
 import {CURRENT_LIST, LOADING, LOADING_MODULE, QUICK_ACTIONS_ACTIVE} from '@/store/mutation-types'
 import ListModel from '@/models/list'
+import createTask from '@/components/tasks/mixins/createTask'
+import QuickAddMagic from '@/components/tasks/partials/quick-add-magic'
+import {getHistory} from '@/modules/listHistory'
 
 const TYPE_LIST = 'list'
 const TYPE_TASK = 'task'
@@ -77,6 +82,7 @@ const SEARCH_MODE_TEAMS = 'teams'
 
 export default {
 	name: 'quick-actions',
+	components: {QuickAddMagic},
 	data() {
 		return {
 			query: '',
@@ -91,6 +97,9 @@ export default {
 			teamService: null,
 		}
 	},
+	mixins: [
+		createTask,
+	],
 	computed: {
 		active() {
 			const active = this.$store.state[QUICK_ACTIONS_ACTIVE]
@@ -107,7 +116,29 @@ export default {
 					query = query.substr(1)
 				}
 
-				lists = (Object.values(this.$store.state.lists).filter(l => {
+				const ncache = {}
+
+				const history = getHistory()
+				// Puts recently visited lists at the top
+				const allLists = [...new Set([
+					...history.map(l => {
+						return this.$store.getters['lists/getListById'](l.id)
+					}),
+					...Object.values(this.$store.state.lists)])]
+
+				lists = (allLists.filter(l => {
+					if (l.isArchived) {
+						return false
+					}
+
+					if (typeof ncache[l.namespaceId] === 'undefined') {
+						ncache[l.namespaceId] = this.$store.getters['namespaces/getNamespaceById'](l.namespaceId)
+					}
+
+					if (ncache[l.namespaceId].isArchived) {
+						return false
+					}
+
 					return l.title.toLowerCase().includes(query.toLowerCase())
 				}) ?? [])
 			}
@@ -221,6 +252,9 @@ export default {
 			}
 
 			return SEARCH_MODE_ALL
+		},
+		isNewTaskCommand() {
+			return this.selectedCmd !== null && this.selectedCmd.action === CMD_NEW_TASK
 		},
 	},
 	created() {
@@ -348,11 +382,7 @@ export default {
 				return
 			}
 
-			const newTask = new TaskModel({
-				title: this.query,
-				listId: this.currentList.id,
-			})
-			this.taskService.create(newTask)
+			this.createNewTask(this.query, 0, this.currentList.id)
 				.then(r => {
 					this.success({message: this.$t('task.createSuccess')})
 					this.$router.push({name: 'task.detail', params: {id: r.id}})
