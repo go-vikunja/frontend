@@ -10,9 +10,9 @@
             "title": "Einen gespeicherten Filter erstellen"
         },
         "attributes": {
-            "descriptionPlaceholder": "Eine Beschreibung eingeben…",
+            "descriptionPlaceholder": "Eine Beschreibung eingeben …",
             "description": "Beschreibung",
-            "titlePlaceholder": "Einen gespeicherten Filternamen eingeben…",
+            "titlePlaceholder": "Einen gespeicherten Filternamen eingeben …",
             "title": "Titel",
             "reminderRange": "Erinnerungs-Datumsbereich",
             "endDateRange": "Enddatumsbereich",
@@ -180,7 +180,7 @@
         },
         "comment": {
             "placeholder": "Füge deinen Kommentar hinzu …",
-            "creating": "Kommentar wird erstellt…",
+            "creating": "Kommentar wird erstellt …",
             "edited": "bearbeitet {date}",
             "loading": "Kommentare werden geladen …",
             "addedSuccess": "Kommentar hinzugefügt.",
@@ -266,14 +266,14 @@
             "success": "Team aktualisiert.",
             "addUser": "Zum Team hinzufügen",
             "members": "Teammitglieder",
-            "title": "Team \"{team}\" bearbeiten",
+            "title": "Team „{team}“ bearbeiten",
             "deleteUser": {
                 "header": "Benutzer aus dem Team entfernen",
                 "success": "Der Benutzer wurde erfolgreich aus dem Team gelöscht.",
                 "text2": "Dieser Benutzer verliert den Zugriff auf alle Listen und Namensräumen, auf die dieses Team Zugriff hat. Dies kann nicht rückgängig gemacht werden!",
                 "text1": "Bist du sicher, dass du diese Benutzer aus dem Team entfernen willst?"
             },
-            "search": "Beginne zu schreiben, um einenm Benutzer zu suchen…",
+            "search": "Beginne zu schreiben, um einenm Benutzer zu suchen …",
             "makeAdmin": "Administrativ Rechte geben",
             "makeMember": "Benutzer erstellen"
         },
@@ -288,7 +288,7 @@
             "member": "Mitglied",
             "admin": "Admin",
             "name": "Teamname",
-            "namePlaceholder": "Teamname eingeben…",
+            "namePlaceholder": "Teamname eingeben …",
             "nameRequired": "Bitte gib einen Namen an."
         },
         "noTeams": "Du bist derzeit nicht Teil eines Teams."
@@ -305,9 +305,9 @@
             "isArchived": "Dieser Namensraum wird archiviert",
             "archived": "Ist archiviert",
             "color": "Farbe",
-            "descriptionPlaceholder": "Beschreibung für den Namensraum eingeben…",
+            "descriptionPlaceholder": "Beschreibung für den Namensraum eingeben …",
             "description": "Beschreibung",
-            "titlePlaceholder": "Titel des Namensraums angeben…",
+            "titlePlaceholder": "Titel des Namensraums angeben …",
             "title": "Namensraumtitel"
         },
         "share": {
@@ -356,8 +356,8 @@
             "title": "Kanban",
             "bucketLimitSavedSuccess": "Korb Limit gespeichert.",
             "deleteBucketText1": "Diesen Korb löschen?",
-            "addBucketPlaceholder": "Gebe einen neuen Korbnamen ein…",
-            "addTaskPlaceholder": "Gebe einen Aufgabenamen ein…",
+            "addBucketPlaceholder": "Gebe einen neuen Eimernamen ein …",
+            "addTaskPlaceholder": "Gebe einen Aufgabenamen ein …",
             "deleteLast": "Du kannst den letzten Korb nicht entfernen.",
             "doneBucketSavedSuccess": "Erledigt Korb gespeichert.",
             "doneBucketHintExtended": "Alle Aufgaben welche in den Erledigt-Korb gelegt wurden, werden automatisch als erledigt markiert. Aufgaben, welche in einem anderen Korb als Erledigt markiert wurden, werden auch in diesen Korb verschoben.",
@@ -442,7 +442,7 @@
             "identifierPlaceholder": "Der Listenbezeichner geht hier …",
             "identifier": "Listebezeichner",
             "identifierTooltip": "Der Listenbezeichner kann zur eindeutigen Identifizierung einer Aufgabe über Listen hinweg verwendet werden. Man kann ihn auf leer setzen, um ihn zu deaktivieren.",
-            "titlePlaceholder": "Listenname eingeben…",
+            "titlePlaceholder": "Listenname eingeben …",
             "title": "„{list}“ bearbeiten",
             "header": "Diese Liste bearbeiten"
         },
@@ -479,7 +479,7 @@
         },
         "create": {
             "createdSuccess": "Die Liste wurde erfolgreich erstellt.",
-            "titlePlaceholder": "Der Titel der Liste steht hier…",
+            "titlePlaceholder": "Der Titel der Liste steht hier …",
             "header": "Eine neue Liste erstellen",
             "addTitleRequired": "Bitte gebe einen Namen an."
         },
