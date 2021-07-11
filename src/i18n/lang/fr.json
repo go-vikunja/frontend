@@ -336,7 +336,7 @@
             "intro": "Lors de la création d’une tâche, vous pouvez utiliser des mots-clés spéciaux pour ajouter directement des attributs à la tâche nouvellement créée. Ceci permet d’ajouter des attributs couramment utilisés aux tâches beaucoup plus rapidement.",
             "title": "Quick Add Magic",
             "what": "Quoi ?",
-            "hint": "Vous pouvez utiliser Quick Add Magic"
+            "hint": "Tu peux utiliser Quick Add Magic"
         }
     },
     "error": {
