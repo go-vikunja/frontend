@@ -86,7 +86,8 @@
         "create": "Erstellen",
         "info": "Informationen",
         "searchPlaceholder": "Beginne zu schreiben um zu suchen…",
-        "refresh": "Neu laden"
+        "refresh": "Neu laden",
+        "close": "Schließen"
     },
     "task": {
         "delete": "Diese Aufgabe löschen",
@@ -176,7 +177,11 @@
             "delete": "Anhang löschen",
             "drop": "Ziehe Dateien hierher, um diese hochzuladen",
             "upload": "Anhang hochladen",
-            "title": "Anhänge"
+            "title": "Anhänge",
+            "copyUrlTooltip": "Die URL dieses Anhangs zur Verwendung im Text kopieren",
+            "copyUrl": "URL kopieren",
+            "deleteTooltip": "Diesen Anhang löschen",
+            "downloadTooltip": "Diesen Anhang herunterladen"
         },
         "comment": {
             "placeholder": "Füge deinen Kommentar hinzu …",
@@ -250,7 +255,12 @@
         "doneSuccess": "Aufgabe als erledigt markieren.",
         "openDetail": "Aufgabe in der Detailansicht anzeigen",
         "addReminder": "Eine neue Erinnerung erstellen…",
-        "createSuccess": "Aufgabe erstellt."
+        "createSuccess": "Aufgabe erstellt.",
+        "quickAddMagic": {
+            "title": "Quick Add Magic",
+            "what": "Was?",
+            "hint": "Du kannst Quick Add Magic verwenden"
+        }
     },
     "team": {
         "edit": {
@@ -340,7 +350,18 @@
         "search": "Beginne zu schreiben, um einen Namensraum zu suchen…",
         "namespaces": "Namensräume",
         "createList": "Eine neue Liste in diesem Namensraum erstellen.",
-        "noneAvailable": "Du hast momentan keine Namensräume."
+        "noneAvailable": "Du hast momentan keine Namensräume.",
+        "pseudo": {
+            "savedFilters": {
+                "title": "Filter"
+            },
+            "favorites": {
+                "title": "Favoriten"
+            },
+            "sharedLists": {
+                "title": "Geteilte Listen"
+            }
+        }
     },
     "list": {
         "kanban": {
@@ -489,7 +510,12 @@
         "lists": "Listen",
         "title": "Listentitel",
         "archived": "Diese Liste wird archiviert. Es ist nicht möglich, neue Aufgaben zu erstellen oder sie zu bearbeiten.",
-        "shared": "Geteilte Listen"
+        "shared": "Geteilte Listen",
+        "pseudo": {
+            "favorites": {
+                "title": "Favoriten"
+            }
+        }
     },
     "user": {
         "settings": {
@@ -579,7 +605,12 @@
             "importText": "Oder importiere deine Listen und Aufgaben aus anderen Diensten in Vikunja:",
             "newText": "Du kannst eine neue Liste für deine neuen Aufgaben erstellen:"
         },
-        "welcome": "Hallo {username}"
+        "welcome": "Hallo {username}",
+        "lastViewed": "Zuletzt gesehen",
+        "welcomeEvening": "Guten Abend {username}",
+        "welcomeDay": "Hallo {username}",
+        "welcomeMorning": "Guten Morgen {username}",
+        "welcomeNight": "Gute Nacht {username}"
     },
     "menu": {
         "setBackground": "Hintergrund einstellen",
@@ -753,7 +784,8 @@
             "heading3": "Überschrift 3",
             "heading2": "Überschrift 2",
             "heading1": "Überschrift 1",
-            "done": "Fertig"
+            "done": "Fertig",
+            "edit": "Bearbeiten"
         },
         "multiselect": {
             "selectPlaceholder": "Klicken oder Enter drücken um auszuwählen",
