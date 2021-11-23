@@ -61,6 +61,7 @@ import SavedFilterService from '@/services/savedFilter'
 import ListModel from '@/models/list'
 import Filters from '@/components/list/partials/filters.vue'
 import {objectToSnakeCase} from '@/helpers/case'
+import {CURRENT_LIST} from '../../../store/mutation-types'
 
 export default {
 	name: 'filter-settings-edit',
@@ -120,6 +121,8 @@ export default {
 					this.success({message: this.$t('filters.attributes.edit.success')})
 					this.filter = r
 					this.filters = objectToSnakeCase(this.filter.filters)
+					this.$store.commit(CURRENT_LIST, r)
+					this.setTitle(this.getListTitle(r))
 					this.$router.back()
 				})
 				.catch(e => this.error(e))
