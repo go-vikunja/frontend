@@ -13,8 +13,10 @@ The releases aim at the api versions which is why there are missing versions.
 
 ### Fixed
 
-* fix(docker): properly replace api url
-* fix: edit saved filter title
+* 0.18.2 release preparations
+* Edit saved filter title
+* Properly replace api url
+* Remove ssl generation from docker image
 * Use latest version of s3 plugin
 
 ## [0.18.1] - 2021-09-08
