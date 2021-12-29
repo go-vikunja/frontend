@@ -1,15 +1,19 @@
 <template>
-	<div class="content namespaces-list loader-container" :class="{'is-loading': loading}">
-		<x-button :to="{name: 'namespace.create'}" class="new-namespace" icon="plus">
-			{{ $t('namespace.create.title') }}
-		</x-button>
-		<x-button :to="{name: 'filters.create'}" class="new-namespace" icon="filter">
-			{{ $t('filters.create.title') }}
-		</x-button>
+	<div class="content loader-container" :class="{'is-loading': loading}">
+		<div class="create-buttons">
+			<fancycheckbox v-model="showArchived" @change="saveShowArchivedState">
+				{{ $t('namespace.showArchived') }}
+			</fancycheckbox>
 
-		<fancycheckbox class="show-archived-check" v-model="showArchived" @change="saveShowArchivedState">
-			{{ $t('namespace.showArchived') }}
-		</fancycheckbox>
+			<div>
+				<x-button :to="{name: 'filters.create'}" class="new-namespace" icon="filter">
+					{{ $t('filters.create.title') }}
+				</x-button>
+				<x-button :to="{name: 'namespace.create'}" class="new-namespace" icon="plus">
+					{{ $t('namespace.create.title') }}
+				</x-button>
+			</div>
+		</div>
 
 		<p class="has-text-centered has-text-grey mt-4 is-italic" v-if="namespaces.length === 0">
 			{{ $t('namespace.noneAvailable') }}
@@ -103,47 +107,58 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.namespaces-list {
-  .button.new-namespace {
-    float: right;
-    margin-left: 1rem;
+.namespace {
+	&:not(:last-child) {
+		margin-bottom: 1rem;
+	}
 
-    @media screen and (max-width: $mobile) {
-      float: none;
-      width: 100%;
-      margin-bottom: 1rem;
-    }
-  }
+	h1 {
+		display: flex;
+		align-items: center;
+	}
 
-  .show-archived-check {
-    margin-bottom: 1rem;
-  }
+	.is-archived {
+		font-size: 0.75rem;
+		border: 1px solid var(--grey-500);
+		color: $grey !important;
+		padding: 2px 4px;
+		border-radius: 3px;
+		font-family: $vikunja-font;
+		background: var(--white-translucent);
+		margin-left: .5rem;
+	}
 
-  .namespace {
-    &:not(:last-child) {
-      margin-bottom: 1rem;
-    }
+	.lists {
+		display: flex;
+		flex-flow: row wrap;
+	}
+}
 
-    h1 {
-      display: flex;
-      align-items: center;
-    }
+.create-buttons {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: .5rem;
 
-    .is-archived {
-      font-size: 0.75rem;
-      border: 1px solid var(--grey-500);
-      color: $grey !important;
-      padding: 2px 4px;
-      border-radius: 3px;
-      font-family: $vikunja-font;
-      background: var(--white-translucent);
-      margin-left: .5rem;
-    }
+	@media screen and (max-width: $tablet) {
+		width: 100%;
+		flex-direction: column;
+	}
 
-    .lists {
-      display: flex;
-      flex-flow: row wrap;
-    }
-  }
+	> * {
+		@media screen and (max-width: $tablet) {
+			margin-bottom: .5rem;
+		}
+	}
+
+	.new-namespace {
+		margin-left: 1rem;
+
+		@media screen and (max-width: $tablet) {
+			width: 100%;
+			margin-left: 0;
+			margin-bottom: .5rem;
+		}
+	}
 }
 </style>
