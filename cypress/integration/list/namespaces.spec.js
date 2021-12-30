@@ -99,7 +99,7 @@ describe('Namepaces', () => {
 			.should('not.contain', newNamespaces[0].title)
 	})
 
-	it.only('Should not show archived lists & namespaces if the filter is not checked', () => {
+	it('Should not show archived lists & namespaces if the filter is not checked', () => {
 		const n = NamespaceFactory.create(1, {
 			id: 2,
 			is_archived: true,
