@@ -149,15 +149,15 @@ export default {
 			margin-bottom: .5rem;
 		}
 	}
+}
 
-	.new-namespace {
-		margin-left: 1rem;
+.new-namespace {
+	margin-left: 1rem;
 
-		@media screen and (max-width: $tablet) {
-			width: 100%;
-			margin-left: 0;
-			margin-bottom: .5rem;
-		}
+	@media screen and (max-width: $tablet) {
+		width: 100%;
+		margin-left: 0;
+		margin-bottom: .5rem;
 	}
 }
 </style>
