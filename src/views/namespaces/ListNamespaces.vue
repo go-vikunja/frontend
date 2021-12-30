@@ -152,12 +152,12 @@ export default {
 }
 
 .new-namespace {
-	margin-left: 1rem;
+	margin-bottom: .5rem;
+	width: 100%;
 
-	@media screen and (max-width: $tablet) {
-		width: 100%;
-		margin-left: 0;
-		margin-bottom: .5rem;
+	@media screen and (min-width: $tablet) {
+		margin-left: 1rem;
+		width: auto;
 	}
 }
 </style>
