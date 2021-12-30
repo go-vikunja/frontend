@@ -138,7 +138,6 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: .5rem;
 
 	@media screen and (max-width: $tablet) {
 		width: 100%;
