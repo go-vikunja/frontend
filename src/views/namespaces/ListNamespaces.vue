@@ -5,14 +5,12 @@
 				{{ $t('namespace.showArchived') }}
 			</fancycheckbox>
 
-			<div>
-				<x-button :to="{name: 'filters.create'}" class="new-namespace" icon="filter">
-					{{ $t('filters.create.title') }}
-				</x-button>
-				<x-button :to="{name: 'namespace.create'}" class="new-namespace" icon="plus">
-					{{ $t('namespace.create.title') }}
-				</x-button>
-			</div>
+			<x-button :to="{name: 'filters.create'}" class="new-namespace ml-auto" icon="filter">
+				{{ $t('filters.create.title') }}
+			</x-button>
+			<x-button :to="{name: 'namespace.create'}" class="new-namespace" icon="plus">
+				{{ $t('namespace.create.title') }}
+			</x-button>
 		</div>
 
 		<p class="has-text-centered has-text-grey mt-4 is-italic" v-if="namespaces.length === 0">
