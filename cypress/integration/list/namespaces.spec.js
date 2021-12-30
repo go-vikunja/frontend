@@ -72,7 +72,7 @@ describe('Namepaces', () => {
 		cy.get('.namespace-container .menu.namespaces-lists')
 			.should('contain', newNamespaceName)
 			.should('not.contain', newNamespaces[0].title)
-		cy.get('.content')
+		cy.get('[data-cy="namespaces-list"]')
 			.should('contain', newNamespaceName)
 			.should('not.contain', newNamespaces[0].title)
 	})

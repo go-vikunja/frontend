@@ -1,5 +1,5 @@
 <template>
-	<div class="content loader-container" :class="{'is-loading': loading}">
+	<div class="content loader-container" :class="{'is-loading': loading}" v-cy="'namespaces-list'">
 		<div class="create-buttons">
 			<fancycheckbox v-model="showArchived" @change="saveShowArchivedState" v-cy="'show-archived-check'">
 				{{ $t('namespace.showArchived') }}
