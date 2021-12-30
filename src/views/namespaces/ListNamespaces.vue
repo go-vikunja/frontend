@@ -138,16 +138,11 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	gap: .5rem;
 
 	@media screen and (max-width: $tablet) {
 		width: 100%;
 		flex-direction: column;
-	}
-
-	> * {
-		@media screen and (max-width: $tablet) {
-			margin-bottom: .5rem;
-		}
 	}
 }
 
