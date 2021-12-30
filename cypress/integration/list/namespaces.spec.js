@@ -72,7 +72,7 @@ describe('Namepaces', () => {
 		cy.get('.namespace-container .menu.namespaces-lists')
 			.should('contain', newNamespaceName)
 			.should('not.contain', newNamespaces[0].title)
-		cy.get('.content.namespaces-list')
+		cy.get('.content')
 			.should('contain', newNamespaceName)
 			.should('not.contain', newNamespaces[0].title)
 	})
@@ -99,7 +99,7 @@ describe('Namepaces', () => {
 			.should('not.contain', newNamespaces[0].title)
 	})
 
-	it('Should not show archived lists & namespaces if the filter is not checked', () => {
+	it.only('Should not show archived lists & namespaces if the filter is not checked', () => {
 		const n = NamespaceFactory.create(1, {
 			id: 2,
 			is_archived: true,
@@ -116,30 +116,30 @@ describe('Namepaces', () => {
 
 		// Initial
 		cy.visit('/namespaces')
-		cy.get('.namespaces-list .namespace')
+		cy.get('.namespace')
 			.should('not.contain', 'Archived')
 
 		// Show archived
-		cy.get('.namespaces-list .fancycheckbox.show-archived-check label.check span')
+		cy.get('[data-cy="show-archived-check"] label.check span')
 			.should('be.visible')
 			.click()
-		cy.get('.namespaces-list .fancycheckbox.show-archived-check input')
+		cy.get('[data-cy="show-archived-check"] input')
 			.should('be.checked')
-		cy.get('.namespaces-list .namespace')
+		cy.get('.namespace')
 			.should('contain', 'Archived')
 
 		// Don't show archived
-		cy.get('.namespaces-list .fancycheckbox.show-archived-check label.check span')
+		cy.get('[data-cy="show-archived-check"] label.check span')
 			.should('be.visible')
 			.click()
-		cy.get('.namespaces-list .fancycheckbox.show-archived-check input')
+		cy.get('[data-cy="show-archived-check"] input')
 			.should('not.be.checked')
 
 		// Second time visiting after unchecking
 		cy.visit('/namespaces')
-		cy.get('.namespaces-list .fancycheckbox.show-archived-check input')
+		cy.get('[data-cy="show-archived-check"] input')
 			.should('not.be.checked')
-		cy.get('.namespaces-list .namespace')
+		cy.get('.namespace')
 			.should('not.contain', 'Archived')
 	})
 })
