@@ -1,17 +1,19 @@
 <template>
 	<div class="content loader-container" :class="{'is-loading': loading}" v-cy="'namespaces-list'">
-		<div class="create-buttons">
+		<header class="namespace-header">
 			<fancycheckbox v-model="showArchived" @change="saveShowArchivedState" v-cy="'show-archived-check'">
 				{{ $t('namespace.showArchived') }}
 			</fancycheckbox>
 
-			<x-button :to="{name: 'filters.create'}" class="new-namespace ml-auto" icon="filter">
-				{{ $t('filters.create.title') }}
-			</x-button>
-			<x-button :to="{name: 'namespace.create'}" class="new-namespace" icon="plus">
-				{{ $t('namespace.create.title') }}
-			</x-button>
-		</div>
+			<div class="action-buttons">
+				<x-button :to="{name: 'filters.create'}" icon="filter">
+					{{ $t('filters.create.title') }}
+				</x-button>
+				<x-button :to="{name: 'namespace.create'}" icon="plus" v-cy="'new-namespace'">
+					{{ $t('namespace.create.title') }}
+				</x-button>
+			</div>
+		</header>
 
 		<p class="has-text-centered has-text-grey mt-4 is-italic" v-if="namespaces.length === 0">
 			{{ $t('namespace.noneAvailable') }}
@@ -40,12 +42,12 @@
 				{{ $t('namespace.unarchive') }}
 			</x-button>
 
-			<h1>
-				<span>{{ getNamespaceTitle(n) }}</span>
+			<h2 class="namespace-title">
+				<span v-cy="'namespace-title'">{{ getNamespaceTitle(n) }}</span>
 				<span class="is-archived" v-if="n.isArchived">
 					{{ $t('namespace.archived') }}
 				</span>
-			</h1>
+			</h2>
 
 			<p class="has-text-centered has-text-grey mt-4 is-italic" v-if="n.lists.length === 0">
 				{{ $t('namespace.noLists') }}
@@ -105,52 +107,53 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.namespace {
-	&:not(:last-child) {
-		margin-bottom: 1rem;
-	}
-
-	h1 {
-		display: flex;
-		align-items: center;
-	}
-
-	.is-archived {
-		font-size: 0.75rem;
-		border: 1px solid var(--grey-500);
-		color: $grey !important;
-		padding: 2px 4px;
-		border-radius: 3px;
-		font-family: $vikunja-font;
-		background: var(--white-translucent);
-		margin-left: .5rem;
-	}
-
-	.lists {
-		display: flex;
-		flex-flow: row wrap;
-	}
-}
-
-.create-buttons {
+.namespace-header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	gap: .5rem;
+	gap: 1rem;
 
 	@media screen and (max-width: $tablet) {
-		width: 100%;
 		flex-direction: column;
 	}
 }
 
-.new-namespace {
-	margin-bottom: .5rem;
-	width: 100%;
+.action-buttons {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
 
-	@media screen and (min-width: $tablet) {
-		margin-left: 1rem;
-		width: auto;
+	@media screen and (max-width: $tablet) {
+		width: 100%;
+		flex-direction: column;
+		align-items: stretch;
 	}
+}
+
+.namespace {
+	& + & {
+		margin-top: 1rem;
+	}
+}
+
+.namespace-title {
+	display: flex;
+	align-items: center;
+}
+
+.is-archived {
+	font-size: 0.75rem;
+	border: 1px solid var(--grey-500);
+	color: $grey !important;
+	padding: 2px 4px;
+	border-radius: 3px;
+	font-family: $vikunja-font;
+	background: var(--white-translucent);
+	margin-left: .5rem;
+}
+
+.lists {
+	display: flex;
+	flex-flow: row wrap;
 }
 </style>

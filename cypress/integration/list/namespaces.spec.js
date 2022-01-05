@@ -15,7 +15,7 @@ describe('Namepaces', () => {
 
 	it('Should be all there', () => {
 		cy.visit('/namespaces')
-		cy.get('.namespace h1 span')
+		cy.get('[data-cy="namespace-title"]')
 			.should('contain', namespaces[0].title)
 	})
 
@@ -23,14 +23,14 @@ describe('Namepaces', () => {
 		const newNamespaceTitle = 'New Namespace'
 
 		cy.visit('/namespaces')
-		cy.get('a.button')
-			.contains('Create a new namespace')
+		cy.get('[data-cy="new-namespace"]')
+			.should('contain', 'New namespace')
 			.click()
 
 		cy.url()
 			.should('contain', '/namespaces/new')
 		cy.get('.card-header-title')
-			.should('contain', 'Create a new namespace')
+			.should('contain', 'New namespace')
 		cy.get('input.input')
 			.type(newNamespaceTitle)
 		cy.get('.button')
