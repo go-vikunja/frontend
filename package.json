@@ -15,7 +15,8 @@
     "test:unit": "vitest run",
     "test:unit-watch": "vitest watch",
     "test:frontend": "cypress run",
-    "browserslist:update": "npx browserslist@latest --update-db"
+    "browserslist:update": "npx browserslist@latest --update-db",
+    "cap:sync": "cap sync"
   },
   "dependencies": {
     "@github/hotkey": "1.6.1",

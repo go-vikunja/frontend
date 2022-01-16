@@ -9,6 +9,5 @@
       "launchShowDuration": 0
     }
   },
-  "cordova": {},
-  "linuxAndroidStudioPath": "/etc/profiles/per-user/konrad/bin/android-studio"
+  "cordova": {}
 }
