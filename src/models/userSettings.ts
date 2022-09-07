@@ -13,6 +13,8 @@ export default class UserSettingsModel extends AbstractModel<IUserSettings> impl
 	weekStart = 0 as IUserSettings['weekStart']
 	timezone = ''
 	language = getCurrentLanguage()
+	defaultReminder = false
+	defaultReminderAmount = 0
 
 	constructor(data: Partial<IUserSettings> = {}) {
 		super()

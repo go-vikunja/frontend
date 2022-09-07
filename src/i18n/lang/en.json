@@ -87,7 +87,11 @@
         "language": "Language",
         "defaultList": "Default List",
         "timezone": "Time Zone",
-        "overdueTasksRemindersTime": "Overdue tasks reminder email time"
+        "overdueTasksRemindersTime": "Overdue tasks reminder email time",
+        "defaultReminder": "Set a default task reminder",
+        "defaultReminderHint": "If enabled, Vikunja will automatically create a reminder for a task if you set a due date and the task does not have any reminders yet.",
+        "defaultReminderAmount": "Default task reminder amount",
+        "defaultReminderAmountHint": "The time difference the reminder will be set to before the due date."
       },
       "totp": {
         "title": "Two Factor Authentication",

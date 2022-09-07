@@ -20,6 +20,55 @@
 		</div>
 		<div class="field">
 			<label class="checkbox">
+				<input type="checkbox" v-model="settings.defaultReminder"/>
+				{{ $t('user.settings.general.defaultReminder') }}
+			</label>
+			<p class="is-size-7">
+				{{ $t('user.settings.general.defaultReminderHint') }}
+			</p>
+		</div>
+		<div class="field" v-if="settings.defaultReminder">
+			<label class="label" for="defaultReminderAmount">
+				{{ $t('user.settings.general.defaultReminderAmount') }}
+			</label>
+			<p class="is-size-7">
+				{{ $t('user.settings.general.defaultReminderAmountHint') }}
+			</p>
+			<div class="field has-addons">
+
+				<div class="control">
+					<input
+						@keyup.enter="updateSettings"
+						class="input"
+						id="defaultReminderAmount"
+						type="number"
+						min="0"
+						v-model="defaultReminderAmount"/>
+				</div>
+				<div class="control select">
+					<select v-model="defaultReminderAmountType">
+						<option value="minutes">{{
+								$t('task.repeat.minute' + (defaultReminderAmount === 1 ? '' : 's'))
+							}}
+						</option>
+						<option value="hours">{{
+								$t('task.repeat.hour' + (defaultReminderAmount === 1 ? '' : 's'))
+							}}
+						</option>
+						<option value="days">{{
+								$t('task.repeat.day' + (defaultReminderAmount === 1 ? '' : 's'))
+							}}
+						</option>
+						<option value="months">{{
+								$t('task.repeat.month' + (defaultReminderAmount === 1 ? '' : 's'))
+							}}
+						</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="field">
+			<label class="checkbox">
 				<input type="checkbox" v-model="settings.overdueTasksRemindersEnabled"/>
 				{{ $t('user.settings.general.overdueReminders') }}
 			</label>
@@ -175,6 +224,7 @@ import {AuthenticatedHTTPFactory} from '@/http-common'
 import {useColorScheme} from '@/composables/useColorScheme'
 import {useTitle} from '@/composables/useTitle'
 import {objectIsEmpty} from '@/helpers/objectIsEmpty'
+import {saveDefaultReminder} from '@/helpers/defaultReminder'
 
 const {t} = useI18n({useScope: 'global'})
 useTitle(() => `${t('user.settings.general.title')} - ${t('user.settings.title')}`)
@@ -266,9 +316,13 @@ watch(
 async function updateSettings() {
 	localStorage.setItem(playSoundWhenDoneKey, playSoundWhenDone.value ? 'true' : 'false')
 	setQuickAddMagicMode(quickAddMagicMode.value)
+	saveDefaultReminder(settings.value.defaultReminder, defaultReminderAmountType.value, defaultReminderAmount.value)
 
 	await authStore.saveUserSettings({
 		settings: {...settings.value},
 	})
 }
+
+const defaultReminderAmount = ref(1)
+const defaultReminderAmountType = ref('days')
 </script>

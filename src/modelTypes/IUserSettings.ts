@@ -12,4 +12,6 @@ export interface IUserSettings extends IAbstract {
 	weekStart: 0 | 1 | 2 | 3 | 4 | 5 | 6
 	timezone: string
 	language: string
+	defaultReminder: boolean
+	defaultReminderAmount: number // The amount of seconds a reminder should be set before a given due date
 }
