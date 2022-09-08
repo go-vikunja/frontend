@@ -6,6 +6,7 @@ import LabelService from './label'
 
 import {formatISO} from 'date-fns'
 import {colorFromHex} from '@/helpers/color/colorFromHex'
+import {getDefaultReminderAmount} from '@/helpers/defaultReminder'
 
 const parseDate = date => {
 	if (date) {
@@ -39,7 +40,7 @@ export default class TaskService extends AbstractService<ITask> {
 	}
 
 	processModel(updatedModel) {
-		const model = { ...updatedModel }
+		const model = {...updatedModel}
 
 		model.title = model.title?.trim()
 
@@ -66,6 +67,15 @@ export default class TaskService extends AbstractService<ITask> {
 			model.reminderDates = model.reminderDates.map(r => {
 				return formatISO(new Date(r))
 			})
+		}
+
+		if (model.dueDate !== null && model.reminderDates.length === 0) {
+			const defaultReminder = getDefaultReminderAmount()
+			if (defaultReminder !== null) {
+				const dueDate = +new Date(model.dueDate)
+				const reminderDate = new Date(dueDate - (defaultReminder * 1000))
+				model.reminderDates.push(formatISO(reminderDate))
+			}
 		}
 
 		// Make the repeating amount to seconds
