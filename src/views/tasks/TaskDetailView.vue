@@ -697,6 +697,9 @@ export default defineComponent({
 			}
 
 			this.task = await this.$store.dispatch('tasks/update', task)
+			
+			// Activate new fields which may have been set from the api
+			this.$nextTick(() => this.setActiveFields())
 
 			if (!showNotification) {
 				return
