@@ -551,19 +551,16 @@
       "fromto": "{from} to {to}",
       "ranges": {
         "today": "Today",
-        
         "thisWeek": "This Week",
         "restOfThisWeek": "The Rest of This Week",
         "nextWeek": "Next Week",
         "next7Days": "Next 7 Days",
         "lastWeek": "Last Week",
-        
         "thisMonth": "This Month",
         "restOfThisMonth": "The Rest of This Month",
         "nextMonth": "Next Month",
         "next30Days": "Next 30 Days",
         "lastMonth": "Last Month",
-        
         "thisYear": "This Year",
         "restOfThisYear": "The Rest of This Year"
       }
@@ -580,15 +577,6 @@
       "roundDay": "Round down to the nearest day",
       "supportedUnits": "Supported time units are:",
       "someExamples": "Some examples of time expressions:",
-      "units": {
-        "seconds": "Seconds",
-        "minutes": "Minutes",
-        "hours": "Hours",
-        "days": "Days",
-        "weeks": "Weeks",
-        "months": "Months",
-        "years": "Years"
-      },
       "examples": {
         "now": "Right now",
         "in24h": "In 24h",
@@ -599,6 +587,22 @@
         "datePlusMonth": "{0} plus one month at 00:00 of that day"
       }
     }
+  },
+  "time": {
+    "seconds": "Seconds",
+    "second": "Second",
+    "minutes": "Minutes",
+    "minute": "Minute",
+    "hours": "Hours",
+    "hour": "Hour",
+    "days": "Days",
+    "day": "Day",
+    "weeks": "Weeks",
+    "week": "Week",
+    "months": "Months",
+    "month": "Month",
+    "years": "Years",
+    "year": "Year"
   },
   "task": {
     "task": "Task",

@@ -43,21 +43,17 @@
 				</div>
 				<div class="control select">
 					<select v-model="defaultReminderAmountType">
-						<option value="minutes">{{
-								$t('task.repeat.minute' + (defaultReminderAmount === 1 ? '' : 's'))
-							}}
+						<option value="minutes">
+							{{ $t('time.minute' + (defaultReminderAmount === 1 ? '' : 's')) }}
 						</option>
-						<option value="hours">{{
-								$t('task.repeat.hour' + (defaultReminderAmount === 1 ? '' : 's'))
-							}}
+						<option value="hours">
+							{{ $t('time.hour' + (defaultReminderAmount === 1 ? '' : 's')) }}
 						</option>
-						<option value="days">{{
-								$t('task.repeat.day' + (defaultReminderAmount === 1 ? '' : 's'))
-							}}
+						<option value="days">
+							{{ $t('time.day' + (defaultReminderAmount === 1 ? '' : 's')) }}
 						</option>
-						<option value="months">{{
-								$t('task.repeat.month' + (defaultReminderAmount === 1 ? '' : 's'))
-							}}
+						<option value="months">
+							{{ $t('time.month' + (defaultReminderAmount === 1 ? '' : 's')) }}
 						</option>
 					</select>
 				</div>

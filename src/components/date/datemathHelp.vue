@@ -36,35 +36,35 @@
 			<tbody>
 			<tr>
 				<td><code>s</code></td>
-				<td>{{ $t('input.datemathHelp.units.seconds') }}</td>
+				<td>{{ $t('time.seconds') }}</td>
 			</tr>
 			<tr>
 				<td><code>m</code></td>
-				<td>{{ $t('input.datemathHelp.units.minutes') }}</td>
+				<td>{{ $t('time.minutes') }}</td>
 			</tr>
 			<tr>
 				<td><code>h</code></td>
-				<td>{{ $t('input.datemathHelp.units.hours') }}</td>
+				<td>{{ $t('time.hours') }}</td>
 			</tr>
 			<tr>
 				<td><code>H</code></td>
-				<td>{{ $t('input.datemathHelp.units.hours') }}</td>
+				<td>{{ $t('time.hours') }}</td>
 			</tr>
 			<tr>
 				<td><code>d</code></td>
-				<td>{{ $t('input.datemathHelp.units.days') }}</td>
+				<td>{{ $t('time.days') }}</td>
 			</tr>
 			<tr>
 				<td><code>w</code></td>
-				<td>{{ $t('input.datemathHelp.units.weeks') }}</td>
+				<td>{{ $t('time.weeks') }}</td>
 			</tr>
 			<tr>
 				<td><code>M</code></td>
-				<td>{{ $t('input.datemathHelp.units.months') }}</td>
+				<td>{{ $t('time.months') }}</td>
 			</tr>
 			<tr>
 				<td><code>y</code></td>
-				<td>{{ $t('input.datemathHelp.units.years') }}</td>
+				<td>{{ $t('time.years') }}</td>
 			</tr>
 			</tbody>
 		</table>
