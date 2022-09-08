@@ -31,11 +31,7 @@
 			<label class="label" for="defaultReminderAmount">
 				{{ $t('user.settings.general.defaultReminderAmount') }}
 			</label>
-			<p class="is-size-7">
-				{{ $t('user.settings.general.defaultReminderAmountHint') }}
-			</p>
-			<div class="field has-addons">
-
+			<div class="field has-addons is-align-items-center">
 				<div class="control">
 					<input
 						@keyup.enter="updateSettings"
@@ -65,6 +61,9 @@
 						</option>
 					</select>
 				</div>
+				<p class="pl-2">
+					{{ $t('user.settings.general.defaultReminderAmountBefore') }}
+				</p>
 			</div>
 		</div>
 		<div class="field">

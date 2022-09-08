@@ -91,7 +91,7 @@
         "defaultReminder": "Set a default task reminder",
         "defaultReminderHint": "If enabled, Vikunja will automatically create a reminder for a task if you set a due date and the task does not have any reminders yet.",
         "defaultReminderAmount": "Default task reminder amount",
-        "defaultReminderAmountHint": "The time difference the reminder will be set to before the due date."
+        "defaultReminderAmountBefore": "before the due date of a task"
       },
       "totp": {
         "title": "Two Factor Authentication",
