@@ -20,14 +20,14 @@
 		</div>
 		<div class="field">
 			<label class="checkbox">
-				<input type="checkbox" v-model="settings.defaultReminder"/>
+				<input type="checkbox" v-model="defaultReminderEnabled"/>
 				{{ $t('user.settings.general.defaultReminder') }}
 			</label>
 			<p class="is-size-7">
 				{{ $t('user.settings.general.defaultReminderHint') }}
 			</p>
 		</div>
-		<div class="field" v-if="settings.defaultReminder">
+		<div class="field" v-if="defaultReminderEnabled">
 			<label class="label" for="defaultReminderAmount">
 				{{ $t('user.settings.general.defaultReminderAmount') }}
 			</label>
@@ -219,7 +219,7 @@ import {AuthenticatedHTTPFactory} from '@/http-common'
 import {useColorScheme} from '@/composables/useColorScheme'
 import {useTitle} from '@/composables/useTitle'
 import {objectIsEmpty} from '@/helpers/objectIsEmpty'
-import {saveDefaultReminder} from '@/helpers/defaultReminder'
+import {getDefaultReminderSettings, saveDefaultReminder} from '@/helpers/defaultReminder'
 
 const {t} = useI18n({useScope: 'global'})
 useTitle(() => `${t('user.settings.general.title')} - ${t('user.settings.title')}`)
@@ -311,13 +311,17 @@ watch(
 async function updateSettings() {
 	localStorage.setItem(playSoundWhenDoneKey, playSoundWhenDone.value ? 'true' : 'false')
 	setQuickAddMagicMode(quickAddMagicMode.value)
-	saveDefaultReminder(settings.value.defaultReminder, defaultReminderAmountType.value, defaultReminderAmount.value)
+	saveDefaultReminder(defaultReminderEnabled.value, defaultReminderAmountType.value, defaultReminderAmount.value)
 
 	await authStore.saveUserSettings({
 		settings: {...settings.value},
 	})
 }
 
+const reminderSettings = getDefaultReminderSettings()
+
+const defaultReminderEnabled = ref<boolean>(reminderSettings?.enabled || false)
+// TODO: re-populate amount and type
 const defaultReminderAmount = ref(1)
 const defaultReminderAmountType = ref('days')
 </script>

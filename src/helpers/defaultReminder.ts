@@ -16,7 +16,7 @@ function calculateDefaultReminderSeconds(type: string, amount: number): number {
 		case 'months':
 			return amount * 60 * 60 * 24 * 30
 	}
-	
+
 	return 0
 }
 
@@ -29,14 +29,18 @@ export function saveDefaultReminder(enabled: boolean, type: string, amount: numb
 }
 
 export function getDefaultReminderAmount(): number | null {
+	const settings = getDefaultReminderSettings()
+
+	return settings?.enabled
+		? settings.amount
+		: null
+}
+
+export function getDefaultReminderSettings(): DefaultReminderSettings | null {
 	const s: string | null = localStorage.getItem(DEFAULT_REMINDER_KEY)
 	if (s === null) {
 		return null
 	}
-	
-	const settings: DefaultReminderSettings = JSON.parse(s)
-		
-	return settings.enabled 
-		? settings.amount 
-		: null
+
+	return JSON.parse(s)
 }
