@@ -5,6 +5,12 @@ interface DefaultReminderSettings {
 	amount: number,
 }
 
+interface SavedReminderSettings {
+	enabled: boolean,
+	amount?: number,
+	type?: 'minutes' | 'hours' | 'days' | 'months',
+}
+
 function calculateDefaultReminderSeconds(type: string, amount: number): number {
 	switch (type) {
 		case 'minutes':
@@ -37,10 +43,47 @@ export function getDefaultReminderAmount(): number | null {
 }
 
 export function getDefaultReminderSettings(): DefaultReminderSettings | null {
-	const s: string | null = localStorage.getItem(DEFAULT_REMINDER_KEY)
+	const s: string | null = window.localStorage.getItem(DEFAULT_REMINDER_KEY)
 	if (s === null) {
 		return null
 	}
 
 	return JSON.parse(s)
+}
+
+export function parseSavedReminderAmount(amountSeconds: number): SavedReminderSettings {
+	const amountMinutes = amountSeconds / 60
+	const settings: SavedReminderSettings = {
+		enabled: true, // We're assuming the caller to have checked this properly
+		amount: amountMinutes,
+		type: 'minutes',
+	}
+
+	if ((amountMinutes / 60 / 24) % 30 === 0) {
+		settings.amount = amountMinutes / 60 / 24 / 30
+		settings.type = 'months'
+	} else if ((amountMinutes / 60) % 24 === 0) {
+		settings.amount = amountMinutes / 60 / 24
+		settings.type = 'days'
+	} else if (amountMinutes % 60 === 0) {
+		settings.amount = amountMinutes / 60
+		settings.type = 'hours'
+	}
+
+	return settings
+}
+
+export function getSavedReminderSettings(): SavedReminderSettings | null {
+	const s = getDefaultReminderSettings()
+	if (s === null) {
+		return null
+	}
+
+	if (!s.enabled) {
+		return {
+			enabled: false,
+		}
+	}
+	
+	return parseSavedReminderAmount(s.amount)
 }

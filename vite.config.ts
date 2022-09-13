@@ -32,6 +32,7 @@ export default defineConfig({
 	// https://vitest.dev/config/
 	test: {
 		environment: 'happy-dom',
+		mockReset: true,
 	},
 	css: {
 		preprocessorOptions: {

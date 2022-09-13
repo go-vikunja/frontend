@@ -219,7 +219,7 @@ import {AuthenticatedHTTPFactory} from '@/http-common'
 import {useColorScheme} from '@/composables/useColorScheme'
 import {useTitle} from '@/composables/useTitle'
 import {objectIsEmpty} from '@/helpers/objectIsEmpty'
-import {getDefaultReminderSettings, saveDefaultReminder} from '@/helpers/defaultReminder'
+import {getDefaultReminderSettings, getSavedReminderSettings, saveDefaultReminder} from '@/helpers/defaultReminder'
 
 const {t} = useI18n({useScope: 'global'})
 useTitle(() => `${t('user.settings.general.title')} - ${t('user.settings.title')}`)
@@ -318,10 +318,10 @@ async function updateSettings() {
 	})
 }
 
-const reminderSettings = getDefaultReminderSettings()
+const reminderSettings = getSavedReminderSettings()
 
 const defaultReminderEnabled = ref<boolean>(reminderSettings?.enabled || false)
 // TODO: re-populate amount and type
-const defaultReminderAmount = ref(1)
-const defaultReminderAmountType = ref('days')
+const defaultReminderAmount = ref(reminderSettings?.amount || 1)
+const defaultReminderAmountType = ref(reminderSettings?.type || 'days')
 </script>
