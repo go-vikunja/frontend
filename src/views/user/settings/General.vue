@@ -219,7 +219,7 @@ import {AuthenticatedHTTPFactory} from '@/http-common'
 import {useColorScheme} from '@/composables/useColorScheme'
 import {useTitle} from '@/composables/useTitle'
 import {objectIsEmpty} from '@/helpers/objectIsEmpty'
-import {getDefaultReminderSettings, getSavedReminderSettings, saveDefaultReminder} from '@/helpers/defaultReminder'
+import {getSavedReminderSettings, saveDefaultReminder} from '@/helpers/defaultReminder'
 
 const {t} = useI18n({useScope: 'global'})
 useTitle(() => `${t('user.settings.general.title')} - ${t('user.settings.title')}`)
