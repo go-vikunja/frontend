@@ -23,6 +23,7 @@ import UpcomingTasksComponent from '../views/tasks/ShowTasks.vue'
 import LinkShareAuthComponent from '../views/sharing/LinkSharingAuth.vue'
 import ListNamespaces from '../views/namespaces/ListNamespaces.vue'
 import TaskDetailView from '../views/tasks/TaskDetailView.vue'
+import CreateTask from '../views/tasks/CreateTask.vue'
 // Team Handling
 import ListTeamsComponent from '../views/teams/ListTeams.vue'
 // Label Handling
@@ -343,6 +344,15 @@ const router = createRouter({
 			path: '/lists/:listId/info',
 			name: 'list.info',
 			component: ListInfo,
+			meta: {
+				showAsModal: true,
+			},
+			props: route => ({ listId: Number(route.params.listId as string) }),
+		},
+		{
+			path: '/lists/:listId/create-task',
+			name: 'task.create',
+			component: CreateTask,
 			meta: {
 				showAsModal: true,
 			},

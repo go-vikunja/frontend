@@ -186,7 +186,7 @@ export default defineComponent({
 			if (this.selectedCmd !== null) {
 				switch (this.selectedCmd.action) {
 					case CMD_NEW_TASK:
-						return this.$t('quickActions.newTask')
+						return this.$t('task.create.title')
 					case CMD_NEW_LIST:
 						return this.$t('quickActions.newList')
 					case CMD_NEW_NAMESPACE:

@@ -616,6 +616,12 @@
       "select": "Select a date range",
       "noTasks": "Nothing to do — Have a nice day!"
     },
+    "create": {
+      "heading": "Create a task in {list}",
+      "title": "Enter the title of the new task…",
+      "descriptionPlaceholder": "Enter your description here…",
+      "description": "Add description…"
+    },
     "detail": {
       "chooseDueDate": "Click here to set a due date",
       "chooseStartDate": "Click here to set a start date",
@@ -933,7 +939,6 @@
     "lists": "Lists",
     "teams": "Teams",
     "newList": "Enter the title of the new list…",
-    "newTask": "Enter the title of the new task…",
     "newNamespace": "Enter the title of the new namespace…",
     "newTeam": "Enter the name of the new team…",
     "createTask": "Create a task in the current list ({title})",

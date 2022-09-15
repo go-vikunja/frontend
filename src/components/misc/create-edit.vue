@@ -9,7 +9,7 @@
 			@close="$router.back()"
 			:loading="loading"
 		>
-			<div class="p-4">
+			<div :class="{'p-4': padding}">
 				<slot />
 			</div>
 
@@ -71,6 +71,10 @@ defineProps({
 	loading: {
 		type: Boolean,
 		default: false,
+	},
+	padding: {
+		type: Boolean,
+		default: true,
 	},
 })
 
