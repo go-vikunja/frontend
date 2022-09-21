@@ -31,7 +31,6 @@
 
 <script lang="ts" setup>
 import {computed, ref} from 'vue'
-import {useStore} from '@/store'
 import {useI18n} from 'vue-i18n'
 import CreateEdit from '@/components/misc/create-edit.vue'
 import type {ITask} from '@/modelTypes/ITask'
@@ -40,8 +39,9 @@ import Editor from '@/components/input/AsyncEditor'
 import BaseButton from '@/components/base/BaseButton.vue'
 import TaskService from '@/services/task'
 import {useRouter} from 'vue-router'
+import {useListStore} from '@/stores/lists'
 
-const store = useStore()
+const listStore = useListStore()
 const router = useRouter()
 const {t} = useI18n()
 const props = defineProps<{
@@ -49,7 +49,7 @@ const props = defineProps<{
 }>()
 
 const heading = computed(() => {
-	const listTitle = store.getters['lists/getListById'](props.listId)?.title || ''
+	const listTitle = listStore.getListById(props.listId)?.title || ''
 	return listTitle !== ''
 		? t('task.create.heading', {list: listTitle})
 		: t('task.new')
