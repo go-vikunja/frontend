@@ -5,7 +5,6 @@ import {formatISO} from 'date-fns'
 import TaskService from '@/services/task'
 import TaskAssigneeService from '@/services/taskAssignee'
 import LabelTaskService from '@/services/labelTask'
-import UserService from '@/services/user'
 
 import {HAS_TASKS} from '../mutation-types'
 import {setLoading} from '../helper'
@@ -28,18 +27,8 @@ import type { RootStoreState, TaskState } from '@/store/types'
 import {useLabelStore} from '@/stores/labels'
 import {useListStore} from '@/stores/lists'
 import {playPop} from '@/helpers/playPop'
-
-// IDEA: maybe use a small fuzzy search here to prevent errors
-function findPropertyByValue(object, key, value) {
-	return Object.values(object).find(
-		(l) => l[key]?.toLowerCase() === value.toLowerCase(),
-	)
-}
-
-// Check if the user exists
-function validateUsername(users: IUser[], username: IUser['username']) {
-	return findPropertyByValue(users, 'username', username)
-}
+import {findPropertyByValue} from '@/helpers/findPropertyByValue'
+import {findAssignees} from '@/helpers/findAssignees'
 
 // Check if the label exists
 function validateLabel(labels: ILabel[], label: ILabel) {
@@ -56,22 +45,6 @@ async function addLabelToTask(task: ITask, label: ILabel) {
 	task.labels.push(label)
 	return response
 }
-
-async function findAssignees(parsedTaskAssignees) {
-	if (parsedTaskAssignees.length <= 0) {
-		return []
-	}
-
-	const userService = new UserService()
-	const assignees = parsedTaskAssignees.map(async a => {
-		const users = await userService.getAll({}, {s: a})
-		return validateUsername(users, a)
-	})
-
-	const validatedUsers = await Promise.all(assignees) 
-	return validatedUsers.filter((item) => Boolean(item))
-}
-
 
 const tasksStore : Module<TaskState, RootStoreState>= {
 	namespaced: true,

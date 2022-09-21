@@ -12,6 +12,7 @@
 			v-model="newTask.title"
 			v-focus
 		/>
+		<QuickAddMagic class="ml-4"/>
 		<BaseButton
 			v-if="!descriptionFormVisible"
 			@click="() => descriptionFormVisible = true"
@@ -32,14 +33,21 @@
 <script lang="ts" setup>
 import {computed, ref} from 'vue'
 import {useI18n} from 'vue-i18n'
+import {formatISO} from 'date-fns'
+
 import CreateEdit from '@/components/misc/create-edit.vue'
-import type {ITask} from '@/modelTypes/ITask'
-import TaskModel from '@/models/task'
 import Editor from '@/components/input/AsyncEditor'
 import BaseButton from '@/components/base/BaseButton.vue'
+import QuickAddMagic from '@/components/tasks/partials/quick-add-magic.vue'
+
+import type {ITask} from '@/modelTypes/ITask'
+import TaskModel from '@/models/task'
 import TaskService from '@/services/task'
 import {useRouter} from 'vue-router'
 import {useListStore} from '@/stores/lists'
+import {getQuickAddMagicMode} from '@/helpers/quickAddMagicMode'
+import {parseTaskText} from '@/modules/parseTaskText'
+import {findAssignees} from '@/helpers/findAssignees'
 
 const listStore = useListStore()
 const router = useRouter()
@@ -59,9 +67,23 @@ const descriptionFormVisible = ref(false)
 const newTask = ref<ITask>(new TaskModel({}))
 const taskService = ref(new TaskService())
 
+const parsedTask = computed(() => parseTaskText(newTask.value.title, getQuickAddMagicMode()))
+
 async function create() {
 	newTask.value.listId = props.listId
-	const task = await taskService.value.create(newTask.value)
+	newTask.value.title = parsedTask.value.text
+	const assignees = await findAssignees(parsedTask.value.assignees)
+	const dueDate = parsedTask.value.date !== null ? formatISO(parsedTask.date) : null
+	
+	const finalTask = new TaskModel({
+		...newTask.value,
+		title: parsedTask.value.text,
+		dueDate,
+		priority: parsedTask.value.priority,
+		assignees: parsedTask.value.assignees,
+	})
+	
+	const task = await taskService.value.create(finalTask)
 	return router.push({name: 'task.detail', params: {id: task.id}})
 }
 </script>
