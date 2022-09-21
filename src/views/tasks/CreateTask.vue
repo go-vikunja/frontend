@@ -30,11 +30,21 @@
 			:preview-is-default="false"
 			class="m-4"
 		/>
+		<div class="px-4">
+			<Datepicker 
+				v-model="newTask.dueDate" 
+				v-slot="{ date, openPopup }"
+			>
+				<XButton variant="secondary" @click.stop="openPopup()">
+					{{ date ? formatDateShort(date) : t('task.attributes.dueDate') }}
+				</XButton>
+			</Datepicker>
+		</div>
 	</CreateEdit>
 </template>
 
 <script lang="ts" setup>
-import {computed, ref} from 'vue'
+import {computed, ref, watch} from 'vue'
 import {useI18n} from 'vue-i18n'
 import {formatISO} from 'date-fns'
 
@@ -42,6 +52,8 @@ import CreateEdit from '@/components/misc/create-edit.vue'
 import Editor from '@/components/input/AsyncEditor'
 import BaseButton from '@/components/base/BaseButton.vue'
 import QuickAddMagic from '@/components/tasks/partials/quick-add-magic.vue'
+import XButton from '@/components/input/button.vue'
+import Datepicker from '@/components/input/datepicker.vue'
 
 import type {ITask} from '@/modelTypes/ITask'
 import TaskModel from '@/models/task'
@@ -51,6 +63,7 @@ import {useListStore} from '@/stores/lists'
 import {getQuickAddMagicMode} from '@/helpers/quickAddMagicMode'
 import {parseTaskText} from '@/modules/parseTaskText'
 import {findAssignees} from '@/helpers/findAssignees'
+import {formatDateShort} from '@/helpers/time/formatDate'
 
 const listStore = useListStore()
 const router = useRouter()
@@ -67,11 +80,15 @@ const heading = computed(() => {
 })
 
 const errorMessage = ref('')
+const taskService = ref(new TaskService())
 const descriptionFormVisible = ref(false)
 const newTask = ref<ITask>(new TaskModel({}))
-const taskService = ref(new TaskService())
 
 const parsedTask = computed(() => parseTaskText(newTask.value.title, getQuickAddMagicMode()))
+watch(
+	() => parsedTask.value.date,
+	date => newTask.value.dueDate = date
+)
 
 async function create() {
 	if (newTask.value.title === '') {
@@ -83,16 +100,15 @@ async function create() {
 	newTask.value.listId = props.listId
 	newTask.value.title = parsedTask.value.text
 	const assignees = await findAssignees(parsedTask.value.assignees)
-	const dueDate = parsedTask.value.date !== null ? formatISO(parsedTask.value.date) : null
 	
 	const finalTask = new TaskModel({
 		...newTask.value,
 		title: parsedTask.value.text,
-		dueDate,
+		dueDate: newTask.value.dueDate !== null ? formatISO(newTask.value.dueDate) : null,
 		priority: parsedTask.value.priority,
 		assignees: parsedTask.value.assignees,
 	})
-	
+
 	const task = await taskService.value.create(finalTask)
 	return router.push({name: 'task.detail', params: {id: task.id}})
 }

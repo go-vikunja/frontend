@@ -1,8 +1,10 @@
 <template>
 	<div class="datepicker">
-		<BaseButton @click.stop="toggleDatePopup" class="show" :disabled="disabled || undefined">
-			{{ date === null ? chooseDateLabel : formatDateShort(date) }}
-		</BaseButton>
+		<slot :date="date" :openPopup="toggleDatePopup">
+			<BaseButton @click.stop="toggleDatePopup" class="show" :disabled="disabled || undefined">
+				{{ date === null ? chooseDateLabel : formatDateShort(date) }}
+			</BaseButton>
+		</slot>
 
 		<transition name="fade">
 			<div v-if="show" class="datepicker-popup" ref="datepickerPopup">
