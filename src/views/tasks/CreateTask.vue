@@ -12,7 +12,10 @@
 			v-model="newTask.title"
 			v-focus
 		/>
-		<QuickAddMagic class="ml-4"/>
+		<p class="help is-danger ml-4" v-if="errorMessage !== ''">
+			{{ errorMessage }}
+		</p>
+		<QuickAddMagic class="ml-4" v-else/>
 		<BaseButton
 			v-if="!descriptionFormVisible"
 			@click="() => descriptionFormVisible = true"
@@ -63,6 +66,7 @@ const heading = computed(() => {
 		: t('task.new')
 })
 
+const errorMessage = ref('')
 const descriptionFormVisible = ref(false)
 const newTask = ref<ITask>(new TaskModel({}))
 const taskService = ref(new TaskService())
@@ -70,6 +74,12 @@ const taskService = ref(new TaskService())
 const parsedTask = computed(() => parseTaskText(newTask.value.title, getQuickAddMagicMode()))
 
 async function create() {
+	if (newTask.value.title === '') {
+		errorMessage.value = t('list.create.addTitleRequired')
+		return
+	}
+	errorMessage.value = ''
+
 	newTask.value.listId = props.listId
 	newTask.value.title = parsedTask.value.text
 	const assignees = await findAssignees(parsedTask.value.assignees)
