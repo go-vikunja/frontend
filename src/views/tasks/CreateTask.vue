@@ -30,7 +30,7 @@
 			:preview-is-default="false"
 			class="m-4"
 		/>
-		<div class="px-4">
+		<div class="px-4 pb-4">
 			<Datepicker 
 				v-model="newTask.dueDate" 
 				v-slot="{ date, openPopup }"
