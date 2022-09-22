@@ -30,16 +30,16 @@
 			:preview-is-default="false"
 			class="m-4"
 		/>
-		<div class="px-4 pb-4">
+		<div class="px-4 pb-4 task-attributes">
 			<Datepicker
 				v-model="newTask.dueDate"
 				v-slot="{ date, openPopup }"
 			>
-				<XButton variant="secondary" @click.stop="openPopup()">
+				<XButton variant="secondary" @click.stop="openPopup()" class="datepicker-button">
 					{{ date ? formatDateShort(date) : t('task.attributes.dueDate') }}
 				</XButton>
 			</Datepicker>
-			<div>
+			<div class="is-flex pl-2">
 				<span
 					v-for="label in realLabels"
 					:style="{'background': label.hexColor, 'color': label.textColor}"
@@ -144,7 +144,7 @@ async function create() {
 
 	await store.dispatch('tasks/addLabelsToTask', {
 		task,
-		parsedLabels: labels,
+		parsedLabels: labels.value,
 	})
 
 	return router.push({name: 'task.detail', params: {id: task.id}})
@@ -164,5 +164,15 @@ async function create() {
 	color: var(--grey-400);
 	width: 100%;
 	text-align: left;
+}
+
+.datepicker-button {
+	white-space: nowrap;
+}
+
+.task-attributes {
+	display: flex;
+	align-items: center;
+	overflow-y: auto;
 }
 </style>
