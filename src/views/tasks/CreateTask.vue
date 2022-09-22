@@ -97,12 +97,11 @@ async function create() {
 	}
 	errorMessage.value = ''
 
-	newTask.value.listId = props.listId
-	newTask.value.title = parsedTask.value.text
 	const assignees = await findAssignees(parsedTask.value.assignees)
 	
 	const finalTask = new TaskModel({
 		...newTask.value,
+		listId: props.listId,
 		title: parsedTask.value.text,
 		dueDate: newTask.value.dueDate !== null ? formatISO(newTask.value.dueDate) : null,
 		priority: parsedTask.value.priority,
