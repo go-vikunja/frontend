@@ -39,6 +39,9 @@
 					{{ date ? formatDateShort(date) : t('task.attributes.dueDate') }}
 				</XButton>
 			</Datepicker>
+			<XButton variant="secondary" class="ml-2">
+				{{ t('task.detail.actions.label') }}
+			</XButton>
 			<div class="is-flex pl-2">
 				<span
 					v-for="label in realLabels"
