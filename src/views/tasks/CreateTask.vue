@@ -45,6 +45,7 @@
 					:style="{'background': label.hexColor, 'color': label.textColor}"
 					class="tag mr-2">
 					<span>{{ label.title }}</span>
+					<BaseButton @click="removeLabel(label)" class="delete is-small"/>
 				</span>
 			</div>
 		</div>
@@ -121,6 +122,16 @@ const realLabels = computed<ILabel[]>(() => {
 		...newLabels,
 	]
 })
+
+function removeLabel(label: ILabel) {
+	while (true) { // Using a loop to remove all labels, including possible duplicates added via quick add magic
+		const index = labels.value.findIndex(el => el.toLowerCase() === label.title.toLowerCase())
+		if (index === -1) {
+			break
+		}
+		labels.value.splice(index, 1)
+	}
+}
 
 async function create() {
 	if (newTask.value.title === '') {
