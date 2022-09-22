@@ -31,14 +31,22 @@
 			class="m-4"
 		/>
 		<div class="px-4 pb-4">
-			<Datepicker 
-				v-model="newTask.dueDate" 
+			<Datepicker
+				v-model="newTask.dueDate"
 				v-slot="{ date, openPopup }"
 			>
 				<XButton variant="secondary" @click.stop="openPopup()">
 					{{ date ? formatDateShort(date) : t('task.attributes.dueDate') }}
 				</XButton>
 			</Datepicker>
+			<div>
+				<span
+					v-for="label in realLabels"
+					:style="{'background': label.hexColor, 'color': label.textColor}"
+					class="tag mr-2">
+					<span>{{ label.title }}</span>
+				</span>
+			</div>
 		</div>
 	</CreateEdit>
 </template>
@@ -64,8 +72,14 @@ import {getQuickAddMagicMode} from '@/helpers/quickAddMagicMode'
 import {parseTaskText} from '@/modules/parseTaskText'
 import {findAssignees} from '@/helpers/findAssignees'
 import {formatDateShort} from '@/helpers/time/formatDate'
+import {useLabelStore} from '@/stores/labels'
+import {useStore} from '@/store'
+import type {ILabel} from '@/modelTypes/ILabel'
+import LabelModel from '@/models/label'
 
 const listStore = useListStore()
+const labelStore = useLabelStore()
+const store = useStore()
 const router = useRouter()
 const {t} = useI18n()
 const props = defineProps<{
@@ -87,8 +101,26 @@ const newTask = ref<ITask>(new TaskModel({}))
 const parsedTask = computed(() => parseTaskText(newTask.value.title, getQuickAddMagicMode()))
 watch(
 	() => parsedTask.value.date,
-	date => newTask.value.dueDate = date
+	date => newTask.value.dueDate = date,
 )
+
+const labels = ref<string[]>([])
+watch(
+	() => parsedTask.value.labels,
+	labelTitles => labels.value = labelTitles,
+)
+const realLabels = computed<ILabel[]>(() => {
+	const existingLabels = labelStore.getLabelsByExactTitles(labels.value)
+
+	const newLabels = labels.value
+		.filter(l => l !== '' && !(existingLabels.map(le => le.title).includes(l)))
+		.map(newLabel => new LabelModel({title: newLabel}))
+
+	return [
+		...existingLabels,
+		...newLabels,
+	]
+})
 
 async function create() {
 	if (newTask.value.title === '') {
@@ -98,7 +130,7 @@ async function create() {
 	errorMessage.value = ''
 
 	const assignees = await findAssignees(parsedTask.value.assignees)
-	
+
 	const finalTask = new TaskModel({
 		...newTask.value,
 		listId: props.listId,
@@ -109,6 +141,12 @@ async function create() {
 	})
 
 	const task = await taskService.value.create(finalTask)
+
+	await store.dispatch('tasks/addLabelsToTask', {
+		task,
+		parsedLabels: labels,
+	})
+
 	return router.push({name: 'task.detail', params: {id: task.id}})
 }
 </script>
