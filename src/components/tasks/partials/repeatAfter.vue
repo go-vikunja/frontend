@@ -48,11 +48,11 @@
 							@change="updateData"
 							:disabled="disabled || undefined"
 						>
-							<option value="hours">{{ $t('time.hours') }}</option>
-							<option value="days">{{ $t('time.days') }}</option>
-							<option value="weeks">{{ $t('time.weeks') }}</option>
-							<option value="months">{{ $t('time.months') }}</option>
-							<option value="years">{{ $t('time.years') }}</option>
+							<option value="hours">{{ $tc('time.hours', 2) }}</option>
+							<option value="days">{{ $tc('time.days', 2) }}</option>
+							<option value="weeks">{{ $tc('time.weeks', 2) }}</option>
+							<option value="months">{{ $tc('time.months', 2) }}</option>
+							<option value="years">{{ $tc('time.years', 2) }}</option>
 						</select>
 					</div>
 				</div>

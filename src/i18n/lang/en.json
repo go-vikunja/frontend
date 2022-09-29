@@ -589,20 +589,13 @@
     }
   },
   "time": {
-    "seconds": "Seconds",
-    "second": "Second",
-    "minutes": "Minutes",
-    "minute": "Minute",
-    "hours": "Hours",
-    "hour": "Hour",
-    "days": "Days",
-    "day": "Day",
-    "weeks": "Weeks",
-    "week": "Week",
-    "months": "Months",
-    "month": "Month",
-    "years": "Years",
-    "year": "Year"
+    "seconds": "Second | Seconds",
+    "minutes": "Minute | Minutes",
+    "hours": "Hour | Hours",
+    "days": "Day | Days",
+    "weeks": "Week | Weeks",
+    "months": "Month | Months",
+    "years": "Year | Years"
   },
   "task": {
     "task": "Task",

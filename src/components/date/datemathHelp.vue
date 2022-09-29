@@ -36,35 +36,35 @@
 			<tbody>
 			<tr>
 				<td><code>s</code></td>
-				<td>{{ $t('time.seconds') }}</td>
+				<td>{{ $tc('time.seconds', 2) }}</td>
 			</tr>
 			<tr>
 				<td><code>m</code></td>
-				<td>{{ $t('time.minutes') }}</td>
+				<td>{{ $tc('time.minutes', 2) }}</td>
 			</tr>
 			<tr>
 				<td><code>h</code></td>
-				<td>{{ $t('time.hours') }}</td>
+				<td>{{ $tc('time.hours', 2) }}</td>
 			</tr>
 			<tr>
 				<td><code>H</code></td>
-				<td>{{ $t('time.hours') }}</td>
+				<td>{{ $tc('time.hours', 2) }}</td>
 			</tr>
 			<tr>
 				<td><code>d</code></td>
-				<td>{{ $t('time.days') }}</td>
+				<td>{{ $tc('time.days', 2) }}</td>
 			</tr>
 			<tr>
 				<td><code>w</code></td>
-				<td>{{ $t('time.weeks') }}</td>
+				<td>{{ $tc('time.weeks', 2) }}</td>
 			</tr>
 			<tr>
 				<td><code>M</code></td>
-				<td>{{ $t('time.months') }}</td>
+				<td>{{ $tc('time.months', 2) }}</td>
 			</tr>
 			<tr>
 				<td><code>y</code></td>
-				<td>{{ $t('time.years') }}</td>
+				<td>{{ $tc('time.years', 2) }}</td>
 			</tr>
 			</tbody>
 		</table>

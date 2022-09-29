@@ -44,16 +44,16 @@
 				<div class="control select">
 					<select v-model="defaultReminderAmountType">
 						<option value="minutes">
-							{{ $t('time.minute' + (defaultReminderAmount === 1 ? '' : 's')) }}
+							{{ $tc('time.minutes', defaultReminderAmount) }}
 						</option>
 						<option value="hours">
-							{{ $t('time.hour' + (defaultReminderAmount === 1 ? '' : 's')) }}
+							{{ $tc('time.hours', defaultReminderAmount) }}
 						</option>
 						<option value="days">
-							{{ $t('time.day' + (defaultReminderAmount === 1 ? '' : 's')) }}
+							{{ $tc('time.days', defaultReminderAmount) }}
 						</option>
 						<option value="months">
-							{{ $t('time.month' + (defaultReminderAmount === 1 ? '' : 's')) }}
+							{{ $tc('time.months', defaultReminderAmount) }}
 						</option>
 					</select>
 				</div>
