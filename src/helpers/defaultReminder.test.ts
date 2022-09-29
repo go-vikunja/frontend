@@ -1,5 +1,6 @@
 import {describe, it, expect, vi, afterEach, beforeEach} from 'vitest'
 import {
+	AMOUNTS_IN_SECONDS,
 	getDefaultReminderSettings,
 	getSavedReminderSettings,
 	parseSavedReminderAmount,
@@ -36,25 +37,25 @@ describe('Default Reminder Save', () => {
 
 describe('Default Reminder Load', () => {
 	it('Should parse minutes', () => {
-		const settings = parseSavedReminderAmount(5 * 60)
+		const settings = parseSavedReminderAmount(5 * AMOUNTS_IN_SECONDS.minutes)
 		
 		expect(settings.amount).toBe(5)
 		expect(settings.type).toBe('minutes')
 	})
 	it('Should parse hours', () => {
-		const settings = parseSavedReminderAmount(5 * 60 * 60)
+		const settings = parseSavedReminderAmount(5 * AMOUNTS_IN_SECONDS.hours)
 
 		expect(settings.amount).toBe(5)
 		expect(settings.type).toBe('hours')
 	})
 	it('Should parse days', () => {
-		const settings = parseSavedReminderAmount(5 * 60 * 60 * 24)
+		const settings = parseSavedReminderAmount(5 * AMOUNTS_IN_SECONDS.days)
 
 		expect(settings.amount).toBe(5)
 		expect(settings.type).toBe('days')
 	})
 	it('Should parse months', () => {
-		const settings = parseSavedReminderAmount(5 * 60 * 60 * 24 * 30)
+		const settings = parseSavedReminderAmount(5 * AMOUNTS_IN_SECONDS.months)
 
 		expect(settings.amount).toBe(5)
 		expect(settings.type).toBe('months')

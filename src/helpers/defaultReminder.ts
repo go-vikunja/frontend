@@ -1,6 +1,11 @@
 const DEFAULT_REMINDER_KEY = 'defaultReminder'
 
-const AMOUNTS_IN_SECONDS: { [key: string]: number } = {
+export const AMOUNTS_IN_SECONDS: {
+	minutes: number,
+	hours: number,
+	days: number,
+	months: number,
+} = {
 	minutes: 60,
 	hours: 60 * 60,
 	days: 60 * 60 * 24,
