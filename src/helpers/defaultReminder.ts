@@ -1,5 +1,12 @@
 const DEFAULT_REMINDER_KEY = 'defaultReminder'
 
+const AMOUNTS_IN_SECONDS: { [key: string]: number } = {
+	minutes: 60,
+	hours: 60 * 60,
+	days: 60 * 60 * 24,
+	months: 60 * 60 * 24 * 30,
+}
+
 interface DefaultReminderSettings {
 	enabled: boolean,
 	amount: number,
@@ -12,18 +19,7 @@ interface SavedReminderSettings {
 }
 
 function calculateDefaultReminderSeconds(type: string, amount: number): number {
-	switch (type) {
-		case 'minutes':
-			return amount * 60
-		case 'hours':
-			return amount * 60 * 60
-		case 'days':
-			return amount * 60 * 60 * 24
-		case 'months':
-			return amount * 60 * 60 * 24 * 30
-	}
-
-	return 0
+	return amount * (AMOUNTS_IN_SECONDS[type] || 0)
 }
 
 export function saveDefaultReminder(enabled: boolean, type: string, amount: number) {
@@ -84,6 +80,6 @@ export function getSavedReminderSettings(): SavedReminderSettings | null {
 			enabled: false,
 		}
 	}
-	
+
 	return parseSavedReminderAmount(s.amount)
 }
