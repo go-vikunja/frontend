@@ -1,10 +1,7 @@
 const DEFAULT_REMINDER_KEY = 'defaultReminder'
 
 export const AMOUNTS_IN_SECONDS: {
-	minutes: number,
-	hours: number,
-	days: number,
-	months: number,
+	[type in SavedReminderSettings['type']]: number
 } = {
 	minutes: 60,
 	hours: 60 * 60,
@@ -19,15 +16,15 @@ interface DefaultReminderSettings {
 
 interface SavedReminderSettings {
 	enabled: boolean,
-	amount?: number,
-	type?: 'minutes' | 'hours' | 'days' | 'months',
+	amount: number,
+	type: 'minutes' | 'hours' | 'days' | 'months',
 }
 
-function calculateDefaultReminderSeconds(type: string, amount: number): number {
+function calculateDefaultReminderSeconds(type: SavedReminderSettings['type'], amount: number): number {
 	return amount * (AMOUNTS_IN_SECONDS[type] || 0)
 }
 
-export function saveDefaultReminder(enabled: boolean, type: string, amount: number) {
+export function saveDefaultReminder(enabled: boolean, type: SavedReminderSettings['type'], amount: number) {
 	const defaultReminderSeconds = calculateDefaultReminderSeconds(type, amount)
 	localStorage.setItem(DEFAULT_REMINDER_KEY, JSON.stringify(<DefaultReminderSettings>{
 		enabled,
@@ -83,6 +80,8 @@ export function getSavedReminderSettings(): SavedReminderSettings | null {
 	if (!s.enabled) {
 		return {
 			enabled: false,
+			type: 'minutes',
+			amount: 0,
 		}
 	}
 
