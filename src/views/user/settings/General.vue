@@ -321,7 +321,6 @@ async function updateSettings() {
 const reminderSettings = getSavedReminderSettings()
 
 const defaultReminderEnabled = ref<boolean>(reminderSettings?.enabled || false)
-// TODO: re-populate amount and type
 const defaultReminderAmount = ref(reminderSettings?.amount || 1)
 const defaultReminderAmountType = ref(reminderSettings?.type || 'days')
 </script>
