@@ -10,7 +10,7 @@ export const AMOUNTS_IN_SECONDS: {
 	hours: 60 * 60,
 	days: 60 * 60 * 24,
 	months: 60 * 60 * 24 * 30,
-}
+} as const
 
 interface DefaultReminderSettings {
 	enabled: boolean,
