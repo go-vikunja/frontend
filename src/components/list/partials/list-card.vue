@@ -5,7 +5,7 @@
 			'has-background': blurHashUrl !== '' || background !== null,
 		}"
 		:style="{
-			'background-color': list.hexColor,
+			'border-left': `1rem solid ${list.hexColor}`,
 			'background-image': blurHashUrl !== null ? `url(${blurHashUrl})` : false,
 		}"
 		:to="{ name: 'list.index', params: { listId: list.id} }"
@@ -31,6 +31,7 @@
 			</BaseButton>
 
 			<div class="title">{{ list.title }}</div>
+			<div class="description">{{ list.description }}</div>
 		</div>
 	</router-link>
 </template>
@@ -85,6 +86,8 @@ async function loadBackground() {
 }
 
 const listStore = useListStore()
+console.log(props.list)
+
 </script>
 
 <style lang="scss" scoped>
@@ -172,8 +175,9 @@ const listStore = useListStore()
 
 	.list-content {
 		display: flex;
-		align-content: space-between;
+		align-content: flex-start;
 		flex-wrap: wrap;
+		row-gap: 0.8rem;
 		padding: 1rem;
 		position: absolute;
 		height: 100%;
@@ -185,6 +189,8 @@ const listStore = useListStore()
 		}
 
 		.favorite {
+			position: absolute;
+			right: 1rem;
 			margin-left: auto;
 			transition: opacity $transition, color $transition;
 			opacity: 0;
@@ -202,10 +208,27 @@ const listStore = useListStore()
 		}
 
 		.title {
-			align-self: flex-end;
+			align-self: flex-start;
 			font-family: $vikunja-font;
 			font-weight: 400;
 			font-size: 1.5rem;
+			color: var(--text);
+			width: 100%;
+			margin-bottom: 0;
+			max-height: calc(100% - 2rem); // 1rem padding, 1rem height of the "is archived" badge
+			overflow: hidden;
+			text-overflow: ellipsis;
+
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+		}
+
+		.description {
+			align-self: flex-start;
+			font-family: $vikunja-font;
+			font-weight: 200;
+			font-size: 1rem;
 			color: var(--text);
 			width: 100%;
 			margin-bottom: 0;
