@@ -86,7 +86,6 @@ async function loadBackground() {
 }
 
 const listStore = useListStore()
-console.log(props.list)
 
 </script>
 
