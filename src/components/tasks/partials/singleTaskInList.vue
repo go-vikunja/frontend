@@ -1,5 +1,5 @@
 <template>
-	<div :class="{'is-loading': taskService.loading}" class="task loader-container">
+	<div :class="{'is-loading': taskService.loading}" class="task loader-container" @click.stop.self="openTaskDetail">
 		<fancycheckbox
 			:disabled="(isArchived || disabled) && !canMarkAsDone"
 			@change="markAsDone"
@@ -127,13 +127,14 @@
 <script setup lang="ts">
 import {ref, watch, shallowReactive, toRef, type PropType, onMounted, onBeforeUnmount, computed} from 'vue'
 import {useI18n} from 'vue-i18n'
+import {useRouter} from 'vue-router'
 
 import TaskModel, { getHexColor } from '@/models/task'
 import type {ITask} from '@/modelTypes/ITask'
 
 import PriorityLabel from '@/components/tasks/partials/priorityLabel.vue'
-import Labels from '@/components/tasks/partials//labels.vue'
-import DeferTask from '@/components/tasks/partials//defer-task.vue'
+import Labels from '@/components/tasks/partials/labels.vue'
+import DeferTask from '@/components/tasks/partials/defer-task.vue'
 import ChecklistSummary from '@/components/tasks/partials/checklist-summary.vue'
 
 import User from '@/components/misc/user.vue'
@@ -183,6 +184,7 @@ const props = defineProps({
 const emit = defineEmits(['task-updated'])
 
 const {t} = useI18n({useScope: 'global'})
+const router = useRouter()
 
 const taskService = shallowReactive(new TaskService())
 const task = ref<ITask>(new TaskModel())
@@ -271,6 +273,14 @@ function hideDeferDueDatePopup(e) {
 	closeWhenClickedOutside(e, deferDueDate.value.$el, () => {
 		showDefer.value = false
 	})
+}
+
+const taskLink = ref(null)
+function openTaskDetail() {
+	const isTextSelected = window.getSelection().toString()
+	if (!isTextSelected) {
+		router.push(taskDetailRoute.value)
+	}
 }
 </script>
 
