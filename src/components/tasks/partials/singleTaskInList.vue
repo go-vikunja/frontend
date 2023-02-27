@@ -1,9 +1,5 @@
 <template>
-	<router-link
-		:to="taskDetailRoute"
-		:class="{'is-loading': taskService.loading}"
-		class="task loader-container"
-	>
+	<div :class="{'is-loading': taskService.loading}" class="task loader-container">
 		<fancycheckbox
 			:disabled="(isArchived || disabled) && !canMarkAsDone"
 			@change="markAsDone"
@@ -16,7 +12,8 @@
 			class="mr-1"
 		/>
 		
-		<div
+		<router-link
+			:to="taskDetailRoute"
 			:class="{ 'done': task.done, 'show-list': showList && taskList !== null}"
 			class="tasktext"
 		>
@@ -96,7 +93,7 @@
 			</span>
 
 			<checklist-summary :task="task"/>
-		</div>
+		</router-link>
 
 		<progress
 			class="progress is-small"
@@ -117,14 +114,14 @@
 
 		<BaseButton
 			:class="{'is-favorite': task.isFavorite}"
-			@click.prevent="toggleFavorite"
+			@click="toggleFavorite"
 			class="favorite"
 		>
 			<icon icon="star" v-if="task.isFavorite"/>
 			<icon :icon="['far', 'star']" v-else/>
 		</BaseButton>
 		<slot />
-	</router-link>
+	</div>
 </template>
 
 <script setup lang="ts">
@@ -287,12 +284,8 @@ function hideDeferDueDatePopup(e) {
 	cursor: pointer;
 	border-radius: $radius;
 	border: 2px solid transparent;
-	
-	color: var(--text);
-	transition: color ease $transition-duration;
 
 	&:hover {
-		color: var(--grey-900);
 		background-color: var(--grey-100);
 	}
 
@@ -336,6 +329,15 @@ function hideDeferDueDatePopup(e) {
 			margin-left: 8px;
 		}
 
+	}
+
+	a {
+		color: var(--text);
+		transition: color ease $transition-duration;
+
+		&:hover {
+			color: var(--grey-900);
+		}
 	}
 
 	.favorite {
