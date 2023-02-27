@@ -299,6 +299,14 @@ function openTaskDetail() {
 		background-color: var(--grey-100);
 	}
 
+	&:focus-within {
+		box-shadow: 0 0 0 2px hsla(var(--primary-hsl), 0.5);
+		
+		a.tasktext {
+			box-shadow: none;
+		}
+	}
+
 	.tasktext,
 	&.tasktext {
 		white-space: nowrap;
@@ -366,7 +374,8 @@ function openTaskDetail() {
 		}
 	}
 
-	&:hover .favorite {
+	&:hover .favorite,
+	.favorite:focus {
 		opacity: 1;
 	}
 
