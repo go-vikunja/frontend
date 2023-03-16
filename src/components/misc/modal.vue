@@ -195,7 +195,6 @@ $modal-width: 1024px;
 }
 
 .close {
-	$close-button-min-space: 84px;
 	$close-button-padding: 26px;
 	position: fixed;
 	top: 5px;
