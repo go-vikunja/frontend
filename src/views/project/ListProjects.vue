@@ -70,6 +70,7 @@
 </template>
 
 <script setup lang="ts">
+import 'core-js/modules/esnext.map.filter'
 import {computed} from 'vue'
 import {useI18n} from 'vue-i18n'
 
@@ -91,7 +92,7 @@ const showArchived = useStorage('showArchived', false)
 
 const loading = computed(() => projectStore.isLoading)
 const projects = computed(() => {
-	return projectStore.projectsArray.filter(project => showArchived.value
+	return projectStore.projects.filter(project => showArchived.value
 		? true
 		: !project.isArchived,
 	)

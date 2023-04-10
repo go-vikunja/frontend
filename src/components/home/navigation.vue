@@ -85,9 +85,11 @@ const menuActive = computed(() => baseStore.menuActive)
 const projectsLoading = computed(() => projectStore.isLoading)
 
 const projects = computed(() => projectStore.notArchivedRootProjects
-	.sort((a, b) => a.position - b.position))
+	// .sort((a, b) => a.position - b.position))
+)
 const favoriteProjects = computed(() => projectStore.favoriteProjects
-	.sort((a, b) => a.position - b.position))
+	// .sort((a, b) => a.position - b.position))
+)
 </script>
 
 <style lang="scss" scoped>

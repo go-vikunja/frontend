@@ -1,3 +1,4 @@
+import 'core-js/modules/esnext.map.find'
 import {watch, reactive, shallowReactive, unref, toRefs, readonly, ref, computed} from 'vue'
 import {acceptHMRUpdate, defineStore} from 'pinia'
 import {useI18n} from 'vue-i18n'
@@ -28,24 +29,23 @@ export const useProjectStore = defineStore('project', () => {
 	const isLoading = ref(false)
 
 	// The projects are stored as an object which has the project ids as keys.
-	const projects = ref<ProjectState>({})
-	const projectsArray = computed(() => Object.values(projects.value))
-	const notArchivedRootProjects = computed(() => projectsArray.value
-		.filter(p => p.parentProjectId === 0 && !p.isArchived))
-	const favoriteProjects = computed(() => projectsArray.value
-		.filter(p => !p.isArchived && p.isFavorite))
-	const hasProjects = computed(() => projects.value ? true : false)
+	const projects = ref<Map<number, IProject>>(new Map<number, IProject>())
+	const notArchivedRootProjects = computed(() => new Map([...projects.value]
+		.filter(p => p.parentProjectId === 0 && !p.isArchived)))
+	const favoriteProjects = computed(() => new Map([...projects.value]
+		.filter(p => !p.isArchived && p.isFavorite)))
+	const hasProjects = computed(() => projects.value?.size > 0)
 
 	const getProjectById = computed(() => {
-		return (id: IProject['id']) => typeof projects.value[id] !== 'undefined' ? projects.value[id] : null
+		return (id: IProject['id']) => projects.value?.get(id) ?? null
 	})
 	const getChildProjects = computed(() => {
-		return (id: IProject['id']) => projectsArray.value.filter(p => p.parentProjectId === id) || []
+		return (id: IProject['id']) => projects.value.filter(p => p.parentProjectId === id) || []
 	})
 
 	const findProjectByExactname = computed(() => {
 		return (name: string) => {
-			const project = Object.values(projects.value).find(l => {
+			const project = projects.value.find(l => {
 				return l.title.toLowerCase() === name.toLowerCase()
 			})
 			return typeof project === 'undefined' ? null : project
@@ -56,7 +56,7 @@ export const useProjectStore = defineStore('project', () => {
 		return (query: string, includeArchived = false) => {
 			return search(query)
 				?.filter(value => value > 0)
-				.map(id => projects.value[id])
+				.map(id => projects.value.get(id))
 				.filter(project => project.isArchived === includeArchived)
 			|| []
 		}
@@ -67,7 +67,7 @@ export const useProjectStore = defineStore('project', () => {
 	}
 
 	function setProject(project: IProject) {
-		projects.value[project.id] = project
+		projects.value?.set(project.id, project)
 		update(project)
 
 		if (baseStore.currentProject?.id === project.id) {
@@ -81,7 +81,7 @@ export const useProjectStore = defineStore('project', () => {
 
 	function removeProjectById(project: IProject) {
 		remove(project)
-		delete projects.value[project.id]
+		projects.value?.delete(project.id)
 	}
 
 	function toggleProjectFavorite(project: IProject) {
@@ -152,7 +152,7 @@ export const useProjectStore = defineStore('project', () => {
 		const projectService = new ProjectService()
 		try {
 			const loadedProjects = await projectService.getAll({}, {is_archived: true}) as IProject[]
-			projects.value = {}
+			projects.value = new Map<number, IProject>()
 			setProjects(loadedProjects)
 
 			return loadedProjects
@@ -166,7 +166,7 @@ export const useProjectStore = defineStore('project', () => {
 			return [project]
 		}
 
-		const parentProject = projects.value[project.parentProjectId]
+		const parentProject = projects.value?.get(project.parentProjectId)
 		return [
 			...getParentProjects(parentProject),
 			project,
@@ -176,7 +176,6 @@ export const useProjectStore = defineStore('project', () => {
 	return {
 		isLoading: readonly(isLoading),
 		projects: readonly(projects),
-		projectsArray: readonly(projectsArray),
 		notArchivedRootProjects: readonly(notArchivedRootProjects),
 		favoriteProjects: readonly(favoriteProjects),
 		hasProjects: readonly(hasProjects),

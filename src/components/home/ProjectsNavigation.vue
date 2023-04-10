@@ -42,7 +42,7 @@ import type {IProject} from '@/modelTypes/IProject'
 import {useProjectStore} from '@/stores/projects'
 
 const props = defineProps<{
-	modelValue?: IProject[],
+	modelValue?: Map<number, IProject>,
 	canEditOrder: boolean,
 	canCollapse?: boolean,
 	level?: number,
@@ -59,11 +59,11 @@ const projectStore = useProjectStore()
 
 // Vue draggable will modify the projects list as it changes their position which will not work on a prop.
 // Hence, we'll clone the prop and work on the clone.
-const availableProjects = ref<IProject[]>([])
+const availableProjects = ref<Map<number, IProject>>(new Map())
 watch(
 	() => props.modelValue,
 	projects => {
-		availableProjects.value = projects || []
+		availableProjects.value = projects || new Map<number, IProject>()
 	},
 	{immediate: true},
 )
@@ -77,14 +77,14 @@ async function saveProjectPosition(e: SortableEvent) {
 	// If the project was dragged to the last position, Safari will report e.newIndex as the size of the projectsActive
 	// array instead of using the position. Because the index is wrong in that case, dragging the project will fail.
 	// To work around that we're explicitly checking that case here and decrease the index.
-	const newIndex = e.newIndex === projectsActive.length ? e.newIndex - 1 : e.newIndex
+	const newIndex = e.newIndex === projectsActive.size > 0 ? e.newIndex - 1 : e.newIndex
 
 	const projectId = parseInt(e.item.dataset.projectId)
 	const project = projectStore.getProjectById(projectId)
 
 	const parentProjectId = e.to.parentNode.dataset.projectId ? parseInt(e.to.parentNode.dataset.projectId) : 0
-	const projectBefore = projectsActive[newIndex - 1] ?? null
-	const projectAfter = projectsActive[newIndex + 1] ?? null
+	const projectBefore = projectsActive.get(newIndex - 1) ?? null
+	const projectAfter = projectsActive.get(newIndex + 1) ?? null
 	projectUpdating.value[project.id] = true
 
 	const position = calculateItemPosition(

@@ -54,6 +54,9 @@ dependencies:
   codemirror:
     specifier: 5.65.12
     version: 5.65.12
+  core-js:
+    specifier: ^3.30.0
+    version: 3.30.0
   date-fns:
     specifier: 2.29.3
     version: 2.29.3
@@ -4236,7 +4239,7 @@ packages:
       '@babel/core': 7.21.3
       '@babel/preset-env': 7.20.2(@babel/core@7.21.3)
       browserslist: 4.21.5
-      core-js: 3.29.1
+      core-js: 3.30.0
       magic-string: 0.30.0
       regenerator-runtime: 0.13.11
       systemjs: 6.14.0
@@ -6081,10 +6084,9 @@ packages:
       browserslist: 4.21.5
     dev: true
 
-  /core-js@3.29.1:
-    resolution: {integrity: sha512-+jwgnhg6cQxKYIIjGtAHq2nwUOolo9eoFZ4sHfUH09BLXBgxnH4gA0zEd+t+BO2cNB8idaBtZFcFTRjQJRJmAw==}
+  /core-js@3.30.0:
+    resolution: {integrity: sha512-hQotSSARoNh1mYPi9O2YaWeiq/cEB95kOrFb4NCrO4RIFt1qqNpKsaE+vy/L3oiqvND5cThqXzUU3r9F7Efztg==}
     requiresBuild: true
-    dev: true
 
   /core-util-is@1.0.2:
     resolution: {integrity: sha512-3lqz5YjWTYnW6dlDa5TLaTCcShfar1e40rmcJVwCBJC6mWlFuj0eCHIElmG1g5kyuJ/GD+8Wn4FFCcz4gJPfaQ==}
