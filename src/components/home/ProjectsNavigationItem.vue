@@ -44,13 +44,14 @@
 			</ProjectSettingsDropdown>
 			<span class="list-setting-spacer" v-else></span>
 		</div>
-		<ProjectsNavigation
-			v-if="canNestDeeper && childProjectsOpen && canCollapse"
-			v-model="childProjects"
-			:can-edit-order="true"
-			:can-collapse="canCollapse"
-			:level="level + 1"
-		/>
+		<Expandable v-if="canNestDeeper" :open="childProjectsOpen && canCollapse">
+			<ProjectsNavigation
+				v-model="childProjects"
+				:can-edit-order="true"
+				:can-collapse="canCollapse"
+				:level="level + 1"
+			/>
+		</Expandable>
 	</li>
 </template>
 
@@ -62,6 +63,7 @@ import {useBaseStore} from '@/stores/base'
 import type {IProject} from '@/modelTypes/IProject'
 
 import BaseButton from '@/components/base/BaseButton.vue'
+import Expandable from '@/components/base/Expandable.vue'
 import ProjectSettingsDropdown from '@/components/project/project-settings-dropdown.vue'
 import {getProjectTitle} from '@/helpers/getProjectTitle'
 import ColorBubble from '@/components/misc/colorBubble.vue'
