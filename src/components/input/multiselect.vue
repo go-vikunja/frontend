@@ -227,10 +227,10 @@ const internalValue = ref<string | {[key: string]: any} | any[] | null>(null)
 onMounted(() => document.addEventListener('click', hideSearchResultsHandler))
 onBeforeUnmount(() => document.removeEventListener('click', hideSearchResultsHandler))
 
-const {modelValue, searchResults} = toRefs(props)
+const {modelValue: modelValueRef, searchResults: searchResultsRef} = toRefs(props)
 
 watch(
-	modelValue,
+	modelValueRef,
 	(value) => setSelectedObject(value),
 	{
 		immediate: true,
@@ -261,10 +261,10 @@ const creatableAvailable = computed(() => {
 const filteredSearchResults = computed(() => {
 	const currentInternal = internalValue.value
 	if (props.multiple && currentInternal !== null && Array.isArray(currentInternal)) {
-		return searchResults.value.filter((item: any) => !currentInternal.some(e => e === item))
+		return searchResultsRef.value.filter((item: any) => !currentInternal.some(e => e === item))
 	}
 
-	return searchResults.value
+	return searchResultsRef.value
 })
 
 const hasMultiple = computed(() => {
@@ -392,8 +392,8 @@ function create() {
 }
 
 function createOrSelectOnEnter() {
-	if (!creatableAvailable.value && searchResults.value.length === 1) {
-		select(searchResults.value[0])
+	if (!creatableAvailable.value && searchResultsRef.value.length === 1) {
+		select(searchResultsRef.value[0])
 		return
 	}
 

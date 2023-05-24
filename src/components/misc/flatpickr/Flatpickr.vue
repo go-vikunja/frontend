@@ -93,7 +93,7 @@ const emit = defineEmits([
 	...allEvents.map(camelToKebab),
 ])
 
-const {modelValue, config, disabled} = toRefs(props)
+const {modelValue: modelValueRef, config: configRef, disabled: disabledRef} = toRefs(props)
 
 // bind listener like onBlur
 const attrs = useAttrs()
@@ -159,7 +159,7 @@ onMounted(() => {
 })
 onBeforeUnmount(() => fp.value?.destroy())
 
-watch(config, () => {
+watch(configRef, () => {
 	if (!fp.value) return
 	// Workaround: Don't pass hooks to configs again otherwise
 	// previously registered hooks will stop working
@@ -201,7 +201,7 @@ onBeforeUnmount(() => fpInput.value?.removeEventListener('blur', onBlur))
 * Watch for the disabled property and sets the value to the real input.
 */
 watchEffect(() => {
-	if (disabled.value) {
+	if (disabledRef.value) {
 		fpInput.value?.setAttribute('disabled', '')
 	} else {
 		fpInput.value?.removeAttribute('disabled')
@@ -212,7 +212,7 @@ watchEffect(() => {
  * Watch for changes from parent component and update DOM
  */
 watch(
-	modelValue,
+	modelValueRef,
 	newValue => {
 		// Prevent updates if v-model value is same as input's current value
 		if (!root.value || newValue === nullify(root.value.value)) return

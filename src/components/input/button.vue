@@ -56,6 +56,7 @@ export interface ButtonProps extends BaseButtonProps {
 	wrap?: boolean
 }
 
+// eslint-disable-next-line vue/no-dupe-keys
 const {
 	variant = 'primary',
 	icon = '',

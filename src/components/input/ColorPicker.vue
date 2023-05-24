@@ -66,9 +66,9 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
-const modelValue = toRef(props, 'modelValue')
+const modelValueRef = toRef(props, 'modelValue')
 watch(
-	modelValue,
+	modelValueRef,
 	(newValue) => {
 		color.value = newValue
 	},

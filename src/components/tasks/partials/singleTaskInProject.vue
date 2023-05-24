@@ -188,17 +188,17 @@ const taskService = shallowReactive(new TaskService())
 const task = ref<ITask>(new TaskModel())
 const showDefer = ref(false)
 
-const theTask = toRef(props, 'theTask')
+const theTaskRef = toRef(props, 'theTask')
 
 watch(
-	theTask,
+	theTaskRef,
 	newVal => {
 		task.value = newVal
 	},
 )
 
 onMounted(() => {
-	task.value = theTask.value
+	task.value = theTaskRef.value
 	document.addEventListener('click', hideDeferDueDatePopup)
 })
 

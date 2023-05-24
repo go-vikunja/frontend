@@ -134,9 +134,9 @@ const changed = ref(false)
 onMounted(() => document.addEventListener('click', hideDatePopup))
 onBeforeUnmount(() =>document.removeEventListener('click', hideDatePopup))
 
-const modelValue = toRef(props, 'modelValue')
+const modelValueRef = toRef(props, 'modelValue')
 watch(
-	modelValue,
+	modelValueRef,
 	setDateValue,
 	{immediate: true},
 )

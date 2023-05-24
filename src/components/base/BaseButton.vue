@@ -74,6 +74,7 @@ export interface BaseButtonEmits {
 	(e: 'click', payload: MouseEvent): void
 }
 
+// eslint-disable-next-line vue/no-dupe-keys
 const {
 	type = BASE_BUTTON_TYPES_MAP.BUTTON,
 	disabled = false,

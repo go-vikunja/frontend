@@ -78,7 +78,7 @@ const emit = defineEmits<{
   (e: 'update:task', task: ITaskPartialWithId): void
 }>()
 
-const {tasks, filters} = toRefs(props)
+const {tasks: tasksRef, filters: filtersRef} = toRefs(props)
 
 // setup dayjs for vue-ganttastic
 const dayjsLanguageLoading = ref(false)
@@ -87,8 +87,8 @@ extendDayjs()
 
 const router = useRouter()
 
-const dateFromDate = computed(() => new Date(new Date(filters.value.dateFrom).setHours(0,0,0,0)))
-const dateToDate = computed(() => new Date(new Date(filters.value.dateTo).setHours(23,59,0,0)))
+const dateFromDate = computed(() => new Date(new Date(filtersRef.value.dateFrom).setHours(0,0,0,0)))
+const dateToDate = computed(() => new Date(new Date(filtersRef.value.dateTo).setHours(23,59,0,0)))
 
 const DAY_WIDTH_PIXELS = 30
 const ganttChartWidth = computed(() => {
@@ -103,10 +103,10 @@ const ganttBars = ref<GanttBarObject[][]>([])
  * Update ganttBars when tasks change
  */
 watch(
-	tasks,
+	tasksRef,
 	() => {
 		ganttBars.value = []
-		tasks.value.forEach(t => ganttBars.value.push(transformTaskToGanttBar(t)))
+		tasksRef.value.forEach(t => ganttBars.value.push(transformTaskToGanttBar(t)))
 	},
 	{deep: true, immediate: true},
 )

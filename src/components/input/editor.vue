@@ -157,10 +157,10 @@ const config = ref(createEasyMDEConfig({
 
 const checkboxId = ref(createRandomID())
 
-const {modelValue} = toRefs(props)
+const {modelValue: modelValueRef} = toRefs(props)
 
 watch(
-	modelValue,
+	modelValueRef,
 	async (value) => {
 		text.value = value
 		await nextTick()
@@ -172,7 +172,7 @@ watch(
 	text,
 	(newVal, oldVal) => {
 		// Only bubble the new value if it actually changed, but not if the component just got mounted and the text changed from the outside.
-		if (oldVal === '' && text.value === modelValue.value) {
+		if (oldVal === '' && text.value === modelValueRef.value) {
 			return
 		}
 		bubble()
@@ -181,8 +181,8 @@ watch(
 
 
 onMounted(() => {
-	if (modelValue.value !== '') {
-		text.value = modelValue.value
+	if (modelValueRef.value !== '') {
+		text.value = modelValueRef.value
 	}
 
 	if (props.previewIsDefault && props.hasPreview) {

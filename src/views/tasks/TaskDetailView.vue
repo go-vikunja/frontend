@@ -536,7 +536,7 @@ const taskColor = ref<ITask['hexColor']>('')
 // Used to avoid flashing of empty elements if the task content is not yet loaded.
 const visible = ref(false)
 
-const taskId = toRef(props, 'taskId')
+const taskIdRef = toRef(props, 'taskId')
 
 const parent = computed(() => {
 	if (!task.projectId) {
@@ -584,7 +584,7 @@ const hasAttachments = computed(() => attachmentStore.attachments.length > 0)
 const isModal = computed(() => Boolean(props.backdropView))
 
 function attachmentUpload(file: File, onSuccess?: (url: string) => void) {
-	return uploadFile(taskId.value, file, onSuccess)
+	return uploadFile(taskIdRef.value, file, onSuccess)
 }
 
 const heading = ref<HTMLElement | null>(null)
@@ -595,7 +595,7 @@ async function scrollToHeading() {
 const taskService = shallowReactive(new TaskService())
 
 // load task
-watch(taskId, async (id) => {
+watch(taskIdRef, async (id) => {
 	if (id === undefined) {
 		return
 	}

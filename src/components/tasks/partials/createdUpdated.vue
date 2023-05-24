@@ -39,12 +39,12 @@ const props = defineProps({
 	},
 })
 
-const {task} = toRefs(props)
+const {task: taskRef} = toRefs(props)
 
-const updatedSince = computed(() => formatDateSince(task.value.updated))
-const updatedFormatted = computed(() => formatDateLong(task.value.updated))
-const doneSince = computed(() => formatDateSince(task.value.doneAt))
-const doneFormatted = computed(() => formatDateLong(task.value.doneAt))
+const updatedSince = computed(() => formatDateSince(taskRef.value.updated))
+const updatedFormatted = computed(() => formatDateLong(taskRef.value.updated))
+const doneSince = computed(() => formatDateSince(taskRef.value.doneAt))
+const doneFormatted = computed(() => formatDateLong(taskRef.value.doneAt))
 </script>
 
 <style lang="scss" scoped>

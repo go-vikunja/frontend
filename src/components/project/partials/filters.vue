@@ -255,7 +255,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
-const {modelValue} = toRefs(props)
+const {modelValue: modelValueRef} = toRefs(props)
 
 const labelStore = useLabelStore()
 
@@ -289,7 +289,7 @@ onMounted(() => {
 })
 
 watch(
-	modelValue,
+	modelValueRef,
 	(value) => {
 		// FIXME: filters should only be converted to snake case in
 		// the last moment

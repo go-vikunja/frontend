@@ -77,7 +77,7 @@ const props = defineProps<{route: RouteLocationNormalized}>()
 const baseStore = useBaseStore()
 const canWrite = computed(() => baseStore.currentProject.maxRight > RIGHTS.READ)
 
-const {route} = toRefs(props)
+const {route: routeRef} = toRefs(props)
 const {
 	filters,
 	hasDefaultFilters,
@@ -86,7 +86,7 @@ const {
 	isLoading,
 	addTask,
 	updateTask,
-} = useGanttFilters(route)
+} = useGanttFilters(routeRef)
 
 const DEFAULT_DATE_RANGE_DAYS = 7
 

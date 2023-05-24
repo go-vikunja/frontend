@@ -73,6 +73,7 @@ setTimeout(() => showNothingToDo.value = true, 100)
 
 // Linting disabled because we explicitely enabled destructuring in vite's config, this will work.
 // eslint-disable-next-line vue/no-setup-props-destructure
+// eslint-disable-next-line vue/no-dupe-keys
 const {
 	dateFrom,
 	dateTo,
