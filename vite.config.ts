@@ -203,11 +203,11 @@ export default defineConfig(({mode}) => {
 						},
 					],
 					share_target: {
-						action: '/_share-target',
-						enctype: 'multipart/form-data',
-						method: 'POST',
+						action: '/tasks/create',
+						enctype: 'application/x-www-form-urlencoded',
+						method: 'GET',
 						params: {
-							title: 'name',
+							title: 'title',
 							text: 'description',
 						},
 					},

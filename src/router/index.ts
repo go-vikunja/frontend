@@ -11,6 +11,7 @@ import {LINK_SHARE_HASH_PREFIX} from '@/constants/linkShareHash'
 import {useProjectStore} from '@/stores/projects'
 import {useAuthStore} from '@/stores/auth'
 import {useBaseStore} from '@/stores/base'
+import {useTaskStore} from '@/stores/tasks'
 
 import HomeComponent from '@/views/Home.vue'
 import NotFoundComponent from '@/views/404.vue'
@@ -206,6 +207,75 @@ const router = createRouter({
 			name: 'task.detail',
 			component: TaskDetailView,
 			props: route => ({ taskId: Number(route.params.id as string) }),
+		},
+		{
+			path: '/tasks/create',
+			name: 'task.create',
+			beforeEnter: async (to, from, next) => {
+				const authStore = useAuthStore()
+				
+				let defaultProjectId = authStore.settings.defaultProjectId
+				if(!defaultProjectId) {
+					defaultProjectId = 5
+				}
+				console.log('shareTargetHandler(), defaultProjectId: ', defaultProjectId)
+				if(!defaultProjectId) {
+					return false
+				}
+
+				let title = to.query.title as string
+				const description = to.query.description as string
+
+				console.log('Title: ', title)
+				console.log('Description: ', description)
+
+				if (!title) {
+					title = 'Share'
+				}
+				const taskStore = useTaskStore()
+				const task = await taskStore.createNewTask({
+					title,
+					projectId: defaultProjectId,
+				})
+		
+				if (description) {
+					task.description = description
+					await taskStore.update(task)
+				}
+		
+				console.log('Created task with ID: ', task.id)
+			
+				// After Task creation succeeds, redirect to show the task.
+				return next({name: 'task.detail', params: {id: task.id}})
+			},
+			component: TaskDetailView,
+//			redirect(to) {
+//				const authStore = useAuthStore()
+//				const defaultProjectId = authStore.settings.defaultProjectId
+//				console.log('shareTargetHandler(), defaultProjectId: ', defaultProjectId)
+//				if(!defaultProjectId) {
+//					return false
+//				}
+//
+//				const title = to.query.title as string
+//				const description = to.query.description as string
+//				const taskStore = useTaskStore()
+//				const task = await taskStore.createNewTask({
+//					title,
+//					projectId: defaultProjectId,
+//				})
+//		
+//				if (description) {
+//					task.description = description
+//				}
+//		
+//				console.log('Created task with ID: ', task.id)
+//			
+//				// After Task creation succeeds, redirect to show the task.
+//				return {
+//					path: to.path.replace('create', task.id),
+//				}
+//			},
 		},
 		{
 			path: '/tasks/by/upcoming',
