@@ -399,6 +399,7 @@ export const useTaskStore = defineStore('task', () => {
 
 	async function createNewTask({
 		title,
+		description,
 		bucketId,
 		projectId,
 		position,
@@ -435,6 +436,7 @@ export const useTaskStore = defineStore('task', () => {
 	
 		const task = new TaskModel({
 			title: cleanedTitle,
+			description: description,
 			projectId: foundProjectId,
 			dueDate,
 			priority: parsedTask.priority,

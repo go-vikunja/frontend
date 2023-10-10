@@ -223,19 +223,13 @@ const router = createRouter({
 				}
 
 				const title = to.query.title || 'Share'
-				const description = to.query.description as string
+				const description = to.query.description || ''
 				
 				const task = await taskStore.createNewTask({
 					title,
+					description,
 					projectId: defaultProjectId,
 				})
-		
-				if (description) {
-					task.description = description
-					await taskStore.update(task)
-				}
-		
-				console.log('Created task: ', task)
 			
 				// After Task creation succeeds, redirect to show the task.
 				return next({name: 'task.detail', params: {id: task.id}})
