@@ -136,7 +136,7 @@ async function save(title: string) {
 	}
 
 	@media screen and (min-width: $tablet) and (max-width: #{$desktop + $close-button-min-space}) {
-		width: calc(100% - 5rem);
+		width: calc(100% - 6.5rem);
 	}
 }
 
