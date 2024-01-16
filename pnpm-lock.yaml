@@ -194,8 +194,8 @@ dependencies:
     specifier: 4.0.8
     version: 4.0.8
   lowlight:
-    specifier: 2.9.0
-    version: 2.9.0
+    specifier: 3.1.0
+    version: 3.1.0
   pinia:
     specifier: 2.1.7
     version: 2.1.7(typescript@5.3.3)(vue@3.4.14)
@@ -4765,8 +4765,8 @@ packages:
     resolution: {integrity: sha512-o0J30wqycjF5miWDKYKKzzOU1ZTLuA42HZ4HE7/zqTOc/jTLdQ5NhYWvsRQo45Nfi1KHoRdNhteSI4BAxTF1Pg==}
     dev: true
 
-  /@types/hast@2.3.7:
-    resolution: {integrity: sha512-EVLigw5zInURhzfXUM65eixfadfsHKomGKUakToXo84t8gGIJuTcD2xooM2See7GyQ7DRtYjhCHnSUQez8JaLw==}
+  /@types/hast@3.0.3:
+    resolution: {integrity: sha512-2fYGlaDy/qyLlhidX42wAH0KBi2TCjKMH8CHmBXgRlJ3Y+OXTiqsPQ6IWarZKwF1JoUcAJdPogv1d4b0COTpmQ==}
     dependencies:
       '@types/unist': 2.0.9
     dev: false
@@ -6546,6 +6546,17 @@ packages:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
 
+  /dequal@2.0.3:
+    resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
+    engines: {node: '>=6'}
+    dev: false
+
+  /devlop@1.1.0:
+    resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
+    dependencies:
+      dequal: 2.0.3
+    dev: false
+
   /devtools-protocol@0.0.981744:
     resolution: {integrity: sha512-0cuGS8+jhR67Fy7qG3i3Pc7Aw494sb9yG9QgpG97SFVWwolgYjlhJg7n+UaHxOQT30d1TYu/EYe9k01ivLErIg==}
     dev: true
@@ -7101,12 +7112,6 @@ packages:
     dependencies:
       reusify: 1.0.4
 
-  /fault@2.0.1:
-    resolution: {integrity: sha512-WtySTkS4OKev5JtpHXnib4Gxiurzh5NCGvWrFaZ34m6JehfTUhKZvn9njTfw48t6JumVQOmrKqpmGcdwxnhqBQ==}
-    dependencies:
-      format: 0.2.2
-    dev: false
-
   /fd-slicer@1.1.0:
     resolution: {integrity: sha512-cE1qsB/VwyQozZ+q1dGxR8LBYNZeofhEdUNGSMbQD3Gw2lAzX9Zb3uIU6Ebc/Fmyjo9AWWfnn0AUCHqtevs/8g==}
     dependencies:
@@ -7261,11 +7266,6 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
-
-  /format@0.2.2:
-    resolution: {integrity: sha512-wzsgA6WOq+09wrU1tsJ09udeR/YZRaeArL9e1wPbFg3GG2yDnC2ldKpxs4xunpFF9DgqCqOIra3bc1HWrJ37Ww==}
-    engines: {node: '>=0.4.x'}
-    dev: false
 
   /formdata-polyfill@4.0.10:
     resolution: {integrity: sha512-buewHzMvYL29jdeQTVILecSaZKnt/RJWjoZCF5OW60Z67/GmSLBkOFM7qh1PI3zFNtJbaZL5eQu1vLfazOwj4g==}
@@ -7576,8 +7576,8 @@ packages:
       tslib: 2.3.1
     dev: true
 
-  /highlight.js@11.8.0:
-    resolution: {integrity: sha512-MedQhoqVdr0U6SSnWPzfiadUcDHfN/Wzq25AkXiQv9oiOO/sG0S7XkvpFIqWBl9Yq1UYyYOOVORs5UW2XlPyzg==}
+  /highlight.js@11.9.0:
+    resolution: {integrity: sha512-fJ7cW7fQGCYAkgv4CPfwFHrfd/cLS4Hau96JuJ+ZTOWhjnhoeN1ub1tFmALm/+lW5z4WCAuAV9bm05AP0mS6Gw==}
     engines: {node: '>=12.0.0'}
     dev: false
 
@@ -8419,12 +8419,12 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /lowlight@2.9.0:
-    resolution: {integrity: sha512-OpcaUTCLmHuVuBcyNckKfH5B0oA4JUavb/M/8n9iAvanJYNQkrVm4pvyX0SUaqkBG4dnWHKt7p50B3ngAG2Rfw==}
+  /lowlight@3.1.0:
+    resolution: {integrity: sha512-CEbNVoSikAxwDMDPjXlqlFYiZLkDJHwyGu/MfOsJnF3d7f3tds5J3z8s/l9TMXhzfsJCCJEAsD78842mwmg0PQ==}
     dependencies:
-      '@types/hast': 2.3.7
-      fault: 2.0.1
-      highlight.js: 11.8.0
+      '@types/hast': 3.0.3
+      devlop: 1.1.0
+      highlight.js: 11.9.0
     dev: false
 
   /lru-cache@5.1.1:
