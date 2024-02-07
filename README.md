@@ -1,3 +1,7 @@
+# This repository was merged with the api and is now archived
+
+You can find the new (old) code over on [vikunja/vikunja](https://kolaente.dev/vikunja/vikunja).
+
 # Web frontend for Vikunja
 
 > The todo app to organize your life.
