@@ -202,6 +202,15 @@ export default defineConfig(({mode}) => {
 							url: '/teams',
 						},
 					],
+					share_target: {
+						action: '/tasks/create',
+						enctype: 'application/x-www-form-urlencoded',
+						method: 'GET',
+						params: {
+							title: 'title',
+							text: 'description',
+						},
+					},
 				},
 			}),
 			viteSentry(getSentryConfig(env)),

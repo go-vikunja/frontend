@@ -11,6 +11,7 @@ import {LINK_SHARE_HASH_PREFIX} from '@/constants/linkShareHash'
 import {useProjectStore} from '@/stores/projects'
 import {useAuthStore} from '@/stores/auth'
 import {useBaseStore} from '@/stores/base'
+import {useTaskStore} from '@/stores/tasks'
 
 import HomeComponent from '@/views/Home.vue'
 import NotFoundComponent from '@/views/404.vue'
@@ -211,6 +212,34 @@ const router = createRouter({
 			name: 'task.detail',
 			component: TaskDetailView,
 			props: route => ({ taskId: Number(route.params.id as string) }),
+		},
+		{
+			path: '/tasks/create',
+			name: 'task.create',
+			beforeEnter: async (to, from, next) => {
+				const taskStore = useTaskStore()
+				const authStore = useAuthStore()
+				// Need to get settings populated first!
+				await authStore.checkAuth()
+
+				const defaultProjectId = authStore.settings.defaultProjectId
+				if(!defaultProjectId) {
+					return false
+				}
+
+				const title = to.query.title || 'Share'
+				const description = to.query.description || ''
+				
+				const task = await taskStore.createNewTask({
+					title,
+					description,
+					projectId: defaultProjectId,
+				})
+			
+				// After Task creation succeeds, redirect to show the task.
+				return next({name: 'task.detail', params: {id: task.id}})
+			},
+			component: TaskDetailView,
 		},
 		{
 			path: '/tasks/by/upcoming',
